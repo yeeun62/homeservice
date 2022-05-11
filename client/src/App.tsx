@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import MainPage from "./pages/MainPage";
 import RegistPage from "./pages/RegistPage";
+import CompletePage from "./pages/CompletePage";
 
 // =================
 
@@ -21,7 +22,7 @@ function App() {
     desc3: "디젤",
     desc4: "365고8752",
     desc5: "미니 쿠퍼 D 컨트리맨 AL4 기본형",
-    price: 15000000,
+    price: "15,000,000",
     desc6: [
       "견적금액은 배송비에 의해 변동될 수 있습니다. (배송비 최대금액 165,000원으로 계산 선반영되었습니다.)",
       "배송비는 차량 출발지와 도착지 거리에 따라 책정되며, 상담단계에서 확정됩니다.",
@@ -30,12 +31,17 @@ function App() {
   });
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<MainPage data={data} />} />
-        <Route path="/Regist" element={<RegistPage />} />
-      </Routes>
-    </BrowserRouter>
+    <div
+      style={{ minWidth: 360, maxWidth: 1200, margin: "auto", minHeight: 800 }}
+    >
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<MainPage data={data} />} />
+          <Route path="/regist" element={<RegistPage />} />
+          <Route path="/complete" element={<CompletePage data={data} />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 }
 
