@@ -1,10 +1,9 @@
+import { useState } from "react";
 import { RegistTitle, RegistForm, RegistSubBtn } from "../../styles/recycle";
 
-interface Step3_1Props {
-  setActivat: React.Dispatch<React.SetStateAction<boolean>>;
-}
+function Step3_1() {
+  const [check, setCheck] = useState<boolean>(false);
 
-function Step3_1({ setActivat }: Step3_1Props) {
   return (
     <>
       <RegistTitle>명의자 정보를 입력해 주세요</RegistTitle>
@@ -12,8 +11,13 @@ function Step3_1({ setActivat }: Step3_1Props) {
         <label>
           <div className="flex_check">
             <p>이름</p>
-            <div>
-              <img src="./img/small_check.png" alt="체크박스" />
+            <div onClick={() => setCheck(!check)}>
+              <img
+                src={`./img/${
+                  check ? "small_check_point.png" : "small_check.png"
+                }`}
+                alt="체크박스"
+              />
               <p>신청자와 동일</p>
             </div>
           </div>
@@ -65,10 +69,6 @@ function Step3_1({ setActivat }: Step3_1Props) {
             </div>
           </div>
         </label>
-        <div className="check_bottom">
-          <img src="./img/large_check.png" />
-          <p>공동 명의를 원해요</p>
-        </div>
       </RegistForm>
     </>
   );

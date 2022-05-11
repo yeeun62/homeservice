@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import styled from "styled-components";
+import { PageWrap } from "../styles/recycle";
 import Header from "../components/Header";
 import Step1 from "../components/regist/Step1";
 import Step2 from "../components/regist/Step2";
@@ -9,15 +9,6 @@ import Step3_3 from "../components/regist/Step3_3";
 import Step4 from "../components/regist/Step4";
 import StepBtn from "../components/regist/StepBtn";
 
-const RegistPageWrap = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 100%;
-  height: auto;
-  height: Calc(100vh - 52px);
-  padding: 0px 16px;
-`;
 interface RegistPageProps {
   step: number;
   setStep: React.Dispatch<React.SetStateAction<number>>;
@@ -36,34 +27,30 @@ function RegistPage({ step, setStep }: RegistPageProps) {
   return (
     <>
       <Header step={step} />
-      <RegistPageWrap>
-        <div>
-          {
-            [
-              <Step1 />,
-              <Step2
-                setActivat={setActivat}
-                choice={choice}
-                setChoice={setChoice}
-              />,
-              <Step3_1 setActivat={setActivat} />,
-              <Step3_2 />,
-              <Step3_3 />,
-              <Step4 />,
-            ][registIndex]
-          }
-        </div>
-        <div>
-          <StepBtn
-            step={step}
-            setStep={setStep}
-            activat={activat}
-            choice={choice}
-            registIndex={registIndex}
-            setRegistIndex={setRegistIndex}
-          />
-        </div>
-      </RegistPageWrap>
+      <PageWrap>
+        {
+          [
+            <Step1 />,
+            <Step2
+              setActivat={setActivat}
+              choice={choice}
+              setChoice={setChoice}
+            />,
+            <Step3_1 />,
+            <Step3_2 />,
+            <Step3_3 />,
+            <Step4 />,
+          ][registIndex]
+        }
+      </PageWrap>
+      <StepBtn
+        step={step}
+        setStep={setStep}
+        activat={activat}
+        choice={choice}
+        registIndex={registIndex}
+        setRegistIndex={setRegistIndex}
+      />
     </>
   );
 }

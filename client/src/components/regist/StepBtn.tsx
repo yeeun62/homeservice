@@ -1,12 +1,34 @@
+import { useState } from "react";
 import styled from "styled-components";
-import { MainBtn } from "../../styles/recycle";
+import { MainBtn, Footer } from "../../styles/recycle";
 
-const StepBtnWrap = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 16px;
+const StepBtnWrap = styled(Footer)`
+  div {
+    display: flex;
+    justify-content: space-between;
+  }
+`;
+
+const PublicCheck = styled.div`
   width: 100%;
-  height: 52px;
+  position: absolute;
+  height: 24px !important;
+  background-color: #fff;
+  top: -24px;
+
+  img {
+    width: 20px;
+    height: 20px;
+    margin-right: 6px;
+  }
+
+  p {
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 22px;
+    letter-spacing: -0.02em;
+    color: #707070;
+  }
 `;
 
 interface StepBtnProps {
@@ -26,6 +48,8 @@ function StepBtn({
   registIndex,
   setRegistIndex,
 }: StepBtnProps) {
+  const [check, setCheck] = useState<boolean>(false);
+
   const prevMove = () => {
     if (registIndex === 0) {
       setRegistIndex(0);
@@ -62,27 +86,45 @@ function StepBtn({
   };
 
   return (
-    <StepBtnWrap>
-      <MainBtn
-        backgrondColor=" rgba(7, 64, 228, 0.03)"
-        color="#0740E4"
-        border="1px solid rgba(7, 64, 228, 0.1)"
-        activat={true}
-        onClick={prevMove}
-        style={{ marginRight: "8px" }}
-      >
-        이전
-      </MainBtn>
-      <MainBtn
-        backgrondColor="#0740E4"
-        color="#fff"
-        border="none"
-        activat={activat}
-        onClick={nextMove}
-      >
-        다음
-      </MainBtn>
-    </StepBtnWrap>
+    <>
+      <StepBtnWrap>
+        <div>
+          {(registIndex === 2 || registIndex === 3) && (
+            <PublicCheck>
+              <div>
+                <img
+                  src={`./img/${
+                    check ? "large_check_point.png" : "large_check.png"
+                  }`}
+                  alt="체크박스 이미지"
+                  onClick={() => setCheck(!check)}
+                />
+                <p>공동 명의를 원해요</p>
+              </div>
+            </PublicCheck>
+          )}
+          <MainBtn
+            backgrondColor=" rgba(7, 64, 228, 0.03)"
+            color="#0740E4"
+            border="1px solid rgba(7, 64, 228, 0.1)"
+            activat={true}
+            onClick={prevMove}
+            style={{ marginRight: "8px" }}
+          >
+            이전
+          </MainBtn>
+          <MainBtn
+            backgrondColor="#0740E4"
+            color="#fff"
+            border="none"
+            activat={activat}
+            onClick={nextMove}
+          >
+            다음
+          </MainBtn>
+        </div>
+      </StepBtnWrap>
+    </>
   );
 }
 
