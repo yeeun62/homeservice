@@ -15,7 +15,7 @@ function BottomBtn({ btnContent, path }: { btnContent: string; path: string }) {
             {btnContent}
           </MainBtn>
         </div>
-      </Link>
+      </Link>=
     </Footer>
   );
 }
