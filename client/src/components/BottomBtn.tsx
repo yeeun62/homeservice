@@ -1,9 +1,8 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { MainBtn } from "../styles/recycle";
 
-import { Button } from "../styles/recycle";
-
-const NextBtnWrap = styled.div`
+const BottomBtn = styled.div`
   position: -webkit-sticky;
   position: sticky;
   bottom: 0;
@@ -26,11 +25,18 @@ const NextBtnWrap = styled.div`
 
 function NextBtn({ btnContent, path }: { btnContent: string; path: string }) {
   return (
-    <NextBtnWrap>
+    <BottomBtn>
       <Link to={path}>
-        <Button>{btnContent}</Button>
+        <MainBtn
+          backgrondColor="#0740E4"
+          color="#fff"
+          border="none"
+          activat={true}
+        >
+          {btnContent}
+        </MainBtn>
       </Link>
-    </NextBtnWrap>
+    </BottomBtn>
   );
 }
 

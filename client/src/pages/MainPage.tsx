@@ -7,7 +7,7 @@ import Introduce from "../components/main/Introduce";
 import Visual from "../components/main/Visual";
 import PriceInfo from "../components/main/PriceInfo";
 import Pay from "../components/main/Pay";
-import NextBtn from "../components/NextBtn";
+import BottomBtn from "../components/BottomBtn";
 
 const MainPageWrap = styled.div`
   /* common */
@@ -21,7 +21,7 @@ const MainPageWrap = styled.div`
   }
 `;
 
-function MainPage({ data }: any) {
+function MainPage({ data }: { data: any }) {
   const [payWay, setPayWay] = useState({ btn1: false, btn2: false });
 
   return (
@@ -32,7 +32,7 @@ function MainPage({ data }: any) {
         <Visual data={data} visualTitle="안전하게 배송해드리겠습니다" />
         <PriceInfo price={data.price} desc6={data.desc6} />
         <Pay payWay={payWay} setPayWay={setPayWay} />
-        <NextBtn btnContent="다음" path="/regist" />
+        <BottomBtn btnContent="다음" path="/regist" />
       </Padding>
     </MainPageWrap>
   );

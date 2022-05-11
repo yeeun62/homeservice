@@ -1,18 +1,70 @@
+import { useEffect, useState } from "react";
+import styled from "styled-components";
 import Header from "../components/Header";
-import Progress1 from "../components/Progress1";
-import Progress2 from "../components/Progress2";
-import Progress3 from "../components/Progress3";
-import Progress4 from "../components/Progress4";
+import Step1 from "../components/regist/Step1";
+import Step2 from "../components/regist/Step2";
+import Step3_1 from "../components/regist/Step3_1";
+import Step3_2 from "../components/regist/Step3_2";
+import Step3_3 from "../components/regist/Step3_3";
+import Step4 from "../components/regist/Step4";
+import StepBtn from "../components/regist/StepBtn";
 
-function RegistPage() {
+const RegistPageWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: auto;
+  height: Calc(100vh - 52px);
+  padding: 0px 16px;
+`;
+interface RegistPageProps {
+  step: number;
+  setStep: React.Dispatch<React.SetStateAction<number>>;
+}
+
+function RegistPage({ step, setStep }: RegistPageProps) {
+  const [registIndex, setRegistIndex] = useState<number>(0);
+  const [activat, setActivat] = useState<boolean>(false);
+  const [choice, setChoice] = useState<number>(-1);
+
+  useEffect(() => {
+    setChoice(-1);
+    setActivat(false);
+  }, [registIndex]);
+
   return (
-    <div>
-      <Header />
-      <Progress1 />
-      <Progress2 />
-      <Progress3 />
-      <Progress4 />
-    </div>
+    <>
+      <Header step={step} />
+      <RegistPageWrap>
+        <div>
+          {
+            [
+              <Step1 />,
+              <Step2
+                setActivat={setActivat}
+                choice={choice}
+                setChoice={setChoice}
+              />,
+              <Step3_1 setActivat={setActivat} />,
+              <Step3_2 />,
+              <Step3_3 />,
+              <Step4 />,
+            ][registIndex]
+          }
+        </div>
+        <div>
+          <StepBtn
+            step={step}
+            setStep={setStep}
+            activat={activat}
+            choice={choice}
+            registIndex={registIndex}
+            setRegistIndex={setRegistIndex}
+          />
+        </div>
+      </RegistPageWrap>
+    </>
   );
 }
 

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Button } from "../../styles/recycle";
+import { MainBtn } from "../../styles/recycle";
 
 const PayWrap = styled.div`
   p {
@@ -9,35 +9,6 @@ const PayWrap = styled.div`
 
   .buttonWrapper {
     display: flex;
-
-    button {
-      font-weight: 500;
-      width: 100%;
-      height: 52px;
-      border-radius: 5px;
-      font-family: "Noto Sans KR";
-      background-color: #fff;
-    }
-
-    button:nth-child(1) {
-      margin-right: 8px;
-    }
-
-    .false_btn {
-      color: #707070;
-      font-weight: 500;
-      border: 1px solid #ededed;
-    }
-
-    .true_btn {
-      background-color: #0740e4;
-      color: #fff;
-      border: none;
-    }
-
-    .cashBtn1 {
-      margin-right: 8px;
-    }
   }
 
   ul {
@@ -74,20 +45,35 @@ function Pay({
     <PayWrap>
       <p className="bold_text">결제 수단을 선택해주세요</p>
       <div className="buttonWrapper">
-        <button
+        <MainBtn
           type="button"
-          className={payWay.btn1 ? "true_btn" : "false_btn"}
+          backgrondColor={`${payWay.btn1 ? "rgba(7, 64, 228, 0.03)" : "#fff"}`}
+          border={`${
+            payWay.btn1
+              ? "1px solid rgba(7, 64, 228, 0.1)"
+              : "1px solid #ededed"
+          }`}
+          color={`${payWay.btn1 ? "#0740E4" : "#707070"}`}
+          activat={true}
           onClick={() => setPayWay({ btn1: true, btn2: false })}
+          style={{ marginRight: "8px" }}
         >
           현금
-        </button>
-        <Button
+        </MainBtn>
+        <MainBtn
           type="button"
-          className={payWay.btn2 ? "true_btn" : "false_btn"}
+          backgrondColor={`${payWay.btn2 ? "rgba(7, 64, 228, 0.03)" : "#fff"}`}
+          border={`${
+            payWay.btn2
+              ? "1px solid rgba(7, 64, 228, 0.1)"
+              : "1px solid #ededed"
+          }`}
+          color={`${payWay.btn2 ? "#0740E4" : "#707070"}`}
+          activat={true}
           onClick={() => setPayWay({ btn1: false, btn2: true })}
         >
           현금 + 할부
-        </Button>
+        </MainBtn>
       </div>
       <ul style={{ listStyle: "circle" }}>
         {payWay.btn1 && <li>이전비는 차액 발생 시 계좌로 환급해드립니다.</li>}

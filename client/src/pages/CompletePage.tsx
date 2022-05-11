@@ -1,11 +1,10 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
 // ====================================
 
 import Header from "../components/Header";
 import Visual from "../components/main/Visual";
-import NextBtn from "../components/NextBtn";
+import BottomBtn from "../components/BottomBtn";
 import { Padding } from "../styles/recycle";
 
 const CompleteWrap = styled.div`
@@ -61,7 +60,7 @@ function CompletePage({ data }: any) {
             <span className="bold_span"> 10:00 ~ 17:00</span>
           </div>
         </div>
-        <NextBtn btnContent="다음" path="/" />
+        <BottomBtn btnContent="닫기" path="/" />
         {/* 원래 페이지로 라우팅? */}
       </Padding>
     </CompleteWrap>

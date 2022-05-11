@@ -1,18 +1,25 @@
-import React, { useState } from "react";
-import "./App.css";
+import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-// =================
-
+import styled from "styled-components";
+import "./App.css";
 import MainPage from "./pages/MainPage";
 import RegistPage from "./pages/RegistPage";
 import CompletePage from "./pages/CompletePage";
 
-// =================
-
 // app에서 서버와 통신하여 데이터 받아온 후 다른 페이지로 뿌리기
 
+const AppWrap = styled.div`
+  min-width: 360px;
+  max-width: 1200px;
+  margin: auto;
+
+  @media screen and( max-width: 750px) {
+    min-height: 800px;
+  }
+`;
+
 function App() {
+  const [step, setStep] = useState<number>(1);
   const [data, setData] = useState({
     topDesc:
       "전문과와 1:1 라이브로 차량을 확인후 원하는 곳으로 받아보세요. 3+1일 동안 타 보고 맘에 안들면 환불 할 수 있습니다.",
@@ -31,17 +38,18 @@ function App() {
   });
 
   return (
-    <div
-      style={{ minWidth: 360, maxWidth: 1200, margin: "auto", minHeight: 800 }}
-    >
+    <AppWrap>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MainPage data={data} />} />
-          <Route path="/regist" element={<RegistPage />} />
+          <Route
+            path="/regist"
+            element={<RegistPage step={step} setStep={setStep} />}
+          />
           <Route path="/complete" element={<CompletePage data={data} />} />
         </Routes>
       </BrowserRouter>
-    </div>
+    </AppWrap>
   );
 }
 

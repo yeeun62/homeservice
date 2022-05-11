@@ -1,14 +1,8 @@
 import styled from "styled-components";
-
+import Progress from "./regist/Progress";
 import { stickTop } from "../styles/recycle";
 
 const HeaderWrapper = styled(stickTop)`
-  display: flex;
-  height: 56px;
-  align-items: center;
-  background-color: #fff;
-  z-index: 100;
-
   .close {
     width: 32px;
     height: 32px;
@@ -32,7 +26,7 @@ const HeaderWrapper = styled(stickTop)`
   }
 `;
 
-function Header() {
+function Header({ step }: { step?: number }) {
   return (
     <HeaderWrapper>
       <img
@@ -42,6 +36,9 @@ function Header() {
       />
       <p className="bold_text">차란차 홈서비스 신청</p>
       <img className="beta" src="./img/icon_beta_black.png" alt="베타" />
+      {window.location.pathname.slice(1).toLocaleLowerCase() === "regist" && (
+        <Progress step={step} />
+      )}
     </HeaderWrapper>
   );
 }

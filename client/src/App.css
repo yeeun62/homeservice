@@ -22,3 +22,7 @@
     line-height: 29px;
   }
 }
+
+input:focus {
+  outline: none;
+}
