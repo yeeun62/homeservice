@@ -1,28 +1,5 @@
 import styled, { css } from "styled-components";
 
-export const Button = styled.button`
-  background-color: #0740e4;
-  border-radius: 5px;
-  color: #fff;
-  border: none;
-  font-family: "Noto Sans KR";
-  font-size: 15px;
-  font-weight: 700;
-  width: auto;
-`;
-
-export const Padding = styled.div`
-  /* mobile */
-  @media screen and (max-width: 749px) {
-    padding: 0 16px 16px 16px;
-  }
-
-  /* pc */
-  @media screen and (min-width: 750px) {
-    padding: 0 32px;
-  }
-`;
-
 export const stickTop = styled.div`
   position: sticky;
   top: 0;
@@ -187,24 +164,6 @@ export const RegistForm = styled.form`
     }
   }
 
-  .check_bottom {
-    display: flex;
-
-    img {
-      width: 20px;
-      height: 20px;
-      margin-right: 6px;
-    }
-
-    p {
-      font-weight: 500;
-      font-size: 15px;
-      line-height: 22px;
-      letter-spacing: -0.02em;
-      color: #707070;
-    }
-  }
-
   .step_info {
     width: 100%;
     display: flex;
@@ -241,5 +200,53 @@ export const RegistForm = styled.form`
   .input_focus {
     color: #101010;
     border-color: #3c3c3c;
+  }
+`;
+
+export const PageWrap = styled.div`
+  width: 100%;
+
+  @media screen and (max-width: 749px) {
+    margin-bottom: 100px;
+    padding: 0px 16px;
+  }
+
+  @media screen and (min-width: 749px) {
+    margin-bottom: 140px;
+    padding: 0px 32px;
+  }
+`;
+
+export const Footer = styled.div`
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  padding: 0px 16px;
+  background-color: #fff;
+  z-index: 100;
+
+  div {
+    display: flex;
+    align-items: flex-end;
+
+    button {
+      margin-bottom: 16px;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    height: 100px;
+
+    div {
+      height: 100px;
+    }
+  }
+
+  @media screen and (min-width: 749px) {
+    height: 140px;
+
+    div {
+      height: 140px;
+    }
   }
 `;

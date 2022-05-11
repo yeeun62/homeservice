@@ -1,6 +1,9 @@
+import { useState } from "react";
 import { RegistTitle, RegistForm, RegistSubBtn } from "../../styles/recycle";
 
 function Step3_2() {
+  const [check, setCheck] = useState({ name: false, id: false });
+
   return (
     <>
       <RegistTitle>개인 사업자 정보를 입력해 주세요</RegistTitle>
@@ -12,7 +15,18 @@ function Step3_2() {
           <p className="info_desc">명의자 정보</p>
         </div>
         <label>
-          <p>이름</p>
+          <div className="flex_check">
+            <p>이름</p>
+            <div onClick={() => setCheck({ ...check, name: !check.name })}>
+              <img
+                src={`./img/${
+                  check.name ? "small_check_point.png" : "small_check.png"
+                }`}
+                alt="체크박스"
+              />
+              <p>신청자와 동일</p>
+            </div>
+          </div>
           <div className="input_div">
             <input
               type="text"
@@ -34,7 +48,18 @@ function Step3_2() {
           </div>
         </label>
         <label>
-          <p>주민등록주소지</p>
+          <div className="flex_check">
+            <p>주민등록주소지</p>
+            <div onClick={() => setCheck({ ...check, id: !check.id })}>
+              <img
+                src={`./img/${
+                  check.id ? "small_check_point.png" : "small_check.png"
+                }`}
+                alt="체크박스"
+              />
+              <p>주민등록주소와 동일</p>
+            </div>
+          </div>
           <div className="flex_form">
             <div className="input_div">
               <input
@@ -111,7 +136,7 @@ function Step3_2() {
             />
           </div>
         </label>
-        <label>
+        <label style={{ marginBottom: "88px" }}>
           <p>세금계산서 발행 이메일 주소</p>
           <div className="input_div">
             <input
