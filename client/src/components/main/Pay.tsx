@@ -15,19 +15,30 @@ const PayWrap = styled.div`
     margin: 24px 0;
 
     li {
-      list-style-position: inside;
-      text-indent: -20px;
-      padding-left: 20px;
-      /* 모바일사이즈에서 리스트 들여쓰기 확인하기 */
       font-family: "Poppins";
-      font-style: normal;
       font-weight: 400;
       font-size: 11px;
       line-height: 16px;
       letter-spacing: -0.02em;
       color: #939393;
       width: calc(100% - 32px);
-      margin: 0 auto 7px;
+      position: relative;
+      padding-left: 10px;
+
+      p {
+        font-weight: 700;
+        color: #5f5e5e;
+      }
+
+      div {
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        background-color: #939393;
+        position: absolute;
+        left: 0;
+        top: 5px;
+      }
     }
   }
 `;
@@ -75,15 +86,22 @@ function Pay({
           현금 + 할부
         </MainBtn>
       </div>
-      <ul style={{ listStyle: "circle" }}>
-        {payWay.btn1 && <li>이전비는 차액 발생 시 계좌로 환급해드립니다.</li>}
+      <ul>
+        {payWay.btn1 && (
+          <li>
+            {" "}
+            <div></div>이전비는 차액 발생 시 계좌로 환급해드립니다.
+          </li>
+        )}
         {payWay.btn2 && (
           <>
             <li>
+              <div></div>
               차량비용만 할부 이용이 가능합니다.
               <p>차량비용 이외의 금액은 계좌이체로 결제 진행됩니다.</p>
             </li>
             <li>
+              <div></div>
               최대대출한도는 차량금액으로 설정 됩니다. <br /> 상담 시 대출
               금액을 설정해주세요
             </li>

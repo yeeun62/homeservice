@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { MainBtn } from "../styles/recycle";
 
-const BottomBtn = styled.div`
+const BottomBtnWrapper = styled.div`
   position: -webkit-sticky;
   position: sticky;
   bottom: 0;
@@ -11,7 +11,7 @@ const BottomBtn = styled.div`
 
   button {
     position: absolute;
-    bottom: 0;
+    bottom: 16px;
   }
 
   @media screen and (max-width: 749px) {
@@ -23,9 +23,9 @@ const BottomBtn = styled.div`
   }
 `;
 
-function NextBtn({ btnContent, path }: { btnContent: string; path: string }) {
+function BottomBtn({ btnContent, path }: { btnContent: string; path: string }) {
   return (
-    <BottomBtn>
+    <BottomBtnWrapper>
       <Link to={path}>
         <MainBtn
           backgrondColor="#0740E4"
@@ -36,8 +36,8 @@ function NextBtn({ btnContent, path }: { btnContent: string; path: string }) {
           {btnContent}
         </MainBtn>
       </Link>
-    </BottomBtn>
+    </BottomBtnWrapper>
   );
 }
 
-export default NextBtn;
+export default BottomBtn;

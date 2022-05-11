@@ -72,7 +72,7 @@ const PriceWrap = styled.div`
     .inner_ul {
       -webkit-animation-name: fade_in_down;
       animation-name: fade_in_down;
-      animation-duration: 2s;
+      animation-duration: 0.5s;
 
       height: 41px;
       margin-bottom: 17px;
@@ -101,7 +101,7 @@ const PriceWrap = styled.div`
     .fadeout {
       -webkit-animation-name: fade_out_up;
       animation-name: fade_out_up;
-      animation-duration: 2s;
+      animation-duration: 0.5s;
     }
 
     @keyframes fade_in_down {
@@ -130,15 +130,15 @@ const PriceWrap = styled.div`
         -moz-transform: translatey(0);
         -o-transform: translatey(0);
         transform: translatey(0);
-        display: none;
       }
 
-      from {
+      to {
         opacity: 0;
         -webkit-transform: translatey(-30px);
         -moz-transform: translatey(-30px);
         -o-transform: translatey(-30px);
         transform: translatey(-30px);
+        display: none;
       }
     }
 
@@ -163,10 +163,11 @@ const PriceWrap = styled.div`
   }
 
   ul.list_style {
-    list-style: circle;
-
     li {
       display: block;
+      list-style-position: inside;
+      text-indent: -15px;
+      /* padding-left: 10px; */
 
       div {
         width: 3px;
@@ -248,7 +249,7 @@ function PriceInfo({ price, desc6 }: any) {
       <ul className="list_style">
         {desc6.map((el: string, i: number) => {
           return (
-            <li key={i + "key"}>
+            <li key={i + "key"} className="list_li">
               <div></div>
               {el}
             </li>

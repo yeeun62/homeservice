@@ -15,6 +15,8 @@ const IntroduceWrap = styled.div`
     font-family: "Noto Sans KR";
     text-align: center;
     letter-spacing: -0.02em;
+    max-width: 360px;
+    margin: auto;
   }
 
   /* pc */
@@ -22,8 +24,6 @@ const IntroduceWrap = styled.div`
     p {
       font-size: 15px;
       line-height: 22px;
-      max-width: 360px;
-      margin: auto;
     }
   }
 `;
