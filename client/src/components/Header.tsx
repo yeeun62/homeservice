@@ -30,7 +30,9 @@ function Header({ step }: { step: number }) {
       />
       <p className="bold_text">차란차 홈서비스 신청</p>
       <img className="beta" src="./img/icon_beta_black.png" alt="베타" />
-      <Progress step={step} />
+      {window.location.pathname.slice(1).toLocaleLowerCase() === "regist" && (
+        <Progress step={step} />
+      )}
     </HeaderWrapper>
   );
 }

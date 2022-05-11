@@ -38,7 +38,7 @@ export const RegistSubBtn = styled.button<{
   letter-spacing: -2%;
 `;
 
-export const RegistMainBtn = styled.button<{
+export const MainBtn = styled.button<{
   backgrondColor: string;
   color: string;
   border: string;

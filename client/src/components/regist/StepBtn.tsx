@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { RegistMainBtn } from "../../styles/recycle";
+import { MainBtn } from "../../styles/recycle";
 
 const StepBtnWrap = styled.div`
   display: flex;
@@ -63,7 +63,7 @@ function StepBtn({
 
   return (
     <StepBtnWrap>
-      <RegistMainBtn
+      <MainBtn
         backgrondColor=" rgba(7, 64, 228, 0.03)"
         color="#0740E4"
         border="1px solid rgba(7, 64, 228, 0.1)"
@@ -72,8 +72,8 @@ function StepBtn({
         style={{ marginRight: "8px" }}
       >
         이전
-      </RegistMainBtn>
-      <RegistMainBtn
+      </MainBtn>
+      <MainBtn
         backgrondColor="#0740E4"
         color="#fff"
         border="none"
@@ -81,7 +81,7 @@ function StepBtn({
         onClick={nextMove}
       >
         다음
-      </RegistMainBtn>
+      </MainBtn>
     </StepBtnWrap>
   );
 }
