@@ -1,17 +1,13 @@
-import React, { useState } from "react";
-import "./App.css";
+import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-// =================
-
+import "./App.css";
 import MainPage from "./pages/MainPage";
 import RegistPage from "./pages/RegistPage";
-
-// =================
 
 // app에서 서버와 통신하여 데이터 받아온 후 다른 페이지로 뿌리기
 
 function App() {
+  const [step, setStep] = useState<number>(1);
   const [data, setData] = useState({
     topDesc:
       "전문과와 1:1 라이브로 차량을 확인후 원하는 곳으로 받아보세요. 3+1일 동안 타 보고 맘에 안들면 환불 할 수 있습니다.",
@@ -32,8 +28,11 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<MainPage data={data} />} />
-        <Route path="/Regist" element={<RegistPage />} />
+        <Route path="/" element={<MainPage data={data} step={step} />} />
+        <Route
+          path="/regist"
+          element={<RegistPage step={step} setStep={setStep} />}
+        />
       </Routes>
     </BrowserRouter>
   );

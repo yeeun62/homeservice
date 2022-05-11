@@ -1,6 +1,8 @@
 import styled from "styled-components";
+import Progress from "./regist/Progress";
 
 const HeaderWrapper = styled.div`
+  position: relative;
   display: flex;
   height: 56px;
   align-items: center;
@@ -18,7 +20,7 @@ const HeaderWrapper = styled.div`
   }
 `;
 
-function Header() {
+function Header({ step }: { step: number }) {
   return (
     <HeaderWrapper>
       <img
@@ -26,8 +28,9 @@ function Header() {
         src="./img/icon_header_cancel_circle.png"
         alt="닫기버튼"
       />
-      <p className="boldText">차란차 홈서비스 신청</p>
+      <p className="bold_text">차란차 홈서비스 신청</p>
       <img className="beta" src="./img/icon_beta_black.png" alt="베타" />
+      <Progress step={step} />
     </HeaderWrapper>
   );
 }

@@ -1,0 +1,51 @@
+import { RegistTitle, RegistSubBtn, RegistForm } from "../../styles/recycle";
+
+function Step1() {
+  return (
+    <>
+      <RegistTitle>신청자 정보를 입력해 주세요</RegistTitle>
+      <RegistForm>
+        <label>
+          <p>이름</p>
+          <div className="input_div">
+            <input
+              type="text"
+              placeholder="실명을 입력해주세요"
+              onFocus={(e) => (e.target.style.borderColor = "#3C3C3C")}
+              onBlur={(e) => (e.target.style.borderColor = "#ededed")}
+            />
+          </div>
+        </label>
+        <label>
+          <p>휴대전화 번호</p>
+          <div className="flex_form">
+            <div className="input_div">
+              <input
+                type="text"
+                placeholder="숫자만 입력해주세요"
+                onFocus={(e) => (e.target.style.borderColor = "#3C3C3C")}
+                onBlur={(e) => (e.target.style.borderColor = "#ededed")}
+              />
+            </div>
+            <RegistSubBtn backgrondColor="#C2C2C2">인증번호 전송</RegistSubBtn>
+          </div>
+          <div style={{ position: "relative" }}>
+            <div className="input_div">
+              <input
+                className="input_margin_top"
+                type="text"
+                placeholder="인증번호를 입력해주세요"
+                onFocus={(e) => (e.target.style.borderColor = "#3C3C3C")}
+                onBlur={(e) => (e.target.style.borderColor = "#ededed")}
+              />
+            </div>
+            <p className="valid_time">03:00</p>
+          </div>
+          <p className="certi_warning">인증번호가 일치하지 않습니다.</p>
+        </label>
+      </RegistForm>
+    </>
+  );
+}
+
+export default Step1;

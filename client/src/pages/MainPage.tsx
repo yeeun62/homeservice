@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-
 import Header from "../components/Header";
 import { Button, Padding } from "../styles/recycle";
 import Introduce from "../components/main/Introduce";
@@ -122,10 +121,10 @@ const MainPageWrap = styled.div`
   }
 `;
 
-function MainPage({ data }: any) {
+function MainPage({ data, step }: { data: any; step: number }) {
   return (
     <MainPageWrap>
-      <Header />
+      <Header step={step} />
       <Introduce topDesc={data.topDesc} />
       <Padding>
         <Visual data={data} />
