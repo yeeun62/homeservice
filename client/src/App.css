@@ -4,11 +4,21 @@
   color: #101010;
   word-break: keep-all;
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.boldText {
+.bold_text {
   font-weight: 700;
   font-size: 17px;
   line-height: 25px;
   letter-spacing: -0.02em;
+  color: #101010;
+}
+
+@media screen and (min-width: 750px) {
+  .bold_text {
+    font-size: 20px;
+    line-height: 29px;
+  }
 }
