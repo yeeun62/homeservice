@@ -27,7 +27,7 @@ const ProgressWrap = styled.div<{ stepPercent: string }>`
   }
 `;
 
-function ProgressBar({ step }: { step: number }) {
+function ProgressBar({ step }: { step?: any }) {
   const stepPercent = `${step * 25}%`;
 
   return (

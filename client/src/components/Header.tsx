@@ -1,12 +1,8 @@
 import styled from "styled-components";
 import Progress from "./regist/Progress";
+import { stickTop } from "../styles/recycle";
 
-const HeaderWrapper = styled.div`
-  position: relative;
-  display: flex;
-  height: 56px;
-  align-items: center;
-
+const HeaderWrapper = styled(stickTop)`
   .close {
     width: 32px;
     height: 32px;
@@ -18,9 +14,19 @@ const HeaderWrapper = styled.div`
     height: 18px;
     margin-left: 6px;
   }
+
+  @media screen and (min-width: 750px) {
+    .close {
+      display: none;
+    }
+
+    p {
+      margin-left: 32px;
+    }
+  }
 `;
 
-function Header({ step }: { step: number }) {
+function Header({ step }: { step?: number }) {
   return (
     <HeaderWrapper>
       <img

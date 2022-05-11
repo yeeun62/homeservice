@@ -1,10 +1,22 @@
 import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import styled from "styled-components";
 import "./App.css";
 import MainPage from "./pages/MainPage";
 import RegistPage from "./pages/RegistPage";
+import CompletePage from "./pages/CompletePage";
 
 // app에서 서버와 통신하여 데이터 받아온 후 다른 페이지로 뿌리기
+
+const AppWrap = styled.div`
+  min-width: 360px;
+  max-width: 1200px;
+  margin: auto;
+
+  @media screen and( max-width: 750px) {
+    min-height: 800px;
+  }
+`;
 
 function App() {
   const [step, setStep] = useState<number>(1);
@@ -17,7 +29,7 @@ function App() {
     desc3: "디젤",
     desc4: "365고8752",
     desc5: "미니 쿠퍼 D 컨트리맨 AL4 기본형",
-    price: 15000000,
+    price: "15,000,000",
     desc6: [
       "견적금액은 배송비에 의해 변동될 수 있습니다. (배송비 최대금액 165,000원으로 계산 선반영되었습니다.)",
       "배송비는 차량 출발지와 도착지 거리에 따라 책정되며, 상담단계에서 확정됩니다.",
@@ -26,15 +38,18 @@ function App() {
   });
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<MainPage data={data} step={step} />} />
-        <Route
-          path="/regist"
-          element={<RegistPage step={step} setStep={setStep} />}
-        />
-      </Routes>
-    </BrowserRouter>
+    <AppWrap>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<MainPage data={data} />} />
+          <Route
+            path="/regist"
+            element={<RegistPage step={step} setStep={setStep} />}
+          />
+          <Route path="/complete" element={<CompletePage data={data} />} />
+        </Routes>
+      </BrowserRouter>
+    </AppWrap>
   );
 }
 

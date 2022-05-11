@@ -12,7 +12,25 @@ export const Button = styled.button`
 `;
 
 export const Padding = styled.div`
-  padding: 0 16px;
+  /* mobile */
+  @media screen and (max-width: 749px) {
+    padding: 0 16px 16px 16px;
+  }
+
+  /* pc */
+  @media screen and (min-width: 750px) {
+    padding: 0 32px;
+  }
+`;
+
+export const stickTop = styled.div`
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  height: 56px;
 `;
 
 export const RegistTitle = styled.div`
