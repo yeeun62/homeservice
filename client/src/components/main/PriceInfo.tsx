@@ -71,9 +71,9 @@ const PriceWrap = styled.div`
     }
 
     .inner_ul {
-      -webkit-animation-name: fade_in_down;
+      /* -webkit-animation-name: fade_in_down;
       animation-name: fade_in_down;
-      animation-duration: 0.5s;
+      animation-duration: 0.5s; */
 
       height: 41px;
       margin-bottom: 17px;
@@ -98,14 +98,14 @@ const PriceWrap = styled.div`
         margin-left: 5px;
       }
     }
-
+    /* 
     .fadeout {
       -webkit-animation-name: fade_out_up;
       animation-name: fade_out_up;
       animation-duration: 0.5s;
-    }
+    } */
 
-    @keyframes fade_in_down {
+    /* @keyframes fade_in_down {
       from {
         opacity: 0;
         -webkit-transform: translatey(-30px);
@@ -140,7 +140,7 @@ const PriceWrap = styled.div`
         -o-transform: translatey(-30px);
         transform: translatey(-30px);
       }
-    }
+    } */
 
     .total_cost {
       padding: 0 8px;
@@ -167,7 +167,6 @@ const PriceWrap = styled.div`
       display: block;
       list-style-position: inside;
       text-indent: -15px;
-      /* padding-left: 10px; */
 
       div {
         width: 3px;
@@ -219,7 +218,7 @@ function PriceInfo({ price, desc6 }: any) {
           </li>
           <ul
             className={"inner_ul " + (open ? "fadein" : "fadeout")}
-            // style={{ display: open ? "block" : "none" }}
+            style={{ display: open ? "block" : "none" }}
           >
             <li key="이전비">
               ㄴ이전비 <span>1,200,000원</span>
@@ -237,7 +236,7 @@ function PriceInfo({ price, desc6 }: any) {
               </div>
               <span>333,000원</span>
             </li>
-            <ReactTooltip />
+            <ReactTooltip offset={{ top: 0, left: 0 }} />
           </ul>
           <li key="price4" className="transfer_cost">
             배송비 <span>4,000~165,000원</span>
