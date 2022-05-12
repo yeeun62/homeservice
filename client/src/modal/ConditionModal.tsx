@@ -228,15 +228,17 @@ function ConditionModal({
           차란차 홈서비스 이용이 제한됩니다.
         </span>
       </div>
-      <MainBtn
-        backgrondColor="#0740E4"
-        color="#fff"
-        border="none"
-        activat={isChecked["all"]}
-        style={{ fontWeight: 700 }}
-      >
-        신청 완료
-      </MainBtn>
+      <Link to="/complete">
+        <MainBtn
+          backgrondColor="#0740E4"
+          color="#fff"
+          border="none"
+          activat={isChecked["all"]}
+          style={{ fontWeight: 700 }}
+        >
+          신청 완료
+        </MainBtn>
+      </Link>
     </ConditionWrap>
   );
 }
