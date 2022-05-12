@@ -1,7 +1,15 @@
 import { Link } from "react-router-dom";
 import { MainBtn, Footer } from "../styles/recycle";
 
-function BottomBtn({ btnContent, path }: { btnContent: string; path: string }) {
+function BottomBtn({
+  btnContent,
+  path,
+  activat,
+}: {
+  btnContent: string;
+  path: string;
+  activat?: boolean;
+}) {
   return (
     <Footer>
       <Link to={path}>
@@ -10,12 +18,13 @@ function BottomBtn({ btnContent, path }: { btnContent: string; path: string }) {
             backgrondColor="#0740E4"
             color="#fff"
             border="none"
-            activat={true}
+            activat={activat !== undefined ? activat : true}
+            className="bold_text"
           >
             {btnContent}
           </MainBtn>
         </div>
-      </Link>=
+      </Link>
     </Footer>
   );
 }
