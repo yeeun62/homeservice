@@ -56,7 +56,7 @@ function StepBtn({
 
   const prevMove = () => {
     if (registIndex === 0) {
-      setRegistIndex(0);
+      window.location.href = "http://localhost:3000";
       setStep(1);
     } else if (registIndex === 2 || registIndex === 3 || registIndex === 4) {
       setRegistIndex(1);

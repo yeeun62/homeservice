@@ -13,30 +13,43 @@ const PayWrap = styled.div`
     display: flex;
   }
 
-  li {
-    font-family: "Poppins";
-    font-weight: 400;
-    font-size: 11px;
-    line-height: 16px;
-    letter-spacing: -0.02em;
-    color: #939393;
-    width: calc(100% - 32px);
-    position: relative;
-    padding-left: 10px;
-
-    p {
-      font-weight: 700;
-      color: #5f5e5e;
+  ul {
+    .pay_li {
+      margin-bottom: 100px;
     }
 
-    div {
-      width: 3px;
-      height: 3px;
-      border-radius: 50%;
-      background-color: #939393;
-      position: absolute;
-      left: 0;
-      top: 5px;
+    @media screen and (min-width: 750px) {
+      .pay_li {
+        margin-bottom: 140px;
+      }
+    }
+
+    li {
+      font-family: "Poppins";
+      font-weight: 400;
+      font-size: 11px;
+      line-height: 16px;
+      letter-spacing: -0.02em;
+      color: #939393;
+      width: calc(100% - 32px);
+      position: relative;
+      padding-left: 10px;
+      margin-top: 24px;
+
+      p {
+        font-weight: 700;
+        color: #5f5e5e;
+      }
+
+      div {
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        background-color: #939393;
+        position: absolute;
+        left: 0;
+        top: 5px;
+      }
     }
   }
 `;
@@ -86,18 +99,18 @@ function Pay({
       </div>
       <ul>
         {payWay.btn1 && (
-          <li style={{ marginTop: "24px", marginBottom: "100px" }}>
+          <li className="pay_li">
             <div></div>결제를 위한 이체 한도를 미리 확인해 주세요.
           </li>
         )}
         {payWay.btn2 && (
           <>
-            <li style={{ marginTop: "24px" }}>
+            <li>
               <div></div>
               차량비용만 할부 이용이 가능합니다.
               <p>차량비용 이외의 금액은 계좌이체로 결제 진행됩니다.</p>
             </li>
-            <li style={{ marginBottom: "100px" }}>
+            <li className="pay_li">
               <div></div>
               최대대출한도는 차량금액으로 설정 됩니다. <br /> 상담 시 대출
               금액을 설정해주세요.

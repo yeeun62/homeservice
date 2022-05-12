@@ -85,7 +85,7 @@ function BankModal({
       <div className="bar" onClick={() => setBankModal(false)} />
       <div className="bank_list">
         {bankList.map((list: string) => (
-          <div className="bank">
+          <div className="bank" key={list}>
             <p className="bank_name">{list}</p>
           </div>
         ))}

@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import BottomBtn from "../components/BottomBtn";
 import { MainBtn, RegistTitle } from "../styles/recycle";
 
 const ConditionWrap = styled.div`
@@ -110,34 +109,27 @@ function ConditionModal({
     [index: string]: boolean;
   };
   const [isChecked, setIsChecked] = useState<CkType>({
-    all: false,
     0: false,
     1: false,
     2: false,
     3: false,
     4: false,
+    all: false,
   });
 
   useEffect(() => {
-    if (isChecked["all"]) {
-      Object.keys(isChecked)
-        .slice(1)
-        .forEach((ck: string) => {
-          if (!isChecked[ck]) setIsChecked({ ...isChecked, all: false });
-        });
+    let checked = Object.keys(isChecked)
+      .slice(0, -1)
+      .filter((ck: string) => {
+        return isChecked[ck];
+      });
+
+    if (checked.length < 5) {
+      setIsChecked({ ...isChecked, all: false });
+    } else {
+      setIsChecked({ ...isChecked, all: true });
     }
-    // else {
-    //   let filtered = Object.keys(isChecked)
-    //     .slice(1)
-    //     .filter((ck: string) => {
-    //       return isChecked[ck];
-    //     });
-
-    //   console.log(filtered);
-
-    //   if (filtered.length >= 5) setIsChecked({ ...isChecked, all: true });
-    // }
-  }, [isChecked[1], isChecked[2], isChecked[3], isChecked[4], isChecked[0]]);
+  }, [isChecked[0], isChecked[1], isChecked[2], isChecked[3], isChecked[4]]);
 
   const allCheckHandler = () => {
     if (isChecked["all"]) {
