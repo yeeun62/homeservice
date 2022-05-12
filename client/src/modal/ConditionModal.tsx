@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-
 import BottomBtn from "../components/BottomBtn";
 import { MainBtn, RegistTitle } from "../styles/recycle";
 
@@ -42,7 +41,6 @@ const ConditionWrap = styled.div`
   }
 
   ul {
-    /* height: 34%; */
     padding: 16px;
     border-bottom: 1px solid #ededed;
     margin-bottom: 16px;
@@ -280,7 +278,6 @@ function ConditionModal({
           차란차 홈서비스 이용이 제한됩니다.
         </span>
       </div>
-      <Link to="/">
         <MainBtn
           backgrondColor="#0740E4"
           color="#fff"
@@ -290,7 +287,6 @@ function ConditionModal({
         >
           신청 완료
         </MainBtn>
-      </Link>
     </ConditionWrap>
   );
 }

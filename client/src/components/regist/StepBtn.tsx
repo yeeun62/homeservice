@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { MainBtn, Footer } from "../../styles/recycle";
-import Conditions from "../../modal/ConditionModal";
+import ConditionModal from "../../modal/ConditionModal";
 import Modal from "react-modal";
 import "../../modal/modal.css";
 
@@ -52,7 +52,7 @@ function StepBtn({
   setRegistIndex,
 }: StepBtnProps) {
   const [check, setCheck] = useState<boolean>(false);
-  const [conditionModal, setConditionModal] = useState<boolean>(true);
+  const [conditionModal, setConditionModal] = useState<boolean>(false);
 
   const prevMove = () => {
     if (registIndex === 0) {
@@ -83,14 +83,31 @@ function StepBtn({
     } else if (registIndex === 2 || registIndex === 3 || registIndex === 4) {
       setRegistIndex(5);
       setStep(4);
+    } else if (registIndex === 5) {
+      setRegistIndex(5);
     } else {
       setRegistIndex(registIndex + 1);
       setStep(step + 1);
     }
   };
 
+  const conditionModalHandler = () => {
+    if (registIndex === 5) {
+      setConditionModal(true);
+    }
+  };
+
   return (
     <>
+      <Modal
+        isOpen={conditionModal}
+        onRequestClose={() => setConditionModal(!conditionModal)}
+        overlayClassName="overlay"
+        className="condition_modal"
+        ariaHideApp={false}
+      >
+        <ConditionModal setConditionModal={setConditionModal} />
+      </Modal>
       <StepBtnWrap>
         <div>
           {(registIndex === 2 || registIndex === 3) && (
@@ -121,18 +138,14 @@ function StepBtn({
             color="#fff"
             border="none"
             activat={activat}
-            onClick={nextMove}
+            onClick={() => {
+              nextMove();
+              conditionModalHandler();
+            }}
           >
             {registIndex === 5 ? "약관동의" : "다음"}
           </MainBtn>
         </div>
-        <Modal
-          isOpen={conditionModal}
-          overlayClassName="overlay"
-          className="condition_modal"
-        >
-          <Conditions setConditionModal={setConditionModal} />
-        </Modal>
       </StepBtnWrap>
     </>
   );

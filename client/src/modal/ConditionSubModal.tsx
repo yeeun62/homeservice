@@ -1,7 +1,5 @@
 import styled from "styled-components";
-
 import { stickTop } from "../styles/recycle";
-
 const ConditionSubModalHeader = styled(stickTop)``;
 
 function ConditionSubModal({
