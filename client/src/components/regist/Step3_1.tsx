@@ -22,23 +22,13 @@ function Step3_1() {
             </div>
           </div>
           <div className="input_div">
-            <input
-              type="text"
-              placeholder="실명을 입력해주세요"
-              onFocus={(e) => (e.target.style.borderColor = "#3C3C3C")}
-              onBlur={(e) => (e.target.style.borderColor = "#ededed")}
-            />
+            <input type="text" placeholder="실명을 입력해주세요" />
           </div>
         </label>
         <label>
           <p>휴대전화 번호</p>
           <div className="input_div">
-            <input
-              type="text"
-              placeholder="숫자만 입력해주세요"
-              onFocus={(e) => (e.target.style.borderColor = "#3C3C3C")}
-              onBlur={(e) => (e.target.style.borderColor = "#ededed")}
-            />
+            <input type="text" placeholder="숫자만 입력해주세요" />
           </div>
         </label>
         <label>
@@ -48,12 +38,7 @@ function Step3_1() {
           </p>
           <div className="flex_form">
             <div className="input_div">
-              <input
-                type="text"
-                placeholder="주소를 검색해주세요"
-                onFocus={(e) => (e.target.style.borderColor = "#3C3C3C")}
-                onBlur={(e) => (e.target.style.borderColor = "#ededed")}
-              />
+              <input type="text" placeholder="주소를 검색해주세요" />
             </div>
             <RegistSubBtn backgrondColor="#0740E4">주소 검색</RegistSubBtn>
           </div>
@@ -63,8 +48,6 @@ function Step3_1() {
                 className="input_margin_top"
                 type="text"
                 placeholder="상세주소를 입력해주세요"
-                onFocus={(e) => (e.target.style.borderColor = "#3C3C3C")}
-                onBlur={(e) => (e.target.style.borderColor = "#ededed")}
               />
             </div>
           </div>

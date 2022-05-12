@@ -61,6 +61,20 @@ export const RegistForm = styled.form`
   label {
     margin-bottom: 32px;
 
+    :focus-within {
+      p {
+        color: #101010;
+      }
+
+      .certi_warning {
+        color: #ff673e;
+      }
+
+      .valid_time {
+        color: #707070;
+      }
+    }
+
     p {
       font-size: 13px;
       font-weight: 500;
@@ -102,9 +116,19 @@ export const RegistForm = styled.form`
           vertical-align: bottom;
         }
 
+        :focus {
+          border-color: #3c3c3c;
+        }
+
         .input_margin_top {
           margin-top: 24px;
         }
+      }
+
+      img {
+        position: absolute;
+        right: 2%;
+        top: 55%;
       }
     }
 
@@ -223,7 +247,6 @@ export const Footer = styled.div`
   bottom: 0;
   left: 50%;
   transform: translate(-50%, 0);
-
   background-color: #fff;
   z-index: 100;
   max-width: 1200px;

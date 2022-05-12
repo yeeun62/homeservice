@@ -1,20 +1,17 @@
 import styled from "styled-components";
+import { RegistTitle } from "../../styles/recycle";
 
 const VisualWrap = styled.div`
   padding-bottom: 40px;
 
-  .visual_title {
-    margin: 24px 0;
-
-    span {
-      font-weight: 400;
-      font-size: 13px;
-      line-height: 19px;
-      letter-spacing: -0.02em;
-      color: #555555;
-      display: block;
-      margin-top: 8px;
-    }
+  .complete_title {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 19px;
+    letter-spacing: -0.02em;
+    color: #555555;
+    display: block;
+    margin-top: 8px;
   }
 
   img {
@@ -92,9 +89,10 @@ function Visual({ data, visualTitle, visualSpan }: any) {
 
   return (
     <VisualWrap>
-      <p className="bold_text visual_title">
-        {visualTitle} {visualSpan && <span>{visualSpan}</span>}
-      </p>
+      <RegistTitle>
+        {visualTitle}{" "}
+        {visualSpan && <span className="complete_title">{visualSpan}</span>}
+      </RegistTitle>
       <div className="info_wrap">
         <img src={image} alt={desc5} />
         <div className="info_wrap_right">
