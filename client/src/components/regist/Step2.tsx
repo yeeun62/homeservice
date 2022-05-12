@@ -3,6 +3,12 @@ import styled, { css } from "styled-components";
 import { RegistTitle } from "../../styles/recycle";
 
 const RegistTypeBtn = styled.button<{ choice: boolean }>`
+  @media screen and (min-width: 750px) {
+    height: 57px;
+    font-weight: 700;
+    font-size: 17px;
+  }
+
   width: 100%;
   height: 54px;
   border-radius: 5px;

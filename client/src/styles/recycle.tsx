@@ -21,6 +21,12 @@ export const RegistTitle = styled.div`
 export const RegistSubBtn = styled.button<{
   backgrondColor: string;
 }>`
+  @media screen and (min-width: 750px) {
+    width: 117px;
+    height: 43px;
+    font-size: 15px;
+  }
+
   background-color: ${(props) => props.backgrondColor};
   width: 106px;
   height: 40px;
@@ -45,6 +51,8 @@ export const MainBtn = styled.button<{
   width: 100%;
   height: 52px;
   border-radius: 5px;
+  font-size: 15px;
+  font-weight: 500;
 
   ${(props) =>
     !props.activat &&
@@ -57,6 +65,15 @@ export const RegistForm = styled.form`
   display: flex;
   flex-direction: column;
   width: 100%;
+
+  @media screen and( min-width: 750px ) {
+    label {
+      p {
+        font-size: 15px;
+        line-height: 22px;
+      }
+    }
+  }
 
   label {
     margin-bottom: 32px;
@@ -78,6 +95,7 @@ export const RegistForm = styled.form`
     p {
       font-size: 13px;
       font-weight: 500;
+      line-height: 19px;
       letter-spacing: -2%;
       margin-bottom: 2px;
       color: #a7a7a7;

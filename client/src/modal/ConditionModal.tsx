@@ -1,8 +1,5 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-
-// import BottomBtn from "../components/BottomBtn";
 import { MainBtn } from "../styles/recycle";
 
 const ConditionWrap = styled.div`
@@ -42,7 +39,6 @@ const ConditionWrap = styled.div`
   }
 
   ul {
-    /* height: 34%; */
     padding: 16px;
     border-bottom: 1px solid #ededed;
     margin-bottom: 16px;
@@ -103,7 +99,7 @@ const ConditionWrap = styled.div`
   }
 `;
 
-function Conditions({
+function ConditionModal({
   setConditionModal,
 }: {
   setConditionModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -278,19 +274,17 @@ function Conditions({
           차란차 홈서비스 이용이 제한됩니다.
         </span>
       </div>
-      <Link to="/">
-        <MainBtn
-          backgrondColor="#0740E4"
-          color="#fff"
-          border="none"
-          activat={isChecked[1]}
-          className="bold_text"
-        >
-          신청 완료
-        </MainBtn>
-      </Link>
+      <MainBtn
+        backgrondColor="#0740E4"
+        color="#fff"
+        border="none"
+        activat={isChecked[1]}
+        style={{ fontWeight: "700" }}
+      >
+        신청 완료
+      </MainBtn>
     </ConditionWrap>
   );
 }
 
-export default Conditions;
+export default ConditionModal;

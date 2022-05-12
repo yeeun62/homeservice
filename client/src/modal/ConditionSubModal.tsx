@@ -4,7 +4,7 @@ import { stickTop } from "../styles/recycle";
 
 const ConditionDetailHeader = styled(stickTop)``;
 
-function ConditionDetail({
+function ConditionSubModal({
   header,
   content,
 }: {
@@ -22,4 +22,4 @@ function ConditionDetail({
   );
 }
 
-export default ConditionDetail;
+export default ConditionSubModal;
