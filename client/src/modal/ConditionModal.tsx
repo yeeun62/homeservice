@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-// import BottomBtn from "../components/BottomBtn";
-import { MainBtn } from "../styles/recycle";
+import BottomBtn from "../components/BottomBtn";
+import { MainBtn, RegistTitle } from "../styles/recycle";
 
 const ConditionWrap = styled.div`
   padding: 16px;
@@ -103,7 +103,7 @@ const ConditionWrap = styled.div`
   }
 `;
 
-function Conditions({
+function ConditionModal({
   setConditionModal,
 }: {
   setConditionModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -121,18 +121,20 @@ function Conditions({
   });
 
   useEffect(() => {
-    // Object.keys(isChecked)
-    //   .slice(1)
-    //   .forEach((ck: string) => {
-    //     if (isChecked[ck]) setIsChecked({ ...isChecked, 1: false });
-    //   });
-
-    let allCk = { ...isChecked, 1: false };
-    if (!isChecked[2]) setIsChecked(allCk);
-    if (!isChecked[3]) setIsChecked(allCk);
-    if (!isChecked[4]) setIsChecked(allCk);
-    if (!isChecked[5]) setIsChecked(allCk);
-    if (!isChecked[6]) setIsChecked(allCk);
+    if (isChecked[1]) {
+      Object.keys(isChecked)
+        .slice(1)
+        .forEach((ck: string) => {
+          if (!isChecked[ck]) setIsChecked({ ...isChecked, 1: false });
+        });
+    } else {
+      // let false
+      // Object.keys(isChecked)
+      //   .slice(1)
+      //   .forEach((ck: string) => {
+      //     if () setIsChecked({ ...isChecked, 1: false });
+      //   });
+    }
   }, [isChecked[2], isChecked[3], isChecked[4], isChecked[5], isChecked[6]]);
 
   const checkHandler = (ck: string) => {
@@ -168,9 +170,9 @@ function Conditions({
         className="close_btn"
         onClick={() => setConditionModal((prev) => !prev)}
       ></button>
-      <p className="bold_text condition_title">
+      <RegistTitle className="condition_title">
         신청 완료를 위해 <br /> 아래 약관에 동의해주세요.
-      </p>
+      </RegistTitle>
       <MainBtn
         className="all_check_btn bold_text"
         type="button"
@@ -284,7 +286,7 @@ function Conditions({
           color="#fff"
           border="none"
           activat={isChecked[1]}
-          className="bold_text"
+          style={{ fontWeight: 700 }}
         >
           신청 완료
         </MainBtn>
@@ -293,4 +295,4 @@ function Conditions({
   );
 }
 
-export default Conditions;
+export default ConditionModal;

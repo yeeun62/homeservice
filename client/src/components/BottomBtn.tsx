@@ -19,7 +19,7 @@ function BottomBtn({
             color="#fff"
             border="none"
             activat={activat !== undefined ? activat : true}
-            className="bold_text"
+            style={{ fontWeight: "700" }}
           >
             {btnContent}
           </MainBtn>
