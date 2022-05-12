@@ -19,15 +19,19 @@ function MainPage({ data }: { data: any }) {
   };
 
   useEffect(() => {
-    scrollDown();
+    if (!payWay.btn1 && !payWay.btn2) {
+      return;
+    } else {
+      scrollDown();
+    }
   }, [payWay]);
 
   return (
-    <>
+    <div ref={scroll}>
       <Header />
       <Introduce topDesc={data.topDesc} />
       <PageWrap>
-        <div ref={scroll}>
+        <div>
           <Visual data={data} visualTitle="안전하게 배송해드리겠습니다" />
           <PriceInfo price={data.price} desc6={data.desc6} />
           <Pay payWay={payWay} setPayWay={setPayWay} />
@@ -38,7 +42,7 @@ function MainPage({ data }: { data: any }) {
         path="/regist"
         activat={payWay.btn1 ? true : payWay.btn2}
       />
-    </>
+    </div>
   );
 }
 
