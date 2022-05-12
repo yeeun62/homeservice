@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { MainBtn, Footer } from "../../styles/recycle";
-import Conditions from "../../modal/Conditions";
+import Conditions from "../../modal/ConditionModal";
 import Modal from "react-modal";
 import "../../modal/modal.css";
 

@@ -24,7 +24,7 @@ const HeaderWrapper = styled(stickTop)`
       display: none;
     }
 
-    p {
+    .header_title {
       margin-left: 32px;
     }
   }
@@ -51,7 +51,7 @@ function Header({ step }: { step?: number }) {
           alt="닫기버튼"
           onClick={() => setCloseModal(true)}
         />
-        <RegistTitle>차란차 홈서비스 신청</RegistTitle>
+        <RegistTitle className="header_title">차란차 홈서비스 신청</RegistTitle>
         <img className="beta" src="./img/icon_beta_black.png" alt="베타" />
         {window.location.pathname.slice(1).toLocaleLowerCase() === "regist" && (
           <Progress step={step} />
