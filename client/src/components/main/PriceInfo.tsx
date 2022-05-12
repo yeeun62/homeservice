@@ -138,7 +138,6 @@ const PriceWrap = styled.div`
         -moz-transform: translatey(-30px);
         -o-transform: translatey(-30px);
         transform: translatey(-30px);
-        display: none;
       }
     }
 
@@ -207,18 +206,20 @@ function PriceInfo({ price, desc6 }: any) {
             </div>
           </li>
           <li key="price3" className="price_list cost_list">
-            <div className="span_wrap">
+            <div className="span_wrap" onClick={() => setOpen(!open)}>
               <p className="price_list">부대비용</p>
               <img
                 src={open ? "./img/Union_up.png" : "./img/Union_down.png"}
                 alt="부대비용"
                 className="price3"
-                onClick={() => setOpen(!open)}
               />
             </div>
             <span>1,530,000원</span>
           </li>
-          <ul className={"inner_ul " + (open ? "fadein" : "fadeout")}>
+          <ul
+            className={"inner_ul " + (open ? "fadein" : "fadeout")}
+            // style={{ display: open ? "block" : "none" }}
+          >
             <li key="이전비">
               ㄴ이전비 <span>1,200,000원</span>
             </li>

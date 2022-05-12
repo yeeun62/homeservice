@@ -9,6 +9,12 @@
   text-decoration: none;
 }
 
+button {
+  border: none;
+  background-color: #fff;
+  cursor: pointer;
+}
+
 .bold_text {
   font-weight: 700;
   font-size: 17px;

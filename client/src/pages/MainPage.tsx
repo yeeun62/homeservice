@@ -19,7 +19,11 @@ function MainPage({ data }: { data: any }) {
         <PriceInfo price={data.price} desc6={data.desc6} />
         <Pay payWay={payWay} setPayWay={setPayWay} />
       </PageWrap>
-      <BottomBtn btnContent="다음" path="/regist" />
+      <BottomBtn
+        btnContent="다음"
+        path="/regist"
+        activat={payWay.btn1 ? true : payWay.btn2}
+      />
     </>
   );
 }
