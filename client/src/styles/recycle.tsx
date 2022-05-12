@@ -16,6 +16,11 @@ export const RegistTitle = styled.div`
   font-size: 17px;
   line-height: 25px;
   letter-spacing: -0.02em;
+
+  @media screen and (min-width: 750px) {
+    font-size: 20px;
+    line-height: 29px;
+  }
 `;
 
 export const RegistSubBtn = styled.button<{

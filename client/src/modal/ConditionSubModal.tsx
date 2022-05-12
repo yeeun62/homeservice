@@ -1,8 +1,6 @@
 import styled from "styled-components";
-
 import { stickTop } from "../styles/recycle";
-
-const ConditionDetailHeader = styled(stickTop)``;
+const ConditionSubModalHeader = styled(stickTop)``;
 
 function ConditionSubModal({
   header,
@@ -13,10 +11,10 @@ function ConditionSubModal({
 }) {
   return (
     <div>
-      <ConditionDetailHeader>
+      <ConditionSubModalHeader>
         <img src="./left_arrow.png" alt="약관 뒤로 가기" />
         <span>{header}</span>
-      </ConditionDetailHeader>
+      </ConditionSubModalHeader>
       {content}
     </div>
   );

@@ -90,7 +90,7 @@ function Visual({ data, visualTitle, visualSpan }: any) {
   return (
     <VisualWrap>
       <RegistTitle>
-        {visualTitle}{" "}
+        {visualTitle}
         {visualSpan && <span className="complete_title">{visualSpan}</span>}
       </RegistTitle>
       <div className="info_wrap">
@@ -102,7 +102,7 @@ function Visual({ data, visualTitle, visualSpan }: any) {
             <span>{desc3}</span>
             <span>{desc4}원</span>
           </div>
-          <p className="bold_text name">{desc5}</p>
+          <RegistTitle className="name">{desc5}</RegistTitle>
           <p className="price">{price}원</p>
         </div>
       </div>
