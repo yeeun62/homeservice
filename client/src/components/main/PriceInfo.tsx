@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import ReactTooltip from "react-tooltip";
 import { useState } from "react";
+import { RegistTitle } from "../../styles/recycle";
 
 const PriceWrap = styled.div`
   padding-top: 20px;
@@ -194,7 +195,7 @@ function PriceInfo({ price, desc6 }: any) {
   return (
     <PriceWrap>
       <div>
-        <p className="bold_text">구매 확정 시 필요한 금액이에요</p>
+        <RegistTitle>구매 확정 시 필요한 금액이에요</RegistTitle>
         <ul className="ul1">
           <li key="price1" className="price_list ">
             차량 가격 <span>{price}원</span>

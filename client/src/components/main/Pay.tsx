@@ -1,8 +1,10 @@
-import React from "react";
 import styled from "styled-components";
-import { MainBtn } from "../../styles/recycle";
+import { MainBtn, RegistTitle } from "../../styles/recycle";
 
 const PayWrap = styled.div`
+  padding-bottom: 32px;
+  overflow: visible;
+
   p {
     margin-bottom: 24px;
   }
@@ -11,34 +13,30 @@ const PayWrap = styled.div`
     display: flex;
   }
 
-  ul {
-    margin: 24px 0;
+  li {
+    font-family: "Poppins";
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 16px;
+    letter-spacing: -0.02em;
+    color: #939393;
+    width: calc(100% - 32px);
+    position: relative;
+    padding-left: 10px;
 
-    li {
-      font-family: "Poppins";
-      font-weight: 400;
-      font-size: 11px;
-      line-height: 16px;
-      letter-spacing: -0.02em;
-      color: #939393;
-      width: calc(100% - 32px);
-      position: relative;
-      padding-left: 10px;
+    p {
+      font-weight: 700;
+      color: #5f5e5e;
+    }
 
-      p {
-        font-weight: 700;
-        color: #5f5e5e;
-      }
-
-      div {
-        width: 3px;
-        height: 3px;
-        border-radius: 50%;
-        background-color: #939393;
-        position: absolute;
-        left: 0;
-        top: 5px;
-      }
+    div {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background-color: #939393;
+      position: absolute;
+      left: 0;
+      top: 5px;
     }
   }
 `;
@@ -54,7 +52,7 @@ function Pay({
 }) {
   return (
     <PayWrap>
-      <p className="bold_text">결제 수단을 선택해주세요</p>
+      <RegistTitle>결제 수단을 선택해주세요</RegistTitle>
       <div className="buttonWrapper">
         <MainBtn
           type="button"
@@ -88,22 +86,21 @@ function Pay({
       </div>
       <ul>
         {payWay.btn1 && (
-          <li>
-            {" "}
-            <div></div>이전비는 차액 발생 시 계좌로 환급해드립니다.
+          <li style={{ marginTop: "24px", marginBottom: "100px" }}>
+            <div></div>결제를 위한 이체 한도를 미리 확인해 주세요.
           </li>
         )}
         {payWay.btn2 && (
           <>
-            <li>
+            <li style={{ marginTop: "24px" }}>
               <div></div>
               차량비용만 할부 이용이 가능합니다.
               <p>차량비용 이외의 금액은 계좌이체로 결제 진행됩니다.</p>
             </li>
-            <li>
+            <li style={{ marginBottom: "100px" }}>
               <div></div>
               최대대출한도는 차량금액으로 설정 됩니다. <br /> 상담 시 대출
-              금액을 설정해주세요
+              금액을 설정해주세요.
             </li>
           </>
         )}

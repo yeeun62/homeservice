@@ -25,7 +25,7 @@ const PublicCheck = styled.div`
   p {
     font-weight: 500;
     font-size: 15px;
-    line-height: 22px;
+    line-height: 18px;
     letter-spacing: -0.02em;
     color: #707070;
   }
@@ -91,13 +91,12 @@ function StepBtn({
         <div>
           {(registIndex === 2 || registIndex === 3) && (
             <PublicCheck>
-              <div>
+              <div onClick={() => setCheck(!check)}>
                 <img
                   src={`./img/${
                     check ? "large_check_point.png" : "large_check.png"
                   }`}
                   alt="체크박스 이미지"
-                  onClick={() => setCheck(!check)}
                 />
                 <p>공동 명의를 원해요</p>
               </div>
@@ -120,7 +119,7 @@ function StepBtn({
             activat={activat}
             onClick={nextMove}
           >
-            다음
+            {registIndex === 5 ? "약관동의" : "다음"}
           </MainBtn>
         </div>
       </StepBtnWrap>

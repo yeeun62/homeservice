@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import styled, { css } from "styled-components";
 import { RegistTitle } from "../../styles/recycle";
 
