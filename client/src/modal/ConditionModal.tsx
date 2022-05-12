@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import BottomBtn from "../components/BottomBtn";
 import { MainBtn, RegistTitle } from "../styles/recycle";
 
 const ConditionWrap = styled.div`
@@ -110,56 +109,57 @@ function ConditionModal({
     [index: string]: boolean;
   };
   const [isChecked, setIsChecked] = useState<CkType>({
+    0: false,
     1: false,
     2: false,
     3: false,
     4: false,
-    5: false,
-    6: false,
+    all: false,
   });
 
   useEffect(() => {
-    if (isChecked[1]) {
-      Object.keys(isChecked)
-        .slice(1)
-        .forEach((ck: string) => {
-          if (!isChecked[ck]) setIsChecked({ ...isChecked, 1: false });
-        });
-    } else {
-      // let false
-      // Object.keys(isChecked)
-      //   .slice(1)
-      //   .forEach((ck: string) => {
-      //     if () setIsChecked({ ...isChecked, 1: false });
-      //   });
-    }
-  }, [isChecked[2], isChecked[3], isChecked[4], isChecked[5], isChecked[6]]);
+    let checked = Object.keys(isChecked)
+      .slice(0, -1)
+      .filter((ck: string) => {
+        return isChecked[ck];
+      });
 
-  const checkHandler = (ck: string) => {
-    if (isChecked === { 1: false, 2: true, 3: true, 4: true, 5: true, 6: true })
-      setIsChecked({ ...isChecked, 1: true });
-  };
+    if (checked.length < 5) {
+      setIsChecked({ ...isChecked, all: false });
+    } else {
+      setIsChecked({ ...isChecked, all: true });
+    }
+  }, [isChecked[0], isChecked[1], isChecked[2], isChecked[3], isChecked[4]]);
 
   const allCheckHandler = () => {
-    let checkArr = Object.values(isChecked);
-    let arr = [];
-    checkArr.forEach((ck: boolean) => {
-      if (ck) arr.push(ck);
-    });
-
-    if (arr.length > 5) {
+    if (isChecked["all"]) {
       setIsChecked({
+        all: false,
+        0: false,
         1: false,
         2: false,
         3: false,
         4: false,
-        5: false,
-        6: false,
       });
     } else {
-      setIsChecked({ 1: true, 2: true, 3: true, 4: true, 5: true, 6: true });
+      setIsChecked({
+        all: true,
+        0: true,
+        1: true,
+        2: true,
+        3: true,
+        4: true,
+      });
     }
   };
+
+  const conditionArr: string[] = [
+    "개인정보 수집/이용동의(필수)",
+    "고유식별정보 수집/이용동의(필수)",
+    "개인정보 처리의 위탁 동의(필수)",
+    "홈서비스 이용 약관 동의(필수)",
+    "홈서비스 환불 규정(필수)",
+  ];
 
   return (
     <ConditionWrap>
@@ -174,102 +174,52 @@ function ConditionModal({
       <MainBtn
         className="all_check_btn bold_text"
         type="button"
-        backgrondColor={`${isChecked[1] ? "rgba(7, 64, 228, 0.03)" : "#fff"}`}
-        border={`${
-          isChecked[1] ? "1px solid rgba(7, 64, 228, 0.1)" : "1px solid #ededed"
+        backgrondColor={`${
+          isChecked["all"] ? "rgba(7, 64, 228, 0.03)" : "#fff"
         }`}
-        color={`${isChecked[1] ? "#0740E4" : "#707070"}`}
+        border={`${
+          isChecked["all"]
+            ? "1px solid rgba(7, 64, 228, 0.1)"
+            : "1px solid #ededed"
+        }`}
+        color={`${isChecked["all"] ? "#0740E4" : "#707070"}`}
         activat={true}
         onClick={allCheckHandler}
       >
         <img
           src={`./img/${
-            isChecked[1] ? "large_check_point.png" : "large_check.png"
+            isChecked["all"] ? "large_check_point.png" : "large_check.png"
           }`}
           alt="약관 전체동의 확인버튼"
         />
         약관 전체동의
       </MainBtn>
       <ul>
-        <li key="condition1">
-          <div onClick={() => setIsChecked({ ...isChecked, 2: !isChecked[2] })}>
-            <img
-              src={`./img/${
-                isChecked[2] ? "checked_lightblue_btn.png" : "large_check.png"
-              }`}
-              alt="개인정보 수집/이용동의(필수)"
-              onClick={() => setIsChecked({ ...isChecked, 2: !isChecked[2] })}
-            />
-            <span>개인정보 수집/이용동의(필수)</span>
-          </div>
-          <img
-            src="./img/w_icon_arrow_right_large_gray.png"
-            alt="약관 더 보기"
-          />
-        </li>
-        <li key="condition2">
-          <div onClick={() => setIsChecked({ ...isChecked, 3: !isChecked[3] })}>
-            <img
-              src={`./img/${
-                isChecked[3] ? "checked_lightblue_btn.png" : "large_check.png"
-              }`}
-              alt="개인정보 수집/이용동의(필수)"
-              onClick={() => setIsChecked({ ...isChecked, 3: !isChecked[3] })}
-            />
-            <span>고유식별정보 수집/이용동의(필수)</span>
-          </div>
-          <img
-            src="./img/w_icon_arrow_right_large_gray.png"
-            alt="약관 더 보기"
-          />
-        </li>
-        <li key="condition3">
-          <div onClick={() => setIsChecked({ ...isChecked, 4: !isChecked[4] })}>
-            <img
-              src={`./img/${
-                isChecked[4] ? "checked_lightblue_btn.png" : "large_check.png"
-              }`}
-              alt="개인정보 수집/이용동의(필수)"
-              onClick={() => setIsChecked({ ...isChecked, 4: !isChecked[4] })}
-            />
-            <span>개인정보 처리의 위탁 동의(필수)</span>
-          </div>
-          <img
-            src="./img/w_icon_arrow_right_large_gray.png"
-            alt="약관 더 보기"
-          />
-        </li>
-        <li key="condition4">
-          <div onClick={() => setIsChecked({ ...isChecked, 5: !isChecked[5] })}>
-            <img
-              src={`./img/${
-                isChecked[5] ? "checked_lightblue_btn.png" : "large_check.png"
-              }`}
-              alt="개인정보 수집/이용동의(필수)"
-              onClick={() => setIsChecked({ ...isChecked, 5: !isChecked[5] })}
-            />
-            <span>홈서비스 이용 약관 동의(필수)</span>
-          </div>
-          <img
-            src="./img/w_icon_arrow_right_large_gray.png"
-            alt="약관 더 보기"
-          />
-        </li>
-        <li key="condition5">
-          <div onClick={() => setIsChecked({ ...isChecked, 6: !isChecked[6] })}>
-            <img
-              src={`./img/${
-                isChecked[6] ? "checked_lightblue_btn.png" : "large_check.png"
-              }`}
-              alt="개인정보 수집/이용동의(필수)"
-            />
-            <span>홈서비스 환불 규정(필수)</span>
-          </div>
-          <img
-            src="./img/w_icon_arrow_right_large_gray.png"
-            alt="약관 더 보기"
-          />
-        </li>
+        {conditionArr.map((condition: string, i: number) => {
+          return (
+            <li key={condition}>
+              <div
+                onClick={() =>
+                  setIsChecked({ ...isChecked, [i]: !isChecked[i] })
+                }
+              >
+                <img
+                  src={`./img/${
+                    isChecked[i]
+                      ? "checked_lightblue_btn.png"
+                      : "large_check.png"
+                  }`}
+                  alt={condition}
+                />
+                <span>{condition}</span>
+              </div>
+              <img
+                src="./img/w_icon_arrow_right_large_gray.png"
+                alt="약관 더 보기"
+              />
+            </li>
+          );
+        })}
       </ul>
       <div className="bottom_div">
         <div></div>
@@ -278,15 +228,15 @@ function ConditionModal({
           차란차 홈서비스 이용이 제한됩니다.
         </span>
       </div>
-        <MainBtn
-          backgrondColor="#0740E4"
-          color="#fff"
-          border="none"
-          activat={isChecked[1]}
-          style={{ fontWeight: 700 }}
-        >
-          신청 완료
-        </MainBtn>
+      <MainBtn
+        backgrondColor="#0740E4"
+        color="#fff"
+        border="none"
+        activat={isChecked["all"]}
+        style={{ fontWeight: 700 }}
+      >
+        신청 완료
+      </MainBtn>
     </ConditionWrap>
   );
 }

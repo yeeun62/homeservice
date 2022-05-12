@@ -11,6 +11,8 @@ function Step3_1() {
         <label>
           <div className="flex_check">
             <p>이름</p>
+            <span className="check_inner_1"></span>
+            <span className="check_inner_2"></span>
             <div onClick={() => setCheck(!check)}>
               <img
                 src={`./img/${
