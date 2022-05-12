@@ -1,6 +1,9 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { MainBtn, Footer } from "../../styles/recycle";
+import Conditions from "../../modal/Conditions";
+import Modal from "react-modal";
+import "../../modal/modal.css";
 
 const StepBtnWrap = styled(Footer)`
   div {
@@ -49,6 +52,7 @@ function StepBtn({
   setRegistIndex,
 }: StepBtnProps) {
   const [check, setCheck] = useState<boolean>(false);
+  const [conditionModal, setConditionModal] = useState<boolean>(true);
 
   const prevMove = () => {
     if (registIndex === 0) {
@@ -122,6 +126,13 @@ function StepBtn({
             {registIndex === 5 ? "약관동의" : "다음"}
           </MainBtn>
         </div>
+        <Modal
+          isOpen={conditionModal}
+          overlayClassName="overlay"
+          className="condition_modal"
+        >
+          <Conditions setConditionModal={setConditionModal} />
+        </Modal>
       </StepBtnWrap>
     </>
   );

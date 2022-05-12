@@ -245,33 +245,42 @@ export const Footer = styled.div`
   width: 100%;
   position: fixed;
   bottom: 0;
-  left: 0;
-  padding: 0px 16px;
+  left: 50%;
+  transform: translate(-50%, 0);
   background-color: #fff;
   z-index: 100;
+  max-width: 1200px;
 
   div {
     display: flex;
     align-items: flex-end;
-
-    button {
-      margin-bottom: 16px;
-    }
   }
 
   @media screen and (max-width: 749px) {
     height: 100px;
+    padding: 0px 16px;
 
     div {
       height: 100px;
+
+      button {
+        height: 52px;
+        margin-bottom: 16px;
+      }
     }
   }
 
   @media screen and (min-width: 749px) {
     height: 140px;
+    padding: 0px 32px;
 
     div {
       height: 140px;
+
+      button {
+        height: 60px;
+        margin-bottom: 32px;
+      }
     }
   }
 `;

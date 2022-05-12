@@ -33,7 +33,11 @@ function MainPage({ data }: { data: any }) {
           <Pay payWay={payWay} setPayWay={setPayWay} />
         </div>
       </PageWrap>
-      <BottomBtn btnContent="다음" path="/regist" />
+      <BottomBtn
+        btnContent="다음"
+        path="/regist"
+        activat={payWay.btn1 ? true : payWay.btn2}
+      />
     </>
   );
 }
