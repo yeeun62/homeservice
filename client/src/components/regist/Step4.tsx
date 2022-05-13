@@ -38,7 +38,7 @@ function Step4() {
               onClick={() => setBankModal(true)}
             />
             <img
-              src="./img/Union_down.png"
+              src="./img/w_icon_down_large.svg"
               alt="올라가는 화살표"
               className="union_down"
             />

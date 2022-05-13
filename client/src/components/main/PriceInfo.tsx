@@ -60,8 +60,8 @@ const PriceWrap = styled.div`
       }
 
       .price3 {
-        width: 9px;
-        height: 3px;
+        width: 16px;
+        height: 16px;
         margin-left: 7px;
       }
     }
@@ -209,9 +209,10 @@ function PriceInfo({ price, desc6 }: any) {
             <div className="span_wrap" onClick={() => setOpen(!open)}>
               <p className="price_list">부대비용</p>
               <img
-                src={open ? "./img/Union_up.png" : "./img/Union_down.png"}
+                src="./img/w_icon_down_large.svg"
                 alt="부대비용"
                 className="price3"
+                style={open ? { transform: "rotate(180deg)" } : {}}
               />
             </div>
             <span>1,530,000원</span>
@@ -227,7 +228,7 @@ function PriceInfo({ price, desc6 }: any) {
               <div className="tooltip_wrap">
                 ㄴ관리비용(매도비)
                 <img
-                  src="./img/w_icon_question_gray.png"
+                  src="./img/w_icon_question_medium_gray.svg"
                   alt="물음표"
                   className="question"
                   data-tip="매도비는 실제와 다를 수 있습니다."

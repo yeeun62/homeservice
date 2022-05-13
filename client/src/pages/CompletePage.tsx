@@ -3,6 +3,8 @@ import Header from "../components/Header";
 import Visual from "../components/main/Visual";
 import BottomBtn from "../components/BottomBtn";
 import { PageWrap } from "../styles/recycle";
+import Lottie from "lottie-react-web";
+import { completeAnimation } from "../lottie_00";
 
 const CompleteWrap = styled(PageWrap)`
   .complete_footer {
@@ -37,6 +39,14 @@ function CompletePage({ data }: any) {
     <>
       <Header />
       <CompleteWrap>
+        <Lottie
+          options={{
+            animationData: completeAnimation,
+            loop: false,
+            autoplay: true,
+          }}
+          style={{ position: "fixed", top: 0 }}
+        />
         <div>
           <Visual
             data={data}
@@ -46,7 +56,7 @@ function CompletePage({ data }: any) {
           <div className="complete_footer">
             <p>홈서비스에 대한 궁금하신 사항은 고객센터로 문의해주세요.</p>
             <div>
-              <img src="./img/icon_footer_call.png" alt="고객센터 전화" />
+              <img src="./img/w_icon_footer_call.svg" alt="고객센터 전화" />
               <span>고객센터: </span>
               <span className="bold_span"> 02-466-7923</span>
               <span>운영시간: </span>

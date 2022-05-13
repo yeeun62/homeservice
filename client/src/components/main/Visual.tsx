@@ -50,6 +50,20 @@ const VisualWrap = styled.div`
 
   .name {
     margin: 4px 0 9px 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    @media screen and (max-width: 749px) {
+      white-space: nowrap;
+    }
+
+    @media screen and (min-width: 750px) {
+      width: 100%;
+      height: 87px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
   }
 
   .price {

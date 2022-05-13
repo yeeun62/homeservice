@@ -47,12 +47,12 @@ function Header({ step }: { step?: number }) {
       <HeaderWrapper>
         <img
           className="close"
-          src="./img/icon_header_cancel_circle.png"
+          src="./img/icon_header_cancel_circle.svg"
           alt="닫기버튼"
           onClick={() => setCloseModal(true)}
         />
         <RegistTitle className="header_title">차란차 홈서비스 신청</RegistTitle>
-        <img className="beta" src="./img/icon_beta_black.png" alt="베타" />
+        <img className="beta" src="./img/icon_beta_black.svg" alt="베타" />
         {window.location.pathname.slice(1).toLocaleLowerCase() === "regist" && (
           <Progress step={step} />
         )}
