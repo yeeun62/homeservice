@@ -307,3 +307,46 @@ export const Footer = styled.div`
     }
   }
 `;
+
+export const Tooltip = styled.div`
+  padding: 6px 16px;
+  background-color: #3c3c3c;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: 400;
+  font-size: 11px;
+  letter-spacing: -0.02em;
+  position: absolute;
+  animation: fadein 1s;
+
+  ::after {
+    content: "";
+    width: 0px;
+    height: 0px;
+    border-bottom: calc(4px * 1.732) solid #3c3c3c;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    position: absolute;
+    top: 1%;
+    left: 50%;
+    transform: translate(-50%, -100%);
+  }
+
+  @keyframes fadein {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeout {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+`;

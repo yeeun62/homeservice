@@ -5,22 +5,8 @@ import { MainBtn, RegistTitle } from "../styles/recycle";
 
 const ConditionWrap = styled.div`
   padding: 16px;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  left: 50%;
-  transform: translate(-50%, 0);
   max-width: 1200px;
-  background-color: #fff;
-
-  .close_btn {
-    width: 40px;
-    height: 4px;
-    background: #c2c2c2;
-    border-radius: 10px;
-    display: block;
-    margin: 0 auto 32px;
-  }
+  margin: 0 auto;
 
   .all_check_btn {
     margin-top: 24px;
@@ -96,7 +82,7 @@ const ConditionWrap = styled.div`
   }
 
   @media screen and (min-width: 750px) {
-    padding: 32px;
+    padding: 16px 32px 32px 32px;
   }
 `;
 
@@ -165,8 +151,9 @@ function ConditionModal({
     <ConditionWrap>
       <button
         type="button"
-        className="close_btn"
-        onClick={() => setConditionModal((prev) => !prev)}
+        className="bottom_bar"
+        onClick={() => setConditionModal(false)}
+        style={{ margin: "0 auto 32px" }}
       ></button>
       <RegistTitle className="condition_title">
         신청 완료를 위해 <br /> 아래 약관에 동의해주세요.

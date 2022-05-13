@@ -13,7 +13,7 @@ function Step4() {
         isOpen={bankModal}
         onRequestClose={() => setBankModal(!bankModal)}
         overlayClassName="overlay"
-        className="bank_modal"
+        className="bottom_modal"
         ariaHideApp={false}
       >
         <BankModal setBankModal={setBankModal} />

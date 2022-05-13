@@ -103,7 +103,7 @@ function StepBtn({
         isOpen={conditionModal}
         onRequestClose={() => setConditionModal(!conditionModal)}
         overlayClassName="overlay"
-        className="condition_modal"
+        className="bottom_modal"
         ariaHideApp={false}
       >
         <ConditionModal setConditionModal={setConditionModal} />
