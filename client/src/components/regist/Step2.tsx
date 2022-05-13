@@ -28,6 +28,11 @@ const RegistTypeBtn = styled.button<{ choice: boolean }>`
       color: #0740e4;
       border: 1px solid rgba(7, 64, 228, 0.1);
     `}
+
+  &:hover {
+    border: ${(props) =>
+      props.choice ? "1px solid rgba(7, 64, 228, 0.3)" : "1px solid #c2c2c2"};
+  }
 `;
 
 interface Step2Props {

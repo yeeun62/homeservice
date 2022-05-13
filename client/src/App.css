@@ -11,7 +11,6 @@
 
 button {
   border: none;
-  background-color: #fff;
   cursor: pointer;
 }
 
@@ -33,19 +32,4 @@ input:focus {
   line-height: 19px;
   letter-spacing: -0.02em;
   color: #939393;
-}
-
-*::-webkit-scrollbar {
-  width: 12px;
-}
-
-*::-webkit-scrollbar-track {
-  background-color: transparent;
-}
-
-*::-webkit-scrollbar-thumb {
-  background: #c2c2c2;
-  border-right: 8px solid transparent;
-  background-clip: content-box;
-  border-radius: 2px;
 }

@@ -20,7 +20,9 @@ function Step3_3() {
             <div onClick={() => setCheck({ ...check, name: !check.name })}>
               <img
                 src={`./img/${
-                  check.name ? "small_check_point.png" : "small_check.png"
+                  check.name
+                    ? "icon_checkbox_large_blue.svg"
+                    : "icon_checkbox_large_gray.svg"
                 }`}
                 alt="체크박스"
               />
