@@ -1,6 +1,11 @@
 import styled from "styled-components";
 
 const BankModalWrap = styled.div`
+  width: 100%;
+  height: 390px;
+  max-width: 1200px;
+  margin: 0 auto;
+
   p {
     font-weight: 500;
     font-size: 15px;
@@ -9,23 +14,15 @@ const BankModalWrap = styled.div`
     color: #101010;
   }
 
-  .bar {
-    width: 40px;
-    height: 4px;
-    background: #c2c2c2;
-    border-radius: 10px;
-    margin: 16px auto;
-  }
-
   .bank {
     border-bottom: 1px solid #ededed;
     height: 54px;
     display: flex;
     align-items: center;
+  }
 
-    .bank_name {
-      padding-left: 16px;
-    }
+  .bank_name {
+    padding-left: 24px;
   }
 
   .bank_list {
@@ -40,12 +37,17 @@ const BankModalWrap = styled.div`
     width: 100%;
     height: 78px;
     background-color: #fff;
-    position: fixed;
     bottom: 0%;
 
     p {
       margin-top: 32px;
       font-weight: 700;
+    }
+  }
+
+  @media screen and (min-width: 750px) {
+    .bank_name {
+      padding-left: 28px;
     }
   }
 `;
@@ -82,7 +84,12 @@ function BankModal({
 
   return (
     <BankModalWrap>
-      <div className="bar" onClick={() => setBankModal(false)} />
+      <button
+        type="button"
+        className="bottom_bar"
+        onClick={() => setBankModal(false)}
+        style={{ margin: "16px auto" }}
+      />
       <div className="bank_list">
         {bankList.map((list: string) => (
           <div className="bank" key={list}>

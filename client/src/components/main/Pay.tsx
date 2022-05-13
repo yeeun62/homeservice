@@ -5,23 +5,13 @@ const PayWrap = styled.div`
   padding-bottom: 32px;
   overflow: visible;
 
-  p {
-    margin-bottom: 24px;
-  }
-
-  .buttonWrapper {
+  div {
     display: flex;
   }
 
   ul {
     .pay_li {
       margin-bottom: 100px;
-    }
-
-    @media screen and (min-width: 750px) {
-      .pay_li {
-        margin-bottom: 140px;
-      }
     }
 
     li {
@@ -51,6 +41,16 @@ const PayWrap = styled.div`
         top: 5px;
       }
     }
+
+    @media screen and (min-width: 750px) {
+      .pay_li {
+        margin-bottom: 140px;
+      }
+
+      li {
+        font-size: 13px;
+      }
+    }
   }
 `;
 
@@ -66,7 +66,7 @@ function Pay({
   return (
     <PayWrap>
       <RegistTitle>결제 수단을 선택해주세요</RegistTitle>
-      <div className="buttonWrapper">
+      <div>
         <MainBtn
           type="button"
           backgrondColor={`${payWay.btn1 ? "rgba(7, 64, 228, 0.03)" : "#fff"}`}
