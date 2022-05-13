@@ -175,9 +175,10 @@ function PriceInfo({ price, desc6 }: any) {
             <p className="price_list_title" style={{ position: "relative" }}>
               부대비용
               <img
-                src={priceOpen ? "./img/Union_up.png" : "./img/Union_down.png"}
+                src="./img/w_icon_down_large.svg"
                 alt="부대비용"
                 className="price_arrow"
+                style={open ? { transform: "rotate(180deg)" } : {}}
               />
             </p>
             <span className="price_list_value">1,530,000원</span>

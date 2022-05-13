@@ -35,7 +35,7 @@ export const RegistSubBtn = styled.button<{
   background-color: ${(props) => props.backgrondColor};
   width: 106px;
   height: 40px;
-  padding: 10px 16px;
+  padding: 10px 14px;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -58,6 +58,15 @@ export const MainBtn = styled.button<{
   border-radius: 5px;
   font-size: 15px;
   font-weight: 500;
+
+  &:hover {
+    border: ${(props) =>
+      props.border === "1px solid #ededed"
+        ? "1px solid #c2c2c2"
+        : props.border === "1px solid rgba(7, 64, 228, 0.1)"
+        ? "1px solid rgba(7, 64, 228, 0.3)"
+        : "1px solid" + props.border};
+  }
 
   ${(props) =>
     !props.activat &&

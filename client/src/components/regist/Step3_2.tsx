@@ -20,7 +20,9 @@ function Step3_2() {
             <div onClick={() => setCheck({ ...check, name: !check.name })}>
               <img
                 src={`./img/${
-                  check.name ? "small_check_point.png" : "small_check.png"
+                  check.name
+                    ? "icon_checkbox_large_blue.svg"
+                    : "icon_checkbox_large_gray.svg"
                 }`}
                 alt="체크박스"
               />
@@ -40,7 +42,10 @@ function Step3_2() {
         <label>
           <p>
             주민등록주소지
-            <img src="/img/w_icon_question_gray.png" alt="물음표 이모티콘" />
+            <img
+              src="/img/w_icon_question_medium_gray.svg"
+              alt="물음표 이모티콘"
+            />
           </p>
           <div className="flex_form">
             <div className="input_div">
@@ -76,7 +81,9 @@ function Step3_2() {
             <div onClick={() => setCheck({ ...check, adress: !check.adress })}>
               <img
                 src={`./img/${
-                  check.adress ? "small_check_point.png" : "small_check.png"
+                  check.adress
+                    ? "icon_checkbox_large_blue.svg"
+                    : "icon_checkbox_large_gray.svg"
                 }`}
                 alt="체크박스"
               />

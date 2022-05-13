@@ -15,7 +15,7 @@ const IntroduceWrap = styled.div`
     font-family: "Noto Sans KR";
     text-align: center;
     letter-spacing: -0.02em;
-    max-width: 360px;
+    max-width: 400px;
     margin: auto;
   }
 

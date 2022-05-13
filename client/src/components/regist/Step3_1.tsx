@@ -16,7 +16,9 @@ function Step3_1() {
             <div onClick={() => setCheck(!check)}>
               <img
                 src={`./img/${
-                  check ? "small_check_point.png" : "small_check.png"
+                  check
+                    ? "icon_checkbox_large_blue.svg"
+                    : "icon_checkbox_large_gray.svg"
                 }`}
                 alt="체크박스"
               />
@@ -36,7 +38,10 @@ function Step3_1() {
         <label>
           <p>
             주민등록주소지
-            <img src="/img/w_icon_question_gray.png" alt="물음표 이모티콘" />
+            <img
+              src="/img/w_icon_question_medium_gray.svg"
+              alt="물음표 이모티콘"
+            />
           </p>
           <div className="flex_form">
             <div className="input_div">

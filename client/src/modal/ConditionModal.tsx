@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { MainBtn, RegistTitle } from "../styles/recycle";
+import ConditionSubModal from "./ConditionSubModal";
 
 const ConditionWrap = styled.div`
   padding: 16px;
@@ -53,8 +54,8 @@ const ConditionWrap = styled.div`
       }
 
       img {
-        width: 12px;
-        height: 12px;
+        width: 16px;
+        height: 16px;
         margin-left: 8px;
       }
     }
@@ -86,6 +87,12 @@ const ConditionWrap = styled.div`
   }
 `;
 
+export interface SubModal {
+  title: string;
+  content: any;
+  open: boolean;
+}
+
 function ConditionModal({
   setConditionModal,
 }: {
@@ -94,6 +101,7 @@ function ConditionModal({
   type CkType = {
     [index: string]: boolean;
   };
+
   const [isChecked, setIsChecked] = useState<CkType>({
     0: false,
     1: false,
@@ -101,6 +109,12 @@ function ConditionModal({
     3: false,
     4: false,
     all: false,
+  });
+
+  const [subModal, setSubModal] = useState<SubModal>({
+    title: "개인정보 수집/이용동의(필수)",
+    content: "",
+    open: false,
   });
 
   useEffect(() => {
@@ -147,8 +161,22 @@ function ConditionModal({
     "홈서비스 환불 규정(필수)",
   ];
 
+  useEffect(() => {
+    if (window.onpopstate) {
+      console.log(window);
+    }
+  });
+
   return (
     <ConditionWrap>
+      {subModal.open && (
+        <ConditionSubModal
+          title={subModal.title}
+          content={subModal.content}
+          setSubModal={setSubModal}
+        />
+      )}
+
       <button
         type="button"
         className="bottom_bar"
@@ -175,7 +203,9 @@ function ConditionModal({
       >
         <img
           src={`./img/${
-            isChecked["all"] ? "large_check_point.png" : "large_check.png"
+            isChecked["all"]
+              ? "icon_checkbox_large_blue.svg"
+              : "icon_checkbox_large_gray.svg"
           }`}
           alt="약관 전체동의 확인버튼"
         />
@@ -193,16 +223,19 @@ function ConditionModal({
                 <img
                   src={`./img/${
                     isChecked[i]
-                      ? "checked_lightblue_btn.png"
-                      : "large_check.png"
+                      ? "icon_checkbox_large_blue40.svg"
+                      : "icon_checkbox_large_gray.svg"
                   }`}
                   alt={condition}
                 />
                 <span>{condition}</span>
               </div>
               <img
-                src="./img/w_icon_arrow_right_large_gray.png"
+                src="./img/icon_arrow_right_medium_gray.svg"
                 alt="약관 더 보기"
+                onClick={() =>
+                  setSubModal({ title: condition, content: "", open: true })
+                }
               />
             </li>
           );

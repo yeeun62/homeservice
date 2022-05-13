@@ -71,25 +71,51 @@ function StepBtn({
   };
 
   const nextMove = () => {
-    if (choice !== -1) {
-      setStep(3);
-      if (choice === 0) {
-        setRegistIndex(2);
-      } else if (choice === 1) {
-        setRegistIndex(3);
-      } else if (choice === 2) {
-        setRegistIndex(4);
-      }
-    } else if (registIndex === 2 || registIndex === 3 || registIndex === 4) {
-      setRegistIndex(5);
-      setStep(4);
-    } else if (registIndex === 5) {
-      setRegistIndex(5);
+    if (step >= 4 && registIndex >= 5) {
+      setStep(1);
+      setRegistIndex(0);
     } else {
-      setRegistIndex(registIndex + 1);
-      setStep(step + 1);
+      if (choice !== -1) {
+        setStep(3);
+        if (choice === 0) {
+          setRegistIndex(2);
+        } else if (choice === 1) {
+          setRegistIndex(3);
+        } else if (choice === 2) {
+          setRegistIndex(4);
+        }
+      } else if (registIndex === 2 || registIndex === 3 || registIndex === 4) {
+        setRegistIndex(5);
+        setStep(4);
+      } else if (registIndex >= 5) {
+        setRegistIndex(5);
+      } else if (registIndex <= 1) {
+        setRegistIndex(registIndex + 1);
+        setStep(step + 1);
+      }
     }
   };
+
+  // const nextMove = () => {
+  //   if (choice !== -1) {
+  //     setStep(3);
+  //     if (choice === 0) {
+  //       setRegistIndex(2);
+  //     } else if (choice === 1) {
+  //       setRegistIndex(3);
+  //     } else if (choice === 2) {
+  //       setRegistIndex(4);
+  //     }
+  //   } else if (registIndex === 2 || registIndex === 3 || registIndex === 4) {
+  //     setRegistIndex(5);
+  //     setStep(4);
+  //   } else if (registIndex === 5) {
+  //     setRegistIndex(5);
+  //   } else {
+  //     setRegistIndex(registIndex + 1);
+  //     setStep(step + 1);
+  //   }
+  // };
 
   const conditionModalHandler = () => {
     if (registIndex === 5) {
@@ -115,7 +141,9 @@ function StepBtn({
               <div onClick={() => setCheck(!check)}>
                 <img
                   src={`./img/${
-                    check ? "large_check_point.png" : "large_check.png"
+                    check
+                      ? "icon_checkbox_large_blue.svg"
+                      : "icon_checkbox_large_gray.svg"
                   }`}
                   alt="체크박스 이미지"
                 />
