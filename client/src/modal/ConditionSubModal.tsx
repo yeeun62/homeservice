@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { stickTop, PageWrap } from "../styles/recycle";
 import { SubModal } from "./ConditionModal";
 
-const ConditionSub = styled(PageWrap)`
+const ConditionSubWrap = styled(PageWrap)`
 	height: 100vh;
 	z-index: 500;
 	background: #fff;
@@ -22,7 +22,7 @@ interface SubModalProp {
 
 function ConditionSubModal({ subModal, setSubModal }: SubModalProp) {
 	return (
-		<ConditionSub>
+		<ConditionSubWrap>
 			<ConditionSubModalHeader>
 				<img
 					src="./img/icon_navigation_back_black.svg"
@@ -32,7 +32,7 @@ function ConditionSubModal({ subModal, setSubModal }: SubModalProp) {
 				<span>{subModal.title}</span>
 			</ConditionSubModalHeader>
 			{subModal.content}
-		</ConditionSub>
+		</ConditionSubWrap>
 	);
 }
 

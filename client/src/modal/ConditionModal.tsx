@@ -88,6 +88,7 @@ const ConditionWrap = styled.div`
 `;
 
 export interface SubModal {
+	[key: string]: any;
 	title: string;
 	content: any;
 	open: boolean;
@@ -147,7 +148,7 @@ function ConditionModal({
 	}, [...dependency]);
 
 	const allCheckHandler = () => {
-		if (isChecked["all"]) {
+		if (isChecked.all) {
 			setIsChecked({
 				all: false,
 				0: false,
@@ -247,7 +248,7 @@ function ConditionModal({
 								alt="약관 더 보기"
 								onClick={() =>
 									setSubModal({
-										title: condition.toString(),
+										title: condition,
 										content: "",
 										open: true,
 									})
