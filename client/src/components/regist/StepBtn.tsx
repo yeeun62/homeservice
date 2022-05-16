@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { MainBtn, Footer } from "../../styles/recycle";
 import ConditionModal from "../../modal/ConditionModal";
@@ -16,8 +16,7 @@ const StepBtnWrap = styled(Footer)`
 interface StepBtnProps {
   step: number;
   setStep: React.Dispatch<React.SetStateAction<number>>;
-  activat: boolean;
-  choice: number;
+  activate: boolean;
   registIndex: number;
   setRegistIndex: React.Dispatch<React.SetStateAction<number>>;
   storageData: StorageType;
@@ -26,13 +25,14 @@ interface StepBtnProps {
 function StepBtn({
   step,
   setStep,
-  activat,
-  choice,
+  activate,
   registIndex,
   setRegistIndex,
   storageData,
 }: StepBtnProps) {
   const [conditionModal, setConditionModal] = useState<boolean>(false);
+
+  useEffect(() => {}, []);
 
   const prevMove = () => {
     if (registIndex === 0) {
@@ -41,9 +41,6 @@ function StepBtn({
     } else if (registIndex === 2 || registIndex === 3 || registIndex === 4) {
       setRegistIndex(1);
       setStep(2);
-    } else if (registIndex === 5) {
-      setRegistIndex(choice + 2);
-      setStep(3);
     } else {
       setRegistIndex(registIndex - 1);
       setStep(step - 1);
@@ -51,19 +48,13 @@ function StepBtn({
   };
 
   const nextMove = () => {
+    // if (!activate) {
+    //   return;
+    // }
     if (step === 4 && registIndex === 5) {
       return;
     }
-    if (choice !== -1) {
-      setStep(3);
-      if (choice === 0) {
-        setRegistIndex(2);
-      } else if (choice === 1) {
-        setRegistIndex(3);
-      } else if (choice === 2) {
-        setRegistIndex(4);
-      }
-    } else if (registIndex === 2 || registIndex === 3 || registIndex === 4) {
+    if (registIndex === 2 || registIndex === 3 || registIndex === 4) {
       setRegistIndex(5);
       setStep(4);
     } else if (registIndex >= 5) {
@@ -72,6 +63,8 @@ function StepBtn({
       setRegistIndex(registIndex + 1);
       setStep(step + 1);
     }
+
+    localStorage.setItem("test", JSON.stringify(storageData));
   };
 
   const conditionModalHandler = () => {
@@ -101,7 +94,7 @@ function StepBtn({
             backgrondColor=" rgba(7, 64, 228, 0.03)"
             color="#0740E4"
             border="1px solid rgba(7, 64, 228, 0.1)"
-            activat={true}
+            activate={true}
             onClick={prevMove}
             style={{ marginRight: "8px" }}
           >
@@ -111,7 +104,7 @@ function StepBtn({
             backgrondColor="#0740E4"
             color="#fff"
             border="none"
-            activat={activat}
+            activate={activate}
             onClick={() => {
               nextMove();
               conditionModalHandler();

@@ -37,35 +37,20 @@ const RegistTypeBtn = styled.button<{ choice: boolean }>`
 `;
 
 interface Step2Props {
-  setActivat: React.Dispatch<React.SetStateAction<boolean>>;
-  choice: number;
-  setChoice: React.Dispatch<React.SetStateAction<number>>;
   setActivate: React.Dispatch<React.SetStateAction<boolean>>;
   setStorageData: React.Dispatch<React.SetStateAction<StorageType>>;
+  storageData: StorageType;
 }
 
-function Step2({
-  setActivat,
-  choice,
-  setChoice,
-  setActivate,
-  setStorageData,
-}: Step2Props) {
+function Step2({ setActivate, setStorageData, storageData }: Step2Props) {
   const registType = ["개인", "개인사업자", "법인사업자"];
-
-  useEffect(() => {
-    if (choice !== -1) {
-      setActivat(true);
-    }
-  }, [choice]);
-
-  useEffect(() => {}, []);
 
   const storageHandler = (index: number) => {
     setStorageData((prevState) => ({
       ...prevState,
       step2: index,
     }));
+    setActivate(true);
   };
 
   return (
@@ -74,11 +59,8 @@ function Step2({
       {registType.map((type: string, index: number) => (
         <RegistTypeBtn
           key={type}
-          choice={choice === index && true}
-          onClick={() => {
-            setChoice(index);
-            storageHandler(index);
-          }}
+          choice={storageData.step2 === index + 2 && true}
+          onClick={() => storageHandler(index + 2)}
         >
           {type}
         </RegistTypeBtn>

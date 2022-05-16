@@ -18,7 +18,7 @@ function BottomBtn({
             backgrondColor="#0740E4"
             color="#fff"
             border="none"
-            activat={activat !== undefined ? activat : true}
+            activate={activat !== undefined ? activat : true}
             style={{ fontWeight: "700" }}
           >
             {btnContent}
