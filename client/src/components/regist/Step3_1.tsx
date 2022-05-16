@@ -29,6 +29,9 @@ const PublicCheck = styled.div`
 function Step3_1({ setActivate, setStorageData }: ActiveProps) {
   const [check, setCheck] = useState<boolean>(false);
   const [publicCheck, setPublicCheck] = useState<boolean>(false);
+  const [validation, setValidation] = useState({});
+
+  // onchange event handler 에서 인풋값 입력하고 유효성검사해서 setActivate true로 바꿔주기
 
   return (
     <>
