@@ -12,26 +12,6 @@ const StepBtnWrap = styled(Footer)`
   }
 `;
 
-const PublicCheck = styled.div`
-  width: 100%;
-  position: absolute;
-  height: 24px !important;
-  background-color: #fff;
-  top: -24px;
-  img {
-    width: 20px;
-    height: 20px;
-    margin-right: 6px;
-  }
-  p {
-    font-weight: 500;
-    font-size: 15px;
-    line-height: 18px;
-    letter-spacing: -0.02em;
-    color: #707070;
-  }
-`;
-
 interface StepBtnProps {
   step: number;
   setStep: React.Dispatch<React.SetStateAction<number>>;
@@ -115,21 +95,6 @@ function StepBtn({
       </Modal>
       <StepBtnWrap>
         <div>
-          {(registIndex === 2 || registIndex === 3) && (
-            <PublicCheck>
-              <div onClick={() => setCheck(!check)}>
-                <img
-                  src={`./img/${
-                    check
-                      ? "icon_checkbox_large_blue.svg"
-                      : "icon_checkbox_large_gray.svg"
-                  }`}
-                  alt="체크박스 이미지"
-                />
-                <p>공동 명의를 원해요</p>
-              </div>
-            </PublicCheck>
-          )}
           <MainBtn
             backgrondColor=" rgba(7, 64, 228, 0.03)"
             color="#0740E4"
