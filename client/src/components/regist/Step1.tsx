@@ -1,7 +1,7 @@
 import { RegistTitle, RegistSubBtn, RegistForm } from "../../styles/recycle";
 import { ActiveProps } from "../../pages/RegistPage";
 
-function Step1({ setActivate }: ActiveProps) {
+function Step1({ setActivate, setStorageData }: ActiveProps) {
   return (
     <>
       <RegistTitle>신청자 정보를 입력해 주세요</RegistTitle>

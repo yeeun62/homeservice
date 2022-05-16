@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import styled, { css } from "styled-components";
 import { RegistTitle } from "../../styles/recycle";
+import { StorageType } from "../../App";
 
 const RegistTypeBtn = styled.button<{ choice: boolean }>`
   @media screen and (min-width: 750px) {
@@ -40,9 +41,16 @@ interface Step2Props {
   choice: number;
   setChoice: React.Dispatch<React.SetStateAction<number>>;
   setActivate: React.Dispatch<React.SetStateAction<boolean>>;
+  setStorageData: React.Dispatch<React.SetStateAction<StorageType>>;
 }
 
-function Step2({ setActivat, choice, setChoice, setActivate }: Step2Props) {
+function Step2({
+  setActivat,
+  choice,
+  setChoice,
+  setActivate,
+  setStorageData,
+}: Step2Props) {
   const registType = ["개인", "개인사업자", "법인사업자"];
 
   useEffect(() => {

@@ -8,17 +8,26 @@ import Step3_2 from "../components/regist/Step3_2";
 import Step3_3 from "../components/regist/Step3_3";
 import Step4 from "../components/regist/Step4";
 import StepBtn from "../components/regist/StepBtn";
+import { StorageType } from "../App";
 
 interface RegistPageProps {
   step: number;
   setStep: React.Dispatch<React.SetStateAction<number>>;
+  storageData: StorageType;
+  setStorageData: React.Dispatch<React.SetStateAction<StorageType>>;
 }
 
 export interface ActiveProps {
   setActivate: React.Dispatch<React.SetStateAction<boolean>>;
+  setStorageData: React.Dispatch<React.SetStateAction<StorageType>>;
 }
 
-function RegistPage({ step, setStep }: RegistPageProps) {
+function RegistPage({
+  step,
+  setStep,
+  storageData,
+  setStorageData,
+}: RegistPageProps) {
   const [registIndex, setRegistIndex] = useState<number>(0);
   const [activat, setActivat] = useState<boolean>(false);
   const [choice, setChoice] = useState<number>(-1);
@@ -35,17 +44,27 @@ function RegistPage({ step, setStep }: RegistPageProps) {
       <PageWrap>
         {
           [
-            <Step1 setActivate={setActivate} />,
+            <Step1 setActivate={setActivate} setStorageData={setStorageData} />,
             <Step2
               setActivat={setActivat}
               choice={choice}
               setChoice={setChoice}
               setActivate={setActivate}
+              setStorageData={setStorageData}
             />,
-            <Step3_1 setActivate={setActivate} />,
-            <Step3_2 setActivate={setActivate} />,
-            <Step3_3 setActivate={setActivate} />,
-            <Step4 setActivate={setActivate} />,
+            <Step3_1
+              setActivate={setActivate}
+              setStorageData={setStorageData}
+            />,
+            <Step3_2
+              setActivate={setActivate}
+              setStorageData={setStorageData}
+            />,
+            <Step3_3
+              setActivate={setActivate}
+              setStorageData={setStorageData}
+            />,
+            <Step4 setActivate={setActivate} setStorageData={setStorageData} />,
           ][registIndex]
         }
       </PageWrap>
@@ -56,6 +75,7 @@ function RegistPage({ step, setStep }: RegistPageProps) {
         choice={choice}
         registIndex={registIndex}
         setRegistIndex={setRegistIndex}
+        storageData={storageData}
       />
     </>
   );

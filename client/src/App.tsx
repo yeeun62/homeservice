@@ -1,4 +1,4 @@
-import { useState, StrictMode } from "react";
+import { useState, StrictMode, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import styled from "styled-components";
 import "./App.css";
@@ -18,9 +18,30 @@ const AppWrap = styled.div`
   }
 `;
 
+export interface StorageType {
+  test: {
+    main: string; // 추후에 디비키로
+    step1: { name: string; mobile: string };
+    step2: number; // 2or 3or 4
+    step3: any; //step에 따라서
+    step4: { bank: string; name: string; account: string };
+    step: number;
+  };
+}
+
 function App() {
   const [step, setStep] = useState<number>(1);
-  const [data] = useState({
+  const [storageData, setStorageData] = useState<any>({
+    test: {
+      main: "현금", // 추후에 디비키로
+      step1: { name: "이름", mobile: "01011111111" },
+      step2: 0, // 2or 3or 4
+      step3: "", //step에 따라서
+      step4: { bank: "국민", name: "이름", account: "123-123" },
+      step: 4,
+    },
+  });
+  const [data, setData] = useState({
     id: "test",
     topDesc:
       "전문과와 1:1 라이브로 차량을 확인후 원하는 곳으로 받아보세요. 3+1일 동안 타 보고 맘에 안들면 환불 할 수 있습니다.",
@@ -44,10 +65,26 @@ function App() {
       <AppWrap>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<MainPage data={data} />} />
+            <Route
+              path="/"
+              element={
+                <MainPage
+                  data={data}
+                  storageData={storageData}
+                  setStorageData={setStorageData}
+                />
+              }
+            />
             <Route
               path="/regist"
-              element={<RegistPage step={step} setStep={setStep} />}
+              element={
+                <RegistPage
+                  step={step}
+                  setStep={setStep}
+                  storageData={storageData}
+                  setStorageData={setStorageData}
+                />
+              }
             />
             <Route path="/complete" element={<CompletePage data={data} />} />
           </Routes>

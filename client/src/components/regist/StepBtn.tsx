@@ -4,6 +4,7 @@ import { MainBtn, Footer } from "../../styles/recycle";
 import ConditionModal from "../../modal/ConditionModal";
 import Modal from "react-modal";
 import "../../modal/modal.css";
+import { StorageType } from "../../App";
 
 const StepBtnWrap = styled(Footer)`
   div {
@@ -19,6 +20,7 @@ interface StepBtnProps {
   choice: number;
   registIndex: number;
   setRegistIndex: React.Dispatch<React.SetStateAction<number>>;
+  storageData: StorageType;
 }
 
 function StepBtn({
@@ -28,6 +30,7 @@ function StepBtn({
   choice,
   registIndex,
   setRegistIndex,
+  storageData,
 }: StepBtnProps) {
   const [conditionModal, setConditionModal] = useState<boolean>(false);
 
