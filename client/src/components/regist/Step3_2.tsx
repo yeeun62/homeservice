@@ -26,7 +26,7 @@ const PublicCheck = styled.div`
   }
 `;
 
-function Step3_2({ setActivate }: ActiveProps) {
+function Step3_2({ setActivate, setStorageData }: ActiveProps) {
   const [check, setCheck] = useState({ name: false, adress: false });
   const [publicCheck, setPublicCheck] = useState<boolean>(false);
 

@@ -6,8 +6,17 @@ import Visual from "../components/main/Visual";
 import PriceInfo from "../components/main/PriceInfo";
 import Pay from "../components/main/Pay";
 import BottomBtn from "../components/BottomBtn";
+import { StorageType } from "../App";
 
-function MainPage({ data }: { data: any }) {
+function MainPage({
+  data,
+  storageData,
+  setStorageData,
+}: {
+  data: any;
+  storageData: StorageType;
+  setStorageData: React.Dispatch<React.SetStateAction<StorageType>>;
+}) {
   const [payWay, setPayWay] = useState({ btn1: false, btn2: false });
   const scroll: any = useRef(null);
 
