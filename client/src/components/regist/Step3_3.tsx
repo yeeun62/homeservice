@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { RegistTitle, RegistForm, RegistSubBtn } from "../../styles/recycle";
+import { ActiveProps } from "../../pages/RegistPage";
 
-function Step3_3() {
+function Step3_3({ setActivate }: ActiveProps) {
   const [check, setCheck] = useState({ name: false, adress: false });
 
   return (

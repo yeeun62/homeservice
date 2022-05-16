@@ -39,9 +39,10 @@ interface Step2Props {
   setActivat: React.Dispatch<React.SetStateAction<boolean>>;
   choice: number;
   setChoice: React.Dispatch<React.SetStateAction<number>>;
+  setActivate: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function Step2({ setActivat, choice, setChoice }: Step2Props) {
+function Step2({ setActivat, choice, setChoice, setActivate }: Step2Props) {
   const registType = ["개인", "개인사업자", "법인사업자"];
 
   useEffect(() => {

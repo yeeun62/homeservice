@@ -14,10 +14,15 @@ interface RegistPageProps {
   setStep: React.Dispatch<React.SetStateAction<number>>;
 }
 
+export interface ActiveProps {
+  setActivate: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
 function RegistPage({ step, setStep }: RegistPageProps) {
   const [registIndex, setRegistIndex] = useState<number>(0);
   const [activat, setActivat] = useState<boolean>(false);
   const [choice, setChoice] = useState<number>(-1);
+  const [activate, setActivate] = useState<boolean>(false);
 
   useEffect(() => {
     setChoice(-1);
@@ -30,16 +35,17 @@ function RegistPage({ step, setStep }: RegistPageProps) {
       <PageWrap>
         {
           [
-            <Step1 />,
+            <Step1 setActivate={setActivate} />,
             <Step2
               setActivat={setActivat}
               choice={choice}
               setChoice={setChoice}
+              setActivate={setActivate}
             />,
-            <Step3_1 />,
-            <Step3_2 />,
-            <Step3_3 />,
-            <Step4 />,
+            <Step3_1 setActivate={setActivate} />,
+            <Step3_2 setActivate={setActivate} />,
+            <Step3_3 setActivate={setActivate} />,
+            <Step4 setActivate={setActivate} />,
           ][registIndex]
         }
       </PageWrap>

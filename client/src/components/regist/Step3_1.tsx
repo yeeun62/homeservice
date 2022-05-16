@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { RegistTitle, RegistForm, RegistSubBtn } from "../../styles/recycle";
+import { ActiveProps } from "../../pages/RegistPage";
 
 const PublicCheck = styled.div`
   margin-top: 68px;
@@ -25,7 +26,7 @@ const PublicCheck = styled.div`
   }
 `;
 
-function Step3_1() {
+function Step3_1({ setActivate }: ActiveProps) {
   const [check, setCheck] = useState<boolean>(false);
   const [publicCheck, setPublicCheck] = useState<boolean>(false);
 
