@@ -21,6 +21,7 @@ const AppWrap = styled.div`
 function App() {
   const [step, setStep] = useState<number>(1);
   const [data] = useState({
+    id: "test",
     topDesc:
       "전문과와 1:1 라이브로 차량을 확인후 원하는 곳으로 받아보세요. 3+1일 동안 타 보고 맘에 안들면 환불 할 수 있습니다.",
     image: "./img/1808801960R1 1.png",

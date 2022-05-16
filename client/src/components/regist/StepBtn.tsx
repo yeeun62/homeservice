@@ -30,7 +30,6 @@ function StepBtn({
   setRegistIndex,
 }: StepBtnProps) {
   const [conditionModal, setConditionModal] = useState<boolean>(false);
-  const [check, setCheck] = useState<boolean>(false);
 
   const prevMove = () => {
     if (registIndex === 0) {
