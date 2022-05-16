@@ -49,12 +49,13 @@ function App() {
     ],
   });
   const [storageData, setStorageData] = useState<any>({
+    id: data.id,
     main: "", // 추후에 디비키로
     step1: { name: "이름", mobile: "01011111111" },
     step2: 0, // 2or 3or 4
     step3: "", //step에 따라서
     step4: { bank: "국민", name: "이름", account: "123123" },
-    step: 4,
+    step: 0,
   });
 
   useEffect(() => {

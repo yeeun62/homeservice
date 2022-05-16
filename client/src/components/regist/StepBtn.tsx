@@ -17,33 +17,49 @@ interface StepBtnProps {
   step: number;
   setStep: React.Dispatch<React.SetStateAction<number>>;
   activate: boolean;
-  registIndex: number;
-  setRegistIndex: React.Dispatch<React.SetStateAction<number>>;
   storageData: StorageType;
+  setStorageData: React.Dispatch<React.SetStateAction<StorageType>>;
 }
 
 function StepBtn({
   step,
   setStep,
   activate,
-  registIndex,
-  setRegistIndex,
   storageData,
+  setStorageData,
 }: StepBtnProps) {
   const [conditionModal, setConditionModal] = useState<boolean>(false);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (storageData.step === 0) {
+      setStep(1);
+    } else if (storageData.step === 1) {
+      setStep(2);
+    } else if (
+      storageData.step === 2 ||
+      storageData.step === 3 ||
+      storageData.step === 4
+    ) {
+      setStep(3);
+    } else if (storageData.step === 5) {
+      setStep(4);
+    }
+  }, [storageData.step]);
 
   const prevMove = () => {
-    if (registIndex === 0) {
+    if (storageData.step === 0) {
       window.location.href = "http://localhost:3000";
-      setStep(1);
-    } else if (registIndex === 2 || registIndex === 3 || registIndex === 4) {
-      setRegistIndex(1);
-      setStep(2);
-    } else {
-      setRegistIndex(registIndex - 1);
-      setStep(step - 1);
+      setStorageData({ ...storageData, step: 0 });
+    } else if (storageData.step === 1) {
+      setStorageData({ ...storageData, step: 0 });
+    } else if (
+      storageData.step === 2 ||
+      storageData.step === 3 ||
+      storageData.step === 4
+    ) {
+      setStorageData({ ...storageData, step: 1 });
+    } else if (storageData.step === 5) {
+      setStorageData({ ...storageData, step: storageData.step2 });
     }
   };
 
@@ -51,24 +67,24 @@ function StepBtn({
     // if (!activate) {
     //   return;
     // }
-    if (step === 4 && registIndex === 5) {
+    if (step === 4 && storageData.step === 5) {
       return;
     }
-    if (registIndex === 2 || registIndex === 3 || registIndex === 4) {
-      setRegistIndex(5);
-      setStep(4);
-    } else if (registIndex >= 5) {
-      setRegistIndex(5);
-    } else if (registIndex <= 1) {
-      setRegistIndex(registIndex + 1);
-      setStep(step + 1);
+    if (storageData.step === 0) {
+      setStorageData({ ...storageData, step: 1 });
+    } else if (storageData.step === 1) {
+      setStorageData({ ...storageData, step: storageData.step2 });
+    } else if (
+      storageData.step === 2 ||
+      storageData.step === 3 ||
+      storageData.step === 4
+    ) {
+      setStorageData({ ...storageData, step: 5 });
     }
-
-    localStorage.setItem("test", JSON.stringify(storageData));
   };
 
   const conditionModalHandler = () => {
-    if (registIndex === 5) {
+    if (storageData.step === 5) {
       setConditionModal(true);
     }
   };
@@ -82,11 +98,7 @@ function StepBtn({
         className="bottom_modal"
         ariaHideApp={false}
       >
-        <ConditionModal
-          setConditionModal={setConditionModal}
-          setRegistIndex={setRegistIndex}
-          setStep={setStep}
-        />
+        <ConditionModal setConditionModal={setConditionModal} />
       </Modal>
       <StepBtnWrap>
         <div>
@@ -110,7 +122,7 @@ function StepBtn({
               conditionModalHandler();
             }}
           >
-            {registIndex === 5 ? "약관동의" : "다음"}
+            {storageData.step === 5 ? "약관동의" : "다음"}
           </MainBtn>
         </div>
       </StepBtnWrap>

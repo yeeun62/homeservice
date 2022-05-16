@@ -28,8 +28,12 @@ function RegistPage({
   storageData,
   setStorageData,
 }: RegistPageProps) {
-  const [registIndex, setRegistIndex] = useState<number>(0);
   const [activate, setActivate] = useState<boolean>(false);
+
+  useEffect(() => {
+    localStorage.setItem(storageData.id, JSON.stringify(storageData));
+    console.log("dd");
+  }, [storageData]);
 
   return (
     <>
@@ -56,16 +60,15 @@ function RegistPage({
               setStorageData={setStorageData}
             />,
             <Step4 setActivate={setActivate} setStorageData={setStorageData} />,
-          ][registIndex]
+          ][storageData.step]
         }
       </PageWrap>
       <StepBtn
         step={step}
         setStep={setStep}
         activate={activate}
-        registIndex={registIndex}
-        setRegistIndex={setRegistIndex}
         storageData={storageData}
+        setStorageData={setStorageData}
       />
     </>
   );
