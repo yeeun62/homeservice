@@ -19,28 +19,17 @@ const AppWrap = styled.div`
 `;
 
 export interface StorageType {
-  test: {
-    main: string; // 추후에 디비키로
-    step1: { name: string; mobile: string };
-    step2: number; // 2or 3or 4
-    step3: any; //step에 따라서
-    step4: { bank: string; name: string; account: string };
-    step: number;
-  };
+  id: string;
+  main: string; // 추후에 디비키로
+  step1: { name: string; mobile: string };
+  step2: number; // 2or 3or 4
+  step3: any; //step에 따라서
+  step4: { bank: string; name: string; account: string };
+  step: number;
 }
 
 function App() {
   const [step, setStep] = useState<number>(1);
-  const [storageData, setStorageData] = useState<any>({
-    test: {
-      main: "현금", // 추후에 디비키로
-      step1: { name: "이름", mobile: "01011111111" },
-      step2: 0, // 2or 3or 4
-      step3: "", //step에 따라서
-      step4: { bank: "국민", name: "이름", account: "123-123" },
-      step: 4,
-    },
-  });
   const [data, setData] = useState({
     id: "test",
     topDesc:
@@ -59,6 +48,18 @@ function App() {
       "이전비는 차액 발생 시 계좌로 환급해드립니다.",
     ],
   });
+  const [storageData, setStorageData] = useState<any>({
+    main: "현금", // 추후에 디비키로
+    step1: { name: "이름", mobile: "01011111111" },
+    step2: 0, // 2or 3or 4
+    step3: "", //step에 따라서
+    step4: { bank: "국민", name: "이름", account: "123123" },
+    step: 4,
+  });
+
+  useEffect(() => {
+    localStorage.setItem(data.id, JSON.stringify(storageData));
+  }, []);
 
   return (
     <StrictMode>

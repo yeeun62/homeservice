@@ -59,6 +59,15 @@ function Step2({
     }
   }, [choice]);
 
+  useEffect(() => {}, []);
+
+  const storageHandler = (index: number) => {
+    setStorageData((prevState) => ({
+      ...prevState,
+      step2: index,
+    }));
+  };
+
   return (
     <>
       <RegistTitle>명의자 유형을 선택해 주세요</RegistTitle>
@@ -66,7 +75,10 @@ function Step2({
         <RegistTypeBtn
           key={type}
           choice={choice === index && true}
-          onClick={() => setChoice(index)}
+          onClick={() => {
+            setChoice(index);
+            storageHandler(index);
+          }}
         >
           {type}
         </RegistTypeBtn>
