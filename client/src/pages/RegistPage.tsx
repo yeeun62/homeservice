@@ -29,14 +29,7 @@ function RegistPage({
   setStorageData,
 }: RegistPageProps) {
   const [registIndex, setRegistIndex] = useState<number>(0);
-  const [activat, setActivat] = useState<boolean>(false);
-  const [choice, setChoice] = useState<number>(-1);
   const [activate, setActivate] = useState<boolean>(false);
-
-  useEffect(() => {
-    setChoice(-1);
-    setActivat(false);
-  }, [registIndex]);
 
   return (
     <>
@@ -46,10 +39,8 @@ function RegistPage({
           [
             <Step1 setActivate={setActivate} setStorageData={setStorageData} />,
             <Step2
-              setActivat={setActivat}
-              choice={choice}
-              setChoice={setChoice}
               setActivate={setActivate}
+              storageData={storageData}
               setStorageData={setStorageData}
             />,
             <Step3_1
@@ -71,8 +62,7 @@ function RegistPage({
       <StepBtn
         step={step}
         setStep={setStep}
-        activat={activat}
-        choice={choice}
+        activate={activate}
         registIndex={registIndex}
         setRegistIndex={setRegistIndex}
         storageData={storageData}

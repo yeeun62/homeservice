@@ -76,7 +76,7 @@ function Pay({
               : "1px solid #ededed"
           }`}
           color={`${payWay.btn1 ? "#0740E4" : "#707070"}`}
-          activat={true}
+          activate={true}
           onClick={() => setPayWay({ btn1: true, btn2: false })}
           style={{ marginRight: "8px" }}
         >
@@ -91,7 +91,7 @@ function Pay({
               : "1px solid #ededed"
           }`}
           color={`${payWay.btn2 ? "#0740E4" : "#707070"}`}
-          activat={true}
+          activate={true}
           onClick={() => setPayWay({ btn1: false, btn2: true })}
         >
           현금 + 할부

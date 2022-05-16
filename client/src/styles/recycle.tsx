@@ -48,7 +48,7 @@ export const MainBtn = styled.button<{
   backgrondColor: string;
   color: string;
   border: string;
-  activat: boolean;
+  activate: boolean;
 }>`
   background-color: ${(props) => props.backgrondColor};
   color: ${(props) => props.color};
@@ -69,7 +69,7 @@ export const MainBtn = styled.button<{
   }
 
   ${(props) =>
-    !props.activat &&
+    !props.activate &&
     css`
       opacity: 30%;
     `}
