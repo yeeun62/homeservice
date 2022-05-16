@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { MainBtn, RegistTitle } from "../../styles/recycle";
+import { StorageType } from "../../App";
 
 const PayWrap = styled.div`
   padding-bottom: 32px;
@@ -55,13 +56,11 @@ const PayWrap = styled.div`
 `;
 
 function Pay({
-  payWay,
-  setPayWay,
+  storageData,
+  setStorageData,
 }: {
-  payWay: { btn1: boolean; btn2: boolean };
-  setPayWay: React.Dispatch<
-    React.SetStateAction<{ btn1: boolean; btn2: boolean }>
-  >;
+  storageData: StorageType;
+  setStorageData: React.Dispatch<React.SetStateAction<StorageType>>;
 }) {
   return (
     <PayWrap>
@@ -69,41 +68,49 @@ function Pay({
       <div>
         <MainBtn
           type="button"
-          backgrondColor={`${payWay.btn1 ? "rgba(7, 64, 228, 0.03)" : "#fff"}`}
+          backgrondColor={`${
+            storageData.main === "현금" ? "rgba(7, 64, 228, 0.03)" : "#fff"
+          }`}
           border={`${
-            payWay.btn1
+            storageData.main === "현금"
               ? "1px solid rgba(7, 64, 228, 0.1)"
               : "1px solid #ededed"
           }`}
-          color={`${payWay.btn1 ? "#0740E4" : "#707070"}`}
-          activat={true}
-          onClick={() => setPayWay({ btn1: true, btn2: false })}
+          color={`${storageData.main === "현금" ? "#0740E4" : "#707070"}`}
+          activate={true}
+          onClick={() => {
+            setStorageData({ ...storageData, main: "현금" });
+          }}
           style={{ marginRight: "8px" }}
         >
           현금
         </MainBtn>
         <MainBtn
           type="button"
-          backgrondColor={`${payWay.btn2 ? "rgba(7, 64, 228, 0.03)" : "#fff"}`}
+          backgrondColor={`${
+            storageData.main === "현금+할부" ? "rgba(7, 64, 228, 0.03)" : "#fff"
+          }`}
           border={`${
-            payWay.btn2
+            storageData.main === "현금+할부"
               ? "1px solid rgba(7, 64, 228, 0.1)"
               : "1px solid #ededed"
           }`}
-          color={`${payWay.btn2 ? "#0740E4" : "#707070"}`}
-          activat={true}
-          onClick={() => setPayWay({ btn1: false, btn2: true })}
+          color={`${storageData.main === "현금+할부" ? "#0740E4" : "#707070"}`}
+          activate={true}
+          onClick={() => {
+            setStorageData({ ...storageData, main: "현금+할부" });
+          }}
         >
           현금 + 할부
         </MainBtn>
       </div>
       <ul>
-        {payWay.btn1 && (
+        {storageData.main === "현금" && (
           <li className="pay_li">
             <div></div>결제를 위한 이체 한도를 미리 확인해 주세요.
           </li>
         )}
-        {payWay.btn2 && (
+        {storageData.main === "현금+할부" && (
           <>
             <li>
               <div></div>

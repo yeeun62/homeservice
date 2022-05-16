@@ -49,7 +49,7 @@ function App() {
     ],
   });
   const [storageData, setStorageData] = useState<any>({
-    main: "현금", // 추후에 디비키로
+    main: "", // 추후에 디비키로
     step1: { name: "이름", mobile: "01011111111" },
     step2: 0, // 2or 3or 4
     step3: "", //step에 따라서
@@ -58,7 +58,12 @@ function App() {
   });
 
   useEffect(() => {
-    localStorage.setItem(data.id, JSON.stringify(storageData));
+    let localData = localStorage.getItem(data.id);
+    if (localData) {
+      setStorageData(JSON.parse(localData));
+    } else {
+      localStorage.setItem(data.id, JSON.stringify(storageData));
+    }
   }, []);
 
   return (
