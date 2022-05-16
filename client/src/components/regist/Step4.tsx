@@ -3,8 +3,9 @@ import Modal from "react-modal";
 import "../../modal/modal.css";
 import { RegistTitle, RegistForm } from "../../styles/recycle";
 import BankModal from "../../modal/BankModal";
+import { ActiveProps } from "../../pages/RegistPage";
 
-function Step4() {
+function Step4({ setActivate }: ActiveProps) {
   const [bankModal, setBankModal] = useState<boolean>(false);
 
   return (

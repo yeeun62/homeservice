@@ -28,6 +28,13 @@ const BankModalWrap = styled.div`
   .bank_list {
     height: 275px;
     overflow: scroll;
+    overflow: auto;
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    ::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   .bank_close {
