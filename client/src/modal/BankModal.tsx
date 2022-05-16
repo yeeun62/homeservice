@@ -29,6 +29,7 @@ const BankModalWrap = styled.div`
     height: 275px;
     overflow: scroll;
     overflow: auto;
+    cursor: pointer;
 
     -ms-overflow-style: none;
     scrollbar-width: none;
