@@ -170,6 +170,7 @@ export const RegistForm = styled.form`
 
       div {
         display: flex;
+        cursor: pointer;
 
         img {
           width: 16px;

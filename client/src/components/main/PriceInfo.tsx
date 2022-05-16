@@ -48,9 +48,9 @@ const PriceWrap = styled.div`
 
       .price_arrow {
         position: absolute;
-        top: 40%;
-        width: 9px;
-        height: 3px;
+        top: 30%;
+        width: 12px;
+        height: 12px;
         margin-left: 7px;
       }
 
@@ -73,8 +73,8 @@ const PriceWrap = styled.div`
               width: 16px;
               height: 16px;
               position: absolute;
-              top: 0%;
-              left: 100px;
+              top: 2px;
+              left: 104px;
             }
 
             .main_tooltip {
@@ -114,6 +114,8 @@ const PriceWrap = styled.div`
   }
 
   .list_style {
+    padding: 0 16px;
+
     li {
       display: block;
       list-style-position: inside;
@@ -178,7 +180,7 @@ function PriceInfo({ price, desc6 }: any) {
                 src="./img/w_icon_down_large.svg"
                 alt="부대비용"
                 className="price_arrow"
-                style={open ? { transform: "rotate(180deg)" } : {}}
+                style={priceOpen ? { transform: "rotate(180deg)" } : {}}
               />
             </p>
             <span className="price_list_value">1,530,000원</span>
@@ -194,7 +196,7 @@ function PriceInfo({ price, desc6 }: any) {
                 <div className="more_price_title">
                   <span style={{ color: "#a7a7a7" }}>ㄴ관리비용(매도비)</span>
                   <img
-                    src="./img/w_icon_question_gray.png"
+                    src="./img/w_icon_question_medium_gray.svg"
                     alt="물음표"
                     onMouseEnter={() => setTooltip(true)}
                     onMouseLeave={() => setTooltip(false)}

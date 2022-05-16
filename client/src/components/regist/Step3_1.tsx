@@ -1,8 +1,33 @@
 import { useState } from "react";
+import styled from "styled-components";
 import { RegistTitle, RegistForm, RegistSubBtn } from "../../styles/recycle";
+
+const PublicCheck = styled.div`
+  margin-top: 68px;
+  cursor: pointer;
+
+  div {
+    display: flex;
+  }
+
+  img {
+    width: 20px;
+    height: 20px;
+    margin-right: 6px;
+  }
+
+  p {
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 18px;
+    letter-spacing: -0.02em;
+    color: #707070;
+  }
+`;
 
 function Step3_1() {
   const [check, setCheck] = useState<boolean>(false);
+  const [publicCheck, setPublicCheck] = useState<boolean>(false);
 
   return (
     <>
@@ -59,6 +84,19 @@ function Step3_1() {
             </div>
           </div>
         </label>
+        <PublicCheck>
+          <div onClick={() => setPublicCheck(!publicCheck)}>
+            <img
+              src={`./img/${
+                publicCheck
+                  ? "icon_checkbox_large_blue.svg"
+                  : "icon_checkbox_large_gray.svg"
+              }`}
+              alt="체크박스 이미지"
+            />
+            <p>공동 명의를 원해요</p>
+          </div>
+        </PublicCheck>
       </RegistForm>
     </>
   );
