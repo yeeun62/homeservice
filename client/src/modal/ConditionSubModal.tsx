@@ -1,32 +1,39 @@
 import styled from "styled-components";
-import { stickTop } from "../styles/recycle";
+import { stickTop, PageWrap } from "../styles/recycle";
 import { SubModal } from "./ConditionModal";
 
-const ConditionSubModalHeader = styled(stickTop)`
-  img {
-    width: 32px;
-    height: 32px;
-  }
+const ConditionSubWrap = styled(PageWrap)`
+	height: 100vh;
+	z-index: 500;
+	background: #fff;
 `;
 
-function ConditionSubModal({
-  title,
-  content,
-  setSubModal,
-}: {
-  title: string;
-  content: any;
-  setSubModal: React.Dispatch<React.SetStateAction<SubModal>>;
-}) {
-  return (
-    <div>
-      <ConditionSubModalHeader>
-        <img src="./img/icon_navigation_back_black.svg" alt="약관 뒤로 가기" />
-        <span>{title}</span>
-      </ConditionSubModalHeader>
-      {content}
-    </div>
-  );
+const ConditionSubModalHeader = styled(stickTop)`
+	img {
+		width: 32px;
+		height: 32px;
+	}
+`;
+
+interface SubModalProp {
+	subModal: SubModal;
+	setSubModal: React.Dispatch<React.SetStateAction<SubModal>>;
+}
+
+function ConditionSubModal({ subModal, setSubModal }: SubModalProp) {
+	return (
+		<ConditionSubWrap>
+			<ConditionSubModalHeader>
+				<img
+					src="./img/icon_navigation_back_black.svg"
+					alt="약관 뒤로 가기"
+					onClick={() => setSubModal({ ...subModal, open: false })}
+				/>
+				<span>{subModal.title}</span>
+			</ConditionSubModalHeader>
+			{subModal.content}
+		</ConditionSubWrap>
+	);
 }
 
 export default ConditionSubModal;
