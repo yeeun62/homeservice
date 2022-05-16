@@ -96,15 +96,9 @@ export interface SubModal {
 
 interface ConditionProps {
   setConditionModal: React.Dispatch<React.SetStateAction<boolean>>;
-  setRegistIndex: React.Dispatch<React.SetStateAction<number>>;
-  setStep: React.Dispatch<React.SetStateAction<number>>;
 }
 
-function ConditionModal({
-  setConditionModal,
-  setRegistIndex,
-  setStep,
-}: ConditionProps) {
+function ConditionModal({ setConditionModal }: ConditionProps) {
   type CkType = {
     [index: string]: boolean;
   };
@@ -181,8 +175,6 @@ function ConditionModal({
 
   function CompleteHandler() {
     if (isChecked.all) {
-      setRegistIndex(0);
-      setStep(1);
       navigate("/complete");
     }
     return;

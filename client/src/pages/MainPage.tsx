@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import Header from "../components/Header";
 import { PageWrap, MainBtn, Footer } from "../styles/recycle";
 import Introduce from "../components/main/Introduce";
@@ -28,7 +28,7 @@ function MainPage({
   };
 
   useEffect(() => {
-    if (!storageData.main) {
+    if (storageData.main === "") {
       return;
     } else {
       scrollDown();
@@ -37,7 +37,7 @@ function MainPage({
 
   function setStorage(): void {
     if (storageData.main) {
-      localStorage.setItem("test", JSON.stringify(storageData));
+      localStorage.setItem("test", JSON.stringify({ ...storageData, step: 1 }));
       navigate("/regist");
     }
   }

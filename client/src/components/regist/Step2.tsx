@@ -49,6 +49,7 @@ function Step2({ setActivate, setStorageData, storageData }: Step2Props) {
     setStorageData((prevState) => ({
       ...prevState,
       step2: index,
+      // step: index,
     }));
     setActivate(true);
   };
