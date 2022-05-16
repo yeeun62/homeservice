@@ -1,7 +1,14 @@
 import { RegistTitle, RegistSubBtn, RegistForm } from "../../styles/recycle";
 import { ActiveProps } from "../../pages/RegistPage";
+import { useState } from "react";
 
 function Step1({ setActivate, setStorageData }: ActiveProps) {
+  const [validation, setValidation] = useState({
+    name: false,
+    mobile: false,
+    mobileAuth: false,
+  });
+
   return (
     <>
       <RegistTitle>신청자 정보를 입력해 주세요</RegistTitle>
