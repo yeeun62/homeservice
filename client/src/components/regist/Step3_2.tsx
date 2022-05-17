@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   RegistTitle,
   RegistForm,
@@ -9,7 +9,7 @@ import {
 import { ActiveProps } from "../../pages/RegistPage";
 
 function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
-  const [check, setCheck] = useState({ name: false, adress: false });
+  const [check, setCheck] = useState({ name: false, address: false });
   const [tooltip, setTooltip] = useState<boolean>(false);
   const step3 = storageData.step3;
 
