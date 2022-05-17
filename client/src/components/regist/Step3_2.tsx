@@ -19,13 +19,23 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
     });
     if (isActivate.length > 6 && step3.mobile.toString().length === 11) {
       setActivate(true);
+    } else {
+      setActivate(false);
     }
-  }, [storageData.step3]);
+  }, [step3]);
 
   function validationHandler(
     e: React.ChangeEvent<HTMLInputElement>,
     key: string
   ) {
+    if (
+      (key === "mobile" && e.target.value.length <= 11) ||
+      key === "buisnessNumer"
+    ) {
+      e.target.value = e.target.value.replace(/[^0-9]/g, "");
+    } else if (key === "mobile") {
+      return;
+    }
     setStorageData({
       ...storageData,
       step3: { ...step3, [key]: e.target.value },
@@ -117,31 +127,8 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
               type="text"
               placeholder="숫자만 입력해주세요"
               value={step3.mobile}
-              readOnly
-              onKeyDown={(e: any) => {
-                setCheck({ ...check, name: false });
-                if (
-                  Number(e.key) >= 0 &&
-                  Number(e.key) <= 9 &&
-                  step3.mobile.length <= 10
-                ) {
-                  setStorageData({
-                    ...storageData,
-                    step3: {
-                      ...step3,
-                      mobile: step3.mobile + e.key,
-                    },
-                  });
-                } else if (e.key === "Backspace") {
-                  setStorageData({
-                    ...storageData,
-                    step3: {
-                      ...step3,
-                      mobile: step3.mobile.slice(0, -1),
-                    },
-                  });
-                }
-                return false;
+              onChange={(e) => {
+                validationHandler(e, "mobile");
               }}
             />
           </div>

@@ -45,6 +45,14 @@ interface Step2Props {
 function Step2({ setActivate, setStorageData, storageData }: Step2Props) {
   const registType = ["개인", "개인사업자", "법인사업자"];
 
+  useEffect(() => {
+    if (storageData.step2) {
+      setActivate(true);
+    } else {
+      setActivate(false);
+    }
+  }, [storageData.step2]);
+
   const storageHandler = (index: number) => {
     if (index === 2) {
       setStorageData((prevState) => ({
