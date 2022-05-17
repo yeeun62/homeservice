@@ -3,41 +3,21 @@ import { ActiveProps } from "../../pages/RegistPage";
 import { useState, useEffect } from "react";
 
 function Step1({ setActivate, setStorageData, storageData }: ActiveProps) {
-  const [validation, setValidation] = useState<{
-    name: string;
-    mobile: string;
-    mobileAuth: string;
-  }>({
-    name: "",
-    mobile: "",
+  const [validation, setValidation] = useState<{ mobileAuth: string }>({
     mobileAuth: "",
   });
 
   useEffect(() => {
     if (
-      validation.name &&
-      validation.mobile.length === 11 &&
+      storageData.step1.name &&
+      storageData.step1.mobile.length === 11 &&
       validation.mobileAuth === ""
     ) {
       setActivate(true);
-      setStorageData((prevState) => ({
-        ...prevState,
-        step1: { name: validation.name, mobile: validation.mobile },
-      }));
     } else {
       setActivate(false);
     }
-  }, [validation]);
-
-  useEffect(() => {
-    if (storageData.step1.name !== "") {
-      setValidation({
-        ...validation,
-        name: storageData.step1.name,
-        mobile: storageData.step1.mobile,
-      });
-    }
-  }, []);
+  }, [validation, storageData]);
 
   return (
     <>
@@ -48,10 +28,13 @@ function Step1({ setActivate, setStorageData, storageData }: ActiveProps) {
           <div className="input_div">
             <input
               type="text"
-              value={validation.name}
+              value={storageData.step1.name}
               placeholder="실명을 입력해주세요"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setValidation({ ...validation, name: e.target.value })
+                setStorageData({
+                  ...storageData,
+                  step1: { ...storageData.step1, name: e.target.value },
+                })
               }
             />
           </div>
@@ -63,22 +46,28 @@ function Step1({ setActivate, setStorageData, storageData }: ActiveProps) {
               <input
                 type="text"
                 placeholder="숫자만 입력해주세요"
-                value={validation.mobile}
+                value={storageData.step1.mobile}
                 readOnly
                 onKeyDown={(e: any) => {
                   if (
                     Number(e.key) >= 0 &&
                     Number(e.key) <= 9 &&
-                    validation.mobile.length <= 10
+                    storageData.step1.mobile.length <= 10
                   ) {
-                    setValidation({
-                      ...validation,
-                      mobile: validation.mobile + e.key,
+                    setStorageData({
+                      ...storageData,
+                      step1: {
+                        ...storageData.step1,
+                        mobile: storageData.step1.mobile + e.key,
+                      },
                     });
                   } else if (e.key === "Backspace") {
-                    setValidation({
-                      ...validation,
-                      mobile: validation.mobile.slice(0, -1),
+                    setStorageData({
+                      ...storageData,
+                      step1: {
+                        ...storageData.step1,
+                        mobile: storageData.step1.mobile.slice(0, -1),
+                      },
                     });
                   }
                   return false;
@@ -87,7 +76,7 @@ function Step1({ setActivate, setStorageData, storageData }: ActiveProps) {
             </div>
             <RegistSubBtn
               backgrondColor={`${
-                validation.mobile.length < 11 ? "#C2C2C2" : "#0740E4"
+                storageData.step1.mobile.length < 11 ? "#C2C2C2" : "#0740E4"
               }`}
             >
               인증번호 전송
@@ -99,6 +88,9 @@ function Step1({ setActivate, setStorageData, storageData }: ActiveProps) {
                 className="input_margin_top"
                 type="text"
                 placeholder="인증번호를 입력해주세요"
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setValidation({ ...validation, mobileAuth: e.target.value })
+                }
               />
             </div>
             <p className="valid_time">03:00</p>
