@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { RegistTitle, RegistForm, RegistSubBtn } from "../../styles/recycle";
 import { ActiveProps } from "../../pages/RegistPage";
@@ -27,48 +27,43 @@ const PublicCheck = styled.div`
 `;
 
 function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
-
-interface Step3_2Nominee {
-  name: string | boolean;
-  mobile: string | boolean;
-  postCode: string | boolean;
-}
-
-interface Step3_2Business {
-  name: string | boolean;
-  postCode: string | boolean;
-  businessNumber: string | boolean;
-  billEmail: string | boolean;
-}
-
-interface Step3_2Validation {
-  nominee: Step3_2Nominee;
-  business: Step3_2Business;
-  public: boolean;
-}
-  
   const [check, setCheck] = useState({ name: false, adress: false });
-  const [publicCheck, setPublicCheck] = useState<boolean>(false);
-  const [validation, setValidation] = useState<Step3_2Validation>({
-    nominee: {
-      name: false,
-      mobile: false,
-      postCode: false,
-    },
-    business: {
-      name: false,
-      postCode: false,
-      businessNumber: false,
-      billEmail: false,
-    },
-    public: false,
-  });
+  const step3 = storageData.step3;
+
+  // useEffect(() => {
+  //   if()
+  // }, [])
+
+  // useEffect 는 사라질 거
+  // useEffect(() => {
+  //   if (storageData.step3 === "") {
+  //     setStorageData({
+  //       ...storageData,
+  //       step3: {
+  //         name: "",
+  //         mobile: "",
+  //         address: "",
+  //         detailAddress: "",
+  //         name2: "",
+  //         address2: "",
+  //         detailAddress3: "",
+  //         buisnessNumer: "",
+  //         email: "",
+  //         public: "",
+  //       },
+  //     });
+  //   }
+  // }, []);
 
   function validationHandler(
     e: React.ChangeEvent<HTMLInputElement>,
-    key1: string,
-    key2: string
-  ) {}
+    key: string
+  ) {
+    setStorageData({
+      ...storageData,
+      step3: { ...step3, [key]: e.target.value },
+    });
+  }
 
   return (
     <>
@@ -99,7 +94,8 @@ interface Step3_2Validation {
             <input
               type="text"
               placeholder="실명을 입력해주세요"
-              onChange={(e) => validationHandler(e, "nominee", "name")}
+              value={step3.name}
+              onChange={(e) => validationHandler(e, "name")}
             />
           </div>
         </label>
@@ -119,7 +115,12 @@ interface Step3_2Validation {
           </p>
           <div className="flex_form">
             <div className="input_div">
-              <input type="text" placeholder="주소를 검색해주세요" />
+              <input
+                type="text"
+                placeholder="주소를 검색해주세요"
+                readOnly
+                value={step3.address}
+              />
             </div>
             <RegistSubBtn backgrondColor="#0740E4">주소 검색</RegistSubBtn>
           </div>
@@ -129,6 +130,8 @@ interface Step3_2Validation {
                 className="input_margin_top"
                 type="text"
                 placeholder="상세주소를 입력해주세요"
+                value={step3.detailAddress}
+                onChange={(e) => validationHandler(e, "detailAddress")}
               />
             </div>
           </div>
@@ -143,7 +146,12 @@ interface Step3_2Validation {
         <label>
           <p>사업장명</p>
           <div className="input_div">
-            <input type="text" placeholder="사업장 이름을 입력해주세요" />
+            <input
+              type="text"
+              placeholder="사업장 이름을 입력해주세요"
+              value={step3.name2}
+              onChange={(e) => validationHandler(e, "name2")}
+            />
           </div>
         </label>
         <label>
@@ -163,7 +171,12 @@ interface Step3_2Validation {
           </div>
           <div className="flex_form">
             <div className="input_div">
-              <input type="text" placeholder="주소를 검색해주세요" />
+              <input
+                type="text"
+                placeholder="주소를 검색해주세요"
+                readOnly
+                value={step3.address2}
+              />
             </div>
             <RegistSubBtn backgrondColor="#0740E4">주소 검색</RegistSubBtn>
           </div>
@@ -173,6 +186,8 @@ interface Step3_2Validation {
                 className="input_margin_top"
                 type="text"
                 placeholder="상세주소를 입력해주세요"
+                value={step3.detailAddress2}
+                onChange={(e) => validationHandler(e, "detailAddress2")}
               />
             </div>
           </div>
@@ -180,20 +195,37 @@ interface Step3_2Validation {
         <label>
           <p>사업자 등록번호</p>
           <div className="input_div">
-            <input type="text" placeholder="숫자만 입력해주세요" />
+            <input
+              type="text"
+              placeholder="숫자만 입력해주세요"
+              value={step3.buisnessNumer}
+              onChange={(e) => validationHandler(e, "buisnessNumer")}
+            />
           </div>
         </label>
         <label>
           <p>세금계산서 발행 이메일 주소</p>
           <div className="input_div">
-            <input type="text" placeholder="help@charancha.com" />
+            <input
+              type="text"
+              placeholder="help@charancha.com"
+              value={step3.email}
+              onChange={(e) => validationHandler(e, "email")}
+            />
           </div>
         </label>
         <PublicCheck>
-          <div onClick={() => setPublicCheck(!publicCheck)}>
+          <div
+            onClick={() =>
+              setStorageData({
+                ...storageData,
+                step3: { ...step3, publick: !step3.public },
+              })
+            }
+          >
             <img
               src={`./img/${
-                publicCheck
+                step3.public
                   ? "icon_checkbox_large_blue.svg"
                   : "icon_checkbox_large_gray.svg"
               }`}
