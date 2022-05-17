@@ -31,14 +31,13 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
   const [check, setCheck] = useState<boolean>(false);
 
   useEffect(() => {
-    // 조건은 다시 하기
     if (storageData.step3 === "") {
       setStorageData({
         ...storageData,
         step3: { name: "", moble: "", postCode: "" },
       });
     }
-
+    // 조건은 다시 하기
     if (step3.name && step3.mobile && step3.postCode) {
       setActivate(true);
     }

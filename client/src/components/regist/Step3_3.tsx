@@ -1,10 +1,47 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { RegistTitle, RegistForm, RegistSubBtn } from "../../styles/recycle";
 import { ActiveProps } from "../../pages/RegistPage";
 
 function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
-  const [check, setCheck] = useState({ name: false, adress: false });
+  const [check, setCheck] = useState<boolean>(false);
+  const step3 = storageData.step3;
 
+  useEffect(() => {
+    let isActivate = Object.values(step3).filter((data: any) => {
+      if (data.length > 0) return data;
+    });
+    if (isActivate.length > 6 && step3.mobile.toString().length === 11) {
+      setActivate(true);
+    }
+  }, [storageData.step3]);
+
+  function validationHandler(
+    e: React.ChangeEvent<HTMLInputElement>,
+    key: string
+  ) {
+    setStorageData({
+      ...storageData,
+      step3: { ...step3, [key]: e.target.value },
+    });
+  }
+
+  function equalRegister(b: boolean) {
+    if (b) {
+      setStorageData({
+        ...storageData,
+        step3: {
+          ...step3,
+          name: storageData.step1.name,
+          mobile: storageData.step1.mobile,
+        },
+      });
+    } else {
+      setStorageData({
+        ...storageData,
+        step3: { ...step3, name: "", mobile: "" },
+      });
+    }
+  }
   return (
     <>
       <RegistTitle>법인 사업자 정보를 입력해 주세요</RegistTitle>
@@ -18,10 +55,15 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
         <label>
           <div className="flex_check">
             <p>대표자명</p>
-            <div onClick={() => setCheck({ ...check, name: !check.name })}>
+            <div
+              onClick={() => {
+                setCheck(!check);
+                equalRegister(!check);
+              }}
+            >
               <img
                 src={`./img/${
-                  check.name
+                  check
                     ? "icon_checkbox_large_blue.svg"
                     : "icon_checkbox_large_gray.svg"
                 }`}
@@ -31,20 +73,59 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
             </div>
           </div>
           <div className="input_div">
-            <input type="text" placeholder="실명을 입력해주세요" />
+            <input
+              type="text"
+              placeholder="실명을 입력해주세요"
+              value={step3.name}
+              onChange={(e) => {
+                validationHandler(e, "name");
+                setCheck(false);
+              }}
+            />
           </div>
         </label>
         <label>
           <p>휴대전화 번호</p>
           <div className="input_div">
-            <input type="text" placeholder="숫자만 입력해주세요" />
+            <input
+              type="text"
+              placeholder="숫자만 입력해주세요"
+              value={step3.mobile}
+              readOnly
+              onKeyDown={(e: any) => {
+                setCheck(false);
+                if (
+                  Number(e.key) >= 0 &&
+                  Number(e.key) <= 9 &&
+                  step3.mobile.length <= 10
+                ) {
+                  setStorageData({
+                    ...storageData,
+                    step3: {
+                      ...step3,
+                      mobile: step3.mobile + e.key,
+                    },
+                  });
+                } else if (e.key === "Backspace") {
+                  setStorageData({
+                    ...storageData,
+                    step3: {
+                      ...step3,
+                      mobile: step3.mobile.slice(0, -1),
+                    },
+                  });
+                }
+                return false;
+              }}
+            />
           </div>
         </label>
+
         <label>
           <p>사업장 주소</p>
           <div className="flex_form">
             <div className="input_div">
-              <input type="text" placeholder="주소를 검색해주세요" />
+              <input type="text" placeholder="주소를 검색해주세요" readOnly />
             </div>
             <RegistSubBtn backgrondColor="#0740E4">주소 검색</RegistSubBtn>
           </div>
@@ -54,10 +135,13 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
                 className="input_margin_top"
                 type="text"
                 placeholder="상세주소를 입력해주세요"
+                value={step3.detailAddress}
+                onChange={(e) => validationHandler(e, "detailAddress")}
               />
             </div>
           </div>
         </label>
+        {/* =================== 사업자 정보 ==================== */}
         <div className="step_info">
           <div className="info_number">
             <p>2</p>
@@ -67,19 +151,34 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
         <label>
           <p>법인명</p>
           <div className="input_div">
-            <input type="text" placeholder="법인명 이름을 입력해주세요" />
+            <input
+              type="text"
+              placeholder="법인명 이름을 입력해주세요"
+              value={step3.name2}
+              onChange={(e) => validationHandler(e, "name2")}
+            />
           </div>
         </label>
         <label>
           <p>사업자 등록번호</p>
           <div className="input_div">
-            <input type="text" placeholder="숫자만 입력해주세요" />
+            <input
+              type="text"
+              placeholder="숫자만 입력해주세요"
+              value={step3.buisnessNumer}
+              onChange={(e) => validationHandler(e, "buisnessNumer")}
+            />
           </div>
         </label>
         <label>
           <p>세금계산서 발행 이메일 주소</p>
           <div className="input_div">
-            <input type="text" placeholder="help@charancha.com" />
+            <input
+              type="text"
+              placeholder="help@charancha.com"
+              value={step3.email}
+              onChange={(e) => validationHandler(e, "email")}
+            />
           </div>
         </label>
       </RegistForm>
