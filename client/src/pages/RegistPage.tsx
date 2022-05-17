@@ -34,7 +34,7 @@ function RegistPage({
     if (storageData.main !== "") {
       localStorage.setItem(storageData.id, JSON.stringify(storageData));
     }
-  }, [storageData]);
+  }, [storageData.step]);
 
   return (
     <>
@@ -51,6 +51,7 @@ function RegistPage({
             <Step3_1
               setActivate={setActivate}
               setStorageData={setStorageData}
+              storageData={storageData}
             />,
             <Step3_2
               setActivate={setActivate}

@@ -26,9 +26,48 @@ const PublicCheck = styled.div`
   }
 `;
 
+interface Step3_2Nominee {
+  name: string | boolean;
+  mobile: string | boolean;
+  postCode: string | boolean;
+}
+
+interface Step3_2Business {
+  name: string | boolean;
+  postCode: string | boolean;
+  businessNumber: string | boolean;
+  billEmail: string | boolean;
+}
+
+interface Step3_2Validation {
+  nominee: Step3_2Nominee;
+  business: Step3_2Business;
+  public: boolean;
+}
+
 function Step3_2({ setActivate, setStorageData }: ActiveProps) {
   const [check, setCheck] = useState({ name: false, adress: false });
   const [publicCheck, setPublicCheck] = useState<boolean>(false);
+  const [validation, setValidation] = useState<Step3_2Validation>({
+    nominee: {
+      name: false,
+      mobile: false,
+      postCode: false,
+    },
+    business: {
+      name: false,
+      postCode: false,
+      businessNumber: false,
+      billEmail: false,
+    },
+    public: false,
+  });
+
+  function validationHandler(
+    e: React.ChangeEvent<HTMLInputElement>,
+    key1: string,
+    key2: string
+  ) {}
 
   return (
     <>
@@ -56,7 +95,11 @@ function Step3_2({ setActivate, setStorageData }: ActiveProps) {
             </div>
           </div>
           <div className="input_div">
-            <input type="text" placeholder="실명을 입력해주세요" />
+            <input
+              type="text"
+              placeholder="실명을 입력해주세요"
+              onChange={(e) => validationHandler(e, "nominee", "name")}
+            />
           </div>
         </label>
         <label>
@@ -89,6 +132,7 @@ function Step3_2({ setActivate, setStorageData }: ActiveProps) {
             </div>
           </div>
         </label>
+        {/* ============================ 사업자 ======================== */}
         <div className="step_info">
           <div className="info_number">
             <p>2</p>

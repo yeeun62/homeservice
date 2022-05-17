@@ -37,7 +37,7 @@ function MainPage({
 
   function setStorage(): void {
     if (storageData.main) {
-      // setStorageData({ ...storageData, step: 0 });
+      setStorageData({ ...storageData, step: 0 });
       localStorage.setItem(
         storageData.id,
         JSON.stringify({ ...storageData, step: 0 })
