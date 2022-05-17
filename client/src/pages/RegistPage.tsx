@@ -20,6 +20,7 @@ interface RegistPageProps {
 export interface ActiveProps {
   setActivate: React.Dispatch<React.SetStateAction<boolean>>;
   setStorageData: React.Dispatch<React.SetStateAction<StorageType>>;
+  storageData: StorageType;
 }
 
 function RegistPage({
@@ -42,7 +43,11 @@ function RegistPage({
       <PageWrap>
         {
           [
-            <Step1 setActivate={setActivate} setStorageData={setStorageData} />,
+            <Step1
+              setActivate={setActivate}
+              setStorageData={setStorageData}
+              storageData={storageData}
+            />,
             <Step2
               setActivate={setActivate}
               storageData={storageData}
@@ -56,12 +61,18 @@ function RegistPage({
             <Step3_2
               setActivate={setActivate}
               setStorageData={setStorageData}
+              storageData={storageData}
             />,
             <Step3_3
               setActivate={setActivate}
               setStorageData={setStorageData}
+              storageData={storageData}
             />,
-            <Step4 setActivate={setActivate} setStorageData={setStorageData} />,
+            <Step4
+              setActivate={setActivate}
+              setStorageData={setStorageData}
+              storageData={storageData}
+            />,
           ][storageData.step]
         }
       </PageWrap>

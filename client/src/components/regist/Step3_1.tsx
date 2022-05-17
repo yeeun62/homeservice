@@ -27,6 +27,7 @@ const PublicCheck = styled.div`
   }
 `;
 
+function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
 type Step3_1Validation = {
   name: string;
   mobile: string;
@@ -37,10 +38,6 @@ type Step3_1Validation = {
 interface Step3_1Prop extends ActiveProps {
   storageData: StorageType;
 }
-
-// onchange event handler 에서 인풋값 입력하고 유효성검사해서 setActivate true로 바꿔주기
-
-function Step3_1({ setActivate, setStorageData, storageData }: Step3_1Prop) {
   const [check, setCheck] = useState<boolean>(false);
   const [validation, setValidation] = useState<Step3_1Validation>({
     name: "",

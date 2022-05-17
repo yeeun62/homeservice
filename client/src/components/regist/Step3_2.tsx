@@ -26,6 +26,8 @@ const PublicCheck = styled.div`
   }
 `;
 
+function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
+
 interface Step3_2Nominee {
   name: string | boolean;
   mobile: string | boolean;
@@ -44,8 +46,7 @@ interface Step3_2Validation {
   business: Step3_2Business;
   public: boolean;
 }
-
-function Step3_2({ setActivate, setStorageData }: ActiveProps) {
+  
   const [check, setCheck] = useState({ name: false, adress: false });
   const [publicCheck, setPublicCheck] = useState<boolean>(false);
   const [validation, setValidation] = useState<Step3_2Validation>({
