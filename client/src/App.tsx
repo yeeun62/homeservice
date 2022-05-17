@@ -44,15 +44,6 @@ function App() {
 
   useEffect(() => {
     if (data) {
-      let localData = localStorage.getItem(data.simpleCar.sellNo);
-      if (localData) {
-        setStorageData(JSON.parse(localData));
-      } else {
-        localStorage.setItem(
-          data.simpleCar.sellNo,
-          JSON.stringify(storageData)
-        );
-      }
       setStorageData({
         id: data.simpleCar.sellNo,
         main: "",
@@ -62,6 +53,17 @@ function App() {
         step4: { bank: "", name: "", account: "" },
         step: 0,
       });
+    }
+    if (data && storageData) {
+      let localData = localStorage.getItem(data.simpleCar.sellNo);
+      if (localData) {
+        setStorageData(JSON.parse(localData));
+      } else {
+        localStorage.setItem(
+          data.simpleCar.sellNo,
+          JSON.stringify(storageData)
+        );
+      }
     }
   }, [data]);
 
@@ -87,12 +89,16 @@ function App() {
             <Route
               path="/regist"
               element={
-                <RegistPage
-                  step={step}
-                  setStep={setStep}
-                  storageData={storageData}
-                  setStorageData={setStorageData}
-                />
+                data && storageData ? (
+                  <RegistPage
+                    step={step}
+                    setStep={setStep}
+                    storageData={storageData}
+                    setStorageData={setStorageData}
+                  />
+                ) : (
+                  <p>로딩</p>
+                )
               }
             />
             <Route path="/complete" element={<CompletePage data={data} />} />

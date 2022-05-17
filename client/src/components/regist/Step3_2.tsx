@@ -1,59 +1,17 @@
-import { useEffect, useState } from "react";
-import styled from "styled-components";
-import { RegistTitle, RegistForm, RegistSubBtn } from "../../styles/recycle";
+import { useState } from "react";
+import {
+  RegistTitle,
+  RegistForm,
+  RegistSubBtn,
+  PublicCheck,
+  Tooltip,
+} from "../../styles/recycle";
 import { ActiveProps } from "../../pages/RegistPage";
-
-const PublicCheck = styled.div`
-  margin-top: 68px;
-  cursor: pointer;
-
-  div {
-    display: flex;
-  }
-
-  img {
-    width: 20px;
-    height: 20px;
-    margin-right: 6px;
-  }
-
-  p {
-    font-weight: 500;
-    font-size: 15px;
-    line-height: 18px;
-    letter-spacing: -0.02em;
-    color: #707070;
-  }
-`;
 
 function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
   const [check, setCheck] = useState({ name: false, adress: false });
+  const [tooltip, setTooltip] = useState<boolean>(false);
   const step3 = storageData.step3;
-
-  // useEffect(() => {
-  //   if()
-  // }, [])
-
-  // useEffect 는 사라질 거
-  // useEffect(() => {
-  //   if (storageData.step3 === "") {
-  //     setStorageData({
-  //       ...storageData,
-  //       step3: {
-  //         name: "",
-  //         mobile: "",
-  //         address: "",
-  //         detailAddress: "",
-  //         name2: "",
-  //         address2: "",
-  //         detailAddress3: "",
-  //         buisnessNumer: "",
-  //         email: "",
-  //         public: "",
-  //       },
-  //     });
-  //   }
-  // }, []);
 
   function validationHandler(
     e: React.ChangeEvent<HTMLInputElement>,
@@ -105,14 +63,28 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
             <input type="text" placeholder="숫자만 입력해주세요" />
           </div>
         </label>
-        <label>
+        <label style={{ position: "relative" }}>
           <p>
             주민등록주소지
             <img
               src="/img/w_icon_question_medium_gray.svg"
               alt="물음표 이모티콘"
+              style={{ cursor: "pointer" }}
+              onClick={() => setTooltip(!tooltip)}
             />
           </p>
+          {tooltip && (
+            <Tooltip
+              style={{
+                position: "absolute",
+                zIndex: "100",
+                left: "-9px",
+                top: "26px",
+              }}
+            >
+              <div></div>명의자의 등본상 주소지를 입력해 주세요.
+            </Tooltip>
+          )}
           <div className="flex_form">
             <div className="input_div">
               <input
@@ -215,23 +187,29 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
           </div>
         </label>
         <PublicCheck>
-          <div
-            onClick={() =>
-              setStorageData({
-                ...storageData,
-                step3: { ...step3, publick: !step3.public },
-              })
-            }
-          >
-            <img
-              src={`./img/${
-                step3.public
-                  ? "icon_checkbox_large_blue.svg"
-                  : "icon_checkbox_large_gray.svg"
-              }`}
-              alt="체크박스 이미지"
-            />
-            <p>공동 명의를 원해요</p>
+          <div>
+            <div
+              onClick={() =>
+                setStorageData({
+                  ...storageData,
+                  step3: {
+                    ...step3,
+                    public: !storageData.step3.public,
+                  },
+                })
+              }
+              style={{ cursor: "pointer" }}
+            >
+              <img
+                src={`./img/${
+                  step3.public
+                    ? "icon_checkbox_large_blue.svg"
+                    : "icon_checkbox_large_gray.svg"
+                }`}
+                alt="체크박스 이미지"
+              />
+              <p>공동 명의를 원해요</p>
+            </div>
           </div>
         </PublicCheck>
       </RegistForm>

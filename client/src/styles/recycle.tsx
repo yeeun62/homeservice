@@ -360,3 +360,25 @@ export const Tooltip = styled.div`
     }
   }
 `;
+
+export const PublicCheck = styled.div`
+  margin-top: 68px;
+
+  div {
+    display: flex;
+  }
+
+  img {
+    width: 20px;
+    height: 20px;
+    margin-right: 6px;
+  }
+
+  p {
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 18px;
+    letter-spacing: -0.02em;
+    color: #707070;
+  }
+`;
