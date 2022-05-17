@@ -46,10 +46,50 @@ function Step2({ setActivate, setStorageData, storageData }: Step2Props) {
   const registType = ["개인", "개인사업자", "법인사업자"];
 
   const storageHandler = (index: number) => {
-    setStorageData((prevState) => ({
-      ...prevState,
-      step2: index,
-    }));
+    if (index === 2) {
+      setStorageData((prevState) => ({
+        ...prevState,
+        step2: index,
+        step3: {
+          name: "",
+          mobile: "",
+          address: "",
+          detailAddress: "",
+          public: false,
+        },
+      }));
+    } else if (index === 3) {
+      setStorageData((prevState) => ({
+        ...prevState,
+        step2: index,
+        step3: {
+          name: "",
+          mobile: "",
+          address: "",
+          detailAddress: "",
+          name2: "",
+          address2: "",
+          detailAddress2: "",
+          buisnessNumer: "",
+          email: "",
+          public: false,
+        },
+      }));
+    } else if (index === 4) {
+      setStorageData((prevState) => ({
+        ...prevState,
+        step2: index,
+        step3: {
+          name: "",
+          mobile: "",
+          address: "",
+          detailAddress: "",
+          name2: "",
+          buisnessNumer: "",
+          email: "",
+        },
+      }));
+    }
     setActivate(true);
   };
 

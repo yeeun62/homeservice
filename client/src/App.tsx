@@ -6,8 +6,6 @@ import MainPage from "./pages/MainPage";
 import RegistPage from "./pages/RegistPage";
 import CompletePage from "./pages/CompletePage";
 
-// app에서 서버와 통신하여 데이터 받아온 후 다른 페이지로 뿌리기
-
 const AppWrap = styled.div`
   min-width: 360px;
   max-width: 1200px;

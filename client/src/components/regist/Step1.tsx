@@ -3,14 +3,15 @@ import { ActiveProps } from "../../pages/RegistPage";
 import { useState, useEffect } from "react";
 
 function Step1({ setActivate, setStorageData, storageData }: ActiveProps) {
+  const step1 = storageData.step1;
   const [validation, setValidation] = useState<{ mobileAuth: string }>({
     mobileAuth: "",
   });
 
   useEffect(() => {
     if (
-      storageData.step1.name &&
-      storageData.step1.mobile.length === 11 &&
+      step1.name &&
+      step1.mobile.length === 11 &&
       validation.mobileAuth === ""
     ) {
       setActivate(true);
@@ -28,12 +29,12 @@ function Step1({ setActivate, setStorageData, storageData }: ActiveProps) {
           <div className="input_div">
             <input
               type="text"
-              value={storageData.step1.name}
+              value={step1.name}
               placeholder="실명을 입력해주세요"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setStorageData({
                   ...storageData,
-                  step1: { ...storageData.step1, name: e.target.value },
+                  step1: { ...step1, name: e.target.value },
                 })
               }
             />
@@ -52,21 +53,21 @@ function Step1({ setActivate, setStorageData, storageData }: ActiveProps) {
                   if (
                     Number(e.key) >= 0 &&
                     Number(e.key) <= 9 &&
-                    storageData.step1.mobile.length <= 10
+                    step1.mobile.length <= 10
                   ) {
                     setStorageData({
                       ...storageData,
                       step1: {
-                        ...storageData.step1,
-                        mobile: storageData.step1.mobile + e.key,
+                        ...step1,
+                        mobile: step1.mobile + e.key,
                       },
                     });
                   } else if (e.key === "Backspace") {
                     setStorageData({
                       ...storageData,
                       step1: {
-                        ...storageData.step1,
-                        mobile: storageData.step1.mobile.slice(0, -1),
+                        ...step1,
+                        mobile: step1.mobile.slice(0, -1),
                       },
                     });
                   }
@@ -76,7 +77,7 @@ function Step1({ setActivate, setStorageData, storageData }: ActiveProps) {
             </div>
             <RegistSubBtn
               backgrondColor={`${
-                storageData.step1.mobile.length < 11 ? "#C2C2C2" : "#0740E4"
+                step1.mobile.length < 11 ? "#C2C2C2" : "#0740E4"
               }`}
             >
               인증번호 전송
