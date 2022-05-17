@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import "../../modal/modal.css";
 import { RegistTitle, RegistForm } from "../../styles/recycle";
@@ -9,21 +9,27 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
   const [bankModal, setBankModal] = useState<boolean>(false);
   const step4 = storageData.step4;
 
-  // step4: { bank: "", name: "", account: "" }
+  useEffect(() => {
+    let isActivate = Object.values(step4).filter((data: any) => {
+      if (data.length > 0) return data;
+    });
+    if (isActivate.length > 2) {
+      setActivate(true);
+    }
+  }, []);
+
   function validationHandler(
     e: React.ChangeEvent<HTMLInputElement>,
     key: string
   ) {
     if (key === "account") {
-      console.log(e);
+      e.target.value = e.target.value.replace(/[^0-9]/g, "");
     }
     setStorageData({
       ...storageData,
       step4: { ...step4, [key]: e.target.value },
     });
   }
-
-  function accountHandler() {}
 
   return (
     <>
@@ -86,7 +92,6 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
               type="text"
               placeholder="숫자만 입력해주세요"
               value={step4.account}
-              // onKeyDown={}
               onChange={(e) => {
                 validationHandler(e, "account");
               }}

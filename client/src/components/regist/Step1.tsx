@@ -48,30 +48,14 @@ function Step1({ setActivate, setStorageData, storageData }: ActiveProps) {
                 type="text"
                 placeholder="숫자만 입력해주세요"
                 value={storageData.step1.mobile}
-                readOnly
-                onKeyDown={(e: any) => {
-                  if (
-                    Number(e.key) >= 0 &&
-                    Number(e.key) <= 9 &&
-                    step1.mobile.length <= 10
-                  ) {
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  if (e.target.value.length <= 11) {
+                    e.target.value = e.target.value.replace(/[^0-9]/g, "");
                     setStorageData({
                       ...storageData,
-                      step1: {
-                        ...step1,
-                        mobile: step1.mobile + e.key,
-                      },
-                    });
-                  } else if (e.key === "Backspace") {
-                    setStorageData({
-                      ...storageData,
-                      step1: {
-                        ...step1,
-                        mobile: step1.mobile.slice(0, -1),
-                      },
+                      step1: { ...step1, mobile: e.target.value },
                     });
                   }
-                  return false;
                 }}
               />
             </div>
