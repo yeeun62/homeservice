@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { RegistTitle, RegistForm, RegistSubBtn } from "../../styles/recycle";
 import { ActiveProps } from "../../pages/RegistPage";
-import { StorageType } from "../../App";
 
 const PublicCheck = styled.div`
   margin-top: 68px;
@@ -28,8 +27,9 @@ const PublicCheck = styled.div`
 `;
 
 function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
-  const [check, setCheck] = useState<boolean>(false);
   const step3 = storageData.step3;
+  const [check, setCheck] = useState<boolean>(false);
+
   useEffect(() => {
     // 조건은 다시 하기
     if (storageData.step3 === "") {
@@ -42,8 +42,6 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
     if (step3.name && step3.mobile && step3.postCode) {
       setActivate(true);
     }
-
-    //if(storageData)
   }, []);
 
   function validationHandler(
@@ -102,8 +100,11 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
             <input
               type="text"
               placeholder="실명을 입력해주세요"
-              value={step3.name}
-              onChange={(e) => validationHandler(e, "name")}
+              value={storageData.step3.name}
+              onChange={(e) => {
+                validationHandler(e, "name");
+                setCheck(false);
+              }}
             />
           </div>
         </label>
@@ -114,28 +115,26 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
               type="text"
               placeholder="숫자만 입력해주세요"
               value={step3.mobile}
+              readOnly
               onKeyDown={(e: any) => {
-                // setStorageData({
-                //   ...storageData,
-                //   step3: { ...step3, [key]: e.target.value },
-                // });
+                setCheck(false);
                 if (
                   Number(e.key) >= 0 &&
                   Number(e.key) <= 9 &&
-                  storageData.step3.mobile.length <= 10
+                  step3.mobile.length <= 10
                 ) {
                   setStorageData({
                     ...storageData,
-                    ["step3"]: {
-                      ...storageData.step3,
+                    step3: {
+                      ...step3,
                       mobile: step3.mobile + e.key,
                     },
                   });
                 } else if (e.key === "Backspace") {
                   setStorageData({
                     ...storageData,
-                    ["step3"]: {
-                      ...storageData.step3,
+                    step3: {
+                      ...step3,
                       mobile: step3.mobile.slice(0, -1),
                     },
                   });
@@ -158,9 +157,8 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
               <input
                 type="text"
                 placeholder="주소를 검색해주세요"
-                onChange={(e) => validationHandler(e, "postCode")}
-                value={step3.postCode}
-                // daum postcode 추가하기
+                readOnly
+                value={step3.address}
               />
             </div>
             <RegistSubBtn backgrondColor="#0740E4">주소 검색</RegistSubBtn>
@@ -171,6 +169,7 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
                 className="input_margin_top"
                 type="text"
                 placeholder="상세주소를 입력해주세요"
+                onChange={(e) => validationHandler(e, "detailAddress")}
               />
             </div>
           </div>
@@ -181,7 +180,7 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
               setStorageData({
                 ...storageData,
                 step3: {
-                  ...storageData.step3,
+                  ...step3,
                   public: !storageData.step3.public,
                 },
               })
