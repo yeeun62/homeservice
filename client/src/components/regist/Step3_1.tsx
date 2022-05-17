@@ -32,6 +32,13 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
   const step3 = storageData.step3;
   useEffect(() => {
     // 조건은 다시 하기
+    if (storageData.step3 === "") {
+      setStorageData({
+        ...storageData,
+        step3: { name: "", moble: "", postCode: "" },
+      });
+    }
+
     if (step3.name && step3.mobile && step3.postCode) {
       setActivate(true);
     }
@@ -74,8 +81,6 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
         <label>
           <div className="flex_check">
             <p>이름</p>
-            <span className="check_inner_1"></span>
-            <span className="check_inner_2"></span>
             <div
               onClick={() => {
                 setCheck(!check);
@@ -110,23 +115,27 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
               placeholder="숫자만 입력해주세요"
               value={step3.mobile}
               onKeyDown={(e: any) => {
+                // setStorageData({
+                //   ...storageData,
+                //   step3: { ...step3, [key]: e.target.value },
+                // });
                 if (
                   Number(e.key) >= 0 &&
                   Number(e.key) <= 9 &&
-                  step3.mobile.length <= 10
+                  storageData.step3.mobile.length <= 10
                 ) {
                   setStorageData({
                     ...storageData,
-                    step3: {
-                      ...step3,
+                    ["step3"]: {
+                      ...storageData.step3,
                       mobile: step3.mobile + e.key,
                     },
                   });
                 } else if (e.key === "Backspace") {
                   setStorageData({
                     ...storageData,
-                    step3: {
-                      ...step3,
+                    ["step3"]: {
+                      ...storageData.step3,
                       mobile: step3.mobile.slice(0, -1),
                     },
                   });
