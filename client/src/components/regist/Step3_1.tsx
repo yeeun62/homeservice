@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { RegistTitle, RegistForm, RegistSubBtn } from "../../styles/recycle";
 import { ActiveProps } from "../../pages/RegistPage";
+import { StorageType } from "../../App";
 
 const PublicCheck = styled.div`
   margin-top: 68px;
@@ -27,8 +28,51 @@ const PublicCheck = styled.div`
 `;
 
 function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
+type Step3_1Validation = {
+  name: string;
+  mobile: string;
+  postCode: string;
+  public: boolean;
+};
+
+interface Step3_1Prop extends ActiveProps {
+  storageData: StorageType;
+}
   const [check, setCheck] = useState<boolean>(false);
-  const [publicCheck, setPublicCheck] = useState<boolean>(false);
+  const [validation, setValidation] = useState<Step3_1Validation>({
+    name: "",
+    mobile: "",
+    postCode: "",
+    public: false,
+  });
+
+  useEffect(() => {
+    setValidation(storageData.step3);
+    // 조건은 다시 하기
+    if (validation.name && validation.mobile && validation.postCode) {
+      setActivate(true);
+    }
+  }, []);
+
+  function validationHandler(
+    e: React.ChangeEvent<HTMLInputElement>,
+    key: string
+  ) {
+    setValidation({ ...validation, [key]: e.target.value });
+    setStorageData((p) => ({ ...p, step3: validation }));
+  }
+
+  function equalRegister(b: boolean) {
+    if (b) {
+      setValidation({
+        ...validation,
+        name: storageData.step3.name,
+        mobile: storageData.step3.mobile,
+      });
+    } else {
+      setValidation({...validation, name: "", mobile: ""})
+    }
+  }
 
   return (
     <>
@@ -39,7 +83,12 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
             <p>이름</p>
             <span className="check_inner_1"></span>
             <span className="check_inner_2"></span>
-            <div onClick={() => setCheck(!check)}>
+            <div
+              onClick={() => {
+                setCheck(!check);
+                equalRegister(!check);
+              }}
+            >
               <img
                 src={`./img/${
                   check
@@ -52,13 +101,23 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
             </div>
           </div>
           <div className="input_div">
-            <input type="text" placeholder="실명을 입력해주세요" />
+            <input
+              type="text"
+              placeholder="실명을 입력해주세요"
+              value={validation.name}
+              onChange={(e) => validationHandler(e, "name")}
+            />
           </div>
         </label>
         <label>
           <p>휴대전화 번호</p>
           <div className="input_div">
-            <input type="text" placeholder="숫자만 입력해주세요" />
+            <input
+              type="text"
+              placeholder="숫자만 입력해주세요"
+              value={validation.mobile}
+              onChange={(e) => validationHandler(e, "mobile")}
+            />
           </div>
         </label>
         <label>
@@ -71,7 +130,13 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
           </p>
           <div className="flex_form">
             <div className="input_div">
-              <input type="text" placeholder="주소를 검색해주세요" />
+              <input
+                type="text"
+                placeholder="주소를 검색해주세요"
+                onChange={(e) => validationHandler(e, "postCode")}
+                value={validation.postCode}
+                // daum postcode 추가하기
+              />
             </div>
             <RegistSubBtn backgrondColor="#0740E4">주소 검색</RegistSubBtn>
           </div>
@@ -86,10 +151,14 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
           </div>
         </label>
         <PublicCheck>
-          <div onClick={() => setPublicCheck(!publicCheck)}>
+          <div
+            onClick={() =>
+              setValidation({ ...validation, public: !validation.public })
+            }
+          >
             <img
               src={`./img/${
-                publicCheck
+                validation.public
                   ? "icon_checkbox_large_blue.svg"
                   : "icon_checkbox_large_gray.svg"
               }`}

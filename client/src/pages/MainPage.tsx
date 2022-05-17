@@ -37,9 +37,13 @@ function MainPage({
 
   function setStorage(): void {
     if (storageData.main) {
-      localStorage.setItem("test", JSON.stringify({ ...storageData, step: 1 }));
+      setStorageData({ ...storageData, step: 0 });
+      localStorage.setItem(
+        storageData.id,
+        JSON.stringify({ ...storageData, step: 0 })
+      );
       navigate("/regist");
-    }
+    } else return;
   }
 
   return (

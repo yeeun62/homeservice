@@ -35,7 +35,7 @@ function RegistPage({
     if (storageData.main !== "") {
       localStorage.setItem(storageData.id, JSON.stringify(storageData));
     }
-  }, [storageData]);
+  }, [storageData.step]);
 
   return (
     <>
