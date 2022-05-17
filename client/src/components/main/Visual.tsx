@@ -99,7 +99,14 @@ const VisualWrap = styled.div`
 `;
 
 function Visual({ data, visualTitle, visualSpan }: any) {
-  const { desc1, desc2, desc3, desc4, desc5, price, image } = data;
+  let { carNo, fuel, imageUrl, mileage, releaseDt, sellNo, sellPrice } =
+    data.simpleCar;
+  const { gradeDetailNm, gradeNm, makerNm, modelDetailNm, modelNm } =
+    data.simpleCar.trim;
+
+  releaseDt = `${releaseDt.slice(2, 4)}년${releaseDt.slice(4, 6)}월`;
+  mileage = mileage.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  sellPrice = sellPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
   return (
     <VisualWrap>
@@ -108,16 +115,16 @@ function Visual({ data, visualTitle, visualSpan }: any) {
         {visualSpan && <span className="complete_title">{visualSpan}</span>}
       </RegistTitle>
       <div className="info_wrap">
-        <img src={image} alt={desc5} />
+        <img src={imageUrl} alt="차량이미지" />
         <div className="info_wrap_right">
           <div className="span_wrapper">
-            <span>{desc1}</span>
-            <span>{desc2}</span>
-            <span>{desc3}</span>
-            <span>{desc4}원</span>
+            <span>{releaseDt}</span>
+            <span>{mileage}km</span>
+            <span>{fuel}</span>
+            <span>{carNo}</span>
           </div>
-          <RegistTitle className="name">{desc5}</RegistTitle>
-          <p className="price">{price}원</p>
+          <RegistTitle className="name">{makerNm}</RegistTitle>
+          <p className="price">{sellPrice} 원</p>
         </div>
       </div>
     </VisualWrap>

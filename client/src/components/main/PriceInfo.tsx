@@ -147,7 +147,16 @@ const PriceWrap = styled.div`
   }
 `;
 
-function PriceInfo({ price, desc6 }: any) {
+function PriceInfo({ data }: any) {
+  let { carNo, fuel, imageUrl, mileage, releaseDt, sellNo, sellPrice } =
+    data.simpleCar;
+  const { gradeDetailNm, gradeNm, makerNm, modelDetailNm, modelNm } =
+    data.simpleCar.trim;
+
+  releaseDt = `${releaseDt.slice(2, 4)}년${releaseDt.slice(4, 6)}월`;
+  mileage = mileage.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  sellPrice = sellPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
   const [priceOpen, setPriceOpen] = useState(false);
   const [tooltip, setTooltip] = useState(false);
 
@@ -158,7 +167,7 @@ function PriceInfo({ price, desc6 }: any) {
         <ul className="price_ul">
           <li>
             <p className="price_list_title">차량 가격</p>
-            <p className="price_list_value">{price}원</p>
+            <p className="price_list_value">{sellPrice}원</p>
           </li>
           <li>
             <p className="price_list_title">홈서비스 이용료</p>
@@ -223,7 +232,11 @@ function PriceInfo({ price, desc6 }: any) {
         </ul>
       </div>
       <ul className="list_style">
-        {desc6.map((el: string, i: number) => {
+        {[
+          "견적금액은 배송비에 의해 변동될 수 있습니다. (배송비 최대금액 165,000원으로 계산 선반영되었습니다.)",
+          "배송비는 차량 출발지와 도착지 거리에 따라 책정되며, 상담단계에서 확정됩니다.",
+          "이전비는 차액 발생 시 계좌로 환급해드립니다.",
+        ].map((el: string, i: number) => {
           return (
             <li key={el}>
               <div></div>
