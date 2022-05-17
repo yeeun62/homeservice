@@ -49,11 +49,11 @@ function MainPage({
   return (
     <div ref={scroll}>
       <Header />
-      <Introduce topDesc={data.topDesc} />
+      <Introduce />
       <PageWrap>
         <div>
           <Visual data={data} visualTitle="안전하게 배송해드리겠습니다" />
-          <PriceInfo price={data.price} desc6={data.desc6} />
+          <PriceInfo data={data} />
           <Pay setStorageData={setStorageData} storageData={storageData} />
         </div>
       </PageWrap>

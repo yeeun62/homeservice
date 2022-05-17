@@ -1,5 +1,6 @@
 import { useState, StrictMode, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import axios from "axios";
 import styled from "styled-components";
 import "./App.css";
 import MainPage from "./pages/MainPage";
@@ -18,52 +19,51 @@ const AppWrap = styled.div`
 
 export interface StorageType {
   id: string;
-  main: string; // 추후에 디비키로
+  main: string;
   step1: { name: string; mobile: string };
-  step2: number; // 2or 3or 4
-  step3: any; //step에 따라서
+  step2: number;
+  step3: any;
   step4: { bank: string; name: string; account: string };
   step: number;
 }
 
 function App() {
   const [step, setStep] = useState<number>(1);
-  const [data, setData] = useState({
-    id: "test",
-    topDesc:
-      "전문과와 1:1 라이브로 차량을 확인후 원하는 곳으로 받아보세요. 3+1일 동안 타 보고 맘에 안들면 환불 할 수 있습니다.",
-    image: "./img/1808801960R1 1.png",
-    desc1: "19년 05월(20년형)",
-    desc2: "21,678km",
-    desc3: "디젤",
-    desc4: "365고8752",
-    desc5:
-      "현대 넥쏘 프리미엄 인텔리전스 Safty+ 롱 레인지 KRELL 에디션(2020년 한정 블루링크 프리미엄 멤버스 패키지), 현대 넥쏘 프리미엄 인텔리전스 Safty+ 롱 레인지 KRELL 에디션(2020년 한정 블루링크 프리미엄 멤버스 패키지)",
-    price: "15,000,000",
-    desc6: [
-      "견적금액은 배송비에 의해 변동될 수 있습니다. (배송비 최대금액 165,000원으로 계산 선반영되었습니다.)",
-      "배송비는 차량 출발지와 도착지 거리에 따라 책정되며, 상담단계에서 확정됩니다.",
-      "이전비는 차액 발생 시 계좌로 환급해드립니다.",
-    ],
-  });
-  const [storageData, setStorageData] = useState<any>({
-    id: data.id,
-    main: "", // 추후에 디비키로
-    step1: { name: "", mobile: "" },
-    step2: 0, // 2or 3or 4
-    step3: "", //step에 따라서
-    step4: { bank: "", name: "", account: "" },
-    step: 0,
-  });
+  const [data, setData] = useState<any>();
+  const [storageData, setStorageData] = useState<any>();
 
   useEffect(() => {
-    let localData = localStorage.getItem(data.id);
-    if (localData) {
-      setStorageData(JSON.parse(localData));
-    } else {
-      localStorage.setItem(data.id, JSON.stringify(storageData));
-    }
+    axios
+      .get(
+        "http://3.34.98.110/dealers/-/products/ffc32180-d59f-11ec-9d64-0242ac120002"
+      )
+      .then((data) => {
+        setData(data.data);
+      });
   }, []);
+
+  useEffect(() => {
+    if (data) {
+      let localData = localStorage.getItem(data.simpleCar.sellNo);
+      if (localData) {
+        setStorageData(JSON.parse(localData));
+      } else {
+        localStorage.setItem(
+          data.simpleCar.sellNo,
+          JSON.stringify(storageData)
+        );
+      }
+      setStorageData({
+        id: data.simpleCar.sellNo,
+        main: "",
+        step1: { name: "", mobile: "" },
+        step2: 0,
+        step3: "",
+        step4: { bank: "", name: "", account: "" },
+        step: 0,
+      });
+    }
+  }, [data]);
 
   return (
     <StrictMode>
@@ -73,11 +73,15 @@ function App() {
             <Route
               path="/"
               element={
-                <MainPage
-                  data={data}
-                  storageData={storageData}
-                  setStorageData={setStorageData}
-                />
+                data && storageData ? (
+                  <MainPage
+                    data={data}
+                    storageData={storageData}
+                    setStorageData={setStorageData}
+                  />
+                ) : (
+                  <p>로딩</p>
+                )
               }
             />
             <Route
