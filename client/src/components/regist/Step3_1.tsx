@@ -28,16 +28,16 @@ const PublicCheck = styled.div`
 `;
 
 function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
-type Step3_1Validation = {
-  name: string;
-  mobile: string;
-  postCode: string;
-  public: boolean;
-};
+  type Step3_1Validation = {
+    name: string;
+    mobile: string;
+    postCode: string;
+    public: boolean;
+  };
 
-interface Step3_1Prop extends ActiveProps {
-  storageData: StorageType;
-}
+  interface Step3_1Prop extends ActiveProps {
+    storageData: StorageType;
+  }
   const [check, setCheck] = useState<boolean>(false);
   const [validation, setValidation] = useState<Step3_1Validation>({
     name: "",
@@ -70,7 +70,7 @@ interface Step3_1Prop extends ActiveProps {
         mobile: storageData.step3.mobile,
       });
     } else {
-      setValidation({...validation, name: "", mobile: ""})
+      setValidation({ ...validation, name: "", mobile: "" });
     }
   }
 
