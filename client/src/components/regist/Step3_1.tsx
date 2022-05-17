@@ -28,49 +28,42 @@ const PublicCheck = styled.div`
 `;
 
 function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
-type Step3_1Validation = {
-  name: string;
-  mobile: string;
-  postCode: string;
-  public: boolean;
-};
-
-interface Step3_1Prop extends ActiveProps {
-  storageData: StorageType;
-}
   const [check, setCheck] = useState<boolean>(false);
-  const [validation, setValidation] = useState<Step3_1Validation>({
-    name: "",
-    mobile: "",
-    postCode: "",
-    public: false,
-  });
-
+  const step3 = storageData.step3;
   useEffect(() => {
-    setValidation(storageData.step3);
     // 조건은 다시 하기
-    if (validation.name && validation.mobile && validation.postCode) {
+    if (step3.name && step3.mobile && step3.postCode) {
       setActivate(true);
     }
+
+    //if(storageData)
   }, []);
 
   function validationHandler(
     e: React.ChangeEvent<HTMLInputElement>,
     key: string
   ) {
-    setValidation({ ...validation, [key]: e.target.value });
-    setStorageData((p) => ({ ...p, step3: validation }));
+    setStorageData({
+      ...storageData,
+      step3: { ...step3, [key]: e.target.value },
+    });
   }
 
   function equalRegister(b: boolean) {
     if (b) {
-      setValidation({
-        ...validation,
-        name: storageData.step3.name,
-        mobile: storageData.step3.mobile,
+      setStorageData({
+        ...storageData,
+        step3: {
+          ...step3,
+          name: storageData.step1.name,
+          mobile: storageData.step1.mobile,
+        },
       });
     } else {
-      setValidation({...validation, name: "", mobile: ""})
+      setStorageData({
+        ...storageData,
+        step3: { ...step3, name: "", mobile: "" },
+      });
     }
   }
 
@@ -104,7 +97,7 @@ interface Step3_1Prop extends ActiveProps {
             <input
               type="text"
               placeholder="실명을 입력해주세요"
-              value={validation.name}
+              value={step3.name}
               onChange={(e) => validationHandler(e, "name")}
             />
           </div>
@@ -115,8 +108,31 @@ interface Step3_1Prop extends ActiveProps {
             <input
               type="text"
               placeholder="숫자만 입력해주세요"
-              value={validation.mobile}
-              onChange={(e) => validationHandler(e, "mobile")}
+              value={step3.mobile}
+              onKeyDown={(e: any) => {
+                if (
+                  Number(e.key) >= 0 &&
+                  Number(e.key) <= 9 &&
+                  step3.mobile.length <= 10
+                ) {
+                  setStorageData({
+                    ...storageData,
+                    step3: {
+                      ...step3,
+                      mobile: step3.mobile + e.key,
+                    },
+                  });
+                } else if (e.key === "Backspace") {
+                  setStorageData({
+                    ...storageData,
+                    step3: {
+                      ...step3,
+                      mobile: step3.mobile.slice(0, -1),
+                    },
+                  });
+                }
+                return false;
+              }}
             />
           </div>
         </label>
@@ -134,7 +150,7 @@ interface Step3_1Prop extends ActiveProps {
                 type="text"
                 placeholder="주소를 검색해주세요"
                 onChange={(e) => validationHandler(e, "postCode")}
-                value={validation.postCode}
+                value={step3.postCode}
                 // daum postcode 추가하기
               />
             </div>
@@ -153,12 +169,18 @@ interface Step3_1Prop extends ActiveProps {
         <PublicCheck>
           <div
             onClick={() =>
-              setValidation({ ...validation, public: !validation.public })
+              setStorageData({
+                ...storageData,
+                step3: {
+                  ...storageData.step3,
+                  public: !storageData.step3.public,
+                },
+              })
             }
           >
             <img
               src={`./img/${
-                validation.public
+                step3.public
                   ? "icon_checkbox_large_blue.svg"
                   : "icon_checkbox_large_gray.svg"
               }`}
