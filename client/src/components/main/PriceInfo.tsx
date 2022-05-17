@@ -157,8 +157,8 @@ function PriceInfo({ data }: any) {
   mileage = mileage.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   sellPrice = sellPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
-  const [priceOpen, setPriceOpen] = useState(false);
-  const [tooltip, setTooltip] = useState(false);
+  const [priceOpen, setPriceOpen] = useState<boolean>(false);
+  const [tooltip, setTooltip] = useState<boolean>(false);
 
   return (
     <PriceWrap>
@@ -179,11 +179,13 @@ function PriceInfo({ data }: any) {
           <li
             style={{
               marginBottom: priceOpen ? "67px" : "17px",
-              cursor: "pointer",
             }}
-            onClick={() => setPriceOpen(!priceOpen)}
           >
-            <p className="price_list_title" style={{ position: "relative" }}>
+            <p
+              className="price_list_title"
+              style={{ position: "relative", cursor: "pointer" }}
+              onClick={() => setPriceOpen(!priceOpen)}
+            >
               부대비용
               <img
                 src="./img/w_icon_down_large.svg"
@@ -207,8 +209,8 @@ function PriceInfo({ data }: any) {
                   <img
                     src="./img/w_icon_question_medium_gray.svg"
                     alt="물음표"
-                    onMouseEnter={() => setTooltip(true)}
-                    onMouseLeave={() => setTooltip(false)}
+                    onClick={() => setTooltip(!tooltip)}
+                    style={{ cursor: "pointer" }}
                   />
                   {tooltip && (
                     <Tooltip className="main_tooltip">
