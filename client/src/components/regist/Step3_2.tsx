@@ -13,6 +13,15 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
   const [tooltip, setTooltip] = useState<boolean>(false);
   const step3 = storageData.step3;
 
+  useEffect(() => {
+    let isActivate = Object.values(step3).filter((data: any) => {
+      if (data.length > 0) return data;
+    });
+    if (isActivate.length > 6 && step3.mobile.toString().length === 11) {
+      setActivate(true);
+    }
+  }, [storageData.step3]);
+
   function validationHandler(
     e: React.ChangeEvent<HTMLInputElement>,
     key: string
@@ -21,6 +30,42 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
       ...storageData,
       step3: { ...step3, [key]: e.target.value },
     });
+  }
+
+  function equalRegister(b: boolean, key: string) {
+    if (b && key === "name") {
+      setStorageData({
+        ...storageData,
+        step3: {
+          ...step3,
+          name: storageData.step1.name,
+          mobile: storageData.step1.mobile,
+        },
+      });
+    } else if (key === "name") {
+      setStorageData({
+        ...storageData,
+        step3: { ...step3, name: "", mobile: "" },
+      });
+    } else if (b) {
+      setStorageData({
+        ...storageData,
+        step3: {
+          ...step3,
+          address2: step3.address,
+          detailAddress2: step3.detailAddress,
+        },
+      });
+    } else if (!b && key === "address") {
+      setStorageData({
+        ...storageData,
+        step3: {
+          ...step3,
+          address2: "",
+          detailAddress2: "",
+        },
+      });
+    }
   }
 
   return (
@@ -36,7 +81,12 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
         <label>
           <div className="flex_check">
             <p>이름</p>
-            <div onClick={() => setCheck({ ...check, name: !check.name })}>
+            <div
+              onClick={() => {
+                setCheck({ ...check, name: !check.name });
+                equalRegister(!check.name, "name");
+              }}
+            >
               <img
                 src={`./img/${
                   check.name
@@ -53,14 +103,47 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
               type="text"
               placeholder="실명을 입력해주세요"
               value={step3.name}
-              onChange={(e) => validationHandler(e, "name")}
+              onChange={(e) => {
+                validationHandler(e, "name");
+                setCheck({ ...check, name: false });
+              }}
             />
           </div>
         </label>
         <label>
           <p>휴대전화 번호</p>
           <div className="input_div">
-            <input type="text" placeholder="숫자만 입력해주세요" />
+            <input
+              type="text"
+              placeholder="숫자만 입력해주세요"
+              value={step3.mobile}
+              readOnly
+              onKeyDown={(e: any) => {
+                setCheck({ ...check, name: false });
+                if (
+                  Number(e.key) >= 0 &&
+                  Number(e.key) <= 9 &&
+                  step3.mobile.length <= 10
+                ) {
+                  setStorageData({
+                    ...storageData,
+                    step3: {
+                      ...step3,
+                      mobile: step3.mobile + e.key,
+                    },
+                  });
+                } else if (e.key === "Backspace") {
+                  setStorageData({
+                    ...storageData,
+                    step3: {
+                      ...step3,
+                      mobile: step3.mobile.slice(0, -1),
+                    },
+                  });
+                }
+                return false;
+              }}
+            />
           </div>
         </label>
         <label style={{ position: "relative" }}>
@@ -129,10 +212,15 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
         <label>
           <div className="flex_check">
             <p>사업장 주소</p>
-            <div onClick={() => setCheck({ ...check, adress: !check.adress })}>
+            <div
+              onClick={() => {
+                setCheck({ ...check, address: !check.address });
+                equalRegister(!check.address, "address");
+              }}
+            >
               <img
                 src={`./img/${
-                  check.adress
+                  check.address
                     ? "icon_checkbox_large_blue.svg"
                     : "icon_checkbox_large_gray.svg"
                 }`}
@@ -159,7 +247,10 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
                 type="text"
                 placeholder="상세주소를 입력해주세요"
                 value={step3.detailAddress2}
-                onChange={(e) => validationHandler(e, "detailAddress2")}
+                onChange={(e) => {
+                  validationHandler(e, "detailAddress2");
+                  setCheck({ ...check, address: false });
+                }}
               />
             </div>
           </div>

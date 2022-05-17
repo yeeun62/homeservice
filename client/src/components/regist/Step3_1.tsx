@@ -20,7 +20,7 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
         step3: { name: "", moble: "", postCode: "" },
       });
     }
-
+    // 조건은 다시 하기
     if (step3.name && step3.mobile && step3.postCode) {
       setActivate(true);
     }
