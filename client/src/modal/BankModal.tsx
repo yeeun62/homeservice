@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { StorageType } from "../App";
 
 const BankModalWrap = styled.div`
   width: 100%;
@@ -62,8 +63,10 @@ const BankModalWrap = styled.div`
 
 function BankModal({
   setBankModal,
+  setStorageData,
 }: {
   setBankModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setStorageData: React.Dispatch<React.SetStateAction<StorageType>>;
 }) {
   const bankList = [
     "국민",
@@ -100,7 +103,17 @@ function BankModal({
       />
       <div className="bank_list">
         {bankList.map((list: string) => (
-          <div className="bank" key={list}>
+          <div
+            className="bank"
+            key={list}
+            onClick={() => {
+              setStorageData((p) => ({
+                ...p,
+                step4: { ...p.step4, bank: list },
+              }));
+              setBankModal(false);
+            }}
+          >
             <p className="bank_name">{list}</p>
           </div>
         ))}

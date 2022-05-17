@@ -7,6 +7,23 @@ import { ActiveProps } from "../../pages/RegistPage";
 
 function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
   const [bankModal, setBankModal] = useState<boolean>(false);
+  const step4 = storageData.step4;
+
+  // step4: { bank: "", name: "", account: "" }
+  function validationHandler(
+    e: React.ChangeEvent<HTMLInputElement>,
+    key: string
+  ) {
+    if (key === "account") {
+      console.log(e);
+    }
+    setStorageData({
+      ...storageData,
+      step4: { ...step4, [key]: e.target.value },
+    });
+  }
+
+  function accountHandler() {}
 
   return (
     <>
@@ -17,7 +34,10 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
         className="bottom_modal"
         ariaHideApp={false}
       >
-        <BankModal setBankModal={setBankModal} />
+        <BankModal
+          setBankModal={setBankModal}
+          setStorageData={setStorageData}
+        />
       </Modal>
       <RegistTitle style={{ marginBottom: "6px" }}>
         환불 계좌 정보를 입력해주세요
@@ -36,6 +56,7 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
               type="text"
               placeholder="은행을 선택해주세요"
               readOnly
+              value={step4.bank}
               onClick={() => setBankModal(true)}
             />
             <img
@@ -48,13 +69,28 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
         <label>
           <p>예금주</p>
           <div className="input_div">
-            <input type="text" placeholder="실명을 입력해주세요" />
+            <input
+              type="text"
+              placeholder="실명을 입력해주세요"
+              value={step4.name}
+              onChange={(e) => {
+                validationHandler(e, "name");
+              }}
+            />
           </div>
         </label>
         <label>
           <p>계좌번호</p>
           <div className="input_div">
-            <input type="text" placeholder="숫자만 입력해주세요" />
+            <input
+              type="text"
+              placeholder="숫자만 입력해주세요"
+              value={step4.account}
+              // onKeyDown={}
+              onChange={(e) => {
+                validationHandler(e, "account");
+              }}
+            />
           </div>
         </label>
       </RegistForm>
