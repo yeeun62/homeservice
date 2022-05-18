@@ -78,7 +78,7 @@ function Step2({ setActivate, setStorageData, storageData }: Step2Props) {
           name2: "",
           address2: "",
           detailAddress2: "",
-          buisnessNumer: "",
+          businessNumber: "",
           email: "",
           public: false,
         },
@@ -93,7 +93,7 @@ function Step2({ setActivate, setStorageData, storageData }: Step2Props) {
           address: "",
           detailAddress: "",
           name2: "",
-          buisnessNumer: "",
+          businessNumber: "",
           email: "",
         },
       }));

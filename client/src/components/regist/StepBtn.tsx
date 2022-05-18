@@ -98,7 +98,10 @@ function StepBtn({
         className="bottom_modal"
         ariaHideApp={false}
       >
-        <ConditionModal setConditionModal={setConditionModal} />
+        <ConditionModal
+          setConditionModal={setConditionModal}
+          storageData={storageData}
+        />
       </Modal>
       <StepBtnWrap>
         <div>

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { MainBtn, RegistTitle } from "../styles/recycle";
 import ConditionSubModal from "./ConditionSubModal";
+import { StorageType } from "../App";
 
 const ConditionWrap = styled.div`
   padding: 16px;
@@ -96,9 +97,10 @@ export interface SubModal {
 
 interface ConditionProps {
   setConditionModal: React.Dispatch<React.SetStateAction<boolean>>;
+  storageData: StorageType;
 }
 
-function ConditionModal({ setConditionModal }: ConditionProps) {
+function ConditionModal({ setConditionModal, storageData }: ConditionProps) {
   type CkType = {
     [index: string]: boolean;
   };
@@ -176,6 +178,7 @@ function ConditionModal({ setConditionModal }: ConditionProps) {
   function CompleteHandler() {
     if (isChecked.all) {
       navigate("/complete");
+      localStorage.removeItem(storageData.id);
     }
     return;
   }
