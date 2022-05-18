@@ -11,19 +11,24 @@ import { ActiveProps } from "../../pages/RegistPage";
 function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
   const [check, setCheck] = useState({ name: false, address: false });
   const [tooltip, setTooltip] = useState<boolean>(false);
-  const [emailValidation, setEmailValidation] = useState<boolean>(false);
+  const [emailValidation, setEmailValidation] = useState<boolean>(true);
   const step3 = storageData.step3;
 
   useEffect(() => {
     let isActivate = Object.values(step3).filter((data: any) => {
       if (data.length > 0) return data;
     });
-    if (isActivate.length > 6 && step3.mobile.toString().length === 11) {
+    if (
+      isActivate.length > 6 &&
+      step3.mobile.toString().length === 11 &&
+      step3.businessNumber.toString().length === 10 &&
+      emailValidation
+    ) {
       setActivate(true);
     } else {
       setActivate(false);
     }
-  }, [step3]);
+  }, [step3, emailValidation]);
 
   function validationHandler(
     e: React.ChangeEvent<HTMLInputElement>,
@@ -44,6 +49,10 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
 
     if (key === "detailAddress2") setCheck({ ...check, address: false });
 
+    if (key === "email" && validationEmail()) {
+      setEmailValidation(true);
+    }
+
     setStorageData({
       ...storageData,
       step3: { ...step3, [key]: e.target.value },
@@ -52,11 +61,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
 
   function validationEmail() {
     let emailReg = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-    if (emailReg.test(storageData.step3.email)) {
-      setEmailValidation(true);
-    } else {
-      setEmailValidation(false);
-    }
+    return emailReg.test(storageData.step3.email);
   }
 
   function equalRegister(b: boolean, key: string) {
@@ -277,7 +282,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
               placeholder="help@charancha.com"
               value={step3.email}
               onChange={(e) => validationHandler(e, "email")}
-              onBlur={validationEmail}
+              onBlur={() => setEmailValidation(validationEmail())}
             />
           </div>
           {!emailValidation && (
