@@ -40,7 +40,7 @@ const VisualWrap = styled.div`
     width: 1px;
     height: 5px;
     position: absolute;
-    top: 6px;
+    top: 8px;
     right: -7px;
   }
 
@@ -104,9 +104,10 @@ function Visual({ data, visualTitle, visualSpan }: any) {
   const { gradeDetailNm, gradeNm, makerNm, modelDetailNm, modelNm } =
     data.simpleCar.trim;
 
-  releaseDt = `${releaseDt.slice(2, 4)}년${releaseDt.slice(4, 6)}월`;
+  let releaseDtForm = `${releaseDt.slice(2, 4)}년${releaseDt.slice(4, 6)}월`;
   mileage = mileage.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  sellPrice = sellPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  sellPrice = String(sellPrice) + "0000";
+  sellPrice = sellPrice.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
   return (
     <VisualWrap>
@@ -118,7 +119,12 @@ function Visual({ data, visualTitle, visualSpan }: any) {
         <img src={imageUrl} alt="차량이미지" />
         <div className="info_wrap_right">
           <div className="span_wrapper">
-            <span>{releaseDt}</span>
+            <span>
+              {releaseDtForm}
+              {releaseDt.slice(0, 2) !== releaseDt.slice(2, 4) && (
+                <>({releaseDt.slice(0, 2)}년형)</>
+              )}
+            </span>
             <span>{mileage}km</span>
             <span>{fuel}</span>
             <span>{carNo}</span>

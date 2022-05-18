@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 
 function Step1({ setActivate, setStorageData, storageData }: ActiveProps) {
   const step1 = storageData.step1;
+  const [auth, setAuth] = useState<boolean>(false);
   const [validation, setValidation] = useState<{ mobileAuth: string }>({
     mobileAuth: "",
   });
@@ -19,6 +20,10 @@ function Step1({ setActivate, setStorageData, storageData }: ActiveProps) {
       setActivate(false);
     }
   }, [validation, storageData]);
+
+  const authHandler = () => {
+    setAuth(true);
+  };
 
   return (
     <>
@@ -60,6 +65,7 @@ function Step1({ setActivate, setStorageData, storageData }: ActiveProps) {
               />
             </div>
             <RegistSubBtn
+              onClick={authHandler}
               backgrondColor={`${
                 step1.mobile.length < 11 ? "#C2C2C2" : "#0740E4"
               }`}
@@ -67,7 +73,7 @@ function Step1({ setActivate, setStorageData, storageData }: ActiveProps) {
               인증번호 전송
             </RegistSubBtn>
           </div>
-          <div style={{ position: "relative" }}>
+          <div style={{ position: "relative", marginTop: "12px" }}>
             <div className="input_div">
               <input
                 className="input_margin_top"
@@ -78,7 +84,7 @@ function Step1({ setActivate, setStorageData, storageData }: ActiveProps) {
                 }
               />
             </div>
-            <p className="valid_time">03:00</p>
+            {auth && <p className="valid_time">03:00</p>}
           </div>
           <p className="certi_warning">인증번호가 일치하지 않습니다.</p>
         </label>
