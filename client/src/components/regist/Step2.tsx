@@ -61,7 +61,11 @@ function Step2({ setActivate, setStorageData, storageData }: Step2Props) {
         step3: {
           name: "",
           mobile: "",
-          address: "",
+          address: {
+            zonecode: "",
+            jibunAddress: "",
+            roadAddress: "",
+          },
           detailAddress: "",
           public: false,
         },
@@ -73,10 +77,10 @@ function Step2({ setActivate, setStorageData, storageData }: Step2Props) {
         step3: {
           name: "",
           mobile: "",
-          address: "",
+          address: { zonecode: "", jibunAddress: "", roadAddress: "" },
           detailAddress: "",
           name2: "",
-          address2: "",
+          address2: { zonecode: "", jibunAddress: "", roadAddress: "" },
           detailAddress2: "",
           businessNumber: "",
           email: "",
@@ -90,7 +94,7 @@ function Step2({ setActivate, setStorageData, storageData }: Step2Props) {
         step3: {
           name: "",
           mobile: "",
-          address: "",
+          address: { zonecode: "", jibunAddress: "", roadAddress: "" },
           detailAddress: "",
           name2: "",
           businessNumber: "",

@@ -1,10 +1,14 @@
 import { useState, useEffect } from "react";
 import { RegistTitle, RegistForm, RegistSubBtn } from "../../styles/recycle";
 import { ActiveProps } from "../../pages/RegistPage";
+import DaumPostcode from "react-daum-postcode";
+import Modal from "react-modal";
+import "../../modal/modal.css";
 
 function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
   const [check, setCheck] = useState<boolean>(false);
   const [emailValidation, setEmailValidation] = useState<boolean>(true);
+  const [postCodeOpen, setPostCodeOpen] = useState<boolean>(false);
   const step3 = storageData.step3;
 
   useEffect(() => {
@@ -72,10 +76,48 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
       });
     }
   }
+
+  function postCodeHandler(data: any) {
+    // 주소 저장시 우편번호 zonecode ,지번주소 jibunAddress ,도로명주소 roadAddress ,상세주소 저장
+
+    if (data) {
+      const { roadAddress, jibunAddress, zonecode, address } = data;
+      setPostCodeOpen(false);
+      setStorageData({
+        ...storageData,
+        step3: {
+          ...step3,
+          address: {
+            roadAddress,
+            jibunAddress,
+            zonecode,
+          },
+        },
+      });
+    }
+  }
+
   return (
     <>
+      {postCodeOpen && (
+        <Modal
+          isOpen={postCodeOpen}
+          onRequestClose={() => setPostCodeOpen(!postCodeOpen)}
+          overlayClassName="overlay"
+          className="post_code_modal"
+          ariaHideApp={false}
+        >
+          <div className="post_code_modal_div">
+            <DaumPostcode
+              className="post_code"
+              onComplete={postCodeHandler}
+              height={800}
+            />
+          </div>
+        </Modal>
+      )}
       <RegistTitle>법인 사업자 정보를 입력해 주세요</RegistTitle>
-      <RegistForm>
+      <RegistForm onSubmit={(e) => e.preventDefault()}>
         <div className="step_info">
           <div className="info_number">
             <p>1</p>
@@ -129,9 +171,18 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
         </label>
         <label>
           <p>사업장 주소</p>
-          <div className="flex_form">
+          <div className="flex_form" onClick={() => setPostCodeOpen(true)}>
             <div className="input_div">
-              <input type="text" placeholder="주소를 검색해주세요" readOnly />
+              <input
+                type="text"
+                placeholder="주소를 검색해주세요"
+                readOnly
+                value={
+                  step3.address.zonecode
+                    ? `[${step3.address.zonecode}] ` + step3.address.roadAddress
+                    : ""
+                }
+              />
             </div>
             <RegistSubBtn backgrondColor="#0740E4">주소 검색</RegistSubBtn>
           </div>

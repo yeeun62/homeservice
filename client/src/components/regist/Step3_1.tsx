@@ -7,11 +7,15 @@ import {
   Tooltip,
 } from "../../styles/recycle";
 import { ActiveProps } from "../../pages/RegistPage";
+import DaumPostcode from "react-daum-postcode";
+import Modal from "react-modal";
+import "../../modal/modal.css";
 
 function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
-  const step3 = storageData.step3;
   const [check, setCheck] = useState<boolean>(false);
   const [tooltip, setTooltip] = useState<boolean>(false);
+  const [postCodeOpen, setPostCodeOpen] = useState<boolean>(false);
+  const step3 = storageData.step3;
 
   useEffect(() => {
     if (storageData.step3 === "") {
@@ -20,7 +24,7 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
         step3: { name: "", moble: "", postCode: "" },
       });
     }
-    // 조건은 다시 하기
+    // 조건 수정
     if (step3.name && step3.mobile && step3.detailAddress) {
       setActivate(true);
     } else {
@@ -63,10 +67,47 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
     }
   }
 
+  function postCodeHandler(data: any) {
+    // 주소 저장시 우편번호 zonecode ,지번주소 jibunAddress ,도로명주소 roadAddress ,상세주소 저장
+
+    if (data) {
+      const { roadAddress, jibunAddress, zonecode } = data;
+      setPostCodeOpen(false);
+      setStorageData({
+        ...storageData,
+        step3: {
+          ...step3,
+          address: {
+            roadAddress,
+            jibunAddress,
+            zonecode,
+          },
+        },
+      });
+    }
+  }
+
   return (
     <>
+      {postCodeOpen && (
+        <Modal
+          isOpen={postCodeOpen}
+          onRequestClose={() => setPostCodeOpen(!postCodeOpen)}
+          overlayClassName="overlay"
+          className="post_code_modal"
+          ariaHideApp={false}
+        >
+          <div className="post_code_modal_div">
+            <DaumPostcode
+              className="post_code"
+              onComplete={postCodeHandler}
+              height={800}
+            />
+          </div>
+        </Modal>
+      )}
       <RegistTitle>명의자 정보를 입력해 주세요</RegistTitle>
-      <RegistForm>
+      <RegistForm onSubmit={(e) => e.preventDefault()}>
         <label>
           <div className="flex_check">
             <p>이름</p>
@@ -134,13 +175,17 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
               <div></div>명의자의 등본상 주소지를 입력해 주세요.
             </Tooltip>
           )}
-          <div className="flex_form">
+          <div className="flex_form" onClick={() => setPostCodeOpen(true)}>
             <div className="input_div">
               <input
                 type="text"
                 placeholder="주소를 검색해주세요"
                 readOnly
-                value={step3.address}
+                value={
+                  step3.address.zonecode
+                    ? `[${step3.address.zonecode}] ` + step3.address.roadAddress
+                    : ""
+                }
               />
             </div>
             <RegistSubBtn backgrondColor="#0740E4">주소 검색</RegistSubBtn>
