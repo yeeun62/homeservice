@@ -53,9 +53,9 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
   function validationEmail() {
     let emailReg = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
     if (emailReg.test(storageData.step3.email)) {
-      setEmailValidation(false);
-    } else {
       setEmailValidation(true);
+    } else {
+      setEmailValidation(false);
     }
   }
 
@@ -183,7 +183,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
             </div>
             <RegistSubBtn backgrondColor="#0740E4">주소 검색</RegistSubBtn>
           </div>
-          <div style={{ position: "relative" }}>
+          <div style={{ position: "relative", marginTop: "12px" }}>
             <div className="input_div">
               <input
                 className="input_margin_top"
@@ -244,7 +244,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
             </div>
             <RegistSubBtn backgrondColor="#0740E4">주소 검색</RegistSubBtn>
           </div>
-          <div style={{ position: "relative" }}>
+          <div style={{ position: "relative", marginTop: "12px" }}>
             <div className="input_div">
               <input
                 className="input_margin_top"
@@ -280,7 +280,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
               onBlur={validationEmail}
             />
           </div>
-          {emailValidation && (
+          {!emailValidation && (
             <p className="certi_warning">이메일 형식이 맞지 않습니다.</p>
           )}
         </label>
