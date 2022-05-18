@@ -131,7 +131,7 @@ export const RegistForm = styled.form`
         position: absolute;
         bottom: 0;
         width: 100%;
-        height: 24px;
+        height: 30px;
         border: none;
         border-bottom: 2px solid #ededed;
         padding-bottom: 6px;
@@ -139,11 +139,6 @@ export const RegistForm = styled.form`
         font-weight: 700;
         font-size: 17px;
         line-height: 25px;
-
-        /* input 잘리는거 test */
-        /* overflow: auto;
-        text-overflow: visible;
-        font-size: 30px; */
 
         ::placeholder {
           font-size: 15px;
