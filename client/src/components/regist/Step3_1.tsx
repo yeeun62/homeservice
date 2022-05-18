@@ -7,6 +7,7 @@ import {
   Tooltip,
 } from "../../styles/recycle";
 import { ActiveProps } from "../../pages/RegistPage";
+import AddressModal from "../../modal/AddressModal";
 import DaumPostcode from "react-daum-postcode";
 import Modal from "react-modal";
 import "../../modal/modal.css";
@@ -97,13 +98,10 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
           className="post_code_modal"
           ariaHideApp={false}
         >
-          <div className="post_code_modal_div">
-            <DaumPostcode
-              className="post_code"
-              onComplete={postCodeHandler}
-              height={800}
-            />
-          </div>
+          <AddressModal
+            postCodeHandler={postCodeHandler}
+            setPostCodeOpen={setPostCodeOpen}
+          />
         </Modal>
       )}
       <RegistTitle>명의자 정보를 입력해 주세요</RegistTitle>
