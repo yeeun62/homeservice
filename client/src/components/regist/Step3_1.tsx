@@ -66,7 +66,7 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
   return (
     <>
       <RegistTitle>명의자 정보를 입력해 주세요</RegistTitle>
-      <RegistForm>
+      <RegistForm onSubmit={(e) => e.preventDefault()}>
         <label>
           <div className="flex_check">
             <p>이름</p>

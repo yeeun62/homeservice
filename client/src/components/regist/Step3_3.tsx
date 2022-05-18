@@ -75,7 +75,7 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
   return (
     <>
       <RegistTitle>법인 사업자 정보를 입력해 주세요</RegistTitle>
-      <RegistForm>
+      <RegistForm onSubmit={(e) => e.preventDefault()}>
         <div className="step_info">
           <div className="info_number">
             <p>1</p>

@@ -155,7 +155,8 @@ function PriceInfo({ data }: any) {
 
   releaseDt = `${releaseDt.slice(2, 4)}년${releaseDt.slice(4, 6)}월`;
   mileage = mileage.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  sellPrice = sellPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  sellPrice = String(sellPrice) + "0000";
+  sellPrice = sellPrice.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
   const [priceOpen, setPriceOpen] = useState<boolean>(false);
   const [tooltip, setTooltip] = useState<boolean>(false);
@@ -218,13 +219,13 @@ function PriceInfo({ data }: any) {
                     </Tooltip>
                   )}
                 </div>
-                <p className="more_price_value">333,000원</p>
+                <p className="more_price_value">330,000원</p>
               </li>
             </ul>
           </li>
           <li>
             <p className="price_list_title">배송비</p>
-            <span className="price_list_value">4,000~165,000원</span>
+            <span className="price_list_value">44,000~159,000원</span>
           </li>
           <div className="underline"></div>
           <li className="total_cost">
