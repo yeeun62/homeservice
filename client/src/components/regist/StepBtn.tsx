@@ -48,7 +48,7 @@ function StepBtn({
 
   const prevMove = () => {
     if (storageData.step === 0) {
-      window.location.href = "http://localhost:3000";
+      window.location.href = window.location.origin;
       setStorageData({ ...storageData, step: 0 });
     } else if (storageData.step === 1) {
       setStorageData({ ...storageData, step: 0 });
