@@ -136,6 +136,8 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
           },
         });
       }
+
+      setPostCodeOpen({ nominee: false, business: false });
     }
   }
 
@@ -311,14 +313,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
               <p>주민등록주소와 동일</p>
             </div>
           </div>
-          <div
-            className="flex_form"
-            onClick={() => {
-              setCheck({ ...check, address: false });
-              equalRegister(false, "address");
-              setPostCodeOpen({ ...postCodeOpen, business: true });
-            }}
-          >
+          <div className="flex_form">
             <div className="input_div">
               <input
                 type="text"
@@ -330,9 +325,23 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
                       step3.address2.roadAddress
                     : ""
                 }
+                onFocus={() => {
+                  setCheck({ ...check, address: false });
+                  equalRegister(false, "address");
+                  setPostCodeOpen({ ...postCodeOpen, business: true });
+                }}
               />
             </div>
-            <RegistSubBtn backgrondColor="#0740E4">주소 검색</RegistSubBtn>
+            <RegistSubBtn
+              backgrondColor="#0740E4"
+              onClick={() => {
+                setCheck({ ...check, address: false });
+                equalRegister(false, "address");
+                setPostCodeOpen({ ...postCodeOpen, business: true });
+              }}
+            >
+              주소 검색
+            </RegistSubBtn>
           </div>
           <div style={{ position: "relative", marginTop: "12px" }}>
             <div className="input_div">
