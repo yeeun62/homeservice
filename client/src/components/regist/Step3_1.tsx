@@ -38,6 +38,7 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
     } else if (key === "mobile") {
       return;
     }
+
     setStorageData({
       ...storageData,
       step3: { ...step3, [key]: e.target.value },

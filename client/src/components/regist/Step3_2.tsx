@@ -30,12 +30,19 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
   ) {
     if (
       (key === "mobile" && e.target.value.length <= 11) ||
-      key === "buisnessNumer"
+      key === "businessNumber"
     ) {
       e.target.value = e.target.value.replace(/[^0-9]/g, "");
     } else if (key === "mobile") {
       return;
     }
+
+    if (key === "businessNumber" && e.target.value.length > 10) {
+      return;
+    }
+
+    if (key === "detailAddress2") setCheck({ ...check, address: false });
+
     setStorageData({
       ...storageData,
       step3: { ...step3, [key]: e.target.value },
@@ -236,7 +243,6 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
                 value={step3.detailAddress2}
                 onChange={(e) => {
                   validationHandler(e, "detailAddress2");
-                  setCheck({ ...check, address: false });
                 }}
               />
             </div>
@@ -248,8 +254,8 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
             <input
               type="text"
               placeholder="숫자만 입력해주세요"
-              value={step3.buisnessNumer}
-              onChange={(e) => validationHandler(e, "buisnessNumer")}
+              value={step3.businessNumber}
+              onChange={(e) => validationHandler(e, "businessNumber")}
             />
           </div>
         </label>

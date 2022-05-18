@@ -33,3 +33,8 @@ input:focus {
   letter-spacing: -0.02em;
   color: #939393;
 }
+
+input {
+  -webkit-appearance: none;
+  -webkit-border-radius: 0;
+}

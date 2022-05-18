@@ -140,6 +140,11 @@ export const RegistForm = styled.form`
         font-size: 17px;
         line-height: 25px;
 
+        /* input 잘리는거 test */
+        /* overflow: auto;
+        text-overflow: visible;
+        font-size: 30px; */
+
         ::placeholder {
           font-size: 15px;
           font-weight: 400;
