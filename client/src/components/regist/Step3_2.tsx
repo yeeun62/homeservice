@@ -7,11 +7,18 @@ import {
   Tooltip,
 } from "../../styles/recycle";
 import { ActiveProps } from "../../pages/RegistPage";
+import DaumPostcode from "react-daum-postcode";
+import Modal from "react-modal";
+import "../../modal/modal.css";
 
 function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
   const [check, setCheck] = useState({ name: false, address: false });
   const [tooltip, setTooltip] = useState<boolean>(false);
   const [emailValidation, setEmailValidation] = useState<boolean>(true);
+  const [postCodeOpen, setPostCodeOpen] = useState<{
+    nominee: boolean;
+    business: boolean;
+  }>({ nominee: false, business: false });
   const step3 = storageData.step3;
 
   useEffect(() => {
@@ -100,10 +107,69 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
     }
   }
 
+  function postCodeHandler(data: any) {
+    // 주소 저장시 우편번호 zonecode ,지번주소 jibunAddress ,도로명주소 roadAddress ,상세주소 저장
+    if (data) {
+      const { roadAddress, jibunAddress, zonecode } = data;
+      if (postCodeOpen.nominee) {
+        setStorageData({
+          ...storageData,
+          step3: {
+            ...step3,
+            address: {
+              roadAddress,
+              jibunAddress,
+              zonecode,
+            },
+          },
+        });
+      } else if (postCodeOpen.business) {
+        setStorageData({
+          ...storageData,
+          step3: {
+            ...step3,
+            address2: {
+              roadAddress,
+              jibunAddress,
+              zonecode,
+            },
+          },
+        });
+      }
+    }
+  }
+
   return (
     <>
+      {postCodeOpen && (
+        <Modal
+          isOpen={postCodeOpen.business || postCodeOpen.nominee}
+          onRequestClose={() => {
+            postCodeOpen.business
+              ? setPostCodeOpen({
+                  ...postCodeOpen,
+                  business: false,
+                })
+              : setPostCodeOpen({
+                  ...postCodeOpen,
+                  nominee: false,
+                });
+          }}
+          overlayClassName="overlay"
+          className="post_code_modal"
+          ariaHideApp={false}
+        >
+          <div className="post_code_modal_div">
+            <DaumPostcode
+              className="post_code"
+              onComplete={postCodeHandler}
+              height={800}
+            />
+          </div>
+        </Modal>
+      )}
       <RegistTitle>개인 사업자 정보를 입력해 주세요</RegistTitle>
-      <RegistForm>
+      <RegistForm onSubmit={(e) => e.preventDefault()}>
         <div className="step_info">
           <div className="info_number">
             <p>1</p>
@@ -177,13 +243,20 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
               <div></div>명의자의 등본상 주소지를 입력해 주세요.
             </Tooltip>
           )}
-          <div className="flex_form">
+          <div
+            className="flex_form"
+            onClick={() => setPostCodeOpen({ nominee: true, business: false })}
+          >
             <div className="input_div">
               <input
                 type="text"
                 placeholder="주소를 검색해주세요"
                 readOnly
-                value={step3.address}
+                value={
+                  step3.address.zonecode
+                    ? `[${step3.address.zonecode}] ` + step3.address.roadAddress
+                    : ""
+                }
               />
             </div>
             <RegistSubBtn backgrondColor="#0740E4">주소 검색</RegistSubBtn>
@@ -238,13 +311,25 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
               <p>주민등록주소와 동일</p>
             </div>
           </div>
-          <div className="flex_form">
+          <div
+            className="flex_form"
+            onClick={() => {
+              setCheck({ ...check, address: false });
+              equalRegister(false, "address");
+              setPostCodeOpen({ ...postCodeOpen, business: true });
+            }}
+          >
             <div className="input_div">
               <input
                 type="text"
                 placeholder="주소를 검색해주세요"
                 readOnly
-                value={step3.address2}
+                value={
+                  step3.address2.zonecode
+                    ? `[${step3.address2.zonecode}] ` +
+                      step3.address2.roadAddress
+                    : ""
+                }
               />
             </div>
             <RegistSubBtn backgrondColor="#0740E4">주소 검색</RegistSubBtn>
