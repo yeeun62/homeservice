@@ -135,7 +135,7 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
             </div>
             <RegistSubBtn backgrondColor="#0740E4">주소 검색</RegistSubBtn>
           </div>
-          <div style={{ position: "relative" }}>
+          <div style={{ position: "relative", marginTop: "12px" }}>
             <div className="input_div">
               <input
                 className="input_margin_top"
