@@ -4,19 +4,24 @@ import { ActiveProps } from "../../pages/RegistPage";
 
 function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
   const [check, setCheck] = useState<boolean>(false);
-  const [emailValidation, setEmailValidation] = useState<boolean>(false);
+  const [emailValidation, setEmailValidation] = useState<boolean>(true);
   const step3 = storageData.step3;
 
   useEffect(() => {
     let isActivate = Object.values(step3).filter((data: any) => {
       if (data.length > 0) return data;
     });
-    if (isActivate.length > 6 && step3.mobile.toString().length === 11) {
+    if (
+      isActivate.length >= 6 &&
+      step3.mobile.toString().length === 11 &&
+      step3.businessNumber.toString().length === 10 &&
+      emailValidation
+    ) {
       setActivate(true);
     } else {
       setActivate(false);
     }
-  }, [step3]);
+  }, [step3, emailValidation]);
 
   function validationHandler(
     e: React.ChangeEvent<HTMLInputElement>,
@@ -24,7 +29,7 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
   ) {
     if (
       (key === "mobile" && e.target.value.length <= 11) ||
-      key === "businessNumber"
+      (key === "businessNumber" && emailValidation)
     ) {
       e.target.value = e.target.value.replace(/[^0-9]/g, "");
     } else if (key === "mobile") {
@@ -35,6 +40,10 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
       return;
     }
 
+    if (key === "email" && validationEmail()) {
+      setEmailValidation(true);
+    }
+
     setStorageData({
       ...storageData,
       step3: { ...step3, [key]: e.target.value },
@@ -43,11 +52,7 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
 
   function validationEmail() {
     let emailReg = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-    if (emailReg.test(storageData.step3.email)) {
-      setEmailValidation(false);
-    } else {
-      setEmailValidation(true);
-    }
+    return emailReg.test(storageData.step3.email);
   }
 
   function equalRegister(b: boolean) {
@@ -179,10 +184,10 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
               placeholder="help@charancha.com"
               value={step3.email}
               onChange={(e) => validationHandler(e, "email")}
-              onBlur={validationEmail}
+              onBlur={() => setEmailValidation(validationEmail())}
             />
           </div>
-          {emailValidation && (
+          {!emailValidation && (
             <p className="certi_warning">이메일 형식이 맞지 않습니다.</p>
           )}
         </label>
