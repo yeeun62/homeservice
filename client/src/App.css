@@ -25,6 +25,12 @@ input:focus {
   outline: none;
 }
 
+input {
+  -webkit-appearance: none;
+  -webkit-border-radius: 0;
+  line-height: 5;
+}
+
 .gray_text {
   font-style: normal;
   font-weight: 400;

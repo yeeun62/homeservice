@@ -4,6 +4,7 @@ import { ActiveProps } from "../../pages/RegistPage";
 
 function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
   const [check, setCheck] = useState<boolean>(false);
+  const [emailValidation, setEmailValidation] = useState<boolean>(false);
   const step3 = storageData.step3;
 
   useEffect(() => {
@@ -33,6 +34,15 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
       ...storageData,
       step3: { ...step3, [key]: e.target.value },
     });
+  }
+
+  function validationEmail() {
+    let emailReg = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+    if (emailReg.test(storageData.step3.email)) {
+      setEmailValidation(false);
+    } else {
+      setEmailValidation(true);
+    }
   }
 
   function equalRegister(b: boolean) {
@@ -107,7 +117,6 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
             />
           </div>
         </label>
-
         <label>
           <p>사업장 주소</p>
           <div className="flex_form">
@@ -165,8 +174,12 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
               placeholder="help@charancha.com"
               value={step3.email}
               onChange={(e) => validationHandler(e, "email")}
+              onBlur={validationEmail}
             />
           </div>
+          {emailValidation && (
+            <p className="certi_warning">이메일 형식이 맞지 않습니다.</p>
+          )}
         </label>
       </RegistForm>
     </>

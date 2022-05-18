@@ -6,6 +6,7 @@ import "./App.css";
 import MainPage from "./pages/MainPage";
 import RegistPage from "./pages/RegistPage";
 import CompletePage from "./pages/CompletePage";
+import LoadingPage from "./pages/LoadingPage";
 
 const AppWrap = styled.div`
   min-width: 360px;
@@ -82,7 +83,7 @@ function App() {
                     setStorageData={setStorageData}
                   />
                 ) : (
-                  <p>로딩</p>
+                  <LoadingPage />
                 )
               }
             />
@@ -97,7 +98,7 @@ function App() {
                     setStorageData={setStorageData}
                   />
                 ) : (
-                  <p>로딩</p>
+                  <LoadingPage />
                 )
               }
             />
