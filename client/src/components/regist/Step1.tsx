@@ -1,33 +1,32 @@
 import { RegistTitle, RegistSubBtn, RegistForm } from "../../styles/recycle";
 import { ActiveProps } from "../../pages/RegistPage";
 import { useState, useEffect } from "react";
+import axios from "axios";
 import CryptoJS from "crypto-js";
 
 function Step1({ setActivate, setStorageData, storageData }: ActiveProps) {
   const step1 = storageData.step1;
-  const [auth, setAuth] = useState<boolean>(false);
-  const [authMessage, setAuthMessage] = useState<boolean>(true);
+  const [time, setTime] = useState<boolean>(false);
+  const [timeStop, setTimeStop] = useState<boolean>(false);
+  const [authMessage, setAuthMessage] = useState<boolean>(false);
+  const [inputComplete, setInputComplete] = useState<boolean>(false);
   const [salt, setSalt] = useState<any>("");
-  const [minutes, setMinutes] = useState<any>(2);
-  const [seconds, setSeconds] = useState<any>(59);
+  const [minutes, setMinutes] = useState<any>(3);
+  const [seconds, setSeconds] = useState<any>(0);
   const [validation, setValidation] = useState<{ mobileAuth: string }>({
     mobileAuth: "",
   });
 
   useEffect(() => {
-    if (
-      step1.name &&
-      step1.mobile.length === 11 &&
-      validation.mobileAuth === "success"
-    ) {
-      setActivate(true);
+    if (step1.name && step1.mobile.length === 11) {
+      setInputComplete(true);
     } else {
-      setActivate(false);
+      setInputComplete(false);
     }
   }, [validation, storageData]);
 
   useEffect(() => {
-    if (auth) {
+    if (time && !timeStop) {
       const countdown = setInterval(() => {
         if (parseInt(seconds) > 0) {
           setSeconds(parseInt(seconds) - 1);
@@ -43,39 +42,41 @@ function Step1({ setActivate, setStorageData, storageData }: ActiveProps) {
       }, 1000);
       return () => clearInterval(countdown);
     }
-  }, [minutes, seconds, auth]);
+  }, [minutes, seconds, time, timeStop]);
 
   useEffect(() => {
     if (validation.mobileAuth.length === 6) {
-      let bytes = CryptoJS.AES.decrypt(
-        salt,
-        `${process.env.REACT_APP_SECRET_KEY}`
-      );
+      let bytes = CryptoJS.AES.decrypt(salt, `${process.env.REACT_APP_SALT}`);
       if (bytes.toString(CryptoJS.enc.Utf8) === validation.mobileAuth) {
-        setValidation({ mobileAuth: "success" });
-        setAuthMessage(true);
-      } else {
+        setActivate(true);
         setAuthMessage(false);
+        setTimeStop(true);
+      } else {
+        setActivate(false);
+        setAuthMessage(true);
+        setTimeStop(false);
       }
+    } else {
+      setActivate(false);
+      setTimeStop(false);
     }
   }, [validation]);
 
   const authHandler = () => {
-    if (step1.mobile.length === 11) {
-      let authNumber = String(Math.random()).slice(2, 8);
-      console.log(authNumber);
-      // authNumber 인증번호를 포함한 문자 발송 로직 구현
+    let authNumber = String(Math.random()).slice(2, 8);
+    console.log(authNumber);
+    // authNumber 인증번호를 포함한 문자 발송 로직 구현
 
-      let crypto = CryptoJS.AES.encrypt(
-        authNumber,
-        `${process.env.REACT_APP_SECRET_KEY}`
-      ).toString();
-      setSalt(crypto);
-
-      setAuth(true);
-    } else {
-      return;
-    }
+    let crypto = CryptoJS.AES.encrypt(
+      authNumber,
+      `${process.env.REACT_APP_SALT}`
+    ).toString();
+    setSalt(crypto);
+    setTime(true);
+    setMinutes(3);
+    setSeconds(0);
+    setValidation({ mobileAuth: "" });
+    setAuthMessage(false);
   };
 
   return (
@@ -118,12 +119,10 @@ function Step1({ setActivate, setStorageData, storageData }: ActiveProps) {
               />
             </div>
             <RegistSubBtn
-              onClick={authHandler}
-              backgrondColor={`${
-                step1.mobile.length < 11 ? "#C2C2C2" : "#0740E4"
-              }`}
+              onClick={() => inputComplete && authHandler()}
+              backgrondColor={`${inputComplete ? "#0740E4" : "#C2C2C2"}`}
             >
-              인증번호 전송
+              {time ? "인증번호 재전송" : "인증번호 전송"}
             </RegistSubBtn>
           </div>
           <div style={{ position: "relative", marginTop: "12px" }}>
@@ -131,19 +130,21 @@ function Step1({ setActivate, setStorageData, storageData }: ActiveProps) {
               <input
                 className="input_margin_top"
                 type="text"
+                maxLength={6}
+                value={validation.mobileAuth}
                 placeholder="인증번호를 입력해주세요"
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setValidation({ ...validation, mobileAuth: e.target.value })
                 }
               />
             </div>
-            {auth && (
+            {time && (
               <p className="valid_time">
                 {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
               </p>
             )}
           </div>
-          {!authMessage && (
+          {authMessage && (
             <p className="certi_warning">인증번호가 일치하지 않습니다.</p>
           )}
         </label>
