@@ -18,8 +18,12 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
   const step3 = storageData.step3;
 
   useEffect(() => {
-    // 조건 수정
-    if (step3.name && step3.mobile && step3.detailAddress) {
+    if (
+      step3.name &&
+      step3.mobile.length === 11 &&
+      step3.address.detailAddress &&
+      step3.address.zonecode
+    ) {
       setActivate(true);
     } else {
       setActivate(false);
@@ -36,7 +40,7 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
     } else if (key === "mobile") {
       return;
     } else if (key === "detailAddress") {
-      setStorageData({
+      return setStorageData({
         ...storageData,
         step3: {
           ...step3,
@@ -46,12 +50,11 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
           },
         },
       });
-    } else {
-      setStorageData({
-        ...storageData,
-        step3: { ...step3, [key]: e.target.value },
-      });
     }
+    setStorageData({
+      ...storageData,
+      step3: { ...step3, [key]: e.target.value },
+    });
   }
 
   function equalRegister(b: boolean) {
@@ -73,7 +76,6 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
   }
 
   function postCodeHandler(data: any) {
-    // 주소 저장시 우편번호 zonecode ,지번주소 jibunAddress ,도로명주소 roadAddress ,상세주소 저장
     if (data) {
       const { roadAddress, jibunAddress, zonecode } = data;
       setPostCodeOpen(false);

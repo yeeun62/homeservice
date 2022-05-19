@@ -177,6 +177,7 @@ function ConditionModal({ setConditionModal, storageData }: ConditionProps) {
 
   function CompleteHandler() {
     if (isChecked.all) {
+      // 데이터 저장 post request 보내고 status에 따라서 처리, 200이면 로컬스토리지 지우고 complete page navigate
       navigate("/complete");
       localStorage.removeItem(storageData.id);
     }
