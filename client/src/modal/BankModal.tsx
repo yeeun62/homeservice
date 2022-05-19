@@ -1,7 +1,5 @@
 import styled from "styled-components";
 import { StorageType } from "../App";
-import { useEffect, useState } from "react";
-import axios from "axios";
 
 const BankModalWrap = styled.div`
   width: 100%;
@@ -66,22 +64,12 @@ const BankModalWrap = styled.div`
 function BankModal({
   setBankModal,
   setStorageData,
+  bankList,
 }: {
   setBankModal: React.Dispatch<React.SetStateAction<boolean>>;
   setStorageData: React.Dispatch<React.SetStateAction<StorageType>>;
+  bankList: any;
 }) {
-  const [bankList, setBankList] = useState<any>();
-  
-  useEffect(() => {
-    axios.get("http://54.180.121.208:80/api/handle/banks").then((res) => {
-      console.log(res);
-      if (res.status === 200) {
-        let result = res.data.result;
-        setBankList({ name: Object.values(result), code: Object.keys(result) });
-      }
-    });
-  }, []);
-
   return (
     <BankModalWrap>
       <button

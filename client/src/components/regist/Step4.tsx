@@ -4,29 +4,42 @@ import "../../modal/modal.css";
 import { RegistTitle, RegistForm } from "../../styles/recycle";
 import BankModal from "../../modal/BankModal";
 import { ActiveProps } from "../../pages/RegistPage";
+import axios from "axios";
 
 function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
   const [bankModal, setBankModal] = useState<boolean>(false);
+  const [bankList, setBankList] = useState<any>();
   const step4 = storageData.step4;
 
   useEffect(() => {
-    let isActivate = Object.values(step4).filter((data: any) => {
-      if (data.length > 0) return data;
+    axios.get("http://54.180.121.208:80/api/handle/banks").then((res) => {
+      if (res.status === 200) {
+        setBankList({
+          name: Object.values(res.data.result),
+          code: Object.keys(res.data.result),
+        });
+      } else {
+        console.log("bankList error");
+      }
     });
-    if (isActivate.length > 2) {
+  }, []);
+
+  useEffect(() => {
+    if (step4.bank.name && step4.account && step4.name) {
       setActivate(true);
     } else {
       setActivate(false);
     }
-  }, [storageData.step4]);
+  }, [step4]);
 
   function validationHandler(
     e: React.ChangeEvent<HTMLInputElement>,
     key: string
   ) {
-    if (key === "account") {
+    if (key === "account" && e.target.value.length <= 14) {
       e.target.value = e.target.value.replace(/[^0-9]/g, "");
-    }
+    } else if (key === "account") return;
+
     setStorageData({
       ...storageData,
       step4: { ...step4, [key]: e.target.value },
@@ -45,6 +58,7 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
         <BankModal
           setBankModal={setBankModal}
           setStorageData={setStorageData}
+          bankList={bankList}
         />
       </Modal>
       <RegistTitle style={{ marginBottom: "6px" }}>
