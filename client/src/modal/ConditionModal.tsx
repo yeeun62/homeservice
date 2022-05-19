@@ -241,13 +241,12 @@ function ConditionModal({ setConditionModal, storageData }: ConditionProps) {
               <img
                 src="./img/icon_arrow_right_medium_gray.svg"
                 alt="약관 더 보기"
-                onClick={() =>
-                  setSubModal({
-                    title: condition,
-                    content: "",
-                    open: true,
-                  })
-                }
+                // onClick={() =>
+                //   setSubModal({
+                //     title: condition,
+                //     open: true,
+                //   })
+                // }
               />
             </li>
           );

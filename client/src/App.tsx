@@ -24,7 +24,11 @@ export interface StorageType {
   step1: { name: string; mobile: string };
   step2: number;
   step3: any;
-  step4: { bank: string; name: string; account: string };
+  step4: {
+    bank: { name: string; code: string };
+    name: string;
+    account: string;
+  };
   step: number;
 }
 
@@ -56,7 +60,7 @@ function App() {
           step1: { name: "", mobile: "" },
           step2: 0,
           step3: "",
-          step4: { bank: "", name: "", account: "" },
+          step4: { bank: { name: "", code: "" }, name: "", account: "" },
           step: 0,
         });
       }
