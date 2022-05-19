@@ -148,24 +148,19 @@ const PriceWrap = styled.div`
 `;
 
 function PriceInfo({ data, priceData, priceTxt }: any) {
-  let { carNo, fuel, imageUrl, mileage, releaseDt, sellNo, sellPrice } =
-    data.simpleCar;
-  const { gradeDetailNm, gradeNm, makerNm, modelDetailNm, modelNm } =
-    data.simpleCar.trim;
-
-  releaseDt = `${releaseDt.slice(2, 4)}년${releaseDt.slice(4, 6)}월`;
-  mileage = mileage.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  sellPrice = String(sellPrice) + "0000";
-  sellPrice = sellPrice.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  let transfer = priceData.transfer
-    .toString()
-    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  let management = priceData.management
-    .toString()
-    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-
   const [priceOpen, setPriceOpen] = useState<boolean>(false);
   const [tooltip, setTooltip] = useState<boolean>(false);
+
+  let { releaseDt, sellPrice } = data.simpleCar;
+
+  const addComma = (data: any) => {
+    return data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+
+  releaseDt = `${releaseDt.slice(2, 4)}년${releaseDt.slice(4, 6)}월`;
+  sellPrice = addComma(String(sellPrice) + "0000");
+  let transfer = addComma(priceData.transfer);
+  let management = addComma(priceData.management);
 
   return (
     <PriceWrap>

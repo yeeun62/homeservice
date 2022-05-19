@@ -30,35 +30,12 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
     }
   }, [step3]);
 
-  function validationHandler(
-    e: React.ChangeEvent<HTMLInputElement>,
-    key: string
-  ) {
-    if (key === "mobile" && e.target.value.length <= 11) {
-      setCheck(false);
-      e.target.value = e.target.value.replace(/[^0-9]/g, "");
-    } else if (key === "mobile") {
-      return;
-    } else if (key === "detailAddress") {
-      return setStorageData({
-        ...storageData,
-        step3: {
-          ...step3,
-          address: {
-            ...step3.address,
-            [key]: e.target.value,
-          },
-        },
-      });
-    }
-    setStorageData({
-      ...storageData,
-      step3: { ...step3, [key]: e.target.value },
-    });
-  }
+  useEffect(() => {
+    setCheck(false);
+  }, [storageData]);
 
-  function equalRegister(b: boolean) {
-    if (b) {
+  function equalRegister() {
+    if (!check) {
       setStorageData({
         ...storageData,
         step3: {
@@ -117,7 +94,7 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
             <div
               onClick={() => {
                 setCheck(!check);
-                equalRegister(!check);
+                equalRegister();
               }}
             >
               <img
@@ -135,11 +112,13 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
             <input
               type="text"
               placeholder="실명을 입력해주세요"
-              value={storageData.step3.name}
-              onChange={(e) => {
-                validationHandler(e, "name");
-                setCheck(false);
-              }}
+              value={step3.name}
+              onChange={(e) =>
+                setStorageData({
+                  ...storageData,
+                  step3: { ...step3, name: e.target.value },
+                })
+              }
             />
           </div>
         </label>
@@ -148,11 +127,18 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
           <div className="input_div">
             <input
               type="text"
+              maxLength={11}
               placeholder="숫자만 입력해주세요"
               value={step3.mobile}
-              onChange={(e) => {
-                validationHandler(e, "mobile");
-              }}
+              onChange={(e) =>
+                setStorageData({
+                  ...storageData,
+                  step3: {
+                    ...step3,
+                    mobile: e.target.value.replace(/[^0-9]/g, ""),
+                  },
+                })
+              }
             />
           </div>
         </label>
@@ -178,7 +164,7 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
                 top: "26px",
               }}
             >
-              <div></div>명의자의 등본상 주소지를 입력해 주세요.
+              명의자의 등본상 주소지를 입력해 주세요.
             </Tooltip>
           )}
           <div className="flex_form" onClick={() => setPostCodeOpen(true)}>
@@ -201,8 +187,20 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
               <input
                 className="input_margin_top"
                 type="text"
+                value={step3.address.detailAddress}
                 placeholder="상세주소를 입력해주세요"
-                onChange={(e) => validationHandler(e, "detailAddress")}
+                onChange={(e) =>
+                  setStorageData({
+                    ...storageData,
+                    step3: {
+                      ...step3,
+                      address: {
+                        ...step3.address,
+                        detailAddress: e.target.value,
+                      },
+                    },
+                  })
+                }
               />
             </div>
           </div>
