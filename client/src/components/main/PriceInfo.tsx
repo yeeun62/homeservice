@@ -147,7 +147,7 @@ const PriceWrap = styled.div`
   }
 `;
 
-function PriceInfo({ data }: any) {
+function PriceInfo({ data, priceData, priceTxt }: any) {
   let { carNo, fuel, imageUrl, mileage, releaseDt, sellNo, sellPrice } =
     data.simpleCar;
   const { gradeDetailNm, gradeNm, makerNm, modelDetailNm, modelNm } =
@@ -157,6 +157,12 @@ function PriceInfo({ data }: any) {
   mileage = mileage.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   sellPrice = String(sellPrice) + "0000";
   sellPrice = sellPrice.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  let transfer = priceData.transfer
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  let management = priceData.management
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
   const [priceOpen, setPriceOpen] = useState<boolean>(false);
   const [tooltip, setTooltip] = useState<boolean>(false);
@@ -202,7 +208,7 @@ function PriceInfo({ data }: any) {
             >
               <li style={{ marginBottom: "3px" }}>
                 <p className="more_price_title">ㄴ이전비</p>
-                <p className="more_price_value">1,200,000원</p>
+                <p className="more_price_value">{transfer}원</p>
               </li>
               <li style={{ marginBottom: "0px" }}>
                 <div className="more_price_title">
@@ -219,7 +225,7 @@ function PriceInfo({ data }: any) {
                     </Tooltip>
                   )}
                 </div>
-                <p className="more_price_value">330,000원</p>
+                <p className="more_price_value">{management}원</p>
               </li>
             </ul>
           </li>
@@ -235,11 +241,7 @@ function PriceInfo({ data }: any) {
         </ul>
       </div>
       <ul className="list_style">
-        {[
-          "견적금액은 배송비에 의해 변동될 수 있습니다. (배송비 최대금액 165,000원으로 계산 선반영되었습니다.)",
-          "배송비는 차량 출발지와 도착지 거리에 따라 책정되며, 상담단계에서 확정됩니다.",
-          "이전비는 차액 발생 시 계좌로 환급해드립니다.",
-        ].map((el: string, i: number) => {
+        {priceTxt.map((el: string, i: number) => {
           return (
             <li key={el}>
               <div></div>

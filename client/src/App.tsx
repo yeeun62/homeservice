@@ -36,6 +36,9 @@ function App() {
   const [step, setStep] = useState<number>(1);
   const [data, setData] = useState<any>();
   const [storageData, setStorageData] = useState<any>();
+  const [introduceMSG, setIntroduceMSG] = useState<string>("");
+  const [priceData, setPriceData] = useState<any>();
+  const [priceTxt, setPriceTxt] = useState<any>();
 
   useEffect(() => {
     axios
@@ -45,10 +48,27 @@ function App() {
       .then((data) => {
         setData(data.data);
       });
+
+    axios
+      .get(
+        `http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/handle/announce/notice`
+      )
+      .then((msg) => setIntroduceMSG(msg.data.result.message));
+
+    axios
+      .get(
+        `http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/handle/announce/fee`
+      )
+      .then((price) => setPriceData(price.data.result));
+
+    axios
+      .get(
+        `http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/handle/announce/price`
+      )
+      .then((txt) => setPriceTxt(txt.data.result));
   }, []);
 
   useEffect(() => {
-    // 처음에 요청 들어오는 파라미터로 로컬스토리지에서 데이터 있는지 검사해서 있으면 스토리지데이터 스테이트 업데이트하고 없으면 초기값 넣어주기
     if (data) {
       let localData = localStorage.getItem(data.simpleCar.sellNo);
       if (localData) {
@@ -75,11 +95,14 @@ function App() {
             <Route
               path="/"
               element={
-                data && storageData ? (
+                data && storageData && introduceMSG && priceData && priceTxt ? (
                   <MainPage
                     data={data}
                     storageData={storageData}
                     setStorageData={setStorageData}
+                    introduceMSG={introduceMSG}
+                    priceData={priceData}
+                    priceTxt={priceTxt}
                   />
                 ) : (
                   <LoadingPage />

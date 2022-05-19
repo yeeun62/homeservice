@@ -12,10 +12,16 @@ function MainPage({
   data,
   storageData,
   setStorageData,
+  introduceMSG,
+  priceData,
+  priceTxt,
 }: {
   data: any;
   storageData: StorageType;
   setStorageData: React.Dispatch<React.SetStateAction<StorageType>>;
+  introduceMSG: string;
+  priceData: any;
+  priceTxt: any;
 }) {
   const scroll: any = useRef(null);
   const navigate = useNavigate();
@@ -49,11 +55,11 @@ function MainPage({
   return (
     <div ref={scroll}>
       <Header />
-      <Introduce />
+      <Introduce introduceMSG={introduceMSG} />
       <PageWrap>
         <div>
           <Visual data={data} visualTitle="안전하게 배송해드리겠습니다" />
-          <PriceInfo data={data} />
+          <PriceInfo data={data} priceData={priceData} priceTxt={priceTxt} />
           <Pay setStorageData={setStorageData} storageData={storageData} />
         </div>
       </PageWrap>

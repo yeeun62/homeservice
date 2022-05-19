@@ -35,7 +35,6 @@ export const RegistSubBtn = styled.button<{
   background-color: ${(props) => props.backgrondColor};
   width: 106px;
   height: 40px;
-  padding: 10px 14px;
   color: #fff;
   border: none;
   border-radius: 5px;
