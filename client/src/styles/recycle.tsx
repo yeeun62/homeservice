@@ -44,11 +44,25 @@ export const RegistSubBtn = styled.button<{
 `;
 
 export const MainBtn = styled.button<{
-  backgrondColor: string;
-  color: string;
-  border: string;
-  activate: boolean;
+  backgrondColor?: string;
+  color?: string;
+  border?: string;
+  activate?: boolean;
+  pay?: boolean;
 }>`
+  ${(props) =>
+    props.pay
+      ? css`
+          background-color: rgba(7, 64, 228, 0.03);
+          color: #0740e4;
+          border: 1px solid rgba(7, 64, 228, 0.1);
+        `
+      : css`
+          background-color: #fff;
+          color: #707070;
+          border: 1px solid #ededed;
+        `}
+
   background-color: ${(props) => props.backgrondColor};
   color: ${(props) => props.color};
   border: ${(props) => props.border};

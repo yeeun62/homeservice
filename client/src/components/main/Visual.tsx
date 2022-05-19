@@ -99,15 +99,16 @@ const VisualWrap = styled.div`
 `;
 
 function Visual({ data, visualTitle, visualSpan }: any) {
-  let { carNo, fuel, imageUrl, mileage, releaseDt, sellNo, sellPrice } =
-    data.simpleCar;
-  const { gradeDetailNm, gradeNm, makerNm, modelDetailNm, modelNm } =
-    data.simpleCar.trim;
+  let { carNo, fuel, imageUrl, mileage, releaseDt, sellPrice } = data.simpleCar;
+  const { makerNm } = data.simpleCar.trim;
+
+  const addComma = (data: any) => {
+    return data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
 
   let releaseDtForm = `${releaseDt.slice(2, 4)}년${releaseDt.slice(4, 6)}월`;
-  mileage = mileage.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  sellPrice = String(sellPrice) + "0000";
-  sellPrice = sellPrice.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  mileage = addComma(mileage);
+  sellPrice = addComma(String(sellPrice) + "0000");
 
   return (
     <VisualWrap>

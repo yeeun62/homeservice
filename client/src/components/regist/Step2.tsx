@@ -55,8 +55,8 @@ function Step2({ setActivate, setStorageData, storageData }: Step2Props) {
 
   const storageHandler = (index: number) => {
     if (index === 2) {
-      setStorageData((prevState) => ({
-        ...prevState,
+      setStorageData((storageData) => ({
+        ...storageData,
         step2: index,
         step3: {
           name: "",
@@ -71,8 +71,8 @@ function Step2({ setActivate, setStorageData, storageData }: Step2Props) {
         },
       }));
     } else if (index === 3) {
-      setStorageData((prevState) => ({
-        ...prevState,
+      setStorageData((storageData) => ({
+        ...storageData,
         step2: index,
         step3: {
           name: "",
@@ -96,8 +96,8 @@ function Step2({ setActivate, setStorageData, storageData }: Step2Props) {
         },
       }));
     } else if (index === 4) {
-      setStorageData((prevState) => ({
-        ...prevState,
+      setStorageData((storageData) => ({
+        ...storageData,
         step2: index,
         step3: {
           name: "",

@@ -106,15 +106,16 @@ function Step1({ setActivate, setStorageData, storageData }: ActiveProps) {
               <input
                 type="text"
                 placeholder="숫자만 입력해주세요"
-                value={storageData.step1.mobile}
+                value={step1.mobile}
+                maxLength={11}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  if (e.target.value.length <= 11) {
-                    e.target.value = e.target.value.replace(/[^0-9]/g, "");
-                    setStorageData({
-                      ...storageData,
-                      step1: { ...step1, mobile: e.target.value },
-                    });
-                  }
+                  setStorageData({
+                    ...storageData,
+                    step1: {
+                      ...step1,
+                      mobile: e.target.value.replace(/[^0-9]/g, ""),
+                    },
+                  });
                 }}
               />
             </div>

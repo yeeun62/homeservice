@@ -68,15 +68,7 @@ function Pay({
       <div>
         <MainBtn
           type="button"
-          backgrondColor={`${
-            storageData.main === "현금" ? "rgba(7, 64, 228, 0.03)" : "#fff"
-          }`}
-          border={`${
-            storageData.main === "현금"
-              ? "1px solid rgba(7, 64, 228, 0.1)"
-              : "1px solid #ededed"
-          }`}
-          color={`${storageData.main === "현금" ? "#0740E4" : "#707070"}`}
+          pay={storageData.main === "현금"}
           activate={true}
           onClick={() => {
             setStorageData({ ...storageData, main: "현금" });
@@ -87,15 +79,7 @@ function Pay({
         </MainBtn>
         <MainBtn
           type="button"
-          backgrondColor={`${
-            storageData.main === "현금+할부" ? "rgba(7, 64, 228, 0.03)" : "#fff"
-          }`}
-          border={`${
-            storageData.main === "현금+할부"
-              ? "1px solid rgba(7, 64, 228, 0.1)"
-              : "1px solid #ededed"
-          }`}
-          color={`${storageData.main === "현금+할부" ? "#0740E4" : "#707070"}`}
+          pay={storageData.main === "현금+할부"}
           activate={true}
           onClick={() => {
             setStorageData({ ...storageData, main: "현금+할부" });
