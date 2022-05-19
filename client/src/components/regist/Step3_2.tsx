@@ -325,10 +325,11 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
                       step3.address2.roadAddress
                     : ""
                 }
-                onFocus={() => {
+                onFocus={(e) => {
                   setCheck({ ...check, address: false });
                   equalRegister(false, "address");
                   setPostCodeOpen({ ...postCodeOpen, business: true });
+                  (document.activeElement as HTMLElement).blur();
                 }}
               />
             </div>

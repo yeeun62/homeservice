@@ -13,7 +13,6 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
     let isActivate = Object.values(step4).filter((data: any) => {
       if (data.length > 0) return data;
     });
-    console.log(isActivate);
     if (isActivate.length > 2) {
       setActivate(true);
     } else {

@@ -44,26 +44,21 @@ function App() {
   }, []);
 
   useEffect(() => {
+    // 처음에 요청 들어오는 파라미터로 로컬스토리지에서 데이터 있는지 검사해서 있으면 스토리지데이터 스테이트 업데이트하고 없으면 초기값 넣어주기
     if (data) {
-      setStorageData({
-        id: data.simpleCar.sellNo,
-        main: "",
-        step1: { name: "", mobile: "" },
-        step2: 0,
-        step3: "",
-        step4: { bank: "", name: "", account: "" },
-        step: 0,
-      });
-    }
-    if (data && storageData) {
       let localData = localStorage.getItem(data.simpleCar.sellNo);
       if (localData) {
         setStorageData(JSON.parse(localData));
       } else {
-        localStorage.setItem(
-          data.simpleCar.sellNo,
-          JSON.stringify(storageData)
-        );
+        setStorageData({
+          id: data.simpleCar.sellNo,
+          main: "",
+          step1: { name: "", mobile: "" },
+          step2: 0,
+          step3: "",
+          step4: { bank: "", name: "", account: "" },
+          step: 0,
+        });
       }
     }
   }, [data]);
