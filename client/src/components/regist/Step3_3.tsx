@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { RegistTitle, RegistForm, RegistSubBtn } from "../../styles/recycle";
 import { ActiveProps } from "../../pages/RegistPage";
-import DaumPostcode from "react-daum-postcode";
+import AddressModal from "../../modal/AddressModal";
 import Modal from "react-modal";
 import "../../modal/modal.css";
 
@@ -107,13 +107,10 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
           className="post_code_modal"
           ariaHideApp={false}
         >
-          <div className="post_code_modal_div">
-            <DaumPostcode
-              className="post_code"
-              onComplete={postCodeHandler}
-              height={800}
-            />
-          </div>
+          <AddressModal
+            postCodeHandler={postCodeHandler}
+            setPostCodeOpen={setPostCodeOpen}
+          />
         </Modal>
       )}
       <RegistTitle>법인 사업자 정보를 입력해 주세요</RegistTitle>

@@ -7,7 +7,7 @@ import {
   Tooltip,
 } from "../../styles/recycle";
 import { ActiveProps } from "../../pages/RegistPage";
-import DaumPostcode from "react-daum-postcode";
+import AddressModal from "../../modal/AddressModal";
 import Modal from "react-modal";
 import "../../modal/modal.css";
 
@@ -161,13 +161,10 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
           className="post_code_modal"
           ariaHideApp={false}
         >
-          <div className="post_code_modal_div">
-            <DaumPostcode
-              className="post_code"
-              onComplete={postCodeHandler}
-              height={800}
-            />
-          </div>
+          <AddressModal
+            postCodeHandler={postCodeHandler}
+            setPostCodeOpen={setPostCodeOpen}
+          />
         </Modal>
       )}
       <RegistTitle>개인 사업자 정보를 입력해 주세요</RegistTitle>
@@ -230,7 +227,10 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
               src="/img/w_icon_question_medium_gray.svg"
               alt="물음표 이모티콘"
               style={{ cursor: "pointer" }}
-              onClick={() => setTooltip(!tooltip)}
+              onClick={(e) => {
+                setTooltip(!tooltip);
+                e.preventDefault();
+              }}
             />
           </p>
           {tooltip && (

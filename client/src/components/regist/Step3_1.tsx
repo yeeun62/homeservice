@@ -8,7 +8,6 @@ import {
 } from "../../styles/recycle";
 import { ActiveProps } from "../../pages/RegistPage";
 import AddressModal from "../../modal/AddressModal";
-import DaumPostcode from "react-daum-postcode";
 import Modal from "react-modal";
 import "../../modal/modal.css";
 
@@ -158,7 +157,10 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
               src="/img/w_icon_question_medium_gray.svg"
               alt="물음표 이모티콘"
               style={{ cursor: "pointer" }}
-              onClick={() => setTooltip(!tooltip)}
+              onClick={(e) => {
+                setTooltip(!tooltip);
+                e.preventDefault();
+              }}
             />
           </p>
           {tooltip && (
@@ -195,6 +197,12 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
                 type="text"
                 placeholder="상세주소를 입력해주세요"
                 onChange={(e) => validationHandler(e, "detailAddress")}
+              />
+              <img
+                src="/img/w_icon_question_medium_gray.svg"
+                alt="물음표 이모티콘"
+                style={{ cursor: "pointer" }}
+                onClick={() => setTooltip(!tooltip)}
               />
             </div>
           </div>
