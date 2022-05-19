@@ -64,7 +64,7 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
               type="text"
               placeholder="은행을 선택해주세요"
               readOnly
-              value={step4.bank}
+              value={step4.bank.name}
               onClick={() => setBankModal(true)}
             />
             <img

@@ -70,38 +70,17 @@ function BankModal({
   setBankModal: React.Dispatch<React.SetStateAction<boolean>>;
   setStorageData: React.Dispatch<React.SetStateAction<StorageType>>;
 }) {
-  const [bankList, setBankList] = useState();
-  // 지울거
+  const [bankList, setBankList] = useState<any>();
+  
   useEffect(() => {
-    axios
-      .get("http://54.180.121.208:80/api/handle/banks")
-      .then((el) => console.log(el));
+    axios.get("http://54.180.121.208:80/api/handle/banks").then((res) => {
+      console.log(res);
+      if (res.status === 200) {
+        let result = res.data.result;
+        setBankList({ name: Object.values(result), code: Object.keys(result) });
+      }
+    });
   }, []);
-
-  const bankListss = [
-    { name: "국민", code: "" },
-    { name: "농협", code: "" },
-    { name: "신한", code: "" },
-    { name: "IBK기업", code: "" },
-    { name: "하나", code: "" },
-    { name: "우리", code: "" },
-    { name: "SC제일", code: "" },
-    { name: "대구", code: "" },
-    { name: "부산", code: "" },
-    { name: "광주", code: "" },
-    { name: "새마을금고", code: "" },
-    { name: "경남", code: "" },
-    { name: "전북", code: "" },
-    { name: "제주", code: "" },
-    { name: "산업", code: "" },
-    { name: "우체국", code: "" },
-    { name: "신협", code: "" },
-    { name: "수협", code: "" },
-    { name: "시티", code: "" },
-    { name: "카카오뱅크", code: "" },
-    { name: "케이뱅크", code: "" },
-    { name: "토스뱅크", code: "" },
-  ];
 
   return (
     <BankModalWrap>
@@ -111,23 +90,27 @@ function BankModal({
         onClick={() => setBankModal(false)}
         style={{ margin: "16px auto" }}
       />
-      {/* <div className="bank_list">
-        {bankList.map((list: { name: string; code: string }) => (
-          <div
-            className="bank"
-            key={list.code}
-            onClick={() => {
-              setStorageData((p) => ({
-                ...p,
-                step4: { ...p.step4, bank: list.code },
-              }));
-              setBankModal(false);
-            }}
-          >
-            <p className="bank_name">{list.name}</p>
-          </div>
-        ))}
-      </div> */}
+      <div className="bank_list">
+        {bankList &&
+          bankList.name.map((list: string, index: number) => (
+            <div
+              className="bank"
+              key={list}
+              onClick={() => {
+                setStorageData((p) => ({
+                  ...p,
+                  step4: {
+                    ...p.step4,
+                    bank: { name: list, code: bankList.code[index] },
+                  },
+                }));
+                setBankModal(false);
+              }}
+            >
+              <p className="bank_name">{list}</p>
+            </div>
+          ))}
+      </div>
       <div className="bank_close">
         <p onClick={() => setBankModal(false)}>닫기</p>
       </div>
