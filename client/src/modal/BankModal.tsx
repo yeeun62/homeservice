@@ -71,6 +71,7 @@ function BankModal({
   setStorageData: React.Dispatch<React.SetStateAction<StorageType>>;
 }) {
   const [bankList, setBankList] = useState<any>();
+  
   useEffect(() => {
     axios.get("http://54.180.121.208:80/api/handle/banks").then((res) => {
       console.log(res);
