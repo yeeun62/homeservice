@@ -48,22 +48,39 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
       e.target.value = e.target.value.replace(/[^0-9]/g, "");
     } else if (key === "mobile") {
       return;
-    }
-
-    if (key === "businessNumber" && e.target.value.length > 10) {
+    } else if (key === "businessNumber" && e.target.value.length > 10) {
       return;
-    }
-
-    if (key === "detailAddress2") setCheck({ ...check, address: false });
-
-    if (key === "email" && validationEmail()) {
+    } else if (key === "email" && validationEmail()) {
       setEmailValidation(true);
+    } else if (key === "detailAddress") {
+      setStorageData({
+        ...storageData,
+        step3: {
+          ...step3,
+          address: {
+            ...step3.address,
+            [key]: e.target.value,
+          },
+        },
+      });
+    } else if (key === "detailAddress2") {
+      setCheck({ ...check, address: false });
+      setStorageData({
+        ...storageData,
+        step3: {
+          ...step3,
+          address2: {
+            ...step3.address2,
+            [key]: e.target.value,
+          },
+        },
+      });
+    } else {
+      setStorageData({
+        ...storageData,
+        step3: { ...step3, [key]: e.target.value },
+      });
     }
-
-    setStorageData({
-      ...storageData,
-      step3: { ...step3, [key]: e.target.value },
-    });
   }
 
   function validationEmail() {
@@ -92,7 +109,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
         step3: {
           ...step3,
           address2: step3.address,
-          detailAddress2: step3.detailAddress,
+          detailAddress2: step3.address.detailAddress2,
         },
       });
     } else if (!b && key === "address") {
@@ -100,8 +117,12 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
         ...storageData,
         step3: {
           ...step3,
-          address2: "",
-          detailAddress2: "",
+          address2: {
+            zonecode: "",
+            jibunAddress: "",
+            roadAddress: "",
+            detailAddress2: "",
+          },
         },
       });
     }
@@ -136,7 +157,6 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
           },
         });
       }
-
       setPostCodeOpen({ nominee: false, business: false });
     }
   }
@@ -269,7 +289,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
                 className="input_margin_top"
                 type="text"
                 placeholder="상세주소를 입력해주세요"
-                value={step3.detailAddress}
+                value={step3.address.detailAddress}
                 onChange={(e) => validationHandler(e, "detailAddress")}
               />
             </div>
@@ -350,7 +370,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
                 className="input_margin_top"
                 type="text"
                 placeholder="상세주소를 입력해주세요"
-                value={step3.detailAddress2}
+                value={step3.address.detailAddress2}
                 onChange={(e) => {
                   validationHandler(e, "detailAddress2");
                 }}

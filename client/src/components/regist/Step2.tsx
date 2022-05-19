@@ -65,8 +65,8 @@ function Step2({ setActivate, setStorageData, storageData }: Step2Props) {
             zonecode: "",
             jibunAddress: "",
             roadAddress: "",
+            detailAddress: "",
           },
-          detailAddress: "",
           public: false,
         },
       }));
@@ -77,11 +77,19 @@ function Step2({ setActivate, setStorageData, storageData }: Step2Props) {
         step3: {
           name: "",
           mobile: "",
-          address: { zonecode: "", jibunAddress: "", roadAddress: "" },
-          detailAddress: "",
+          address: {
+            zonecode: "",
+            jibunAddress: "",
+            roadAddress: "",
+            detailAddress: "",
+          },
           name2: "",
-          address2: { zonecode: "", jibunAddress: "", roadAddress: "" },
-          detailAddress2: "",
+          address2: {
+            zonecode: "",
+            jibunAddress: "",
+            roadAddress: "",
+            detailAddress2: "",
+          },
           businessNumber: "",
           email: "",
           public: false,
@@ -94,8 +102,12 @@ function Step2({ setActivate, setStorageData, storageData }: Step2Props) {
         step3: {
           name: "",
           mobile: "",
-          address: { zonecode: "", jibunAddress: "", roadAddress: "" },
-          detailAddress: "",
+          address: {
+            zonecode: "",
+            jibunAddress: "",
+            roadAddress: "",
+            detailAddress: "",
+          },
           name2: "",
           businessNumber: "",
           email: "",

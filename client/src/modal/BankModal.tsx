@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { StorageType } from "../App";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 const BankModalWrap = styled.div`
   width: 100%;
@@ -71,7 +72,11 @@ function BankModal({
 }) {
   const [bankList, setBankList] = useState();
   // 지울거
-  useEffect(() => {}, []);
+  useEffect(() => {
+    axios
+      .get("http://54.180.121.208:80/api/handle/banks")
+      .then((el) => console.log(el));
+  }, []);
 
   const bankListss = [
     { name: "국민", code: "" },

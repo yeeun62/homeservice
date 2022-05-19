@@ -18,12 +18,6 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
   const step3 = storageData.step3;
 
   useEffect(() => {
-    if (storageData.step3 === "") {
-      setStorageData({
-        ...storageData,
-        step3: { name: "", moble: "", postCode: "" },
-      });
-    }
     // 조건 수정
     if (step3.name && step3.mobile && step3.detailAddress) {
       setActivate(true);
@@ -41,12 +35,23 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
       e.target.value = e.target.value.replace(/[^0-9]/g, "");
     } else if (key === "mobile") {
       return;
+    } else if (key === "detailAddress") {
+      setStorageData({
+        ...storageData,
+        step3: {
+          ...step3,
+          address: {
+            ...step3.address,
+            [key]: e.target.value,
+          },
+        },
+      });
+    } else {
+      setStorageData({
+        ...storageData,
+        step3: { ...step3, [key]: e.target.value },
+      });
     }
-
-    setStorageData({
-      ...storageData,
-      step3: { ...step3, [key]: e.target.value },
-    });
   }
 
   function equalRegister(b: boolean) {
@@ -69,7 +74,6 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
 
   function postCodeHandler(data: any) {
     // 주소 저장시 우편번호 zonecode ,지번주소 jibunAddress ,도로명주소 roadAddress ,상세주소 저장
-
     if (data) {
       const { roadAddress, jibunAddress, zonecode } = data;
       setPostCodeOpen(false);
@@ -197,12 +201,6 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
                 type="text"
                 placeholder="상세주소를 입력해주세요"
                 onChange={(e) => validationHandler(e, "detailAddress")}
-              />
-              <img
-                src="/img/w_icon_question_medium_gray.svg"
-                alt="물음표 이모티콘"
-                style={{ cursor: "pointer" }}
-                onClick={() => setTooltip(!tooltip)}
               />
             </div>
           </div>
