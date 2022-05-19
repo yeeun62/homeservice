@@ -12,16 +12,20 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
   const step4 = storageData.step4;
 
   useEffect(() => {
-    axios.get("http://54.180.121.208:80/api/handle/banks").then((res) => {
-      if (res.status === 200) {
-        setBankList({
-          name: Object.values(res.data.result),
-          code: Object.keys(res.data.result),
-        });
-      } else {
-        console.log("bankList error");
-      }
-    });
+    axios
+      .get(
+        `http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/handle/banks`
+      )
+      .then((res) => {
+        if (res.status === 200) {
+          setBankList({
+            name: Object.values(res.data.result),
+            code: Object.keys(res.data.result),
+          });
+        } else {
+          console.log("bankList error");
+        }
+      });
   }, []);
 
   useEffect(() => {
@@ -31,20 +35,6 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
       setActivate(false);
     }
   }, [step4]);
-
-  function validationHandler(
-    e: React.ChangeEvent<HTMLInputElement>,
-    key: string
-  ) {
-    if (key === "account" && e.target.value.length <= 14) {
-      e.target.value = e.target.value.replace(/[^0-9]/g, "");
-    } else if (key === "account") return;
-
-    setStorageData({
-      ...storageData,
-      step4: { ...step4, [key]: e.target.value },
-    });
-  }
 
   return (
     <>
@@ -95,9 +85,12 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
               type="text"
               placeholder="실명을 입력해주세요"
               value={step4.name}
-              onChange={(e) => {
-                validationHandler(e, "name");
-              }}
+              onChange={(e) =>
+                setStorageData({
+                  ...storageData,
+                  step4: { ...step4, name: e.target.value },
+                })
+              }
             />
           </div>
         </label>
@@ -106,11 +99,18 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
           <div className="input_div">
             <input
               type="text"
+              maxLength={14}
               placeholder="숫자만 입력해주세요"
               value={step4.account}
-              onChange={(e) => {
-                validationHandler(e, "account");
-              }}
+              onChange={(e) =>
+                setStorageData({
+                  ...storageData,
+                  step4: {
+                    ...step4,
+                    account: e.target.value.replace(/[^0-9]/g, ""),
+                  },
+                })
+              }
             />
           </div>
         </label>
