@@ -7,7 +7,7 @@ import "../../modal/modal.css";
 
 function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
   const [check, setCheck] = useState<boolean>(false);
-  const [emailValidation, setEmailValidation] = useState<boolean>(true);
+  const [emailValidation, setEmailValidation] = useState<boolean | undefined>();
   const [postCodeOpen, setPostCodeOpen] = useState<boolean>(false);
   const step3 = storageData.step3;
 
@@ -17,8 +17,8 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
     });
     if (
       isActivate.length >= 6 &&
-      step3.mobile.toString().length === 11 &&
-      step3.businessNumber.toString().length === 10 &&
+      step3.mobile.length === 11 &&
+      step3.businessNumber.length === 10 &&
       emailValidation
     ) {
       setActivate(true);
@@ -31,17 +31,8 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
     e: React.ChangeEvent<HTMLInputElement>,
     key: string
   ) {
-    if (
-      (key === "mobile" && e.target.value.length <= 11) ||
-      (key === "businessNumber" && emailValidation)
-    ) {
+    if (key === "mobile" || key === "businessNumber") {
       e.target.value = e.target.value.replace(/[^0-9]/g, "");
-    } else if (key === "mobile") {
-      return;
-    }
-
-    if (key === "businessNumber" && e.target.value.length > 10) {
-      return;
     }
 
     if (key === "email" && validationEmail()) {
@@ -78,10 +69,8 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
   }
 
   function postCodeHandler(data: any) {
-    // 주소 저장시 우편번호 zonecode ,지번주소 jibunAddress ,도로명주소 roadAddress ,상세주소 저장
-
     if (data) {
-      const { roadAddress, jibunAddress, zonecode, address } = data;
+      const { roadAddress, jibunAddress, zonecode } = data;
       setPostCodeOpen(false);
       setStorageData({
         ...storageData,
@@ -160,6 +149,7 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
               type="text"
               placeholder="숫자만 입력해주세요"
               value={step3.mobile}
+              maxLength={11}
               onChange={(e) => {
                 validationHandler(e, "mobile");
               }}
@@ -220,6 +210,7 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
               type="text"
               placeholder="숫자만 입력해주세요"
               value={step3.businessNumber}
+              maxLength={10}
               onChange={(e) => validationHandler(e, "businessNumber")}
             />
           </div>
@@ -233,9 +224,14 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
               value={step3.email}
               onChange={(e) => validationHandler(e, "email")}
               onBlur={() => setEmailValidation(validationEmail())}
+              onKeyDown={(e) =>
+                e.key === "Backspace"
+                  ? setEmailValidation(validationEmail())
+                  : null
+              }
             />
           </div>
-          {!emailValidation && (
+          {emailValidation === false && (
             <p className="certi_warning">이메일 형식이 맞지 않습니다.</p>
           )}
         </label>

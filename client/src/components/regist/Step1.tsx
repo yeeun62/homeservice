@@ -1,7 +1,6 @@
 import { RegistTitle, RegistSubBtn, RegistForm } from "../../styles/recycle";
 import { ActiveProps } from "../../pages/RegistPage";
 import { useState, useEffect } from "react";
-import axios from "axios";
 import CryptoJS from "crypto-js";
 
 function Step1({ setActivate, setStorageData, storageData }: ActiveProps) {
@@ -23,7 +22,7 @@ function Step1({ setActivate, setStorageData, storageData }: ActiveProps) {
     } else {
       setInputComplete(false);
     }
-  }, [validation, storageData]);
+  }, [validation, step1]);
 
   useEffect(() => {
     if (time && !timeStop) {
