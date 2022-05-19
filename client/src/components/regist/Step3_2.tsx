@@ -25,11 +25,16 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
     let isActivate = Object.values(step3).filter((data: any) => {
       if (data.length > 0) return data;
     });
+    console.log(step3.address2.zonecode);
     if (
-      isActivate.length > 6 &&
+      isActivate.length > 4 &&
       step3.mobile.toString().length === 11 &&
       step3.businessNumber.toString().length === 10 &&
-      emailValidation
+      emailValidation &&
+      step3.address.detailAddress &&
+      step3.address2.detailAddress2 &&
+      step3.address.zonecode !== "" &&
+      step3.address2.zondcode !== ""
     ) {
       setActivate(true);
     } else {
@@ -43,44 +48,46 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
   ) {
     if (
       (key === "mobile" && e.target.value.length <= 11) ||
-      key === "businessNumber"
+      (key === "businessNumber" && e.target.value.length <= 10)
     ) {
       e.target.value = e.target.value.replace(/[^0-9]/g, "");
-    } else if (key === "mobile") {
+    } else if (key === "mobile" || key === "businessNumber") {
       return;
-    } else if (key === "businessNumber" && e.target.value.length > 10) {
-      return;
-    } else if (key === "email" && validationEmail()) {
+    }
+
+    if (key === "email" && validationEmail()) {
       setEmailValidation(true);
-    } else if (key === "detailAddress") {
-      setStorageData({
+    }
+
+    if (key === "detailAddress") {
+      return setStorageData({
         ...storageData,
         step3: {
           ...step3,
           address: {
             ...step3.address,
-            [key]: e.target.value,
+            detailAddress: e.target.value,
           },
         },
       });
     } else if (key === "detailAddress2") {
       setCheck({ ...check, address: false });
-      setStorageData({
+      return setStorageData({
         ...storageData,
         step3: {
           ...step3,
           address2: {
             ...step3.address2,
-            [key]: e.target.value,
+            detailAddress2: e.target.value,
           },
         },
       });
-    } else {
-      setStorageData({
-        ...storageData,
-        step3: { ...step3, [key]: e.target.value },
-      });
     }
+
+    setStorageData({
+      ...storageData,
+      step3: { ...step3, [key]: e.target.value },
+    });
   }
 
   function validationEmail() {
@@ -108,8 +115,12 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
         ...storageData,
         step3: {
           ...step3,
-          address2: step3.address,
-          detailAddress2: step3.address.detailAddress2,
+          address2: {
+            zonecode: step3.address.zonecode,
+            jibunAddress: step3.address.jibunAddress,
+            roadAddress: step3.address.roadAddress,
+            detailAddress2: step3.address.detailAddress,
+          },
         },
       });
     } else if (!b && key === "address") {
@@ -138,6 +149,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
           step3: {
             ...step3,
             address: {
+              ...step3.address,
               roadAddress,
               jibunAddress,
               zonecode,
@@ -150,6 +162,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
           step3: {
             ...step3,
             address2: {
+              ...step3.address2,
               roadAddress,
               jibunAddress,
               zonecode,
@@ -157,6 +170,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
           },
         });
       }
+
       setPostCodeOpen({ nominee: false, business: false });
     }
   }
@@ -317,9 +331,10 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
           <div className="flex_check">
             <p>사업장 주소</p>
             <div
-              onClick={() => {
+              onClick={(e) => {
                 setCheck({ ...check, address: !check.address });
                 equalRegister(!check.address, "address");
+                e.preventDefault();
               }}
             >
               <img
@@ -355,7 +370,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
             </div>
             <RegistSubBtn
               backgrondColor="#0740E4"
-              onClick={() => {
+              onClick={(e) => {
                 setCheck({ ...check, address: false });
                 equalRegister(false, "address");
                 setPostCodeOpen({ ...postCodeOpen, business: true });
@@ -370,7 +385,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
                 className="input_margin_top"
                 type="text"
                 placeholder="상세주소를 입력해주세요"
-                value={step3.address.detailAddress2}
+                value={step3.address2.detailAddress2}
                 onChange={(e) => {
                   validationHandler(e, "detailAddress2");
                 }}

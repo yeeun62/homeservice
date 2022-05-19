@@ -91,7 +91,7 @@ const ConditionWrap = styled.div`
 export interface SubModal {
   [key: string]: any;
   title: string;
-  content: any;
+  code: string;
   open: boolean;
 }
 
@@ -116,7 +116,7 @@ function ConditionModal({ setConditionModal, storageData }: ConditionProps) {
 
   const [subModal, setSubModal] = useState<SubModal>({
     title: "개인정보 수집/이용동의(필수)",
-    content: "",
+    code: "code1",
     open: false,
   });
 
@@ -165,12 +165,12 @@ function ConditionModal({ setConditionModal, storageData }: ConditionProps) {
     }
   };
 
-  const conditionArr: string[] = [
-    "개인정보 수집/이용동의(필수)",
-    "고유식별정보 수집/이용동의(필수)",
-    "개인정보 처리의 위탁 동의(필수)",
-    "홈서비스 이용 약관 동의(필수)",
-    "홈서비스 환불 규정(필수)",
+  const conditionArr: { title: string; code: string }[] = [
+    { title: "개인정보 수집/이용동의(필수)", code: "code1" },
+    { title: "고유식별정보 수집/이용동의(필수)", code: "code2" },
+    { title: "개인정보 처리의 위탁 동의(필수)", code: "code3" },
+    { title: "홈서비스 이용 약관 동의(필수)", code: "code4" },
+    { title: "홈서비스 환불 규정(필수)", code: "code5" },
   ];
 
   const navigate = useNavigate();
@@ -184,95 +184,100 @@ function ConditionModal({ setConditionModal, storageData }: ConditionProps) {
   }
 
   return (
-    <ConditionWrap>
-      <button
-        type="button"
-        className="bottom_bar"
-        onClick={() => setConditionModal(false)}
-        style={{ margin: "0 auto 32px" }}
-      ></button>
-      <RegistTitle className="condition_title">
-        신청 완료를 위해 <br /> 아래 약관에 동의해주세요.
-      </RegistTitle>
-      <MainBtn
-        className="all_check_btn bold_text"
-        type="button"
-        backgrondColor={`${
-          isChecked["all"] ? "rgba(7, 64, 228, 0.03)" : "#fff"
-        }`}
-        border={`${
-          isChecked["all"]
-            ? "1px solid rgba(7, 64, 228, 0.1)"
-            : "1px solid #ededed"
-        }`}
-        color={`${isChecked["all"] ? "#0740E4" : "#707070"}`}
-        activate={true}
-        onClick={allCheckHandler}
-      >
-        <img
-          src={`./img/${
-            isChecked["all"]
-              ? "icon_checkbox_large_blue.svg"
-              : "icon_checkbox_large_gray.svg"
+    <>
+      <ConditionWrap>
+        <button
+          type="button"
+          className="bottom_bar"
+          onClick={() => setConditionModal(false)}
+          style={{ margin: "0 auto 32px" }}
+        ></button>
+        <RegistTitle className="condition_title">
+          신청 완료를 위해 <br /> 아래 약관에 동의해주세요.
+        </RegistTitle>
+        <MainBtn
+          className="all_check_btn bold_text"
+          type="button"
+          backgrondColor={`${
+            isChecked["all"] ? "rgba(7, 64, 228, 0.03)" : "#fff"
           }`}
-          alt="약관 전체동의 확인버튼"
-        />
-        약관 전체동의
-      </MainBtn>
-      <ul>
-        {conditionArr.map((condition: string, i: number) => {
-          return (
-            <li key={condition}>
-              <div
-                onClick={() =>
-                  setIsChecked({ ...isChecked, [i]: !isChecked[i] })
-                }
-              >
-                <img
-                  src={`./img/${
-                    isChecked[i]
-                      ? "icon_checkbox_large_blue40.svg"
-                      : "icon_checkbox_large_gray.svg"
-                  }`}
-                  alt={condition}
-                />
-                <span>{condition}</span>
-              </div>
-              <img
-                src="./img/icon_arrow_right_medium_gray.svg"
-                alt="약관 더 보기"
-                // onClick={() =>
-                //   setSubModal({
-                //     title: condition,
-                //     open: true,
-                //   })
-                // }
-              />
-            </li>
-          );
-        })}
-      </ul>
-      <div className="bottom_div">
-        <div></div>
-        <span>
-          고객님께서는 약관동의를 거부하실 수 있으며, <br /> 필수사항 미동의 시
-          차란차 홈서비스 이용이 제한됩니다.
-        </span>
-      </div>
-      <MainBtn
-        backgrondColor="#0740E4"
-        color="#fff"
-        border="none"
-        activate={isChecked["all"]}
-        style={{ fontWeight: 700 }}
-        onClick={CompleteHandler}
-      >
-        신청 완료
-      </MainBtn>
+          border={`${
+            isChecked["all"]
+              ? "1px solid rgba(7, 64, 228, 0.1)"
+              : "1px solid #ededed"
+          }`}
+          color={`${isChecked["all"] ? "#0740E4" : "#707070"}`}
+          activate={true}
+          onClick={allCheckHandler}
+        >
+          <img
+            src={`./img/${
+              isChecked["all"]
+                ? "icon_checkbox_large_blue.svg"
+                : "icon_checkbox_large_gray.svg"
+            }`}
+            alt="약관 전체동의 확인버튼"
+          />
+          약관 전체동의
+        </MainBtn>
+        <ul>
+          {conditionArr.map(
+            (condition: { title: string; code: string }, i: number) => {
+              return (
+                <li key={condition.title}>
+                  <div
+                    onClick={() =>
+                      setIsChecked({ ...isChecked, [i]: !isChecked[i] })
+                    }
+                  >
+                    <img
+                      src={`./img/${
+                        isChecked[i]
+                          ? "icon_checkbox_large_blue40.svg"
+                          : "icon_checkbox_large_gray.svg"
+                      }`}
+                      alt="체크"
+                    />
+                    <span>{condition.title}</span>
+                  </div>
+                  <img
+                    src="./img/icon_arrow_right_medium_gray.svg"
+                    alt="약관 더 보기"
+                    onClick={() =>
+                      setSubModal({
+                        title: condition.title,
+                        code: condition.code,
+                        open: true,
+                      })
+                    }
+                  />
+                </li>
+              );
+            }
+          )}
+        </ul>
+        <div className="bottom_div">
+          <div></div>
+          <span>
+            고객님께서는 약관동의를 거부하실 수 있으며, <br /> 필수사항 미동의
+            시 차란차 홈서비스 이용이 제한됩니다.
+          </span>
+        </div>
+        <MainBtn
+          backgrondColor="#0740E4"
+          color="#fff"
+          border="none"
+          activate={isChecked["all"]}
+          style={{ fontWeight: 700 }}
+          onClick={CompleteHandler}
+        >
+          신청 완료
+        </MainBtn>
+      </ConditionWrap>
       {subModal.open && (
         <ConditionSubModal subModal={subModal} setSubModal={setSubModal} />
       )}
-    </ConditionWrap>
+    </>
   );
 }
 

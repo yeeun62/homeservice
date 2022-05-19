@@ -2,12 +2,24 @@ import styled from "styled-components";
 import { stickTop, PageWrap } from "../styles/recycle";
 import { SubModal } from "./ConditionModal";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const ConditionSubWrap = styled(PageWrap)`
   height: 100vh;
-  z-index: 500;
-  background: #fff;
+  padding: 16px;
+  position: relative;
+
+  p {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    font-family: "Poppins";
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 20px;
+    letter-spacing: -0.02em;
+    color: #555555;
+  }
 `;
 
 const ConditionSubModalHeader = styled(stickTop)`
@@ -23,9 +35,15 @@ interface SubModalProp {
 }
 
 function ConditionSubModal({ subModal, setSubModal }: SubModalProp) {
+  const [content, setContent] = useState<string>("");
   useEffect(() => {
-    // code1
-    // axios.get("http://54.180.121.208:80/api/handle/terms/" + "code1")
+    axios
+      .get("http://54.180.121.208:80/api/handle/terms/" + subModal.code)
+      .then((res) => {
+        if (res.status === 200) {
+          setContent(res.data.result.message);
+        }
+      });
   }, []);
 
   return (
@@ -38,7 +56,7 @@ function ConditionSubModal({ subModal, setSubModal }: SubModalProp) {
         />
         <span>{subModal.title}</span>
       </ConditionSubModalHeader>
-      {subModal.content}
+      <p>{content}</p>
     </ConditionSubWrap>
   );
 }
