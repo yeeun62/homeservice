@@ -9,7 +9,7 @@ const ConditionSubWrap = styled(PageWrap)`
   padding: 16px;
   position: relative;
 
-  p {
+  .condition_content {
     width: 100%;
     position: absolute;
     bottom: 0;
@@ -19,6 +19,11 @@ const ConditionSubWrap = styled(PageWrap)`
     line-height: 20px;
     letter-spacing: -0.02em;
     color: #555555;
+
+    @media screen and (man-width: 750px) {
+      font-size: 17px;
+      line-height: 25px;
+    }
   }
 `;
 
@@ -44,6 +49,10 @@ function ConditionSubModal({ subModal, setSubModal }: SubModalProp) {
       .then((res) => {
         if (res.status === 200) {
           setContent(res.data.result.message);
+          let inner = document.getElementsByClassName("condition_content");
+          if (inner.length) {
+            inner[0].innerHTML = res.data.result.message;
+          }
         }
       });
   }, []);
@@ -58,7 +67,7 @@ function ConditionSubModal({ subModal, setSubModal }: SubModalProp) {
         />
         <span>{subModal.title}</span>
       </ConditionSubModalHeader>
-      <p>{content}</p>
+      <div className="condition_content"></div>
     </ConditionSubWrap>
   );
 }
