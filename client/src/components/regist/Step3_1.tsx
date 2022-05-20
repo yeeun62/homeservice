@@ -70,10 +70,6 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
     }
   }
 
-  if (postCodeOpen) {
-    console.log(document);
-  }
-
   return (
     <>
       {postCodeOpen && (
