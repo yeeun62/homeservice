@@ -38,7 +38,9 @@ function ConditionSubModal({ subModal, setSubModal }: SubModalProp) {
   const [content, setContent] = useState<string>("");
   useEffect(() => {
     axios
-      .get("http://54.180.121.208:80/api/handle/terms/" + subModal.code)
+      .get(
+        `http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/handle/terms/${subModal.code}`
+      )
       .then((res) => {
         if (res.status === 200) {
           setContent(res.data.result.message);
