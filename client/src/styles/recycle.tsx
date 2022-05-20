@@ -71,12 +71,13 @@ export const MainBtn = styled.button<{
   border-radius: 5px;
   font-size: 15px;
   font-weight: 500;
+  /* main page */
 
   &:hover {
     border: ${(props) =>
-      props.border === "1px solid #ededed"
+      props.border === "1px solid #ededed" || props.pay === false
         ? "1px solid #c2c2c2"
-        : props.border === "1px solid rgba(7, 64, 228, 0.1)"
+        : props.border === "1px solid rgba(23, 23, 24, 0.1)" || props.pay
         ? "1px solid rgba(7, 64, 228, 0.3)"
         : "1px solid" + props.border};
   }

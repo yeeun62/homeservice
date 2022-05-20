@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { MainBtn, RegistTitle } from "../styles/recycle";
 import ConditionSubModal from "./ConditionSubModal";
 import { StorageType } from "../App";
+import axios from "axios";
 
 const ConditionWrap = styled.div`
   padding: 16px;
@@ -177,9 +178,31 @@ function ConditionModal({ setConditionModal, storageData }: ConditionProps) {
 
   function CompleteHandler() {
     if (isChecked.all) {
-      // 데이터 저장 post request 보내고 status에 따라서 처리, 200이면 로컬스토리지 지우고 complete page navigate
-      navigate("/complete");
-      localStorage.removeItem(storageData.id);
+      axios
+        .post(
+          `http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/handle/process`,
+          // storageData
+          {
+            field1: "value",
+            field2: "value",
+            field3: "value",
+            field4: "value",
+            field5: "value",
+            field6: "value",
+            field7: "value",
+            field8: "value",
+            field9: "value",
+            field10: "value",
+          }
+        )
+        .then((res) => {
+          if (res.status === 200) {
+            navigate("/complete");
+            localStorage.removeItem(storageData.id);
+          } else {
+            console.log("error");
+          }
+        });
     }
     return;
   }
