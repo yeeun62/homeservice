@@ -50,8 +50,8 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
     return emailReg.test(storageData.step3.email);
   }
 
-  function equalRegister(b: boolean) {
-    if (b) {
+  useEffect(() => {
+    if (check) {
       setStorageData({
         ...storageData,
         step3: {
@@ -60,13 +60,8 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
           mobile: storageData.step1.mobile,
         },
       });
-    } else {
-      setStorageData({
-        ...storageData,
-        step3: { ...step3, name: "", mobile: "" },
-      });
     }
-  }
+  }, [check]);
 
   function postCodeHandler(data: any) {
     if (data) {
@@ -116,7 +111,12 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
             <div
               onClick={() => {
                 setCheck(!check);
-                equalRegister(!check);
+                if (check) {
+                  setStorageData({
+                    ...storageData,
+                    step3: { ...step3, name: "", mobile: "" },
+                  });
+                }
               }}
             >
               <img
