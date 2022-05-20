@@ -88,7 +88,7 @@ function Step2({ setActivate, setStorageData, storageData }: Step2Props) {
             zonecode: "",
             jibunAddress: "",
             roadAddress: "",
-            detailAddress2: "",
+            detailAddress: "",
           },
           businessNumber: "",
           email: "",

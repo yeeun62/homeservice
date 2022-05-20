@@ -30,8 +30,8 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
     }
   }, [step3]);
 
-  function equalRegister() {
-    if (!check) {
+  useEffect(() => {
+    if (check) {
       setStorageData({
         ...storageData,
         step3: {
@@ -40,13 +40,8 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
           mobile: storageData.step1.mobile,
         },
       });
-    } else {
-      setStorageData({
-        ...storageData,
-        step3: { ...step3, name: "", mobile: "" },
-      });
     }
-  }
+  }, [check]);
 
   function postCodeHandler(data: any) {
     if (data) {
@@ -90,7 +85,12 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
             <div
               onClick={() => {
                 setCheck(!check);
-                equalRegister();
+                if (check) {
+                  setStorageData({
+                    ...storageData,
+                    step3: { ...step3, name: "", mobile: "" },
+                  });
+                }
               }}
             >
               <img

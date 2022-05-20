@@ -7,8 +7,6 @@ const AddressModalWrap = styled.div`
   height: 40px;
 
   div {
-    margin: 0 auto;
-    width: 94%;
     height: 100%;
     display: flex;
     justify-content: space-between;
@@ -17,12 +15,14 @@ const AddressModalWrap = styled.div`
     p {
       font-weight: 700;
       font-size: 13px;
+      margin-left: 20px;
     }
 
     .address_close {
       font-weight: 400;
       font-size: 20px;
       cursor: pointer;
+      margin-right: 18px;
     }
   }
 
