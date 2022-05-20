@@ -18,10 +18,7 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
       )
       .then((res) => {
         if (res.status === 200) {
-          setBankList({
-            name: Object.values(res.data.result),
-            code: Object.keys(res.data.result),
-          });
+          setBankList(res.data.result);
         } else {
           console.log("bankList error");
         }
@@ -29,7 +26,7 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
   }, []);
 
   useEffect(() => {
-    if (step4.bank.name && step4.account && step4.name) {
+    if (step4.bank.name && step4.account.length >= 11 && step4.name) {
       setActivate(true);
     } else {
       setActivate(false);

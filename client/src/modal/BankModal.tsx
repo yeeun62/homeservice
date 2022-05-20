@@ -80,22 +80,22 @@ function BankModal({
       />
       <div className="bank_list">
         {bankList &&
-          bankList.name.map((list: string, index: number) => (
+          Object.values(bankList).map((name: any, index: number) => (
             <div
               className="bank"
-              key={list}
+              key={name}
               onClick={() => {
                 setStorageData((p) => ({
                   ...p,
                   step4: {
                     ...p.step4,
-                    bank: { name: list, code: bankList.code[index] },
+                    bank: { name: name, code: `HOME_BANK_00${index + 1}` },
                   },
                 }));
                 setBankModal(false);
               }}
             >
-              <p className="bank_name">{list}</p>
+              <p className="bank_name">{name}</p>
             </div>
           ))}
       </div>

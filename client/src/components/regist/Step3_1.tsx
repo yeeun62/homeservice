@@ -30,10 +30,6 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
     }
   }, [step3]);
 
-  useEffect(() => {
-    setCheck(false);
-  }, [storageData]);
-
   function equalRegister() {
     if (!check) {
       setStorageData({
@@ -113,12 +109,13 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
               type="text"
               placeholder="실명을 입력해주세요"
               value={step3.name}
-              onChange={(e) =>
+              onChange={(e) => {
                 setStorageData({
                   ...storageData,
                   step3: { ...step3, name: e.target.value },
-                })
-              }
+                });
+                setCheck(false);
+              }}
             />
           </div>
         </label>
@@ -130,15 +127,16 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
               maxLength={11}
               placeholder="숫자만 입력해주세요"
               value={step3.mobile}
-              onChange={(e) =>
+              onChange={(e) => {
                 setStorageData({
                   ...storageData,
                   step3: {
                     ...step3,
                     mobile: e.target.value.replace(/[^0-9]/g, ""),
                   },
-                })
-              }
+                });
+                setCheck(false);
+              }}
             />
           </div>
         </label>
