@@ -90,7 +90,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
         step3: {
           ...step3,
           [key]: {
-            ...step3.address,
+            ...step3[key],
             detailAddress: e.target.value,
           },
         },
