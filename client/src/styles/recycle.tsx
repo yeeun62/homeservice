@@ -123,12 +123,11 @@ export const RegistForm = styled.form`
     p {
       font-size: 13px;
       font-weight: 500;
-      line-height: 19px;
+      line-height: 20px;
       letter-spacing: -2%;
       margin-bottom: 2px;
       color: #a7a7a7;
       display: flex;
-      align-items: center;
 
       img {
         width: 18px;
@@ -174,7 +173,7 @@ export const RegistForm = styled.form`
       img {
         position: absolute;
         right: 2%;
-        top: 55%;
+        top: 30%;
       }
     }
 

@@ -15,12 +15,14 @@ interface RegistPageProps {
   setStep: React.Dispatch<React.SetStateAction<number>>;
   storageData: StorageType;
   setStorageData: React.Dispatch<React.SetStateAction<StorageType>>;
+  data: any;
 }
 
 export interface ActiveProps {
   setActivate: React.Dispatch<React.SetStateAction<boolean>>;
   setStorageData: React.Dispatch<React.SetStateAction<StorageType>>;
   storageData: StorageType;
+  data?: any;
 }
 
 function RegistPage({
@@ -28,11 +30,23 @@ function RegistPage({
   setStep,
   storageData,
   setStorageData,
+  data,
 }: RegistPageProps) {
   const [activate, setActivate] = useState<boolean>(false);
 
   useEffect(() => {
     localStorage.setItem(storageData.id, JSON.stringify(storageData));
+  }, [storageData.step]);
+
+  useEffect(() => {
+    let input: any = document.getElementsByTagName("input");
+    for (let key of input) {
+      key.addEventListener("keydown", (e: any) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+        }
+      });
+    }
   }, [storageData.step]);
 
   return (
@@ -45,6 +59,7 @@ function RegistPage({
               setActivate={setActivate}
               setStorageData={setStorageData}
               storageData={storageData}
+              data={data}
             />,
             <Step2
               setActivate={setActivate}

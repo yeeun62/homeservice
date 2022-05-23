@@ -114,6 +114,7 @@ function App() {
               element={
                 data && storageData ? (
                   <RegistPage
+                    data={data}
                     step={step}
                     setStep={setStep}
                     storageData={storageData}

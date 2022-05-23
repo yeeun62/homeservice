@@ -3,19 +3,54 @@ import { ActiveProps } from "../../pages/RegistPage";
 import { useState, useEffect } from "react";
 import CryptoJS from "crypto-js";
 
-function Step1({ setActivate, setStorageData, storageData }: ActiveProps) {
+function Step1({
+  setActivate,
+  setStorageData,
+  storageData,
+  data,
+}: ActiveProps) {
   const step1 = storageData.step1;
   const [time, setTime] = useState<boolean>(false);
-  const [timeStop, setTimeStop] = useState<boolean>(false);
   const [authMessage, setAuthMessage] = useState<boolean>(false);
   const [inputComplete, setInputComplete] = useState<boolean>(false);
   const [salt, setSalt] = useState<any>("");
-  const [minutes, setMinutes] = useState<any>(3);
+  const [minutes, setMinutes] = useState<any>(0);
   const [seconds, setSeconds] = useState<any>(0);
+  const [localData, setLocalData] = useState<any>();
   const [validation, setValidation] = useState<{ mobileAuth: string }>({
     mobileAuth: "",
   });
 
+  // localstorage 데이터 state에 저장
+  useEffect(() => {
+    let originData: any = localStorage.getItem(data.simpleCar.sellNo);
+    if (originData) {
+      setLocalData(JSON.parse(originData));
+    }
+  }, []);
+
+  // localstorage 모바일이 11자라면 다음버튼 활성화
+  useEffect(() => {
+    if (localData && localData.step1.mobile.length === 11) {
+      setActivate(true);
+    }
+  }, [localData]);
+
+  // 모바일 인풋이 변경될때마다 스토리지의모바일 데이터와 다르다면 다음버튼 비활성화
+  useEffect(() => {
+    if (localData) {
+      if (localData.step1.mobile !== storageData.step1.mobile) {
+        setActivate(false);
+      } else if (
+        localData.step1.mobile.length &&
+        localData.step1.mobile === storageData.step1.mobile
+      ) {
+        setActivate(true);
+      }
+    }
+  }, [step1]);
+
+  // 이름과 모바일이 채워져있다면 인증번호 전송 활성화
   useEffect(() => {
     if (step1.name && step1.mobile.length === 11) {
       setInputComplete(true);
@@ -24,8 +59,12 @@ function Step1({ setActivate, setStorageData, storageData }: ActiveProps) {
     }
   }, [validation, step1]);
 
+  // 시간초 함수
   useEffect(() => {
-    if (time && !timeStop) {
+    if (minutes === 0 && seconds === 0) {
+      setActivate(false);
+    }
+    if (time) {
       const countdown = setInterval(() => {
         if (parseInt(seconds) > 0) {
           setSeconds(parseInt(seconds) - 1);
@@ -41,23 +80,21 @@ function Step1({ setActivate, setStorageData, storageData }: ActiveProps) {
       }, 1000);
       return () => clearInterval(countdown);
     }
-  }, [minutes, seconds, time, timeStop]);
+  }, [minutes, seconds, time]);
 
+  // 인증번호 인풋이 변경될때마다 인증번호가 일치하는지 검사
   useEffect(() => {
     if (validation.mobileAuth.length === 6) {
       let bytes = CryptoJS.AES.decrypt(salt, `${process.env.REACT_APP_SALT}`);
       if (bytes.toString(CryptoJS.enc.Utf8) === validation.mobileAuth) {
         setActivate(true);
         setAuthMessage(false);
-        setTimeStop(true);
       } else {
         setActivate(false);
         setAuthMessage(true);
-        setTimeStop(false);
       }
     } else {
       setActivate(false);
-      setTimeStop(false);
     }
   }, [validation]);
 
@@ -72,8 +109,8 @@ function Step1({ setActivate, setStorageData, storageData }: ActiveProps) {
     ).toString();
     setSalt(crypto);
     setTime(true);
-    setMinutes(3);
-    setSeconds(0);
+    setMinutes(0);
+    setSeconds(10);
     setValidation({ mobileAuth: "" });
     setAuthMessage(false);
   };
