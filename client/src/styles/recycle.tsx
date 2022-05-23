@@ -7,6 +7,7 @@ export const stickTop = styled.div`
   background-color: #fff;
   display: flex;
   align-items: center;
+  width: 100%;
   height: 56px;
 `;
 
