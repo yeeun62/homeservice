@@ -4,34 +4,24 @@ const IntroduceWrap = styled.div`
   height: 88px;
   padding: 24px 17px;
   background-color: #0740e4;
-
-  p {
-    color: #fff;
-    font-weight: 500;
-    font-size: 13px;
-    line-height: 19px;
-    font-family: "Noto Sans KR";
-    text-align: center;
-    letter-spacing: -0.02em;
-    max-width: 400px;
-    margin: auto;
-  }
+  white-space: pre-line;
+  color: #fff;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 19px;
+  font-family: "Noto Sans KR";
+  text-align: center;
+  letter-spacing: -0.02em;
 
   /* pc */
   @media screen and (min-width: 750px) {
-    p {
-      font-size: 15px;
-      line-height: 22px;
-    }
+    font-size: 15px;
+    line-height: 22px;
   }
 `;
 
 function Introduce({ introduceMSG }: { introduceMSG: string }) {
-  return (
-    <IntroduceWrap>
-      <p>{introduceMSG}</p>
-    </IntroduceWrap>
-  );
+  return <IntroduceWrap>{introduceMSG}</IntroduceWrap>;
 }
 
 export default Introduce;

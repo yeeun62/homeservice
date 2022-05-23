@@ -52,6 +52,7 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
         step3: {
           ...step3,
           address: {
+            ...step3.address,
             roadAddress,
             jibunAddress,
             zonecode,
@@ -63,20 +64,18 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
 
   return (
     <>
-      {postCodeOpen && (
-        <Modal
-          isOpen={postCodeOpen}
-          onRequestClose={() => setPostCodeOpen(!postCodeOpen)}
-          overlayClassName="overlay"
-          className="post_code_modal"
-          ariaHideApp={false}
-        >
-          <AddressModal
-            postCodeHandler={postCodeHandler}
-            setPostCodeOpen={setPostCodeOpen}
-          />
-        </Modal>
-      )}
+      <Modal
+        isOpen={postCodeOpen}
+        onRequestClose={() => setPostCodeOpen(!postCodeOpen)}
+        overlayClassName="overlay"
+        className="post_code_modal"
+        ariaHideApp={false}
+      >
+        <AddressModal
+          postCodeHandler={postCodeHandler}
+          setPostCodeOpen={setPostCodeOpen}
+        />
+      </Modal>
       <RegistTitle>명의자 정보를 입력해 주세요</RegistTitle>
       <RegistForm onSubmit={(e) => e.preventDefault()}>
         <label>
