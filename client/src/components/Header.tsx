@@ -19,6 +19,10 @@ const HeaderWrapper = styled(stickTop)`
     margin-left: 6px;
   }
 
+  img {
+    cursor: pointer;
+  }
+
   @media screen and (min-width: 750px) {
     .close {
       display: none;

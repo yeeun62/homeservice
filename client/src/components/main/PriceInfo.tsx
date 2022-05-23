@@ -147,11 +147,37 @@ const PriceWrap = styled.div`
   }
 `;
 
-function PriceInfo({ data, priceData, priceTxt }: any) {
+function PriceInfo({ data, priceData, priceTxt, tooltip, setTooltip }: any) {
   const [priceOpen, setPriceOpen] = useState<boolean>(false);
-  const [tooltip, setTooltip] = useState<boolean>(false);
 
   let { releaseDt, sellPrice } = data.simpleCar;
+  const {
+    acquisitionTax,
+    carCost,
+    discountBond,
+    tax1Cost,
+    tax2Cost,
+    numberPlateCost,
+    sellingCost,
+    homeserviceFee,
+    transferCost,
+  } = priceData;
+
+  // 이전비
+  let transfer =
+    acquisitionTax + discountBond + tax1Cost + tax2Cost + numberPlateCost;
+
+  // 부대비용
+  let management =
+    acquisitionTax +
+    discountBond +
+    tax1Cost +
+    tax2Cost +
+    numberPlateCost +
+    sellingCost;
+
+  // 예상합계
+  let totalPrice = carCost + homeserviceFee + management + transferCost;
 
   const addComma = (data: any) => {
     return data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -159,8 +185,6 @@ function PriceInfo({ data, priceData, priceTxt }: any) {
 
   releaseDt = `${releaseDt.slice(2, 4)}년${releaseDt.slice(4, 6)}월`;
   sellPrice = addComma(String(sellPrice) + "0000");
-  let transfer = addComma(priceData.transfer);
-  let management = addComma(priceData.management);
 
   return (
     <PriceWrap>
@@ -196,14 +220,16 @@ function PriceInfo({ data, priceData, priceTxt }: any) {
                 style={priceOpen ? { transform: "rotate(180deg)" } : {}}
               />
             </p>
-            <span className="price_list_value">1,530,000원</span>
+            <span className="price_list_value">{`${addComma(
+              management
+            )} 원`}</span>
             <ul
               className="more_price"
               style={{ display: priceOpen ? "block" : "none" }}
             >
               <li style={{ marginBottom: "3px" }}>
                 <p className="more_price_title">ㄴ이전비</p>
-                <p className="more_price_value">{transfer}원</p>
+                <p className="more_price_value">{addComma(transfer)}원</p>
               </li>
               <li style={{ marginBottom: "0px" }}>
                 <div className="more_price_title">
@@ -211,7 +237,10 @@ function PriceInfo({ data, priceData, priceTxt }: any) {
                   <img
                     src="./img/w_icon_question_medium_gray.svg"
                     alt="물음표"
-                    onClick={() => setTooltip(!tooltip)}
+                    onClick={(e) => {
+                      setTooltip(!tooltip);
+                      e.stopPropagation();
+                    }}
                     style={{ cursor: "pointer" }}
                   />
                   {tooltip && (
@@ -220,7 +249,7 @@ function PriceInfo({ data, priceData, priceTxt }: any) {
                     </Tooltip>
                   )}
                 </div>
-                <p className="more_price_value">{management}원</p>
+                <p className="more_price_value">330,000원</p>
               </li>
             </ul>
           </li>
@@ -231,7 +260,7 @@ function PriceInfo({ data, priceData, priceTxt }: any) {
           <div className="underline"></div>
           <li className="total_cost">
             <span>예상 합계</span>
-            <span>15,994,000원</span>
+            <span>{`${addComma(totalPrice)} 원`}</span>
           </li>
         </ul>
       </div>

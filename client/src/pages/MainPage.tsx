@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import Header from "../components/Header";
 import { PageWrap, MainBtn, Footer } from "../styles/recycle";
 import Introduce from "../components/main/Introduce";
@@ -23,6 +23,8 @@ function MainPage({
   priceData: any;
   priceTxt: any;
 }) {
+  const [tooltip, setTooltip] = useState<boolean>(false);
+
   const scroll: any = useRef(null);
   const navigate = useNavigate();
 
@@ -53,13 +55,19 @@ function MainPage({
   }
 
   return (
-    <div ref={scroll}>
+    <div ref={scroll} onClick={() => setTooltip(false)}>
       <Header />
       <Introduce introduceMSG={introduceMSG} />
       <PageWrap>
         <div>
           <Visual data={data} visualTitle="안전하게 배송해드리겠습니다" />
-          <PriceInfo data={data} priceData={priceData} priceTxt={priceTxt} />
+          <PriceInfo
+            tooltip={tooltip}
+            setTooltip={setTooltip}
+            data={data}
+            priceData={priceData}
+            priceTxt={priceTxt}
+          />
           <Pay setStorageData={setStorageData} storageData={storageData} />
         </div>
       </PageWrap>

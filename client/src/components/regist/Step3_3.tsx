@@ -8,8 +8,15 @@ import "../../modal/modal.css";
 function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
   const [check, setCheck] = useState<boolean>(false);
   const [emailValidation, setEmailValidation] = useState<boolean | undefined>();
+  const [emailBlur, setEmailBlur] = useState<boolean>(false);
   const [postCodeOpen, setPostCodeOpen] = useState<boolean>(false);
   const step3 = storageData.step3;
+
+  useEffect(() => {
+    if (emailBlur) {
+      setEmailValidation(validationEmail());
+    }
+  }, [storageData.step3.email]);
 
   useEffect(() => {
     let isActivate = Object.values(step3).filter((data: any) => {
@@ -83,20 +90,18 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
 
   return (
     <>
-      {postCodeOpen && (
-        <Modal
-          isOpen={postCodeOpen}
-          onRequestClose={() => setPostCodeOpen(!postCodeOpen)}
-          overlayClassName="overlay"
-          className="post_code_modal"
-          ariaHideApp={false}
-        >
-          <AddressModal
-            postCodeHandler={postCodeHandler}
-            setPostCodeOpen={setPostCodeOpen}
-          />
-        </Modal>
-      )}
+      <Modal
+        isOpen={postCodeOpen}
+        onRequestClose={() => setPostCodeOpen(!postCodeOpen)}
+        overlayClassName="overlay"
+        className="post_code_modal"
+        ariaHideApp={false}
+      >
+        <AddressModal
+          postCodeHandler={postCodeHandler}
+          setPostCodeOpen={setPostCodeOpen}
+        />
+      </Modal>
       <RegistTitle>법인 사업자 정보를 입력해 주세요</RegistTitle>
       <RegistForm onSubmit={(e) => e.preventDefault()}>
         <div className="step_info">
@@ -223,12 +228,10 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
               placeholder="help@charancha.com"
               value={step3.email}
               onChange={(e) => validationHandler(e, "email")}
-              onBlur={() => setEmailValidation(validationEmail())}
-              onKeyDown={(e) =>
-                e.key === "Backspace"
-                  ? setEmailValidation(validationEmail())
-                  : null
-              }
+              onBlur={() => {
+                setEmailValidation(validationEmail());
+                setEmailBlur(true);
+              }}
             />
           </div>
           {emailValidation === false && (
