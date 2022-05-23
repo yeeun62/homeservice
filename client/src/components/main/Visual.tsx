@@ -100,14 +100,19 @@ const VisualWrap = styled.div`
 
 function Visual({ data, visualTitle, visualSpan }: any) {
   let { carNo, fuel, imageUrl, mileage, releaseDt, sellPrice } = data.simpleCar;
-  const { makerNm } = data.simpleCar.trim;
+  const { makerNm, modelDetailNm, gradeNm, gradeDetailNm } =
+    data.simpleCar.trim;
 
   const addComma = (data: any) => {
     return data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
   let releaseDtForm = `${releaseDt.slice(2, 4)}년${releaseDt.slice(4, 6)}월`;
-  mileage = addComma(mileage);
+  if (String(mileage).length > 7) {
+    mileage = "9,999,999";
+  } else {
+    mileage = addComma(mileage);
+  }
   sellPrice = addComma(String(sellPrice) + "0000");
 
   return (
@@ -130,7 +135,7 @@ function Visual({ data, visualTitle, visualSpan }: any) {
             <span>{fuel}</span>
             <span>{carNo}</span>
           </div>
-          <RegistTitle className="name">{makerNm}</RegistTitle>
+          <RegistTitle className="name">{`${makerNm} ${modelDetailNm} ${gradeNm} ${gradeDetailNm}`}</RegistTitle>
           <p className="price">{sellPrice} 원</p>
         </div>
       </div>

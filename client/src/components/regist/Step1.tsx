@@ -12,9 +12,10 @@ function Step1({
   const step1 = storageData.step1;
   const [time, setTime] = useState<boolean>(false);
   const [authMessage, setAuthMessage] = useState<boolean>(false);
+  const [authMessage2, setAuthMessage2] = useState<boolean>(false);
   const [inputComplete, setInputComplete] = useState<boolean>(false);
   const [salt, setSalt] = useState<any>("");
-  const [minutes, setMinutes] = useState<any>(0);
+  const [minutes, setMinutes] = useState<any>(3);
   const [seconds, setSeconds] = useState<any>(0);
   const [localData, setLocalData] = useState<any>();
   const [validation, setValidation] = useState<{ mobileAuth: string }>({
@@ -63,6 +64,7 @@ function Step1({
   useEffect(() => {
     if (minutes === 0 && seconds === 0) {
       setActivate(false);
+      alert("입력 시간이 지났습니다.");
     }
     if (time) {
       const countdown = setInterval(() => {
@@ -99,6 +101,7 @@ function Step1({
   }, [validation]);
 
   const authHandler = () => {
+    alert("인증번호가 발급 되었습니다.");
     let authNumber = String(Math.random()).slice(2, 8);
     console.log(authNumber);
     // authNumber 인증번호를 포함한 문자 발송 로직 구현
@@ -113,6 +116,7 @@ function Step1({
     setSeconds(10);
     setValidation({ mobileAuth: "" });
     setAuthMessage(false);
+    setAuthMessage2(false);
   };
 
   return (
@@ -170,9 +174,16 @@ function Step1({
                 maxLength={6}
                 value={validation.mobileAuth}
                 placeholder="인증번호를 입력해주세요"
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setValidation({ ...validation, mobileAuth: e.target.value })
-                }
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  if (time) {
+                    setValidation({
+                      ...validation,
+                      mobileAuth: e.target.value,
+                    });
+                  } else {
+                    setAuthMessage2(true);
+                  }
+                }}
               />
             </div>
             {time && (
@@ -183,6 +194,9 @@ function Step1({
           </div>
           {authMessage && (
             <p className="certi_warning">인증번호가 일치하지 않습니다.</p>
+          )}
+          {authMessage2 && (
+            <p className="certi_warning">인증번호 전송을 눌러주세요.</p>
           )}
         </label>
       </RegistForm>

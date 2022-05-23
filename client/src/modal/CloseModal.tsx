@@ -20,6 +20,7 @@ const CloseModalWrap = styled.div`
       line-height: 22px;
       letter-spacing: -0.02em;
       color: #707070;
+      background-color: transparent;
     }
 
     .close_comfirm {

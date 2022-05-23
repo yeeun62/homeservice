@@ -15,11 +15,27 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
   const [check, setCheck] = useState({ name: false, address: false });
   const [tooltip, setTooltip] = useState<boolean>(false);
   const [emailValidation, setEmailValidation] = useState<boolean | undefined>();
+  const [emailBlur, setEmailBlur] = useState<boolean>(false);
   const [postCodeOpen, setPostCodeOpen] = useState<{
     nominee: boolean;
     business: boolean;
   }>({ nominee: false, business: false });
   const step3 = storageData.step3;
+
+  // 주소동일체크시 주소 바뀔때 체크 해제함수
+  useEffect(() => {
+    if (
+      storageData.step3.address.zonecode !== storageData.step3.address2.zonecode
+    ) {
+      setCheck({ ...check, address: false });
+    }
+  }, [storageData.step3.address, storageData.step3.address2]);
+
+  useEffect(() => {
+    if (emailBlur) {
+      setEmailValidation(validationEmail());
+    }
+  }, [storageData.step3.email]);
 
   useEffect(() => {
     let isActivate = Object.values(step3).filter((data: any) => {
@@ -84,6 +100,10 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
       setEmailValidation(true);
     }
 
+    if (key === "address") {
+      setCheck({ ...check, address: false });
+    }
+
     if (key === "address" || key === "address2") {
       return setStorageData({
         ...storageData,
@@ -130,30 +150,28 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
 
   return (
     <>
-      {postCodeOpen && (
-        <Modal
-          isOpen={postCodeOpen.business || postCodeOpen.nominee}
-          onRequestClose={() => {
-            postCodeOpen.business
-              ? setPostCodeOpen({
-                  ...postCodeOpen,
-                  business: false,
-                })
-              : setPostCodeOpen({
-                  ...postCodeOpen,
-                  nominee: false,
-                });
-          }}
-          overlayClassName="overlay"
-          className="post_code_modal"
-          ariaHideApp={false}
-        >
-          <AddressModal
-            postCodeHandler={postCodeHandler}
-            setPostCodeOpen={setPostCodeOpen}
-          />
-        </Modal>
-      )}
+      <Modal
+        isOpen={postCodeOpen.business || postCodeOpen.nominee}
+        onRequestClose={() => {
+          postCodeOpen.business
+            ? setPostCodeOpen({
+                ...postCodeOpen,
+                business: false,
+              })
+            : setPostCodeOpen({
+                ...postCodeOpen,
+                nominee: false,
+              });
+        }}
+        overlayClassName="overlay"
+        className="post_code_modal"
+        ariaHideApp={false}
+      >
+        <AddressModal
+          postCodeHandler={postCodeHandler}
+          setPostCodeOpen={setPostCodeOpen}
+        />
+      </Modal>
       <RegistTitle>개인 사업자 정보를 입력해 주세요</RegistTitle>
       <RegistForm onSubmit={(e) => e.preventDefault()}>
         <div className="step_info">
@@ -336,7 +354,6 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
                     : ""
                 }
                 onFocus={() => {
-                  setCheck({ ...check, address: false });
                   setPostCodeOpen({ ...postCodeOpen, business: true });
                   (document.activeElement as HTMLElement).blur();
                 }}
@@ -344,8 +361,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
             </div>
             <RegistSubBtn
               backgrondColor="#0740E4"
-              onClick={(e) => {
-                setCheck({ ...check, address: false });
+              onClick={() => {
                 setPostCodeOpen({ ...postCodeOpen, business: true });
               }}
             >
@@ -387,10 +403,10 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
               placeholder="help@charancha.com"
               value={step3.email}
               onChange={(e) => validationHandler(e, "email")}
-              onBlur={() => setEmailValidation(validationEmail())}
-              onKeyDown={(e) =>
-                e.key === "Backspace" && setEmailValidation(validationEmail())
-              }
+              onBlur={() => {
+                setEmailValidation(validationEmail());
+                setEmailBlur(true);
+              }}
             />
           </div>
           {emailValidation === false && (

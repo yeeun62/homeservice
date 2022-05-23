@@ -33,7 +33,7 @@ export interface StorageType {
 }
 
 function App() {
-  const [step, setStep] = useState<number>(1);
+  const [step, setStep] = useState<number>(0);
   const [data, setData] = useState<any>();
   const [storageData, setStorageData] = useState<any>();
   const [introduceMSG, setIntroduceMSG] = useState<string>("");
@@ -47,26 +47,42 @@ function App() {
       )
       .then((data) => {
         setData(data.data);
-      });
+      })
+      .catch((err) => console.log("데이터 에러", err));
 
     axios
       .get(
         `http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/handle/announce/notice`
       )
-      .then((msg) => setIntroduceMSG(msg.data.result.message));
-
-    axios
-      .get(
-        `http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/handle/announce/fee`
-      )
-      .then((price) => setPriceData(price.data.result));
+      .then((msg) => setIntroduceMSG(msg.data.result.message))
+      .catch((err) => console.log("소개 문구 에러", err));
 
     axios
       .get(
         `http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/handle/announce/price`
       )
-      .then((txt) => setPriceTxt(txt.data.result));
+      .then((txt) => setPriceTxt(txt.data.result))
+      .catch((err) => console.log("price 문구 에러", err));
   }, []);
+
+  useEffect(() => {
+    if (data) {
+      axios
+        .post(
+          `http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/handle/announce/fee`,
+          {
+            type: data.simpleCar.carTypeNm,
+            body: data.simpleCar.bodyTypeNm,
+            fuel: data.simpleCar.fuel,
+            displacement: String(data.simpleCar.displacement),
+            location: "서울",
+            cost: String(data.simpleCar.sellPrice),
+          }
+        )
+        .then((price) => setPriceData(price.data.result))
+        .catch((err) => console.log("price 에러", err));
+    }
+  }, [data]);
 
   useEffect(() => {
     if (data) {
