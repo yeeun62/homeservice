@@ -36,7 +36,7 @@ function MainPage({
   };
 
   useEffect(() => {
-    if (storageData.main === "") {
+    if (storageData.payment_cd === "") {
       return;
     } else {
       scrollDown();
@@ -44,10 +44,10 @@ function MainPage({
   }, [storageData]);
 
   function setStorage(): void {
-    if (storageData.main) {
+    if (storageData.payment_cd) {
       setStorageData({ ...storageData, step: 0 });
       localStorage.setItem(
-        storageData.id,
+        storageData.sellNo,
         JSON.stringify({ ...storageData, step: 0 })
       );
       navigate("/regist");
@@ -77,7 +77,7 @@ function MainPage({
             backgrondColor="#0740E4"
             color="#fff"
             border="none"
-            activate={Boolean(storageData.main)}
+            activate={Boolean(storageData.payment_cd)}
             style={{ fontWeight: "700" }}
             onClick={setStorage}
           >

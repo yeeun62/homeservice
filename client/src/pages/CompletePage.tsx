@@ -22,6 +22,10 @@ const CompleteWrap = styled(PageWrap)`
     line-height: 16px;
     font-weight: 400;
 
+    p {
+      margin-bottom: 3px;
+    }
+
     div {
       display: flex;
       height: 17px;
@@ -66,27 +70,25 @@ function CompletePage({ data }: any) {
             <div>
               <img src="./img/w_icon_footer_call.svg" alt="고객센터 전화" />
               <span>고객센터: </span>
-              <span className="bold_span"> 02-466-7923</span>
+              <span className="bold_span">02-466-7923</span>
               <span>운영시간: </span>
-              <span className="bold_span"> 10:00 ~ 17:00</span>
+              <span className="bold_span">10:00 ~ 17:00</span>
             </div>
           </div>
         </div>
-        <div>
-          <Footer>
-            <div>
-              <MainBtn
-                backgrondColor="#0740E4"
-                color="#fff"
-                border="none"
-                activate={true}
-                style={{ fontWeight: "700" }}
-              >
-                닫기
-              </MainBtn>
-            </div>
-          </Footer>
-        </div>
+        <Footer>
+          <div>
+            <MainBtn
+              backgrondColor="#0740E4"
+              color="#fff"
+              border="none"
+              activate={true}
+              style={{ fontWeight: "700" }}
+            >
+              닫기
+            </MainBtn>
+          </div>
+        </Footer>
       </CompleteWrap>
     </>
   );

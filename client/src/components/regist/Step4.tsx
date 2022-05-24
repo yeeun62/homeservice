@@ -26,7 +26,11 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
   }, []);
 
   useEffect(() => {
-    if (step4.bank.name && step4.account.length >= 11 && step4.name) {
+    if (
+      step4.bank.name &&
+      step4.refund_accout_number.length >= 11 &&
+      step4.refund_accout_name
+    ) {
       setActivate(true);
     } else {
       setActivate(false);
@@ -81,11 +85,11 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
             <input
               type="text"
               placeholder="실명을 입력해주세요"
-              value={step4.name}
+              value={step4.refund_accout_name}
               onChange={(e) =>
                 setStorageData({
                   ...storageData,
-                  step4: { ...step4, name: e.target.value },
+                  step4: { ...step4, refund_accout_name: e.target.value },
                 })
               }
             />
@@ -98,13 +102,13 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
               type="text"
               maxLength={14}
               placeholder="숫자만 입력해주세요"
-              value={step4.account}
+              value={step4.refund_accout_number}
               onChange={(e) =>
                 setStorageData({
                   ...storageData,
                   step4: {
                     ...step4,
-                    account: e.target.value.replace(/[^0-9]/g, ""),
+                    refund_accout_number: e.target.value.replace(/[^0-9]/g, ""),
                   },
                 })
               }

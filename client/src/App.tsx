@@ -19,15 +19,15 @@ const AppWrap = styled.div`
 `;
 
 export interface StorageType {
-  id: string;
-  main: string;
-  step1: { name: string; mobile: string };
-  step2: number;
+  sellNo: string;
+  payment_cd: string;
+  step1: { customer_name: string; customer_hphone: string };
+  step2: { nominee_cd: string; index: number };
   step3: any;
   step4: {
-    bank: { name: string; code: string };
-    name: string;
-    account: string;
+    bank: { name: string; refund_bank_cd: string };
+    refund_accout_name: string;
+    refund_accout_number: string;
   };
   step: number;
 }
@@ -91,17 +91,23 @@ function App() {
         setStorageData(JSON.parse(localData));
       } else {
         setStorageData({
-          id: data.simpleCar.sellNo,
-          main: "",
-          step1: { name: "", mobile: "" },
-          step2: 0,
+          sellNo: data.simpleCar.sellNo,
+          payment_cd: "",
+          step1: { customer_name: "", customer_hphone: "" },
+          step2: { nominee_cd: "", index: 0 },
           step3: "",
-          step4: { bank: { name: "", code: "" }, name: "", account: "" },
+          step4: {
+            bank: { name: "", refund_bank_cd: "" },
+            refund_accout_name: "",
+            refund_accout_number: "",
+          },
           step: 0,
         });
       }
     }
   }, [data]);
+
+  // console.log(storageData);
 
   return (
     <StrictMode>

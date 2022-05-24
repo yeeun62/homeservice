@@ -68,10 +68,10 @@ function Pay({
       <div>
         <MainBtn
           type="button"
-          pay={storageData.main === "현금"}
+          pay={storageData.payment_cd === "HOME_PAYMENT_001"}
           activate={true}
           onClick={() => {
-            setStorageData({ ...storageData, main: "현금" });
+            setStorageData({ ...storageData, payment_cd: "HOME_PAYMENT_001" });
           }}
           style={{ marginRight: "8px" }}
         >
@@ -79,22 +79,22 @@ function Pay({
         </MainBtn>
         <MainBtn
           type="button"
-          pay={storageData.main === "현금+할부"}
+          pay={storageData.payment_cd === "HOME_PAYMENT_002"}
           activate={true}
           onClick={() => {
-            setStorageData({ ...storageData, main: "현금+할부" });
+            setStorageData({ ...storageData, payment_cd: "HOME_PAYMENT_002" });
           }}
         >
           현금 + 할부
         </MainBtn>
       </div>
       <ul>
-        {storageData.main === "현금" && (
+        {storageData.payment_cd === "HOME_PAYMENT_001" && (
           <li className="pay_li">
             <div></div>결제를 위한 이체 한도를 미리 확인해 주세요.
           </li>
         )}
-        {storageData.main === "현금+할부" && (
+        {storageData.payment_cd === "HOME_PAYMENT_002" && (
           <>
             <li>
               <div></div>

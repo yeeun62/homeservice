@@ -57,60 +57,72 @@ function Step2({ setActivate, setStorageData, storageData }: Step2Props) {
     if (index === 2) {
       setStorageData((storageData) => ({
         ...storageData,
-        step2: index,
+        step2: { index, nominee_cd: "HOME_NOMINEE_001" },
         step3: {
-          name: "",
-          mobile: "",
+          nominee_name: "",
+          nominee_hphone: "",
+          nominee_reduction_joint: false,
           address: {
-            zonecode: "",
-            jibunAddress: "",
-            roadAddress: "",
-            detailAddress: "",
+            nominee_address_post: "",
+            nominee_address_road: "",
+            nominee_address_jibun: "",
+            nominee_address: "",
           },
-          public: false,
+          address2: {
+            business_address_post: "",
+            business_address_road: "",
+            business_address_jibun: "",
+            business_address: "",
+          },
         },
       }));
     } else if (index === 3) {
       setStorageData((storageData) => ({
         ...storageData,
-        step2: index,
+        step2: { index, nominee_cd: "HOME_NOMINEE_002" },
         step3: {
-          name: "",
-          mobile: "",
+          nominee_name: "",
+          nominee_hphone: "",
+          nominee_reduction_joint: false,
           address: {
-            zonecode: "",
-            jibunAddress: "",
-            roadAddress: "",
-            detailAddress: "",
+            nominee_address_post: "",
+            nominee_address_road: "",
+            nominee_address_jibun: "",
+            nominee_address: "",
           },
-          name2: "",
           address2: {
-            zonecode: "",
-            jibunAddress: "",
-            roadAddress: "",
-            detailAddress: "",
+            business_address_post: "",
+            business_address_road: "",
+            business_address_jibun: "",
+            business_address: "",
           },
-          businessNumber: "",
-          email: "",
-          public: false,
+          business_name: "",
+          business_number: "",
+          business_email: "",
         },
       }));
     } else if (index === 4) {
       setStorageData((storageData) => ({
         ...storageData,
-        step2: index,
+        step2: { index, nominee_cd: "HOME_NOMINEE_003" },
         step3: {
-          name: "",
-          mobile: "",
+          nominee_name: "",
+          nominee_hphone: "",
           address: {
-            zonecode: "",
-            jibunAddress: "",
-            roadAddress: "",
-            detailAddress: "",
+            nominee_address_post: "",
+            nominee_address_road: "",
+            nominee_address_jibun: "",
+            nominee_address: "",
           },
-          name2: "",
-          businessNumber: "",
-          email: "",
+          address2: {
+            business_address_post: "",
+            business_address_road: "",
+            business_address_jibun: "",
+            business_address: "",
+          },
+          business_name: "",
+          business_number: "",
+          business_email: "",
         },
       }));
     }
@@ -123,7 +135,7 @@ function Step2({ setActivate, setStorageData, storageData }: Step2Props) {
       {registType.map((type: string, index: number) => (
         <RegistTypeBtn
           key={type}
-          choice={storageData.step2 === index + 2 && true}
+          choice={storageData.step2.index === index + 2 && true}
           onClick={() => storageHandler(index + 2)}
         >
           {type}

@@ -2,6 +2,7 @@ import { RegistTitle, RegistSubBtn, RegistForm } from "../../styles/recycle";
 import { ActiveProps } from "../../pages/RegistPage";
 import { useState, useEffect } from "react";
 import CryptoJS from "crypto-js";
+import axios from "axios";
 
 function Step1({
   setActivate,
@@ -32,7 +33,7 @@ function Step1({
 
   // localstorage 모바일이 11자라면 다음버튼 활성화
   useEffect(() => {
-    if (localData && localData.step1.mobile.length === 11) {
+    if (localData && localData.step1.customer_hphone.length === 11) {
       setActivate(true);
     }
   }, [localData]);
@@ -40,11 +41,14 @@ function Step1({
   // 모바일 인풋이 변경될때마다 스토리지의모바일 데이터와 다르다면 다음버튼 비활성화
   useEffect(() => {
     if (localData) {
-      if (localData.step1.mobile !== storageData.step1.mobile) {
+      if (
+        localData.step1.mocustomer_hphonebile !==
+        storageData.step1.customer_hphone
+      ) {
         setActivate(false);
       } else if (
-        localData.step1.mobile.length &&
-        localData.step1.mobile === storageData.step1.mobile
+        localData.step1.customer_hphone.length &&
+        localData.step1.customer_hphone === storageData.step1.customer_hphone
       ) {
         setActivate(true);
       }
@@ -53,7 +57,7 @@ function Step1({
 
   // 이름과 모바일이 채워져있다면 인증번호 전송 활성화
   useEffect(() => {
-    if (step1.name && step1.mobile.length === 11) {
+    if (step1.customer_name && step1.customer_hphone.length === 11) {
       setInputComplete(true);
     } else {
       setInputComplete(false);
@@ -104,12 +108,20 @@ function Step1({
     alert("인증번호가 발급 되었습니다.");
     let authNumber = String(Math.random()).slice(2, 8);
     console.log(authNumber);
-    // authNumber 인증번호를 포함한 문자 발송 로직 구현
-
     let crypto = CryptoJS.AES.encrypt(
       authNumber,
       `${process.env.REACT_APP_SALT}`
     ).toString();
+
+    axios
+      .post(
+        `http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/handle/ppurio/sendmessage`,
+        {
+          phone: step1.customer_hphone,
+          security: crypto,
+        }
+      )
+      .then((result) => console.log(result));
     setSalt(crypto);
     setTime(true);
     setMinutes(0);
@@ -128,12 +140,12 @@ function Step1({
           <div className="input_div">
             <input
               type="text"
-              value={step1.name}
+              value={step1.customer_name}
               placeholder="실명을 입력해주세요"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setStorageData({
                   ...storageData,
-                  step1: { ...step1, name: e.target.value },
+                  step1: { ...step1, customer_name: e.target.value },
                 })
               }
             />
@@ -146,14 +158,14 @@ function Step1({
               <input
                 type="text"
                 placeholder="숫자만 입력해주세요"
-                value={step1.mobile}
+                value={step1.customer_hphone}
                 maxLength={11}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   setStorageData({
                     ...storageData,
                     step1: {
                       ...step1,
-                      mobile: e.target.value.replace(/[^0-9]/g, ""),
+                      customer_hphone: e.target.value.replace(/[^0-9]/g, ""),
                     },
                   });
                 }}

@@ -16,7 +16,7 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
     if (emailBlur) {
       setEmailValidation(validationEmail());
     }
-  }, [storageData.step3.email]);
+  }, [step3.business_email]);
 
   useEffect(() => {
     let isActivate = Object.values(step3).filter((data: any) => {
@@ -24,8 +24,8 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
     });
     if (
       isActivate.length >= 6 &&
-      step3.mobile.length === 11 &&
-      step3.businessNumber.length === 10 &&
+      step3.nominee_hphone.length === 11 &&
+      step3.business_number.length === 10 &&
       emailValidation
     ) {
       setActivate(true);
@@ -38,12 +38,25 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
     e: React.ChangeEvent<HTMLInputElement>,
     key: string
   ) {
-    if (key === "mobile" || key === "businessNumber") {
+    if (key === "nominee_hphone" || key === "business_number") {
       e.target.value = e.target.value.replace(/[^0-9]/g, "");
     }
 
-    if (key === "email" && validationEmail()) {
+    if (key === "business_email" && validationEmail()) {
       setEmailValidation(true);
+    }
+
+    if (key === "business_address") {
+      return setStorageData({
+        ...storageData,
+        step3: {
+          ...step3,
+          address2: {
+            ...step3.address2,
+            business_address: e.target.value,
+          },
+        },
+      });
     }
 
     setStorageData({
@@ -54,7 +67,7 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
 
   function validationEmail() {
     let emailReg = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-    return emailReg.test(storageData.step3.email);
+    return emailReg.test(storageData.step3.business_email);
   }
 
   useEffect(() => {
@@ -63,8 +76,8 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
         ...storageData,
         step3: {
           ...step3,
-          name: storageData.step1.name,
-          mobile: storageData.step1.mobile,
+          nominee_name: storageData.step1.customer_name,
+          nominee_hphone: storageData.step1.customer_hphone,
         },
       });
     }
@@ -78,10 +91,11 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
         ...storageData,
         step3: {
           ...step3,
-          address: {
-            roadAddress,
-            jibunAddress,
-            zonecode,
+          address2: {
+            ...step3.address2,
+            business_address_road: roadAddress,
+            business_address_jibun: jibunAddress,
+            business_address_post: zonecode,
           },
         },
       });
@@ -119,7 +133,7 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
                 if (check) {
                   setStorageData({
                     ...storageData,
-                    step3: { ...step3, name: "", mobile: "" },
+                    step3: { ...step3, nominee_name: "", nominee_hphone: "" },
                   });
                 }
               }}
@@ -139,9 +153,9 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
             <input
               type="text"
               placeholder="실명을 입력해주세요"
-              value={step3.name}
+              value={step3.nominee_name}
               onChange={(e) => {
-                validationHandler(e, "name");
+                validationHandler(e, "nominee_name");
                 setCheck(false);
               }}
             />
@@ -153,10 +167,10 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
             <input
               type="text"
               placeholder="숫자만 입력해주세요"
-              value={step3.mobile}
+              value={step3.nominee_hphone}
               maxLength={11}
               onChange={(e) => {
-                validationHandler(e, "mobile");
+                validationHandler(e, "nominee_hphone");
               }}
             />
           </div>
@@ -170,8 +184,9 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
                 placeholder="주소를 검색해주세요"
                 readOnly
                 value={
-                  step3.address.zonecode
-                    ? `[${step3.address.zonecode}] ` + step3.address.roadAddress
+                  step3.address2.business_address_post
+                    ? `[${step3.address2.business_address_post}] ` +
+                      step3.address2.business_address_road
                     : ""
                 }
               />
@@ -184,8 +199,8 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
                 className="input_margin_top"
                 type="text"
                 placeholder="상세주소를 입력해주세요"
-                value={step3.detailAddress}
-                onChange={(e) => validationHandler(e, "detailAddress")}
+                value={step3.address2.business_address}
+                onChange={(e) => validationHandler(e, "business_address")}
               />
             </div>
           </div>
@@ -203,8 +218,8 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
             <input
               type="text"
               placeholder="법인명 이름을 입력해주세요"
-              value={step3.name2}
-              onChange={(e) => validationHandler(e, "name2")}
+              value={step3.business_name}
+              onChange={(e) => validationHandler(e, "business_name")}
             />
           </div>
         </label>
@@ -214,9 +229,9 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
             <input
               type="text"
               placeholder="숫자만 입력해주세요"
-              value={step3.businessNumber}
+              value={step3.business_number}
               maxLength={10}
-              onChange={(e) => validationHandler(e, "businessNumber")}
+              onChange={(e) => validationHandler(e, "business_number")}
             />
           </div>
         </label>
@@ -226,8 +241,8 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
             <input
               type="text"
               placeholder="help@charancha.com"
-              value={step3.email}
-              onChange={(e) => validationHandler(e, "email")}
+              value={step3.business_email}
+              onChange={(e) => validationHandler(e, "business_email")}
               onBlur={() => {
                 setEmailValidation(validationEmail());
                 setEmailBlur(true);
