@@ -43,7 +43,7 @@ const HeaderWrapper = styled.div`
   }
 `;
 
-function Header({ step }: { step?: number }) {
+function Header({ step, data }: { step?: number; data?: any }) {
   const [closeModal, setCloseModal] = useState(false);
 
   return (
@@ -55,7 +55,7 @@ function Header({ step }: { step?: number }) {
         className="close_modal"
         ariaHideApp={false}
       >
-        <CloseModal setCloseModal={setCloseModal} />
+        <CloseModal setCloseModal={setCloseModal} data={data} />
       </Modal>
       <HeaderWrapper>
         <img

@@ -32,15 +32,24 @@ const CloseModalWrap = styled.div`
 
 function CloseModal({
   setCloseModal,
+  data,
 }: {
   setCloseModal: React.Dispatch<React.SetStateAction<boolean>>;
+  data: any;
 }) {
+  const closePopup = () => {
+    localStorage.removeItem(data.simpleCar.sellNo);
+    window.open("", "_self")?.close();
+  };
+
   return (
     <CloseModalWrap>
       <p>홈서비스 신청을 취소하시겠습니까?</p>
       <div>
         <button onClick={() => setCloseModal(false)}>취소</button>
-        <button className="close_comfirm">확인</button>
+        <button className="close_comfirm" onClick={closePopup}>
+          확인
+        </button>
       </div>
     </CloseModalWrap>
   );
