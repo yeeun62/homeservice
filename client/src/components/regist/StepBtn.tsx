@@ -80,6 +80,8 @@ function StepBtn({
       storageData.step === 4
     ) {
       setStorageData({ ...storageData, step: 5 });
+    } else if (storageData.step === 5) {
+      setStorageData({ ...storageData, step: 5 });
     }
   };
 

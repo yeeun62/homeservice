@@ -56,7 +56,7 @@ function MainPage({
 
   return (
     <div ref={scroll} onClick={() => setTooltip(false)}>
-      <Header />
+      <Header data={data} />
       <Introduce introduceMSG={introduceMSG} />
       <PageWrap>
         <div>
