@@ -42,6 +42,11 @@ const CompleteWrap = styled(PageWrap)`
 `;
 
 function CompletePage({ data }: any) {
+  function completeHandler() {
+    localStorage.removeItem(data.simpleCar.sellNo);
+    window.open("http://localhost:3000", "_self")?.close();
+  }
+
   return (
     <>
       <Header />
@@ -81,6 +86,9 @@ function CompletePage({ data }: any) {
                 border="none"
                 activate={true}
                 style={{ fontWeight: "700" }}
+                onClick={() => {
+                  completeHandler();
+                }}
               >
                 닫기
               </MainBtn>

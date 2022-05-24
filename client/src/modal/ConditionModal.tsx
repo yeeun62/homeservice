@@ -197,7 +197,6 @@ function ConditionModal({ setConditionModal, storageData }: ConditionProps) {
         .then((res) => {
           if (res.status === 200) {
             navigate("/complete");
-            localStorage.removeItem(storageData.id);
           }
         })
         .catch((err) => console.log("약관 에러", err));
