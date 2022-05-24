@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { MainBtn, RegistTitle } from "../styles/recycle";
 import ConditionSubModal from "./ConditionSubModal";
+import Modal from "react-modal";
 import { StorageType } from "../App";
 import axios from "axios";
 
@@ -59,6 +60,7 @@ const ConditionWrap = styled.div`
         width: 16px;
         height: 16px;
         margin-left: 8px;
+        cursor: pointer;
       }
     }
   }
@@ -93,7 +95,6 @@ export interface SubModal {
   [key: string]: any;
   title: string;
   code: string;
-  open: boolean;
 }
 
 interface ConditionProps {
@@ -101,11 +102,12 @@ interface ConditionProps {
   storageData: StorageType;
 }
 
-function ConditionModal({ setConditionModal, storageData }: ConditionProps) {
-  type CkType = {
-    [index: string]: boolean;
-  };
+type CkType = {
+  [index: string]: boolean;
+};
 
+function ConditionModal({ setConditionModal, storageData }: ConditionProps) {
+  const [conditionSubOpen, setConditionSubOpen] = useState<boolean>(false);
   const [isChecked, setIsChecked] = useState<CkType>({
     0: false,
     1: false,
@@ -114,11 +116,9 @@ function ConditionModal({ setConditionModal, storageData }: ConditionProps) {
     4: false,
     all: false,
   });
-
   const [subModal, setSubModal] = useState<SubModal>({
     title: "개인정보 수집/이용동의(필수)",
     code: "code1",
-    open: false,
   });
 
   const dependency = [
@@ -166,12 +166,12 @@ function ConditionModal({ setConditionModal, storageData }: ConditionProps) {
     }
   };
 
-  const conditionArr: { title: string; code: string }[] = [
-    { title: "개인정보 수집/이용동의(필수)", code: "code1" },
-    { title: "고유식별정보 수집/이용동의(필수)", code: "code2" },
-    { title: "개인정보 처리의 위탁 동의(필수)", code: "code3" },
-    { title: "홈서비스 이용 약관 동의(필수)", code: "code4" },
-    { title: "홈서비스 환불 규정(필수)", code: "code5" },
+  const conditionArr: string[] = [
+    "개인정보 수집/이용동의(필수)",
+    "고유식별정보 수집/이용동의(필수)",
+    "개인정보 처리의 위탁 동의(필수)",
+    "홈서비스 이용 약관 동의(필수)",
+    "홈서비스 환불 규정(필수)",
   ];
 
   const navigate = useNavigate();
@@ -181,7 +181,6 @@ function ConditionModal({ setConditionModal, storageData }: ConditionProps) {
       axios
         .post(
           `http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/handle/process`,
-          // storageData
           {
             field1: "value",
             field2: "value",
@@ -199,16 +198,27 @@ function ConditionModal({ setConditionModal, storageData }: ConditionProps) {
           if (res.status === 200) {
             navigate("/complete");
             localStorage.removeItem(storageData.id);
-          } else {
-            console.log("error");
           }
-        });
+        })
+        .catch((err) => console.log("약관 에러", err));
     }
     return;
   }
 
   return (
     <>
+      <Modal
+        isOpen={conditionSubOpen}
+        onRequestClose={() => setConditionSubOpen(!conditionSubOpen)}
+        overlayClassName="overlay"
+        className="condition_sub_modal"
+        ariaHideApp={false}
+      >
+        <ConditionSubModal
+          subModal={subModal}
+          setConditionSubOpen={setConditionSubOpen}
+        />
+      </Modal>
       <ConditionWrap>
         <button
           type="button"
@@ -245,40 +255,38 @@ function ConditionModal({ setConditionModal, storageData }: ConditionProps) {
           약관 전체동의
         </MainBtn>
         <ul>
-          {conditionArr.map(
-            (condition: { title: string; code: string }, i: number) => {
-              return (
-                <li key={condition.title}>
-                  <div
-                    onClick={() =>
-                      setIsChecked({ ...isChecked, [i]: !isChecked[i] })
-                    }
-                  >
-                    <img
-                      src={`./img/${
-                        isChecked[i]
-                          ? "icon_checkbox_large_blue40.svg"
-                          : "icon_checkbox_large_gray.svg"
-                      }`}
-                      alt="체크"
-                    />
-                    <span>{condition.title}</span>
-                  </div>
+          {conditionArr.map((condition: string, i: number) => {
+            return (
+              <li key={condition}>
+                <div
+                  onClick={() =>
+                    setIsChecked({ ...isChecked, [i]: !isChecked[i] })
+                  }
+                >
                   <img
-                    src="./img/icon_arrow_right_medium_gray.svg"
-                    alt="약관 더 보기"
-                    onClick={() =>
-                      setSubModal({
-                        title: condition.title,
-                        code: condition.code,
-                        open: true,
-                      })
-                    }
+                    src={`./img/${
+                      isChecked[i]
+                        ? "icon_checkbox_large_blue40.svg"
+                        : "icon_checkbox_large_gray.svg"
+                    }`}
+                    alt="체크"
                   />
-                </li>
-              );
-            }
-          )}
+                  <span>{condition}</span>
+                </div>
+                <img
+                  src="./img/icon_arrow_right_medium_gray.svg"
+                  alt="약관 더 보기"
+                  onClick={() => {
+                    setConditionSubOpen(true);
+                    setSubModal({
+                      title: condition,
+                      code: `code${i + 1}`,
+                    });
+                  }}
+                />
+              </li>
+            );
+          })}
         </ul>
         <div className="bottom_div">
           <div></div>
@@ -298,9 +306,6 @@ function ConditionModal({ setConditionModal, storageData }: ConditionProps) {
           신청 완료
         </MainBtn>
       </ConditionWrap>
-      {subModal.open && (
-        <ConditionSubModal subModal={subModal} setSubModal={setSubModal} />
-      )}
     </>
   );
 }

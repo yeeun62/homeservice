@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { stickTop, PageWrap } from "../styles/recycle";
+import { PageWrap } from "../styles/recycle";
 import { SubModal } from "./ConditionModal";
 import axios from "axios";
 import { useEffect } from "react";
@@ -8,38 +8,45 @@ const ConditionSubWrap = styled(PageWrap)`
   width: 100%;
   height: 100vh;
   background-color: #fff;
-  position: relative;
+
+  .condition_header {
+    height: 56px;
+    display: flex;
+    align-items: center;
+
+    p {
+      font-weight: 700;
+      font-size: 17px;
+      line-height: 25px;
+      letter-spacing: -0.02em;
+      color: #101010;
+    }
+
+    img {
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+    }
+  }
 
   .condition_content {
-    width: 100vw;
-    position: absolute;
-    top: 100px;
+    width: 100%;
+    height: Calc(100vh - 56px);
     white-space: pre-line;
     padding: 24px 16px;
     font-family: "Poppins";
-    font-weight: 400;
     font-size: 13px;
     line-height: 20px;
     letter-spacing: -0.02em;
     color: #555555;
-    white-space: pre-line;
-    margin-bottom: 30px;
   }
 `;
-
-const ConditionSubModalHeader = styled(stickTop)`
-  img {
-    width: 32px;
-    height: 32px;
-  }
-`;
-
 interface SubModalProp {
   subModal: SubModal;
-  setSubModal: React.Dispatch<React.SetStateAction<SubModal>>;
+  setConditionSubOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function ConditionSubModal({ subModal, setSubModal }: SubModalProp) {
+function ConditionSubModal({ subModal, setConditionSubOpen }: SubModalProp) {
   useEffect(() => {
     // axios
     //   .get(
@@ -68,6 +75,7 @@ function ConditionSubModal({ subModal, setSubModal }: SubModalProp) {
         h5 {
           font-size: 20px;
           font-weight: 600;
+          color: red;
         }
     </style>
     end
@@ -91,14 +99,14 @@ function ConditionSubModal({ subModal, setSubModal }: SubModalProp) {
 
   return (
     <ConditionSubWrap>
-      <ConditionSubModalHeader>
+      <div className="condition_header">
         <img
           src="./img/icon_navigation_back_black.svg"
           alt="약관 뒤로 가기"
-          onClick={() => setSubModal({ ...subModal, open: false })}
+          onClick={() => setConditionSubOpen(false)}
         />
-        <span>{subModal.title}</span>
-      </ConditionSubModalHeader>
+        <p>{subModal.title}</p>
+      </div>
       <div className="condition_content"></div>
     </ConditionSubWrap>
   );
