@@ -78,15 +78,20 @@ const VisualWrap = styled.div`
   @media screen and (min-width: 750px) {
     .info_wrap {
       display: flex;
+      align-items: flex-start;
 
       img {
-        width: 34%;
+        width: 33.7%;
+        height: auto;
         margin-bottom: 0;
+        min-width: 253px;
+        min-height: 190px;
       }
 
       .info_wrap_right {
         width: 55%;
         padding: 16px 0 8px 24px;
+        min-height: 190px;
         position: relative;
 
         .price {

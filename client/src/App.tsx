@@ -107,8 +107,6 @@ function App() {
     }
   }, [data]);
 
-  // console.log(storageData);
-
   return (
     <StrictMode>
       <AppWrap>

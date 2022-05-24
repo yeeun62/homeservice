@@ -1,10 +1,9 @@
 import styled from "styled-components";
-import { PageWrap } from "../styles/recycle";
 import { SubModal } from "./ConditionModal";
 import axios from "axios";
 import { useEffect } from "react";
 
-const ConditionSubWrap = styled(PageWrap)`
+const ConditionSubWrap = styled.div`
   width: 100%;
   height: 100vh;
   background-color: #fff;
@@ -13,6 +12,7 @@ const ConditionSubWrap = styled(PageWrap)`
     height: 56px;
     display: flex;
     align-items: center;
+    padding-left: 8px;
 
     p {
       font-weight: 700;
@@ -32,8 +32,6 @@ const ConditionSubWrap = styled(PageWrap)`
   .condition_content {
     width: 100%;
     height: Calc(100vh - 56px);
-    position: absolute;
-    top: 100px;
     padding: 24px 16px;
     overflow: scroll;
   }

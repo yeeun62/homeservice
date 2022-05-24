@@ -177,6 +177,7 @@ function ConditionModal({ setConditionModal, storageData }: ConditionProps) {
   const navigate = useNavigate();
 
   function CompleteHandler() {
+    navigate("/complete");
     const { sellNo, payment_cd, step1, step2, step3, step4 } = storageData;
     const { customer_name, customer_hphone } = step1;
     const { nominee_cd } = step2;
@@ -203,7 +204,6 @@ function ConditionModal({ setConditionModal, storageData }: ConditionProps) {
       business_address,
     } = address2;
     const { refund_accout_name, refund_accout_number, bank } = step4;
-
     if (isChecked.all) {
       axios
         .post(

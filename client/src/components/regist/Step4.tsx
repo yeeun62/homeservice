@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Modal from "react-modal";
 import "../../modal/modal.css";
 import { RegistTitle, RegistForm } from "../../styles/recycle";
@@ -10,6 +10,7 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
   const [bankModal, setBankModal] = useState<boolean>(false);
   const [bankList, setBankList] = useState<any>();
   const step4 = storageData.step4;
+  const scroll: any = useRef(null);
 
   useEffect(() => {
     axios
@@ -37,8 +38,17 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
     }
   }, [step4]);
 
+  function focus_account() {
+    if (window.screen.width >= 750) {
+      scroll.current.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+      });
+    }
+  }
+
   return (
-    <>
+    <div id="step4">
       <Modal
         isOpen={bankModal}
         onRequestClose={() => setBankModal(!bankModal)}
@@ -103,6 +113,7 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
               maxLength={14}
               placeholder="숫자만 입력해주세요"
               value={step4.refund_accout_number}
+              onFocus={focus_account}
               onChange={(e) =>
                 setStorageData({
                   ...storageData,
@@ -116,7 +127,7 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
           </div>
         </label>
       </RegistForm>
-    </>
+    </div>
   );
 }
 

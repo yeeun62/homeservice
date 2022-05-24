@@ -1,16 +1,5 @@
 import styled, { css } from "styled-components";
 
-export const stickTop = styled.div`
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background-color: #fff;
-  display: flex;
-  align-items: center;
-  width: 100%;
-  height: 56px;
-`;
-
 export const RegistTitle = styled.div`
   margin: 24px 0px;
   font-weight: 700;

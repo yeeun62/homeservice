@@ -44,7 +44,6 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
   }, [check]);
 
   function postCodeHandler(data: any) {
-    console.log(data);
     if (data) {
       const { roadAddress, jibunAddress, zonecode } = data;
       setPostCodeOpen(false);
@@ -136,7 +135,7 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
                   ...storageData,
                   step3: {
                     ...step3,
-                    customer_hphone: e.target.value.replace(/[^0-9]/g, ""),
+                    nominee_hphone: e.target.value.replace(/[^0-9]/g, ""),
                   },
                 });
                 setCheck(false);

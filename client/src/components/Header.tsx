@@ -1,12 +1,21 @@
 import { useState } from "react";
 import styled from "styled-components";
 import Progress from "./regist/Progress";
-import { stickTop, RegistTitle } from "../styles/recycle";
+import { RegistTitle } from "../styles/recycle";
 import Modal from "react-modal";
 import CloseModal from "../modal/CloseModal";
 import "../modal/modal.css";
 
-const HeaderWrapper = styled(stickTop)`
+const HeaderWrapper = styled.div`
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 56px;
+
   .close {
     width: 32px;
     height: 32px;
