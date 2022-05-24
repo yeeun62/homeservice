@@ -238,7 +238,10 @@ function ConditionModal({ setConditionModal, storageData }: ConditionProps) {
             navigate("/complete");
           }
         })
-        .catch((err) => console.log("약관 에러", err));
+        .catch((err) => {
+          navigate("/complete");
+          console.log("제출 에러", err);
+        });
     }
     return;
   }

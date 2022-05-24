@@ -48,7 +48,7 @@ const CompleteWrap = styled(PageWrap)`
 function CompletePage({ data }: any) {
   function completeHandler() {
     localStorage.removeItem(data.simpleCar.sellNo);
-    window.open(window.location.origin, "_self")?.close();
+    window.open("", "_self")?.close();
   }
 
   return (

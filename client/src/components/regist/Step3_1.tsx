@@ -136,7 +136,7 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
                   ...storageData,
                   step3: {
                     ...step3,
-                    customer_hphone: e.target.value.replace(/[^0-9]/g, ""),
+                    nominee_hphone: e.target.value.replace(/[^0-9]/g, ""),
                   },
                 });
                 setCheck(false);

@@ -107,8 +107,6 @@ function App() {
     }
   }, [data]);
 
-  // console.log(storageData);
-
   return (
     <StrictMode>
       <AppWrap>
@@ -147,7 +145,10 @@ function App() {
                 )
               }
             />
-            <Route path="/complete" element={<CompletePage data={data} />} />
+            <Route
+              path="/complete"
+              element={data ? <CompletePage data={data} /> : <LoadingPage />}
+            />
           </Routes>
         </BrowserRouter>
       </AppWrap>
