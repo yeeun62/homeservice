@@ -44,6 +44,10 @@
   display: block;
 }
 
+.condition_sub_modal {
+  z-index: 1000;
+}
+
 /* mobile */
 @media screen and (max-width: 749px) {
   .post_code_modal {
