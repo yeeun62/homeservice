@@ -35,6 +35,7 @@ const ConditionSubWrap = styled(PageWrap)`
     position: absolute;
     top: 100px;
     padding: 24px 16px;
+    overflow: scroll;
   }
 `;
 
