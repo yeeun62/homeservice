@@ -59,7 +59,7 @@ function StepBtn({
     ) {
       setStorageData({ ...storageData, step: 1 });
     } else if (storageData.step === 5) {
-      setStorageData({ ...storageData, step: storageData.step2 });
+      setStorageData({ ...storageData, step: storageData.step2.index });
     }
   };
 
@@ -73,7 +73,7 @@ function StepBtn({
     if (storageData.step === 0) {
       setStorageData({ ...storageData, step: 1 });
     } else if (storageData.step === 1) {
-      setStorageData({ ...storageData, step: storageData.step2 });
+      setStorageData({ ...storageData, step: storageData.step2.index });
     } else if (
       storageData.step === 2 ||
       storageData.step === 3 ||

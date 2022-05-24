@@ -177,25 +177,64 @@ function ConditionModal({ setConditionModal, storageData }: ConditionProps) {
   const navigate = useNavigate();
 
   function CompleteHandler() {
+    const { sellNo, payment_cd, step1, step2, step3, step4 } = storageData;
+    const { customer_name, customer_hphone } = step1;
+    const { nominee_cd } = step2;
+    const {
+      nominee_name,
+      nominee_hphone,
+      address,
+      address2,
+      business_name,
+      business_number,
+      business_email,
+      nominee_reduction_joint,
+    } = step3;
+    const {
+      nominee_address_post,
+      nominee_address_road,
+      nominee_address_jibun,
+      nominee_address,
+    } = address;
+    const {
+      business_address_post,
+      business_address_road,
+      business_address_jibun,
+      business_address,
+    } = address2;
+    const { refund_accout_name, refund_accout_number, bank } = step4;
+
     if (isChecked.all) {
       axios
         .post(
           `http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/handle/process`,
           {
-            field1: "value",
-            field2: "value",
-            field3: "value",
-            field4: "value",
-            field5: "value",
-            field6: "value",
-            field7: "value",
-            field8: "value",
-            field9: "value",
-            field10: "value",
+            sellNo,
+            payment_cd,
+            customer_name,
+            customer_hphone,
+            nominee_cd,
+            nominee_name,
+            nominee_hphone,
+            nominee_address_post,
+            nominee_address_road,
+            nominee_address_jibun,
+            nominee_address,
+            nominee_reduction_joint,
+            business_name,
+            business_address_post,
+            business_address_road,
+            business_address_jibun,
+            business_address,
+            business_number,
+            business_email,
+            refund_bank_cd: bank.refund_bank_cd,
+            refund_accout_name,
+            refund_accout_number,
           }
         )
-        .then((res) => {
-          if (res.status === 200) {
+        .then((result) => {
+          if (result.status === 200) {
             navigate("/complete");
           }
         })

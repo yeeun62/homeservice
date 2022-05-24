@@ -80,24 +80,29 @@ function BankModal({
       />
       <div className="bank_list">
         {bankList &&
-          Object.values(bankList).map((name: any, index: number) => (
-            <div
-              className="bank"
-              key={name}
-              onClick={() => {
-                setStorageData((p) => ({
-                  ...p,
-                  step4: {
-                    ...p.step4,
-                    bank: { name: name, code: `HOME_BANK_00${index + 1}` },
-                  },
-                }));
-                setBankModal(false);
-              }}
-            >
-              <p className="bank_name">{name}</p>
-            </div>
-          ))}
+          bankList.map((bank: any) => {
+            return (
+              <div
+                className="bank"
+                key={bank.name}
+                onClick={() => {
+                  setStorageData((p) => ({
+                    ...p,
+                    step4: {
+                      ...p.step4,
+                      bank: {
+                        name: bank.name,
+                        refund_bank_cd: bank.id,
+                      },
+                    },
+                  }));
+                  setBankModal(false);
+                }}
+              >
+                <p className="bank_name">{bank.name}</p>
+              </div>
+            );
+          })}
       </div>
       <div className="bank_close">
         <p onClick={() => setBankModal(false)}>닫기</p>

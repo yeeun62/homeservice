@@ -25,7 +25,8 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
   // 주소동일체크시 주소 바뀔때 체크 해제함수
   useEffect(() => {
     if (
-      storageData.step3.address.zonecode !== storageData.step3.address2.zonecode
+      storageData.step3.address.nominee_address_post !==
+      storageData.step3.address2.business_address_post
     ) {
       setCheck({ ...check, address: false });
     }
@@ -35,7 +36,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
     if (emailBlur) {
       setEmailValidation(validationEmail());
     }
-  }, [storageData.step3.email]);
+  }, [storageData.step3.business_email]);
 
   useEffect(() => {
     let isActivate = Object.values(step3).filter((data: any) => {
@@ -43,13 +44,13 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
     });
     if (
       isActivate.length > 4 &&
-      step3.mobile.length === 11 &&
-      step3.businessNumber.length === 10 &&
+      step3.nominee_hphone.length === 11 &&
+      step3.business_number.length === 10 &&
       emailValidation &&
-      step3.address.detailAddress &&
-      step3.address2.detailAddress &&
-      step3.address.zonecode !== "" &&
-      step3.address2.zondcode !== ""
+      step3.address.nominee_address &&
+      step3.address2.business_address &&
+      step3.address.nominee_address_post !== "" &&
+      step3.address2.business_address_post !== ""
     ) {
       setActivate(true);
     } else {
@@ -63,8 +64,8 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
         ...storageData,
         step3: {
           ...step3,
-          name: storageData.step1.name,
-          mobile: storageData.step1.mobile,
+          nominee_name: storageData.step1.customer_name,
+          nominee_hphone: storageData.step1.customer_hphone,
         },
       });
     }
@@ -74,10 +75,10 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
         step3: {
           ...step3,
           address2: {
-            zonecode: step3.address.zonecode,
-            roadAddress: step3.address.roadAddress,
-            jibunAddress: step3.address.jibunAddress,
-            detailAddress: step3.address.detailAddress,
+            business_address_post: step3.address.nominee_address_post,
+            business_address_road: step3.address.nominee_address_road,
+            business_address_jibun: step3.address.nominee_address_jibun,
+            business_address: step3.address.nominee_address,
           },
         },
       });
@@ -88,15 +89,15 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
     e: React.ChangeEvent<HTMLInputElement>,
     key: string
   ) {
-    if (key === "mobile" || key === "name") {
+    if (key === "nominee_hphone" || key === "nominee_name") {
       setCheck({ ...check, name: false });
     }
 
-    if (key === "mobile" || key === "businessNumber") {
+    if (key === "nominee_hphone" || key === "business_number") {
       e.target.value = e.target.value.replace(/[^0-9]/g, "");
     }
 
-    if (key === "email" && validationEmail()) {
+    if (key === "business_email" && validationEmail()) {
       setEmailValidation(true);
     }
 
@@ -104,14 +105,27 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
       setCheck({ ...check, address: false });
     }
 
-    if (key === "address" || key === "address2") {
+    if (key === "address") {
       return setStorageData({
         ...storageData,
         step3: {
           ...step3,
-          [key]: {
-            ...step3[key],
-            detailAddress: e.target.value,
+          address: {
+            ...step3.address,
+            nominee_address: e.target.value,
+          },
+        },
+      });
+    }
+
+    if (key === "address2") {
+      return setStorageData({
+        ...storageData,
+        step3: {
+          ...step3,
+          address2: {
+            ...step3.address2,
+            business_address: e.target.value,
           },
         },
       });
@@ -125,25 +139,39 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
 
   function validationEmail() {
     let emailReg = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-    return emailReg.test(storageData.step3.email);
+    return emailReg.test(storageData.step3.business_email);
   }
 
   function postCodeHandler(data: any) {
-    let key = postCodeOpen.nominee ? "address" : "address2";
     if (data) {
       const { roadAddress, jibunAddress, zonecode } = data;
-      setStorageData({
-        ...storageData,
-        step3: {
-          ...step3,
-          [key]: {
-            ...step3[key],
-            roadAddress,
-            jibunAddress,
-            zonecode,
+      if (postCodeOpen.nominee) {
+        setStorageData({
+          ...storageData,
+          step3: {
+            ...step3,
+            address: {
+              ...step3.address,
+              nominee_address_road: roadAddress,
+              nominee_address_jibun: jibunAddress,
+              nominee_address_post: zonecode,
+            },
           },
-        },
-      });
+        });
+      } else if (!postCodeOpen.nominee) {
+        setStorageData({
+          ...storageData,
+          step3: {
+            ...step3,
+            address2: {
+              ...step3.address2,
+              business_address_road: roadAddress,
+              business_address_jibun: jibunAddress,
+              business_address_post: zonecode,
+            },
+          },
+        });
+      }
       setPostCodeOpen({ nominee: false, business: false });
     }
   }
@@ -191,8 +219,8 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
                     ...storageData,
                     step3: {
                       ...step3,
-                      name: "",
-                      mobile: "",
+                      nominee_name: "",
+                      nominee_hphone: "",
                     },
                   });
                 }
@@ -213,9 +241,9 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
             <input
               type="text"
               placeholder="실명을 입력해주세요"
-              value={step3.name}
+              value={step3.nominee_name}
               onChange={(e) => {
-                validationHandler(e, "name");
+                validationHandler(e, "nominee_name");
               }}
             />
           </div>
@@ -226,10 +254,10 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
             <input
               type="text"
               placeholder="숫자만 입력해주세요"
-              value={step3.mobile}
+              value={step3.nominee_hphone}
               maxLength={11}
               onChange={(e) => {
-                validationHandler(e, "mobile");
+                validationHandler(e, "nominee_hphone");
               }}
             />
           </div>
@@ -269,8 +297,9 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
                 placeholder="주소를 검색해주세요"
                 readOnly
                 value={
-                  step3.address.zonecode
-                    ? `[${step3.address.zonecode}] ` + step3.address.roadAddress
+                  step3.address.nominee_address_post
+                    ? `[${step3.address.nominee_address_post}] ` +
+                      step3.address.nominee_address_road
                     : ""
                 }
               />
@@ -283,7 +312,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
                 className="input_margin_top"
                 type="text"
                 placeholder="상세주소를 입력해주세요"
-                value={step3.address.detailAddress}
+                value={step3.address.nominee_address}
                 onChange={(e) => validationHandler(e, "address")}
               />
             </div>
@@ -302,8 +331,8 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
             <input
               type="text"
               placeholder="사업장 이름을 입력해주세요"
-              value={step3.name2}
-              onChange={(e) => validationHandler(e, "name2")}
+              value={step3.business_name}
+              onChange={(e) => validationHandler(e, "business_name")}
             />
           </div>
         </label>
@@ -319,10 +348,10 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
                     step3: {
                       ...step3,
                       address2: {
-                        zonecode: "",
-                        roadAddress: "",
-                        jibunAddress: "",
-                        detailAddress: "",
+                        business_address_post: "",
+                        business_address_road: "",
+                        business_address_jibun: "",
+                        business_address: "",
                       },
                     },
                   });
@@ -348,9 +377,9 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
                 placeholder="주소를 검색해주세요"
                 readOnly
                 value={
-                  step3.address2.zonecode
-                    ? `[${step3.address2.zonecode}] ` +
-                      step3.address2.roadAddress
+                  step3.address2.business_address_post
+                    ? `[${step3.address2.business_address_post}] ` +
+                      step3.address2.business_address_road
                     : ""
                 }
                 onFocus={() => {
@@ -374,7 +403,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
                 className="input_margin_top"
                 type="text"
                 placeholder="상세주소를 입력해주세요"
-                value={step3.address2.detailAddress}
+                value={step3.address2.business_address}
                 onChange={(e) => {
                   validationHandler(e, "address2");
                   setCheck({ ...check, address: false });
@@ -389,9 +418,9 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
             <input
               type="text"
               placeholder="숫자만 입력해주세요"
-              value={step3.businessNumber}
+              value={step3.business_number}
               maxLength={10}
-              onChange={(e) => validationHandler(e, "businessNumber")}
+              onChange={(e) => validationHandler(e, "business_number")}
             />
           </div>
         </label>
@@ -401,8 +430,8 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
             <input
               type="text"
               placeholder="help@charancha.com"
-              value={step3.email}
-              onChange={(e) => validationHandler(e, "email")}
+              value={step3.business_email}
+              onChange={(e) => validationHandler(e, "business_email")}
               onBlur={() => {
                 setEmailValidation(validationEmail());
                 setEmailBlur(true);
@@ -421,7 +450,8 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
                   ...storageData,
                   step3: {
                     ...step3,
-                    public: !storageData.step3.public,
+                    nominee_reduction_joint:
+                      !storageData.step3.nominee_reduction_joint,
                   },
                 })
               }
@@ -429,7 +459,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
             >
               <img
                 src={`./img/${
-                  step3.public
+                  step3.nominee_reduction_joint
                     ? "icon_checkbox_large_blue.svg"
                     : "icon_checkbox_large_gray.svg"
                 }`}

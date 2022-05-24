@@ -35,7 +35,7 @@ function RegistPage({
   const [activate, setActivate] = useState<boolean>(false);
 
   useEffect(() => {
-    localStorage.setItem(storageData.id, JSON.stringify(storageData));
+    localStorage.setItem(storageData.sellNo, JSON.stringify(storageData));
   }, [storageData.step]);
 
   useEffect(() => {
