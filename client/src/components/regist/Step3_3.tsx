@@ -101,9 +101,9 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
           ...step3,
           address2: {
             ...step3.address2,
-            business_address_road: roadAddress,
-            business_address_jibun: jibunAddress,
-            business_address_post: zonecode,
+            nominee_address_road: roadAddress,
+            nominee_address_jibun: jibunAddress,
+            nominee_address_post: zonecode,
           },
         },
       });
@@ -209,7 +209,7 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
                 type="text"
                 placeholder="상세주소를 입력해주세요"
                 value={step3.address2.business_address}
-                onChange={(e) => validationHandler(e, "business_address")}
+                onChange={(e) => validationHandler(e, "nominee_address")}
               />
             </div>
           </div>
