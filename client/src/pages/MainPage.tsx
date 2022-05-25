@@ -25,7 +25,7 @@ function MainPage({
   priceData: any;
   priceTxt: any;
 }) {
-  const [tooltip, setTooltip] = useState<boolean>(false);
+  const [tooltip, setTooltip] = useState<any>(undefined);
 
   const scroll: any = useRef(null);
   const navigate = useNavigate();
