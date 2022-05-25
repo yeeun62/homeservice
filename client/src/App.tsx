@@ -61,14 +61,14 @@ function App() {
 
     axios
       .get(
-        `${process.env.REACT_APP_URL}:${process.env.REACT_APP_PORT}/api/handle/announce/notice`
+        `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_URL}:${process.env.REACT_APP_PORT}/api/handle/announce/notice`
       )
       .then((msg) => setIntroduceMSG(msg.data.result.message))
       .catch((err) => console.log("소개 문구 에러", err));
 
     axios
       .get(
-        `${process.env.REACT_APP_URL}:${process.env.REACT_APP_PORT}/api/handle/announce/price`
+        `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_URL}:${process.env.REACT_APP_PORT}/api/handle/announce/price`
       )
       .then((txt) => setPriceTxt(txt.data.result))
       .catch((err) => console.log("price 문구 에러", err));
@@ -78,7 +78,7 @@ function App() {
     if (data) {
       axios
         .post(
-          `${process.env.REACT_APP_URL}:${process.env.REACT_APP_PORT}/api/handle/announce/fee`,
+          `http://${process.env.REACT_APP_URL}:${process.env.REACT_APP_PORT}/api/handle/announce/fee`,
           {
             type: data.simpleCar.carTypeNm,
             body: data.simpleCar.bodyTypeNm,
