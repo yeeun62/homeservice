@@ -233,7 +233,7 @@ function ConditionModal({ setConditionModal, storageData }: ConditionProps) {
           }
         )
         .then((result) => {
-          if (result.data.message === "OK") {
+          if (result.data.status === 200) {
             // console.log("제출성공");
             navigate(`/complete${window.location.search}`);
             localStorage.removeItem(sellNo);
