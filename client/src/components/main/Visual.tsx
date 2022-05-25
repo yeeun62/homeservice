@@ -129,12 +129,7 @@ function Visual({ data, visualTitle, visualSpan }: any) {
         <img src="./img/1808801960R1 1.png" alt="차량이미지" />
         <div className="info_wrap_right">
           <div className="span_wrapper">
-            <span>
-              {releaseDtForm}
-              {releaseDt.slice(0, 2) !== releaseDt.slice(2, 4) && (
-                <>({releaseDt.slice(0, 2)}년형)</>
-              )}
-            </span>
+            <span>{releaseDtForm}</span>
             <span>{mileage}km</span>
             <span>{fuel}</span>
             <span>{carNo}</span>
