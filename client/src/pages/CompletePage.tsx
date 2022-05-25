@@ -12,6 +12,10 @@ const CompleteWrap = styled(PageWrap)`
     height: 60vh;
     left: 50vw;
     transform: translate(-50%);
+
+    @media screen and (max-width: 749px) {
+      width: 100%;
+    }
   }
 
   .complete_footer {
@@ -47,7 +51,6 @@ const CompleteWrap = styled(PageWrap)`
 
 function CompletePage({ data }: any) {
   function completeHandler() {
-    localStorage.removeItem(data.simpleCar.sellNo);
     window.open("", "_self")?.close();
   }
 

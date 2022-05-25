@@ -82,10 +82,7 @@ const VisualWrap = styled.div`
 
       img {
         width: 33.7%;
-        height: auto;
         margin-bottom: 0;
-        min-width: 253px;
-        min-height: 190px;
       }
 
       .info_wrap_right {
@@ -93,6 +90,7 @@ const VisualWrap = styled.div`
         padding: 16px 0 8px 24px;
         min-height: 190px;
         position: relative;
+        height: 100%;
 
         .price {
           position: absolute;
@@ -127,7 +125,8 @@ function Visual({ data, visualTitle, visualSpan }: any) {
         {visualSpan && <span className="complete_title">{visualSpan}</span>}
       </RegistTitle>
       <div className="info_wrap">
-        <img src={imageUrl} alt="차량이미지" />
+        {/* {imageUrl} */}
+        <img src="./img/1808801960R1 1.png" alt="차량이미지" />
         <div className="info_wrap_right">
           <div className="span_wrapper">
             <span>
