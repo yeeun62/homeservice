@@ -45,8 +45,7 @@ function Step1({
   useEffect(() => {
     if (localData) {
       if (
-        localData.step1.mocustomer_hphonebile !==
-        storageData.step1.customer_hphone
+        localData.step1.customer_hphone !== storageData.step1.customer_hphone
       ) {
         setActivate(false);
       } else if (
@@ -56,7 +55,7 @@ function Step1({
         setActivate(true);
       }
     }
-  }, [step1]);
+  }, [step1, localData]);
 
   // 이름과 모바일이 채워져있다면 인증번호 전송 활성화
   useEffect(() => {
@@ -72,6 +71,7 @@ function Step1({
     if (minutes === 0 && seconds === 0) {
       setActivate(false);
       alert("입력 시간이 지났습니다.");
+      setValidation("");
     }
     if (time) {
       const countdown = setInterval(() => {
@@ -93,9 +93,16 @@ function Step1({
 
   // 인증번호 인풋이 변경될때마다 인증번호가 일치하는지 검사
   useEffect(() => {
-    if (validation.length === 6) {
-      let bytes = CryptoJS.AES.decrypt(salt, `${process.env.REACT_APP_SALT}`);
-      if (bytes.toString(CryptoJS.enc.Utf8) === validation) {
+    if (validation.length === 6 && seconds > 0) {
+      // let bytes = CryptoJS.AES.decrypt(salt, `${process.env.REACT_APP_SALT}`);
+      // if (bytes.toString(CryptoJS.enc.Utf8) === validation) {
+      //   setActivate(true);
+      //   setAuthMessage(false);
+      // } else {
+      //   setActivate(false);
+      //   setAuthMessage(true);
+      // }
+      if (validation === salt) {
         setActivate(true);
         setAuthMessage(false);
       } else {
@@ -121,14 +128,15 @@ function Step1({
         `http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/handle/ppurio/sendmessage`,
         {
           phone: step1.customer_hphone,
-          security: crypto,
+          security: authNumber, // 암호화시 crypto로 변경
         }
       )
       .then((result) => console.log(result));
-    setSalt(crypto);
+    // setSalt(crypto);
+    setSalt(authNumber);
     setTime(true);
     setMinutes(0);
-    setSeconds(50);
+    setSeconds(10);
     setValidation("");
     setAuthMessage(false);
     setAuthMessage2(false);
