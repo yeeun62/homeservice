@@ -134,8 +134,8 @@ function Step1({
     // setSalt(crypto);
     setSalt(authNumber);
     setTime(true);
-    setMinutes(0);
-    setSeconds(10);
+    setMinutes(3);
+    setSeconds(0);
     setValidation("");
     setAuthMessage(false);
     setAuthMessage2(false);

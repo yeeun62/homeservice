@@ -207,6 +207,8 @@ function PriceInfo({ data, priceData, priceTxt, tooltip, setTooltip }: any) {
   releaseDt = `${releaseDt.slice(2, 4)}년${releaseDt.slice(4, 6)}월`;
   sellPrice = addComma(String(sellPrice) + "0000");
 
+  console.log(tooltip);
+
   return (
     <PriceWrap tooltip={tooltip}>
       <div>
