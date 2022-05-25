@@ -79,7 +79,7 @@ export const MainBtn = styled.button<{
     `}
 `;
 
-export const RegistForm = styled.form`
+export const RegistForm = styled.form<{ tooltip?: boolean }>`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -95,6 +95,17 @@ export const RegistForm = styled.form`
 
   label {
     margin-bottom: 32px;
+
+    .tooltip {
+      position: absolute;
+      z-index: 100;
+      top: 26px;
+      left: -9px;
+      opacity: ${(props) => (props.tooltip ? "1" : "0")};
+      visibility: ${(props) => (props.tooltip ? "" : "hidden")};
+      transition: ${(props) =>
+        props.tooltip ? "opacity 700ms" : "opacity 500ms , visibility 500ms"};
+    }
 
     :focus-within {
       p {
