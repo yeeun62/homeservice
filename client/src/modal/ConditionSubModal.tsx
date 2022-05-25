@@ -45,9 +45,7 @@ interface SubModalProp {
 function ConditionSubModal({ subModal, setConditionSubOpen }: SubModalProp) {
   useEffect(() => {
     axios
-      .get(
-        `http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/handle/terms/${subModal.code}`
-      )
+      .get(`${process.env.REACT_APP_URL}/api/handle/terms/${subModal.code}`)
       .then((res) => {
         if (res.status === 200) {
           let inner = document.getElementsByClassName("condition_content");

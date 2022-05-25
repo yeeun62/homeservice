@@ -21,7 +21,11 @@ const AppWrap = styled.div`
 export interface StorageType {
   sellNo: string;
   payment_cd: string;
-  step1: { customer_name: string; customer_hphone: string };
+  step1: {
+    customer_name: string;
+    customer_hphone: string;
+    phoneValidation: boolean;
+  };
   step2: { nominee_cd: string; index: number };
   step3: any;
   step4: {
@@ -50,7 +54,10 @@ function App() {
       .then((data) => {
         setData(data.data);
       })
-      .catch((err) => console.log("데이터 에러", err));
+      .catch((err) => {
+        //console.log("데이터 에러", err);
+        window.open("", "_self")?.close();
+      });
 
     axios
       .get(
@@ -99,8 +106,11 @@ function App() {
         setStorageData({
           sellNo: data.simpleCar.sellNo,
           payment_cd: "",
-          step1: { customer_name: "", customer_hphone: "" },
-          step2: { nominee_cd: "", index: 0 },
+          step1: {
+            customer_name: "",
+            customer_hphone: "",
+          },
+          step2: { nominee_cd: "", index: 1 },
           step3: "",
           step4: {
             bank: { name: "", refund_bank_cd: "" },

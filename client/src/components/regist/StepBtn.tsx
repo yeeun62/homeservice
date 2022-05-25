@@ -61,8 +61,6 @@ function StepBtn({
     } else if (localStep === "5") {
       setLocalStep(String(storageData.step2.index));
     }
-    // localStorage.setItem("localStep", String(Number(localStep) - 1));
-    // localStorage.setItem("localStep", String(Number(localStep) - 1));
   };
 
   const nextMove = () => {

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import { RegistTitle, Tooltip } from "../../styles/recycle";
 
-const PriceWrap = styled.div`
+const PriceWrap = styled.div<{ tooltip: boolean }>`
   padding-top: 16px;
   overflow: visible;
   padding-bottom: 40px;
@@ -68,13 +68,12 @@ const PriceWrap = styled.div`
             width: 100%;
             color: #a7a7a7;
             position: relative;
+            display: flex;
+            align-items: center;
 
             img {
               width: 16px;
               height: 16px;
-              position: absolute;
-              top: 2px;
-              left: 104px;
             }
 
             .main_tooltip {
@@ -82,6 +81,28 @@ const PriceWrap = styled.div`
               position: absolute;
               top: 150%;
               left: 20px;
+              animation: ${(props) =>
+                props.tooltip ? "fadein 1.5s" : "fadeout 1.5s"};
+              animation-fill-mode: forwards;
+            }
+
+            @keyframes fadeout {
+              from {
+                opacity: 1;
+              }
+              to {
+                opacity: 0;
+                display: none;
+              }
+            }
+
+            @keyframes fadein {
+              from {
+                opacity: 0;
+              }
+              to {
+                opacity: 1;
+              }
             }
           }
         }
@@ -187,7 +208,7 @@ function PriceInfo({ data, priceData, priceTxt, tooltip, setTooltip }: any) {
   sellPrice = addComma(String(sellPrice) + "0000");
 
   return (
-    <PriceWrap>
+    <PriceWrap tooltip={tooltip}>
       <div>
         <RegistTitle>구매 확정 시 필요한 금액이에요</RegistTitle>
         <ul className="price_ul">
@@ -243,11 +264,9 @@ function PriceInfo({ data, priceData, priceTxt, tooltip, setTooltip }: any) {
                     }}
                     style={{ cursor: "pointer" }}
                   />
-                  {tooltip && (
-                    <Tooltip className="main_tooltip">
-                      <div></div>매도비는 실제와 다를 수 있습니다.
-                    </Tooltip>
-                  )}
+                  <Tooltip className="main_tooltip">
+                    <div></div>매도비는 실제와 다를 수 있습니다.
+                  </Tooltip>
                 </div>
                 <p className="more_price_value">330,000원</p>
               </li>

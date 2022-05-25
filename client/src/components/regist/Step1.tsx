@@ -19,9 +19,7 @@ function Step1({
   const [minutes, setMinutes] = useState<any>(3);
   const [seconds, setSeconds] = useState<any>(0);
   const [localData, setLocalData] = useState<any>();
-  const [validation, setValidation] = useState<{ mobileAuth: string }>({
-    mobileAuth: "",
-  });
+  const [validation, setValidation] = useState<string>("");
 
   useEffect(() => {
     let changeData: any = localStorage.getItem(data.simpleCar.sellNo);
@@ -95,9 +93,9 @@ function Step1({
 
   // 인증번호 인풋이 변경될때마다 인증번호가 일치하는지 검사
   useEffect(() => {
-    if (validation.mobileAuth.length === 6) {
+    if (validation.length === 6) {
       let bytes = CryptoJS.AES.decrypt(salt, `${process.env.REACT_APP_SALT}`);
-      if (bytes.toString(CryptoJS.enc.Utf8) === validation.mobileAuth) {
+      if (bytes.toString(CryptoJS.enc.Utf8) === validation) {
         setActivate(true);
         setAuthMessage(false);
       } else {
@@ -130,8 +128,8 @@ function Step1({
     setSalt(crypto);
     setTime(true);
     setMinutes(0);
-    setSeconds(10);
-    setValidation({ mobileAuth: "" });
+    setSeconds(50);
+    setValidation("");
     setAuthMessage(false);
     setAuthMessage2(false);
   };
@@ -147,12 +145,16 @@ function Step1({
               type="text"
               value={step1.customer_name}
               placeholder="실명을 입력해주세요"
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setStorageData({
-                  ...storageData,
-                  step1: { ...step1, customer_name: e.target.value },
-                })
-              }
+              className="name_input"
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                const regex = /^[|ㄱ-ㅎ|가-힣|]*$/;
+                if (regex.test(e.target.value)) {
+                  setStorageData({
+                    ...storageData,
+                    step1: { ...step1, customer_name: e.target.value },
+                  });
+                }
+              }}
             />
           </div>
         </label>
@@ -189,14 +191,11 @@ function Step1({
                 className="input_margin_top"
                 type="text"
                 maxLength={6}
-                value={validation.mobileAuth}
+                value={validation}
                 placeholder="인증번호를 입력해주세요"
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   if (time) {
-                    setValidation({
-                      ...validation,
-                      mobileAuth: e.target.value,
-                    });
+                    setValidation(e.target.value);
                   } else {
                     setAuthMessage2(true);
                   }
