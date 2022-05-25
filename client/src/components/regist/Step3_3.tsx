@@ -193,9 +193,9 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
                 placeholder="주소를 검색해주세요"
                 readOnly
                 value={
-                  step3.address2.business_address_post
-                    ? `[${step3.address2.business_address_post}] ` +
-                      step3.address2.business_address_road
+                  step3.address2.nominee_address_post
+                    ? `[${step3.address2.nominee_address_post}] ` +
+                      step3.address2.nominee_address_road
                     : ""
                 }
               />
@@ -208,7 +208,7 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
                 className="input_margin_top"
                 type="text"
                 placeholder="상세주소를 입력해주세요"
-                value={step3.address2.business_address}
+                value={step3.address2.nominee_address}
                 onChange={(e) => validationHandler(e, "nominee_address")}
               />
             </div>
