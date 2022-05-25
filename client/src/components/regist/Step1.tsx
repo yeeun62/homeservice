@@ -125,7 +125,7 @@ function Step1({
 
     axios
       .post(
-        `${process.env.REACT_APP_URL}:${process.env.REACT_APP_PORT}/api/handle/ppurio/sendmessage`,
+        `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_URL}:${process.env.REACT_APP_PORT}/api/handle/ppurio/sendmessage`,
         {
           phone: step1.customer_hphone,
           security: authNumber, // 암호화시 crypto로 변경

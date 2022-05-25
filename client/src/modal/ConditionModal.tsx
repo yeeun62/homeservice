@@ -206,7 +206,7 @@ function ConditionModal({ setConditionModal, storageData }: ConditionProps) {
     if (isChecked.all) {
       axios
         .post(
-          `${process.env.REACT_APP_URL}:${process.env.REACT_APP_PORT}/api/handle/process`,
+          `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_URL}:${process.env.REACT_APP_PORT}/api/handle/process`,
           {
             sellNo,
             payment_cd,
