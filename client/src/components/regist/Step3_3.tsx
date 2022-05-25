@@ -34,13 +34,13 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
       isActivate.length >= 5 &&
       step3.nominee_hphone.length === 11 &&
       step3.business_number.length === 10 &&
-      emailValidation
+      validationEmail()
     ) {
       setActivate(true);
     } else {
       setActivate(false);
     }
-  }, [step3, emailValidation]);
+  }, [step3]);
 
   function validationHandler(
     e: React.ChangeEvent<HTMLInputElement>,

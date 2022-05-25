@@ -57,7 +57,7 @@ function CompletePage({ data }: any) {
   return (
     <>
       <Header />
-      <CompleteWrap>
+      <CompleteWrap className="back">
         <div className="lottie_wrap">
           <Lottie
             options={{

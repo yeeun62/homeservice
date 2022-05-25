@@ -237,7 +237,6 @@ function ConditionModal({ setConditionModal, storageData }: ConditionProps) {
           if (result.status === 200) {
             navigate("/complete");
             localStorage.removeItem(sellNo);
-            //location.replace("");
           }
         })
         .catch((err) => {
