@@ -22,6 +22,11 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
   }>({ nominee: false, business: false });
   const step3 = storageData.step3;
 
+  useEffect(() => {
+    let changeData: any = localStorage.getItem(storageData.sellNo);
+    setStorageData(JSON.parse(changeData));
+  }, []);
+
   // 주소동일체크시 주소 바뀔때 체크 해제함수
   useEffect(() => {
     if (

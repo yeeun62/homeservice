@@ -53,6 +53,11 @@ function Step2({ setActivate, setStorageData, storageData }: Step2Props) {
     }
   }, [storageData.step2]);
 
+  useEffect(() => {
+    let changeData: any = localStorage.getItem(storageData.sellNo);
+    setStorageData(JSON.parse(changeData));
+  }, []);
+
   const storageHandler = (index: number) => {
     if (index === 2) {
       setStorageData((storageData) => ({
