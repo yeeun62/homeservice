@@ -236,12 +236,10 @@ function ConditionModal({ setConditionModal, storageData }: ConditionProps) {
           if (result.status === 200) {
             console.log("제출성공");
             navigate(`/complete${window.location.search}`);
-            // localStorage.removeItem(sellNo);
-            //location.replace("");
+            localStorage.removeItem(sellNo);
           }
         })
         .catch((err) => {
-          // navigate("/complete");
           console.log("제출 에러", err);
         });
     }
