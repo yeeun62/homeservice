@@ -15,8 +15,8 @@ interface RegistPageProps {
   setStep: React.Dispatch<React.SetStateAction<number>>;
   storageData: StorageType;
   setStorageData: React.Dispatch<React.SetStateAction<StorageType>>;
-  localStep: any;
-  setLocalStep: React.Dispatch<React.SetStateAction<any>>;
+  localStep: string;
+  setLocalStep: React.Dispatch<React.SetStateAction<string>>;
   data: any;
 }
 
@@ -47,7 +47,7 @@ function RegistPage({
         }
       });
     }
-  }, [storageData.step]);
+  }, [localStep]);
 
   return (
     <>

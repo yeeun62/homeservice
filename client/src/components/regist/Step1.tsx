@@ -147,13 +147,10 @@ function Step1({
               placeholder="실명을 입력해주세요"
               className="name_input"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                const regex = /^[|ㄱ-ㅎ|가-힣|]*$/;
-                if (regex.test(e.target.value)) {
-                  setStorageData({
-                    ...storageData,
-                    step1: { ...step1, customer_name: e.target.value },
-                  });
-                }
+                setStorageData({
+                  ...storageData,
+                  step1: { ...step1, customer_name: e.target.value },
+                });
               }}
             />
           </div>

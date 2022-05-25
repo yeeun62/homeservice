@@ -64,6 +64,10 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
   }, [step3, emailValidation]);
 
   useEffect(() => {
+    setEmailValidation(validationEmail());
+  }, []);
+
+  useEffect(() => {
     if (check.name) {
       setStorageData({
         ...storageData,
