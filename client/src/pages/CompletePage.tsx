@@ -58,9 +58,9 @@ function CompletePage() {
   useEffect(() => {
     axios
       .get(
-        `http://3.34.98.110/dealers/-/products/${window.location.search.slice(
-          8
-        )}`
+        `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_URL}:${
+          process.env.REACT_APP_PORT
+        }/api/handle/products/${window.location.search.slice(8)}`
         // `${process.env.REACT_APP_FORSALE}/ffc32180-d59f-11ec-9d64-0242ac120002`
       )
       .then((data) => {

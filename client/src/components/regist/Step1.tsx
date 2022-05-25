@@ -112,6 +112,7 @@ function Step1({
       }
     } else {
       setActivate(false);
+      setAuthMessage(false);
     }
   }, [validation]);
 
@@ -200,7 +201,7 @@ function Step1({
                 value={validation}
                 placeholder="인증번호를 입력해주세요"
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  if (seconds > 0) {
+                  if (seconds > 0 && minutes > 0) {
                     setValidation(e.target.value.replace(/[^0-9]/g, ""));
                   } else {
                     setAuthMessage2(true);
