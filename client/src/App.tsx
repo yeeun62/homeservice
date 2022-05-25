@@ -68,15 +68,20 @@ function App() {
   useEffect(() => {
     if (data) {
       axios
-        .post(`http://54.180.121.208:80/api/handle/announce/fee`, {
-          type: data.simpleCar.carTypeNm,
-          body: data.simpleCar.bodyTypeNm,
-          fuel: data.simpleCar.fuel,
-          displacement: String(data.simpleCar.displacement),
-          location: "서울",
-          cost: String(data.simpleCar.sellPrice),
+        .post(
+          `http://${process.env.REACT_APP_PRICE}:${process.env.REACT_APP_SS}/api/handle/announce/fee`,
+          {
+            type: data.simpleCar.carTypeNm,
+            body: data.simpleCar.bodyTypeNm,
+            fuel: data.simpleCar.fuel,
+            displacement: String(data.simpleCar.displacement),
+            location: "서울",
+            cost: String(data.simpleCar.sellPrice),
+          }
+        )
+        .then((price) => {
+          setPriceData(price.data.result);
         })
-        .then((price) => setPriceData(price.data.result))
         .catch((err) => console.log("price 에러", err));
     }
   }, [data]);

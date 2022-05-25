@@ -220,7 +220,7 @@ function ConditionModal({ setConditionModal, storageData }: ConditionProps) {
             nominee_address_road,
             nominee_address_jibun,
             nominee_address,
-            nominee_reduction_joint,
+            nominee_reduction_joint: `${nominee_reduction_joint}`,
             business_name,
             business_address_post,
             business_address_road,
