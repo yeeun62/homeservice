@@ -91,10 +91,6 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
     }
   }, [check]);
 
-  useEffect(() => {
-    setEmailValidation(validationEmail());
-  }, []);
-
   function postCodeHandler(data: any) {
     if (data) {
       const { roadAddress, jibunAddress, zonecode } = data;
