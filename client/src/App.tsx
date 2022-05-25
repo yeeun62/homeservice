@@ -21,7 +21,11 @@ const AppWrap = styled.div`
 export interface StorageType {
   sellNo: string;
   payment_cd: string;
-  step1: { customer_name: string; customer_hphone: string };
+  step1: {
+    customer_name: string;
+    customer_hphone: string;
+    phoneValidation: boolean;
+  };
   step2: { nominee_cd: string; index: number };
   step3: any;
   step4: {
@@ -48,19 +52,18 @@ function App() {
       .then((data) => {
         setData(data.data);
       })
-      .catch((err) => console.log("데이터 에러", err));
+      .catch((err) => {
+        //console.log("데이터 에러", err);
+        window.open("", "_self")?.close();
+      });
 
     axios
-      .get(
-        `http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/handle/announce/notice`
-      )
+      .get(`${process.env.REACT_APP_URL}/api/handle/announce/notice`)
       .then((msg) => setIntroduceMSG(msg.data.result.message))
       .catch((err) => console.log("소개 문구 에러", err));
 
     axios
-      .get(
-        `http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/handle/announce/price`
-      )
+      .get(`${process.env.REACT_APP_URL}/api/handle/announce/price`)
       .then((txt) => setPriceTxt(txt.data.result))
       .catch((err) => console.log("price 문구 에러", err));
   }, []);
@@ -68,17 +71,14 @@ function App() {
   useEffect(() => {
     if (data) {
       axios
-        .post(
-          `http://${process.env.REACT_APP_PRICE}:${process.env.REACT_APP_SS}/api/handle/announce/fee`,
-          {
-            type: data.simpleCar.carTypeNm,
-            body: data.simpleCar.bodyTypeNm,
-            fuel: data.simpleCar.fuel,
-            displacement: String(data.simpleCar.displacement),
-            location: "서울",
-            cost: String(data.simpleCar.sellPrice),
-          }
-        )
+        .post(`${process.env.REACT_APP_URL}/api/handle/announce/fee`, {
+          type: data.simpleCar.carTypeNm,
+          body: data.simpleCar.bodyTypeNm,
+          fuel: data.simpleCar.fuel,
+          displacement: String(data.simpleCar.displacement),
+          location: "서울",
+          cost: String(data.simpleCar.sellPrice),
+        })
         .then((price) => {
           setPriceData(price.data.result);
         })
@@ -95,8 +95,11 @@ function App() {
         setStorageData({
           sellNo: data.simpleCar.sellNo,
           payment_cd: "",
-          step1: { customer_name: "", customer_hphone: "" },
-          step2: { nominee_cd: "", index: 0 },
+          step1: {
+            customer_name: "",
+            customer_hphone: "",
+          },
+          step2: { nominee_cd: "", index: 1 },
           step3: "",
           step4: {
             bank: { name: "", refund_bank_cd: "" },

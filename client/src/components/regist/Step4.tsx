@@ -44,11 +44,11 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
         behavior: "smooth",
         block: "end",
       });
-    }
+    } else return;
   }
 
   return (
-    <div id="step4">
+    <div id="step4" ref={scroll}>
       <Modal
         isOpen={bankModal}
         onRequestClose={() => setBankModal(!bankModal)}
