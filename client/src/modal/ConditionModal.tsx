@@ -235,10 +235,10 @@ function ConditionModal({ setConditionModal, storageData }: ConditionProps) {
         .then((result) => {
           console.log(result);
           if (result.status === 200) {
-            // console.log("제출성공");
-            navigate(`/complete${window.location.search}`);
-            localStorage.removeItem(sellNo);
-            localStorage.removeItem("localStep");
+            console.log("제출성공");
+            // navigate(`/complete${window.location.search}`);
+            // localStorage.removeItem(sellNo);
+            // localStorage.removeItem("localStep");
           }
         })
         .catch((err) => {
