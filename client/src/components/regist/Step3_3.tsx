@@ -21,9 +21,12 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
   useEffect(() => {
     let isActivate = Object.values(step3).filter((data: any) => {
       if (data.length > 0) return data;
+      if (data === "address") {
+        if (data.nominee_address_post) return data;
+      }
     });
     if (
-      isActivate.length >= 6 &&
+      isActivate.length >= 5 &&
       step3.nominee_hphone.length === 11 &&
       step3.business_number.length === 10 &&
       emailValidation
@@ -171,6 +174,7 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
               maxLength={11}
               onChange={(e) => {
                 validationHandler(e, "nominee_hphone");
+                setCheck(false);
               }}
             />
           </div>

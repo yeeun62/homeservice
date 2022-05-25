@@ -46,7 +46,7 @@ function Step2({ setActivate, setStorageData, storageData }: Step2Props) {
   const registType = ["개인", "개인사업자", "법인사업자"];
 
   useEffect(() => {
-    if (storageData.step2) {
+    if (storageData.step2.nominee_cd) {
       setActivate(true);
     } else {
       setActivate(false);
