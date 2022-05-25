@@ -22,6 +22,12 @@ function Step1({
   const [validation, setValidation] = useState<string>("");
 
   useEffect(() => {
+    let changeData: any = localStorage.getItem(data.simpleCar.sellNo);
+    setStorageData(JSON.parse(changeData));
+  }, []);
+
+  // localstorage 데이터 state에 저장
+  useEffect(() => {
     let originData: any = localStorage.getItem(data.simpleCar.sellNo);
     if (originData) {
       setLocalData(JSON.parse(originData));

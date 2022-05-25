@@ -13,9 +13,14 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
   const scroll: any = useRef(null);
 
   useEffect(() => {
+    let changeData: any = localStorage.getItem(storageData.sellNo);
+    setStorageData(JSON.parse(changeData));
+  }, []);
+
+  useEffect(() => {
     axios
       .get(
-        `http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/handle/banks`
+        `${process.env.REACT_APP_URL}:${process.env.REACT_APP_PORT}/api/handle/banks`
       )
       .then((res) => {
         if (res.status === 200) {

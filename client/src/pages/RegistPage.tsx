@@ -15,6 +15,8 @@ interface RegistPageProps {
   setStep: React.Dispatch<React.SetStateAction<number>>;
   storageData: StorageType;
   setStorageData: React.Dispatch<React.SetStateAction<StorageType>>;
+  localStep: any;
+  setLocalStep: React.Dispatch<React.SetStateAction<any>>;
   data: any;
 }
 
@@ -28,15 +30,13 @@ export interface ActiveProps {
 function RegistPage({
   step,
   setStep,
+  localStep,
+  setLocalStep,
   storageData,
   setStorageData,
   data,
 }: RegistPageProps) {
   const [activate, setActivate] = useState<boolean>(false);
-
-  useEffect(() => {
-    localStorage.setItem(storageData.sellNo, JSON.stringify(storageData));
-  }, [storageData.step]);
 
   useEffect(() => {
     let input: any = document.getElementsByTagName("input");
@@ -86,12 +86,14 @@ function RegistPage({
               setStorageData={setStorageData}
               storageData={storageData}
             />,
-          ][storageData.step]
+          ][Number(localStep)]
         }
       </PageWrap>
       <StepBtn
         step={step}
         setStep={setStep}
+        localStep={localStep}
+        setLocalStep={setLocalStep}
         activate={activate}
         storageData={storageData}
         setStorageData={setStorageData}

@@ -18,6 +18,11 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
   const step3 = storageData.step3;
 
   useEffect(() => {
+    let changeData: any = localStorage.getItem(storageData.sellNo);
+    setStorageData(JSON.parse(changeData));
+  }, []);
+
+  useEffect(() => {
     if (
       step3.nominee_name &&
       step3.nominee_hphone.length === 11 &&

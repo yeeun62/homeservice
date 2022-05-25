@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 function MainPage({
   data,
+  setLocalStep,
   storageData,
   setStorageData,
   introduceMSG,
@@ -17,6 +18,7 @@ function MainPage({
   priceTxt,
 }: {
   data: any;
+  setLocalStep: React.Dispatch<React.SetStateAction<string>>;
   storageData: StorageType;
   setStorageData: React.Dispatch<React.SetStateAction<StorageType>>;
   introduceMSG: string;
@@ -45,11 +47,9 @@ function MainPage({
 
   function setStorage(): void {
     if (storageData.payment_cd) {
-      setStorageData({ ...storageData, step: 0 });
-      localStorage.setItem(
-        storageData.sellNo,
-        JSON.stringify({ ...storageData, step: 0 })
-      );
+      localStorage.setItem(storageData.sellNo, JSON.stringify(storageData));
+      localStorage.setItem("localStep", "0");
+      setLocalStep("0");
       navigate("/regist");
     } else return;
   }

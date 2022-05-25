@@ -19,11 +19,15 @@ interface StepBtnProps {
   activate: boolean;
   storageData: StorageType;
   setStorageData: React.Dispatch<React.SetStateAction<StorageType>>;
+  localStep: string;
+  setLocalStep: React.Dispatch<React.SetStateAction<string>>;
 }
 
 function StepBtn({
   step,
   setStep,
+  localStep,
+  setLocalStep,
   activate,
   storageData,
   setStorageData,
@@ -31,35 +35,31 @@ function StepBtn({
   const [conditionModal, setConditionModal] = useState<boolean>(false);
 
   useEffect(() => {
-    if (storageData.step === 0) {
+    if (localStep === "0") {
       setStep(1);
-    } else if (storageData.step === 1) {
+      localStorage.setItem("localStep", localStep);
+    } else if (localStep === "1") {
       setStep(2);
-    } else if (
-      storageData.step === 2 ||
-      storageData.step === 3 ||
-      storageData.step === 4
-    ) {
+      localStorage.setItem("localStep", localStep);
+    } else if (localStep === "2" || localStep === "3" || localStep === "4") {
       setStep(3);
-    } else if (storageData.step === 5) {
+      localStorage.setItem("localStep", localStep);
+    } else if (localStep === "5") {
       setStep(4);
+      localStorage.setItem("localStep", localStep);
     }
-  }, [storageData.step]);
+  }, [localStep]);
 
   const prevMove = () => {
-    if (storageData.step === 0) {
+    if (localStep === "0") {
       window.location.href = window.location.origin;
-      setStorageData({ ...storageData, step: 0 });
-    } else if (storageData.step === 1) {
-      setStorageData({ ...storageData, step: 0 });
-    } else if (
-      storageData.step === 2 ||
-      storageData.step === 3 ||
-      storageData.step === 4
-    ) {
-      setStorageData({ ...storageData, step: 1 });
-    } else if (storageData.step === 5) {
-      setStorageData({ ...storageData, step: storageData.step2.index });
+      setLocalStep("0");
+    } else if (localStep === "1") {
+      setLocalStep("0");
+    } else if (localStep === "2" || localStep === "3" || localStep === "4") {
+      setLocalStep("1");
+    } else if (localStep === "5") {
+      setLocalStep(String(storageData.step2.index));
     }
   };
 
@@ -67,26 +67,29 @@ function StepBtn({
     // if (!activate) {
     //   return;
     // }
-    if (step === 4 && storageData.step === 5) {
+    console.log(localStep);
+    if (step === 4 && localStep === "5") {
       return;
     }
-    if (storageData.step === 0) {
-      setStorageData({ ...storageData, step: 1 });
-    } else if (storageData.step === 1) {
-      setStorageData({ ...storageData, step: storageData.step2.index });
-    } else if (
-      storageData.step === 2 ||
-      storageData.step === 3 ||
-      storageData.step === 4
-    ) {
-      setStorageData({ ...storageData, step: 5 });
-    } else if (storageData.step === 5) {
-      setStorageData({ ...storageData, step: 5 });
+    if (localStep === "0") {
+      setLocalStep("1");
+    } else if (localStep === "1") {
+      setLocalStep(String(storageData.step2.index));
+      localStorage.setItem(storageData.sellNo, JSON.stringify(storageData));
+      // localStorage.setItem("localStep", String(storageData.step2.index));
+      return;
+    } else if (localStep === "2" || localStep === "3" || localStep === "4") {
+      setLocalStep("5");
     }
+    // else if (localStep === 5) {
+    //   setLocalStep(5);
+    // }
+    localStorage.setItem(storageData.sellNo, JSON.stringify(storageData));
+    // localStorage.setItem("localStep", String(Number(localStep) + 1));
   };
 
   const conditionModalHandler = () => {
-    if (storageData.step === 5) {
+    if (localStep === "5") {
       setConditionModal(true);
     }
   };
@@ -127,7 +130,7 @@ function StepBtn({
               conditionModalHandler();
             }}
           >
-            {storageData.step === 5 ? "약관동의" : "다음"}
+            {localStep === "5" ? "약관동의" : "다음"}
           </MainBtn>
         </div>
       </StepBtnWrap>

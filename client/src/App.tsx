@@ -37,7 +37,8 @@ export interface StorageType {
 }
 
 function App() {
-  const [step, setStep] = useState<number>(0);
+  const [step, setStep] = useState<number>(1);
+  const [localStep, setLocalStep] = useState<string>("0");
   const [data, setData] = useState<any>();
   const [storageData, setStorageData] = useState<any>();
   const [introduceMSG, setIntroduceMSG] = useState<string>("");
@@ -48,6 +49,7 @@ function App() {
     axios
       .get(
         "http://3.34.98.110/dealers/-/products/ffc32180-d59f-11ec-9d64-0242ac120002"
+        // `${process.env.REACT_APP_FORSALE}/ffc32180-d59f-11ec-9d64-0242ac120002`
       )
       .then((data) => {
         setData(data.data);
@@ -58,12 +60,16 @@ function App() {
       });
 
     axios
-      .get(`${process.env.REACT_APP_URL}/api/handle/announce/notice`)
+      .get(
+        `${process.env.REACT_APP_URL}:${process.env.REACT_APP_PORT}/api/handle/announce/notice`
+      )
       .then((msg) => setIntroduceMSG(msg.data.result.message))
       .catch((err) => console.log("소개 문구 에러", err));
 
     axios
-      .get(`${process.env.REACT_APP_URL}/api/handle/announce/price`)
+      .get(
+        `${process.env.REACT_APP_URL}:${process.env.REACT_APP_PORT}/api/handle/announce/price`
+      )
       .then((txt) => setPriceTxt(txt.data.result))
       .catch((err) => console.log("price 문구 에러", err));
   }, []);
@@ -71,14 +77,17 @@ function App() {
   useEffect(() => {
     if (data) {
       axios
-        .post(`${process.env.REACT_APP_URL}/api/handle/announce/fee`, {
-          type: data.simpleCar.carTypeNm,
-          body: data.simpleCar.bodyTypeNm,
-          fuel: data.simpleCar.fuel,
-          displacement: String(data.simpleCar.displacement),
-          location: "서울",
-          cost: String(data.simpleCar.sellPrice),
-        })
+        .post(
+          `${process.env.REACT_APP_URL}:${process.env.REACT_APP_PORT}/api/handle/announce/fee`,
+          {
+            type: data.simpleCar.carTypeNm,
+            body: data.simpleCar.bodyTypeNm,
+            fuel: data.simpleCar.fuel,
+            displacement: String(data.simpleCar.displacement),
+            location: "서울",
+            cost: String(data.simpleCar.sellPrice),
+          }
+        )
         .then((price) => {
           setPriceData(price.data.result);
         })
@@ -89,8 +98,10 @@ function App() {
   useEffect(() => {
     if (data) {
       let localData = localStorage.getItem(data.simpleCar.sellNo);
-      if (localData) {
+      let localStep = localStorage.getItem("localStep");
+      if (localData && localStep) {
         setStorageData(JSON.parse(localData));
+        setLocalStep(localStep);
       } else {
         setStorageData({
           sellNo: data.simpleCar.sellNo,
@@ -106,8 +117,9 @@ function App() {
             refund_accout_name: "",
             refund_accout_number: "",
           },
-          step: 0,
+          // step: 0,
         });
+        setLocalStep("0");
       }
     }
   }, [data]);
@@ -123,6 +135,7 @@ function App() {
                 data && storageData && introduceMSG && priceData && priceTxt ? (
                   <MainPage
                     data={data}
+                    setLocalStep={setLocalStep}
                     storageData={storageData}
                     setStorageData={setStorageData}
                     introduceMSG={introduceMSG}
@@ -142,6 +155,8 @@ function App() {
                     data={data}
                     step={step}
                     setStep={setStep}
+                    localStep={localStep}
+                    setLocalStep={setLocalStep}
                     storageData={storageData}
                     setStorageData={setStorageData}
                   />
