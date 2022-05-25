@@ -233,8 +233,6 @@ function ConditionModal({ setConditionModal, storageData }: ConditionProps) {
           }
         )
         .then((result) => {
-          console.log(result);
-          console.log(nominee_address_road);
           if (result.data.message === "OK") {
             // console.log("제출성공");
             navigate(`/complete${window.location.search}`);
