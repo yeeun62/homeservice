@@ -50,7 +50,7 @@ function StepBtn({
 
   const prevMove = () => {
     if (localStep === "0") {
-      window.location.href = window.location.origin;
+      window.location.href = `${window.location.origin}?sellNo=${storageData.sellNo}`;
       setLocalStep("0");
     } else if (localStep === "1") {
       setLocalStep("0");
