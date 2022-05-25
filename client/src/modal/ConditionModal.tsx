@@ -177,7 +177,6 @@ function ConditionModal({ setConditionModal, storageData }: ConditionProps) {
   const navigate = useNavigate();
 
   function CompleteHandler() {
-    navigate("/complete");
     const { sellNo, payment_cd, step1, step2, step3, step4 } = storageData;
     const { customer_name, customer_hphone } = step1;
     const { nominee_cd } = step2;
@@ -207,7 +206,7 @@ function ConditionModal({ setConditionModal, storageData }: ConditionProps) {
     if (isChecked.all) {
       axios
         .post(
-          `http://${process.env.REACT_APP_IP}:${process.env.REACT_APP_PORT}/api/handle/process`,
+          `${process.env.REACT_APP_URL}:${process.env.REACT_APP_PORT}/api/handle/process`,
           {
             sellNo,
             payment_cd,
@@ -235,13 +234,14 @@ function ConditionModal({ setConditionModal, storageData }: ConditionProps) {
         )
         .then((result) => {
           if (result.status === 200) {
-            navigate("/complete");
-            localStorage.removeItem(sellNo);
+            console.log("제출성공");
+            navigate(`/complete${window.location.search}`);
+            // localStorage.removeItem(sellNo);
             //location.replace("");
           }
         })
         .catch((err) => {
-          navigate("/complete");
+          // navigate("/complete");
           console.log("제출 에러", err);
         });
     }

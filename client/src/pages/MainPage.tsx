@@ -50,7 +50,7 @@ function MainPage({
       localStorage.setItem(storageData.sellNo, JSON.stringify(storageData));
       localStorage.setItem("localStep", "0");
       setLocalStep("0");
-      navigate("/regist");
+      navigate(`/regist${window.location.search}`);
     } else return;
   }
 

@@ -96,7 +96,6 @@ function RegistPage({
         setLocalStep={setLocalStep}
         activate={activate}
         storageData={storageData}
-        setStorageData={setStorageData}
       />
     </>
   );

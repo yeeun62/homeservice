@@ -18,7 +18,6 @@ interface StepBtnProps {
   setStep: React.Dispatch<React.SetStateAction<number>>;
   activate: boolean;
   storageData: StorageType;
-  setStorageData: React.Dispatch<React.SetStateAction<StorageType>>;
   localStep: string;
   setLocalStep: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -30,7 +29,6 @@ function StepBtn({
   setLocalStep,
   activate,
   storageData,
-  setStorageData,
 }: StepBtnProps) {
   const [conditionModal, setConditionModal] = useState<boolean>(false);
 
@@ -67,7 +65,6 @@ function StepBtn({
     // if (!activate) {
     //   return;
     // }
-    console.log(localStep);
     if (step === 4 && localStep === "5") {
       return;
     }
@@ -76,16 +73,11 @@ function StepBtn({
     } else if (localStep === "1") {
       setLocalStep(String(storageData.step2.index));
       localStorage.setItem(storageData.sellNo, JSON.stringify(storageData));
-      // localStorage.setItem("localStep", String(storageData.step2.index));
       return;
     } else if (localStep === "2" || localStep === "3" || localStep === "4") {
       setLocalStep("5");
     }
-    // else if (localStep === 5) {
-    //   setLocalStep(5);
-    // }
     localStorage.setItem(storageData.sellNo, JSON.stringify(storageData));
-    // localStorage.setItem("localStep", String(Number(localStep) + 1));
   };
 
   const conditionModalHandler = () => {
