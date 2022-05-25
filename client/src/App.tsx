@@ -55,7 +55,7 @@ function App() {
         setData(data.data);
       })
       .catch((err) => {
-        //console.log("데이터 에러", err);
+        console.log("데이터 에러", err);
         window.open("", "_self")?.close();
       });
 
