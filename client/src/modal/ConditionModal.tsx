@@ -234,14 +234,14 @@ function ConditionModal({ setConditionModal, storageData }: ConditionProps) {
         )
         .then((result) => {
           if (result.status === 200) {
-            console.log("제출성공");
+            // console.log("제출성공");
             navigate(`/complete${window.location.search}`);
             localStorage.removeItem(sellNo);
             localStorage.removeItem("localStep");
           }
         })
         .catch((err) => {
-          console.log("제출 에러", err);
+          // console.log("제출 에러", err);
         });
     }
     return;
