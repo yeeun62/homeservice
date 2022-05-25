@@ -73,8 +73,8 @@ const PriceWrap = styled.div`
               width: 16px;
               height: 16px;
               position: absolute;
-              top: -1px;
-              left: 99px;
+              top: 2px;
+              left: 104px;
             }
 
             .main_tooltip {
