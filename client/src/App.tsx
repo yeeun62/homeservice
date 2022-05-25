@@ -55,7 +55,7 @@ function App() {
         setData(data.data);
       })
       .catch((err) => {
-        console.log("데이터 에러", err);
+        // console.log("데이터 에러", err);
         window.open("", "_self")?.close();
       });
 
@@ -63,15 +63,15 @@ function App() {
       .get(
         `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_URL}:${process.env.REACT_APP_PORT}/api/handle/announce/notice`
       )
-      .then((msg) => setIntroduceMSG(msg.data.result.message))
-      .catch((err) => console.log("소개 문구 에러", err));
+      .then((msg) => setIntroduceMSG(msg.data.result.message));
+    // .catch((err) => console.log("소개 문구 에러", err));
 
     axios
       .get(
         `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_URL}:${process.env.REACT_APP_PORT}/api/handle/announce/price`
       )
-      .then((txt) => setPriceTxt(txt.data.result))
-      .catch((err) => console.log("price 문구 에러", err));
+      .then((txt) => setPriceTxt(txt.data.result));
+    // .catch((err) => console.log("price 문구 에러", err));
   }, []);
 
   useEffect(() => {
@@ -90,8 +90,8 @@ function App() {
         )
         .then((price) => {
           setPriceData(price.data.result);
-        })
-        .catch((err) => console.log("price 에러", err));
+        });
+      // .catch((err) => console.log("price 에러", err));
     }
   }, [data]);
 

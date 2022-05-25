@@ -26,7 +26,7 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
         if (res.status === 200) {
           setBankList(res.data.result);
         } else {
-          console.log("bankList error");
+          // console.log("bankList error");
         }
       });
   }, []);

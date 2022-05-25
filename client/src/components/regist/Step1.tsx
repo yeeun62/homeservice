@@ -117,7 +117,6 @@ function Step1({
   const authHandler = () => {
     alert("인증번호가 발급 되었습니다.");
     let authNumber = String(Math.random()).slice(2, 8);
-    console.log(authNumber);
     let crypto = CryptoJS.AES.encrypt(
       authNumber,
       `${process.env.REACT_APP_SALT}`
@@ -131,7 +130,7 @@ function Step1({
           security: authNumber, // 암호화시 crypto로 변경
         }
       )
-      .then((result) => console.log(result));
+      .then((result) => {});
     // setSalt(crypto);
     setSalt(authNumber);
     setTime(true);

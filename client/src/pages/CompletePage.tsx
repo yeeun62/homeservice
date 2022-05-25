@@ -67,7 +67,7 @@ function CompletePage() {
         setData(data.data);
       })
       .catch((err) => {
-        console.log("complete 데이터 에러", err);
+        // console.log("complete 데이터 에러", err);
       });
   }, []);
 
