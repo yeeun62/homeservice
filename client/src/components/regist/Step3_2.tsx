@@ -51,7 +51,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
       isActivate.length > 4 &&
       step3.nominee_hphone.length === 11 &&
       step3.business_number.length === 10 &&
-      emailValidation &&
+      validationEmail() &&
       step3.address.nominee_address &&
       step3.address2.business_address &&
       step3.address.nominee_address_post !== "" &&
@@ -61,11 +61,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
     } else {
       setActivate(false);
     }
-  }, [step3, emailValidation]);
-
-  useEffect(() => {
-    setEmailValidation(validationEmail());
-  }, []);
+  }, [step3]);
 
   useEffect(() => {
     if (check.name) {

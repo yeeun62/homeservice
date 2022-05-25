@@ -167,7 +167,7 @@ function App() {
             />
             <Route
               path="/complete"
-              element={data ? <CompletePage data={data} /> : <LoadingPage />}
+              element={data ? <CompletePage /> : <LoadingPage />}
             />
           </Routes>
         </BrowserRouter>
