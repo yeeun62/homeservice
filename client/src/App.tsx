@@ -48,7 +48,7 @@ function App() {
 
   useEffect(() => {
     const query = queryString.parse(window.location.search);
-    console.log(query);
+
     if (query.sellNo) {
       axios
         .get(
