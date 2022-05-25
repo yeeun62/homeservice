@@ -47,7 +47,7 @@ function RegistPage({
         }
       });
     }
-  }, [storageData.step]);
+  }, [localStep]);
 
   return (
     <>
