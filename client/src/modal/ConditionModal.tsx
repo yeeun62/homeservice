@@ -242,6 +242,7 @@ function ConditionModal({ setConditionModal, storageData }: ConditionProps) {
         })
         .catch((err) => {
           // console.log("제출 에러", err);
+          alert("매물정보가 없어 실패하였습니다. 관리자에 문의하세요.");
         });
     }
     return;

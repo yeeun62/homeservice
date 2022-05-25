@@ -68,6 +68,7 @@ function CompletePage() {
       })
       .catch((err) => {
         // console.log("complete 데이터 에러", err);
+        alert("매물정보가 없어 실패하였습니다. 관리자에 문의하세요.");
       });
   }, []);
 

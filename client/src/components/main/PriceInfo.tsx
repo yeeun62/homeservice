@@ -79,30 +79,14 @@ const PriceWrap = styled.div<{ tooltip: boolean }>`
             .main_tooltip {
               z-index: 100;
               position: absolute;
-              top: 150%;
-              left: 20px;
-              animation: ${(props) =>
-                props.tooltip ? "fadein 1.5s" : "fadeout 1.5s"};
-              animation-fill-mode: forwards;
-            }
-
-            @keyframes fadeout {
-              from {
-                opacity: 1;
-              }
-              to {
-                opacity: 0;
-                display: none;
-              }
-            }
-
-            @keyframes fadein {
-              from {
-                opacity: 0;
-              }
-              to {
-                opacity: 1;
-              }
+              top: 140%;
+              left: 18px;
+              opacity: ${(props) => (props.tooltip ? "1" : "0")};
+              visibility: ${(props) => (props.tooltip ? "" : "hidden")};
+              transition: ${(props) =>
+                props.tooltip
+                  ? "opacity 700ms"
+                  : "opacity 500ms , visibility 500ms"};
             }
           }
         }
@@ -265,7 +249,7 @@ function PriceInfo({ data, priceData, priceTxt, tooltip, setTooltip }: any) {
                     style={{ cursor: "pointer" }}
                   />
                   <Tooltip className="main_tooltip">
-                    <div></div>매도비는 실제와 다를 수 있습니다.
+                    매도비는 실제와 다를 수 있습니다.
                   </Tooltip>
                 </div>
                 <p className="more_price_value">330,000원</p>

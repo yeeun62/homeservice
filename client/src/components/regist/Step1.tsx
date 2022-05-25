@@ -72,6 +72,7 @@ function Step1({
       setActivate(false);
       alert("입력 시간이 지났습니다.");
       setValidation("");
+      setAuthMessage(false);
     }
     if (time) {
       const countdown = setInterval(() => {
@@ -134,8 +135,9 @@ function Step1({
     // setSalt(crypto);
     setSalt(authNumber);
     setTime(true);
-    setMinutes(3);
-    setSeconds(0);
+    // 바꾸기
+    setMinutes(0);
+    setSeconds(10);
     setValidation("");
     setAuthMessage(false);
     setAuthMessage2(false);
@@ -198,8 +200,8 @@ function Step1({
                 value={validation}
                 placeholder="인증번호를 입력해주세요"
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  if (time) {
-                    setValidation(e.target.value);
+                  if (seconds > 0) {
+                    setValidation(e.target.value.replace(/[^0-9]/g, ""));
                   } else {
                     setAuthMessage2(true);
                   }

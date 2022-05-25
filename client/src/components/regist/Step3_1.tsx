@@ -82,7 +82,7 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
         />
       </Modal>
       <RegistTitle>명의자 정보를 입력해 주세요</RegistTitle>
-      <RegistForm onSubmit={(e) => e.preventDefault()}>
+      <RegistForm onSubmit={(e) => e.preventDefault()} tooltip={tooltip}>
         <label>
           <div className="flex_check">
             <p>이름</p>
@@ -161,18 +161,9 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
               }}
             />
           </p>
-          {tooltip && (
-            <Tooltip
-              style={{
-                position: "absolute",
-                zIndex: "100",
-                left: "-9px",
-                top: "26px",
-              }}
-            >
-              명의자의 등본상 주소지를 입력해 주세요.
-            </Tooltip>
-          )}
+          <Tooltip className="tooltip">
+            명의자의 등본상 주소지를 입력해 주세요.
+          </Tooltip>
           <div className="flex_form" onClick={() => setPostCodeOpen(true)}>
             <div className="input_div">
               <input

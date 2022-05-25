@@ -2,6 +2,7 @@ import { useState, StrictMode, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
+import queryString from "query-string";
 import "./App.css";
 import MainPage from "./pages/MainPage";
 import RegistPage from "./pages/RegistPage";
@@ -46,18 +47,27 @@ function App() {
   const [priceTxt, setPriceTxt] = useState<any>();
 
   useEffect(() => {
-    axios
-      .get(
-        "http://3.34.98.110/dealers/-/products/ffc32180-d59f-11ec-9d64-0242ac120002"
-        // `${process.env.REACT_APP_FORSALE}/ffc32180-d59f-11ec-9d64-0242ac120002`
-      )
-      .then((data) => {
-        setData(data.data);
-      })
-      .catch((err) => {
-        // console.log("데이터 에러", err);
-        window.open("", "_self")?.close();
-      });
+    const query = queryString.parse(window.location.search);
+    console.log(query);
+    if (query.sellNo) {
+      axios
+        .get(
+          `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_URL}:${process.env.REACT_APP_PORT}/api/handle/products/${query.sellNo}`
+          // `http://3.34.98.110/dealers/-/products/${window.location.search.slice(
+          //   8
+          // )}`
+          // `${process.env.REACT_APP_FORSALE}/${window.location.search.slice(8)}`
+        )
+        .then((data) => {
+          if (data.data.status) {
+            alert("매물정보가 없어 실패하였습니다. 관리자에 문의하세요.");
+          } else {
+            setData(data.data);
+          }
+        });
+    } else {
+      alert("매물정보가 없어 실패하였습니다. 관리자에 문의하세요.");
+    }
 
     axios
       .get(
