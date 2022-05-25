@@ -154,12 +154,12 @@ function Step1({
               value={step1.customer_name}
               placeholder="실명을 입력해주세요"
               className="name_input"
-              onChange={(e) =>
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setStorageData({
                   ...storageData,
                   step1: { ...step1, customer_name: e.target.value },
-                })
-              }
+                });
+              }}
             />
           </div>
         </label>
