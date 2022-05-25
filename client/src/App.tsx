@@ -56,7 +56,7 @@ function App() {
           // `http://3.34.98.110/dealers/-/products/${window.location.search.slice(
           //   8
           // )}`
-          // `${process.env.REACT_APP_FORSALE}/${window.location.search.slice(8)}`
+          // `${process.env.REACT_APP_FORSALE}/${query.sellNo}`
         )
         .then((data) => {
           if (data.data.status) {
