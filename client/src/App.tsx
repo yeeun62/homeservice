@@ -46,6 +46,8 @@ function App() {
   const [priceData, setPriceData] = useState<any>();
   const [priceTxt, setPriceTxt] = useState<any>();
 
+  let isAlert: boolean = false;
+
   useEffect(() => {
     const query = queryString.parse(window.location.search);
 
@@ -60,7 +62,10 @@ function App() {
         )
         .then((data) => {
           if (data.data.status) {
-            alert("매물정보가 없어 실패하였습니다. 관리자에 문의하세요.");
+            if (!isAlert) {
+              isAlert = true;
+              alert("매물정보가 없어 실패하였습니다. 관리자에 문의하세요.");
+            }
           } else {
             setData(data.data);
           }

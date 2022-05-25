@@ -54,6 +54,7 @@ const CompleteWrap = styled(PageWrap)`
 
 function CompletePage() {
   const [data, setData] = useState<any>();
+  let isAlert: boolean = false;
 
   useEffect(() => {
     axios
@@ -68,7 +69,10 @@ function CompletePage() {
       })
       .catch((err) => {
         // console.log("complete 데이터 에러", err);
-        alert("매물정보가 없어 실패하였습니다. 관리자에 문의하세요.");
+        if (!isAlert) {
+          isAlert = true;
+          alert("매물정보가 없어 실패하였습니다. 관리자에 문의하세요.");
+        }
       });
   }, []);
 
