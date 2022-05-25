@@ -237,6 +237,7 @@ function ConditionModal({ setConditionModal, storageData }: ConditionProps) {
             console.log("제출성공");
             navigate(`/complete${window.location.search}`);
             localStorage.removeItem(sellNo);
+            localStorage.removeItem("localStep");
           }
         })
         .catch((err) => {
