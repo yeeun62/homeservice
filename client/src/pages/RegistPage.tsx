@@ -51,7 +51,7 @@ function RegistPage({
 
   return (
     <>
-      <Header step={step} />
+      <Header step={step} data={data} />
       <PageWrap>
         {
           [
