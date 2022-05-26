@@ -14,11 +14,8 @@ const CompleteWrap = styled(PageWrap)`
     top: 0;
     height: 60vh;
     left: 50vw;
+    width: 100%;
     transform: translate(-50%);
-
-    @media screen and (max-width: 749px) {
-      width: 100%;
-    }
   }
 
   .complete_footer {

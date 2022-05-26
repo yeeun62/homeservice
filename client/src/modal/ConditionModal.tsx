@@ -39,6 +39,12 @@ const ConditionWrap = styled.div`
       display: flex;
       justify-content: space-between;
 
+      .sub_condition_img {
+        width: 16px;
+        height: 16px;
+        cursor: pointer;
+      }
+
       div {
         display: flex;
 
@@ -55,25 +61,23 @@ const ConditionWrap = styled.div`
           cursor: pointer;
         }
       }
-
-      img {
-        width: 16px;
-        height: 16px;
-        margin-left: 8px;
-        cursor: pointer;
-      }
     }
   }
 
   .bottom_div {
-    font-weight: 400;
-    font-size: 11px;
-    line-height: 16px;
-    letter-spacing: -0.02em;
-    color: #939393;
     margin-bottom: 32px;
     position: relative;
     padding-left: 9px;
+    display: flex;
+
+    span {
+      display: block;
+      font-weight: 400;
+      font-size: 11px;
+      line-height: 16px;
+      letter-spacing: -0.02em;
+      color: #939393;
+    }
 
     div {
       width: 3px;
@@ -319,6 +323,7 @@ function ConditionModal({ setConditionModal, storageData }: ConditionProps) {
                 <img
                   src="./img/icon_arrow_right_medium_gray.svg"
                   alt="약관 더 보기"
+                  className="sub_condition_img"
                   onClick={() => {
                     setConditionSubOpen(true);
                     setSubModal({

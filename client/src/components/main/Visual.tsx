@@ -79,6 +79,7 @@ const VisualWrap = styled.div`
     .info_wrap {
       display: flex;
       align-items: flex-start;
+      align-items: stretch;
 
       img {
         width: 33.7%;

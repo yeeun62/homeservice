@@ -184,7 +184,7 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
             />
           </div>
         </label>
-        <label>
+        <label style={{ marginBottom: "40px" }}>
           <p>사업장 주소</p>
           <div className="flex_form" onClick={() => setPostCodeOpen(true)}>
             <div className="input_div">
