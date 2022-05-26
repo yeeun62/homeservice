@@ -68,21 +68,42 @@ function App() {
           }
         });
     } else {
-      alert("매물정보가 없어 실패하였습니다. 관리자에 문의하세요.");
+      if (!isAlert) {
+        isAlert = true;
+        alert("매물정보가 없어 실패하였습니다. 관리자에 문의하세요.");
+      }
     }
 
     axios
       .get(
         `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_URL}:${process.env.REACT_APP_PORT}/api/handle/announce/notice`
       )
-      .then((msg) => setIntroduceMSG(msg.data.result.message));
+      .then((msg) => {
+        if (msg.data.status === 200) {
+          setIntroduceMSG(msg.data.result.message);
+        } else {
+          setIntroduceMSG(
+            "전문과와 1:1 라이브로 차량을 확인후 원하는 곳으로 받아보세요.\n 3+1일 동안 타보고 맘에 안들면 환불 할 수 있습니다."
+          );
+        }
+      });
     // .catch((err) => console.log("소개 문구 에러", err));
 
     axios
       .get(
         `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_URL}:${process.env.REACT_APP_PORT}/api/handle/announce/price`
       )
-      .then((txt) => setPriceTxt(txt.data.result));
+      .then((txt) => {
+        if (txt.data.status === 200) {
+          setPriceTxt(txt.data.result);
+        } else {
+          setPriceTxt([
+            "견적금액은 배송비에 의해 변동될 수 있습니다.(배송비 최대금액 159,000원으로 계산 선반영되었습니다.",
+            "배송비는 차량 출발지와 도착지 거리에 따라 책정되며, 상담단계에서 확정됩니다.",
+            "이전비는 차액 발생 시 계좌로 환급해드립니다.",
+          ]);
+        }
+      });
     // .catch((err) => console.log("price 문구 에러", err));
   }, []);
 
@@ -101,7 +122,14 @@ function App() {
           }
         )
         .then((price) => {
-          setPriceData(price.data.result);
+          if (price.data.status === 200) {
+            setPriceData(price.data.result);
+          } else {
+            if (!isAlert) {
+              isAlert = true;
+              alert("가격조회에 실패하였습니다. 관리자에 문의하세요.");
+            }
+          }
         });
       // .catch((err) => console.log("price 에러", err));
     }
@@ -129,7 +157,6 @@ function App() {
             refund_accout_name: "",
             refund_accout_number: "",
           },
-          // step: 0,
         });
         setLocalStep("0");
       }
@@ -190,4 +217,3 @@ function App() {
 
 export default App;
 
-// app.tsx
