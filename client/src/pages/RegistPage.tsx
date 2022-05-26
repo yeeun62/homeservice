@@ -8,6 +8,8 @@ import Step3_2 from "../components/regist/Step3_2";
 import Step3_3 from "../components/regist/Step3_3";
 import Step4 from "../components/regist/Step4";
 import StepBtn from "../components/regist/StepBtn";
+import MainPage from "./MainPage";
+import CompletePage from "./CompletePage";
 import { StorageType } from "../App";
 
 interface RegistPageProps {
@@ -18,6 +20,9 @@ interface RegistPageProps {
   localStep: string;
   setLocalStep: React.Dispatch<React.SetStateAction<string>>;
   data: any;
+  introduceMSG: string;
+  priceData: any;
+  priceTxt: any;
 }
 
 export interface ActiveProps {
@@ -35,8 +40,12 @@ function RegistPage({
   storageData,
   setStorageData,
   data,
+  introduceMSG,
+  priceData,
+  priceTxt,
 }: RegistPageProps) {
   const [activate, setActivate] = useState<boolean>(false);
+  const [page, setPage] = useState<string>("0");
 
   useEffect(() => {
     let input: any = document.getElementsByTagName("input");
@@ -49,54 +58,79 @@ function RegistPage({
     }
   }, [localStep]);
 
+  useEffect(() => {
+    let curPage = localStorage.getItem("localPage");
+    if (curPage) {
+      setPage(curPage);
+    }
+  }, []);
+
   return (
     <>
-      <Header step={step} data={data} />
-      <PageWrap>
-        {
-          [
-            <Step1
-              setActivate={setActivate}
-              setStorageData={setStorageData}
+      <Header step={step} data={data} page={page} />
+      {
+        [
+          <MainPage
+            data={data}
+            setLocalStep={setLocalStep}
+            storageData={storageData}
+            setStorageData={setStorageData}
+            introduceMSG={introduceMSG}
+            priceData={priceData}
+            priceTxt={priceTxt}
+            setPage={setPage}
+          />,
+          <>
+            <PageWrap>
+              {
+                [
+                  <Step1
+                    setActivate={setActivate}
+                    setStorageData={setStorageData}
+                    storageData={storageData}
+                    data={data}
+                  />,
+                  <Step2
+                    setActivate={setActivate}
+                    storageData={storageData}
+                    setStorageData={setStorageData}
+                  />,
+                  <Step3_1
+                    setActivate={setActivate}
+                    setStorageData={setStorageData}
+                    storageData={storageData}
+                  />,
+                  <Step3_2
+                    setActivate={setActivate}
+                    setStorageData={setStorageData}
+                    storageData={storageData}
+                  />,
+                  <Step3_3
+                    setActivate={setActivate}
+                    setStorageData={setStorageData}
+                    storageData={storageData}
+                  />,
+                  <Step4
+                    setActivate={setActivate}
+                    setStorageData={setStorageData}
+                    storageData={storageData}
+                  />,
+                ][Number(localStep)]
+              }
+            </PageWrap>
+            <StepBtn
+              step={step}
+              setStep={setStep}
+              localStep={localStep}
+              setLocalStep={setLocalStep}
+              activate={activate}
               storageData={storageData}
-              data={data}
-            />,
-            <Step2
-              setActivate={setActivate}
-              storageData={storageData}
-              setStorageData={setStorageData}
-            />,
-            <Step3_1
-              setActivate={setActivate}
-              setStorageData={setStorageData}
-              storageData={storageData}
-            />,
-            <Step3_2
-              setActivate={setActivate}
-              setStorageData={setStorageData}
-              storageData={storageData}
-            />,
-            <Step3_3
-              setActivate={setActivate}
-              setStorageData={setStorageData}
-              storageData={storageData}
-            />,
-            <Step4
-              setActivate={setActivate}
-              setStorageData={setStorageData}
-              storageData={storageData}
-            />,
-          ][Number(localStep)]
-        }
-      </PageWrap>
-      <StepBtn
-        step={step}
-        setStep={setStep}
-        localStep={localStep}
-        setLocalStep={setLocalStep}
-        activate={activate}
-        storageData={storageData}
-      />
+              setPage={setPage}
+            />
+          </>,
+          <CompletePage />,
+        ][Number(page)]
+      }
     </>
   );
 }

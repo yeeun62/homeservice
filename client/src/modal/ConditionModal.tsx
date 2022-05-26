@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { MainBtn, RegistTitle } from "../styles/recycle";
 import ConditionSubModal from "./ConditionSubModal";
 import Modal from "react-modal";
@@ -100,13 +99,18 @@ export interface SubModal {
 interface ConditionProps {
   setConditionModal: React.Dispatch<React.SetStateAction<boolean>>;
   storageData: StorageType;
+  setPage: React.Dispatch<React.SetStateAction<string>>;
 }
 
 type CkType = {
   [index: string]: boolean;
 };
 
-function ConditionModal({ setConditionModal, storageData }: ConditionProps) {
+function ConditionModal({
+  setConditionModal,
+  storageData,
+  setPage,
+}: ConditionProps) {
   const [conditionSubOpen, setConditionSubOpen] = useState<boolean>(false);
   const [isChecked, setIsChecked] = useState<CkType>({
     0: false,
@@ -174,8 +178,6 @@ function ConditionModal({ setConditionModal, storageData }: ConditionProps) {
     "홈서비스 환불 규정(필수)",
   ];
 
-  const navigate = useNavigate();
-
   function CompleteHandler() {
     const { sellNo, payment_cd, step1, step2, step3, step4 } = storageData;
     const { customer_name, customer_hphone } = step1;
@@ -234,14 +236,13 @@ function ConditionModal({ setConditionModal, storageData }: ConditionProps) {
         )
         .then((result) => {
           if (result.data.status === 200) {
-            // console.log("제출성공");
-            navigate(`/complete${window.location.search}`);
+            setPage("2");
+            localStorage.setItem("localPage", "2");
             localStorage.removeItem(sellNo);
             localStorage.removeItem("localStep");
           }
         })
         .catch((err) => {
-          //console.log("제출 에러", err);
           alert("매물정보가 없어 실패하였습니다. 관리자에 문의하세요.");
         });
     }
