@@ -125,7 +125,7 @@ export const RegistForm = styled.form<{ tooltip?: boolean }>`
       font-size: 13px;
       font-weight: 500;
       line-height: 20px;
-      letter-spacing: -2%;
+      letter-spacing: -0.02em;
       margin-bottom: 2px;
       color: #a7a7a7;
       display: flex;
@@ -159,7 +159,7 @@ export const RegistForm = styled.form<{ tooltip?: boolean }>`
           font-weight: 400;
           color: #939393;
           letter-spacing: -0.02em;
-          vertical-align: bottom;
+          padding-left: 2px;
         }
 
         :focus {

@@ -38,7 +38,7 @@ export interface StorageType {
 }
 
 function App() {
-  const [step, setStep] = useState<number>(1);
+  const [step, setStep] = useState<number>(0);
   const [localStep, setLocalStep] = useState<string>("0");
   const [data, setData] = useState<any>();
   const [storageData, setStorageData] = useState<any>();
@@ -216,4 +216,3 @@ function App() {
 }
 
 export default App;
-

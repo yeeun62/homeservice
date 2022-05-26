@@ -9,8 +9,6 @@ const PriceWrap = styled.div<{ tooltip: boolean }>`
   border-top: 1px dashed #c4c4c4;
 
   .price_ul {
-    padding: 0 8px;
-
     .underline {
       width: 100%;
       height: 2px;
@@ -18,10 +16,11 @@ const PriceWrap = styled.div<{ tooltip: boolean }>`
     }
 
     li {
+      padding: 0 8px;
       position: relative;
       display: flex;
       justify-content: space-between;
-      margin-bottom: 17px;
+      margin-bottom: 16px;
 
       .price_list_title {
         font-weight: 400;
@@ -74,13 +73,14 @@ const PriceWrap = styled.div<{ tooltip: boolean }>`
             img {
               width: 16px;
               height: 16px;
+              margin-left: 4px;
             }
 
             .main_tooltip {
               z-index: 100;
               position: absolute;
               top: 140%;
-              left: 18px;
+              left: 22px;
               opacity: ${(props) => (props.tooltip ? "1" : "0")};
               visibility: ${(props) => (props.tooltip ? "" : "hidden")};
               transition: ${(props) =>
@@ -98,8 +98,7 @@ const PriceWrap = styled.div<{ tooltip: boolean }>`
     }
 
     .total_cost {
-      padding: 0 8px;
-      margin-top: 18px;
+      margin-top: 16px;
       margin-bottom: 26px;
 
       span {
@@ -119,7 +118,7 @@ const PriceWrap = styled.div<{ tooltip: boolean }>`
   }
 
   .list_style {
-    padding: 0 16px;
+    margin-left: 10px;
 
     li {
       display: block;
@@ -232,7 +231,7 @@ function PriceInfo({ data, priceData, priceTxt, tooltip, setTooltip }: any) {
             </p>
             <span className="price_list_value">{`${addComma(
               management
-            )} 원`}</span>
+            )}원`}</span>
             <ul
               className="more_price"
               style={{ display: priceOpen ? "block" : "none" }}
@@ -268,7 +267,7 @@ function PriceInfo({ data, priceData, priceTxt, tooltip, setTooltip }: any) {
           <div className="underline"></div>
           <li className="total_cost">
             <span>예상 합계</span>
-            <span>{`${addComma(totalPrice)} 원`}</span>
+            <span>{`${addComma(totalPrice)}원`}</span>
           </li>
         </ul>
       </div>

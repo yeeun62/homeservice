@@ -17,15 +17,15 @@ const HeaderWrapper = styled.div`
   height: 56px;
 
   .close {
-    width: 32px;
-    height: 32px;
+    width: 38px;
+    height: 38px;
     margin-left: 8px;
   }
 
   .beta {
     width: 33px;
     height: 18px;
-    margin-left: 6px;
+    margin-left: 4px;
   }
 
   img {
