@@ -12,6 +12,7 @@ const VisualWrap = styled.div`
     color: #555555;
     display: block;
     margin-top: 8px;
+    white-space: pre-line;
   }
 
   img {
