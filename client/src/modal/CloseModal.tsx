@@ -39,8 +39,8 @@ function CloseModal({
 }) {
   const closePopup = () => {
     // localStorage.removeItem(data.simpleCar.sellNo);
-    // window.open(window.location.href, "_self")?.close();
     // localStorage.removeItem("localStep");
+    // window.open(window.location.href, "_self")?.close();
     let close = window.open("");
     if (close) close.close();
   };

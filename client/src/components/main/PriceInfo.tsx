@@ -121,6 +121,7 @@ const PriceWrap = styled.div<{ tooltip: boolean }>`
     margin-left: 10px;
 
     li {
+      white-space: pre-line;
       display: block;
       list-style-position: inside;
       text-indent: -15px;
