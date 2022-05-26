@@ -149,7 +149,7 @@ function Step1({
       <RegistTitle>신청자 정보를 입력해 주세요</RegistTitle>
       <RegistForm onSubmit={(e) => e.preventDefault()}>
         <label>
-          <p className="form_title">이름</p>
+          <p>이름</p>
           <div className="input_div">
             <input
               type="text"

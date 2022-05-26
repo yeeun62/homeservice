@@ -16,6 +16,8 @@ const ProgressWrap = styled.div<{ stepPercent: string }>`
     line-height: 16px;
     color: #3c3c3c;
     padding-right: 16px;
+    letter-spacing: -0.02em;
+    font-family: "Poppins";
   }
 
   div {
