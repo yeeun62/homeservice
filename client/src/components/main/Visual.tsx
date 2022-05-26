@@ -90,7 +90,6 @@ const VisualWrap = styled.div`
         padding: 16px 0 8px 24px;
         min-height: 190px;
         position: relative;
-        height: 100%;
 
         .price {
           position: absolute;
