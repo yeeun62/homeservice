@@ -164,8 +164,9 @@ function PriceInfo({ data, priceData, priceTxt, tooltip, setTooltip }: any) {
     tax2Cost,
     numberPlateCost,
     sellingCost,
-    homeserviceFee,
     transferCost,
+    homeserviceFee,
+    homeserviceFeeDisplay,
   } = priceData;
 
   // 이전비
@@ -203,8 +204,12 @@ function PriceInfo({ data, priceData, priceTxt, tooltip, setTooltip }: any) {
           <li>
             <p className="price_list_title">홈서비스 이용료</p>
             <div>
-              <span className="price_list_value fake_price">299,000원</span>
-              <span className="price_list_value">0원</span>
+              <span className="price_list_value fake_price">
+                {addComma(homeserviceFeeDisplay)}원
+              </span>
+              <span className="price_list_value">
+                {addComma(homeserviceFee)}원
+              </span>
             </div>
           </li>
           <li
