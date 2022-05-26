@@ -267,7 +267,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
             />
           </div>
         </label>
-        <label style={{ position: "relative" }}>
+        <label style={{ position: "relative", marginBottom: "40px" }}>
           <p>
             주민등록주소지
             <img

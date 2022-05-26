@@ -66,7 +66,7 @@ function StepBtn({
       return;
     }
     if (step === 4 && localStep === "5") {
-      return;
+      return conditionModalHandler();
     }
     if (localStep === "0") {
       setLocalStep("1");
@@ -119,7 +119,6 @@ function StepBtn({
             activate={activate}
             onClick={() => {
               nextMove();
-              conditionModalHandler();
             }}
           >
             {localStep === "5" ? "약관동의" : "다음"}
