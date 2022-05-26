@@ -136,7 +136,6 @@ function Step1({
     // setSalt(crypto);
     setSalt(authNumber);
     setTime(true);
-    // 바꾸기
     setMinutes(3);
     setSeconds(0);
     setValidation("");
