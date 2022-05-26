@@ -38,7 +38,7 @@ function LoadingPage() {
   return (
     <LodingWrap>
       <div>
-        <img src="./img/charancha_big_logo.svg" alt="차란차 로고" />
+        <img src="./img/logo.png" alt="차란차 로고" />
         <p>Loading...</p>
       </div>
     </LodingWrap>

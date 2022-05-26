@@ -3,7 +3,7 @@ import axios from "axios";
 import styled from "styled-components";
 import queryString from "query-string";
 import "./App.css";
-import RegistPage from "./pages/RegistPage";
+import Page from "./pages/Page";
 import LoadingPage from "./pages/LoadingPage";
 
 const AppWrap = styled.div`
@@ -51,8 +51,8 @@ function App() {
     if (query.sellNo) {
       axios
         .get(
-          // `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_URL}:${process.env.REACT_APP_PORT}/api/handle/products/${query.sellNo}`
-          `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_FORSALE}/${query.sellNo}`
+          `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_URL}:${process.env.REACT_APP_PORT}/api/handle/products/${query.sellNo}`
+          // `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_FORSALE}/${query.sellNo}`
         )
         .then((data) => {
           if (data.data.status) {
@@ -161,7 +161,7 @@ function App() {
     <StrictMode>
       <AppWrap>
         {data && storageData && introduceMSG && priceData && priceTxt ? (
-          <RegistPage
+          <Page
             data={data}
             step={step}
             setStep={setStep}
