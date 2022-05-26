@@ -55,10 +55,7 @@ function App() {
       axios
         .get(
           `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_URL}:${process.env.REACT_APP_PORT}/api/handle/products/${query.sellNo}`
-          // `http://3.34.98.110/dealers/-/products/${window.location.search.slice(
-          //   8
-          // )}`
-          // `${process.env.REACT_APP_FORSALE}/${query.sellNo}`
+          // `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_FORSALE}/${query.sellNo}`
         )
         .then((data) => {
           if (data.data.status) {
