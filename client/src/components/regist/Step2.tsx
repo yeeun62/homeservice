@@ -14,7 +14,7 @@ const RegistTypeBtn = styled.button<{ choice: boolean }>`
   height: 54px;
   border-radius: 5px;
   text-align: left;
-  padding-left: 16px;
+  padding-left: 26px;
   font-size: 15px;
   font-weight: 500;
   margin-bottom: 16px;

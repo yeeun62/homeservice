@@ -81,7 +81,7 @@ function CompletePage() {
     <>
       {data ? (
         <>
-          <Header />
+          <Header data={data} />
           <CompleteWrap>
             <div className="lottie_wrap">
               <Lottie

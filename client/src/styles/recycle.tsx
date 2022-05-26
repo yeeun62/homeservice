@@ -100,7 +100,7 @@ export const RegistForm = styled.form<{ tooltip?: boolean }>`
       position: absolute;
       z-index: 100;
       top: 26px;
-      left: -9px;
+      left: -10px;
       opacity: ${(props) => (props.tooltip ? "1" : "0")};
       visibility: ${(props) => (props.tooltip ? "" : "hidden")};
       transition: ${(props) =>
@@ -131,8 +131,8 @@ export const RegistForm = styled.form<{ tooltip?: boolean }>`
       display: flex;
 
       img {
-        width: 18px;
-        height: 18px;
+        width: 20px;
+        height: 20px;
         margin-left: 5px;
       }
     }
@@ -196,7 +196,7 @@ export const RegistForm = styled.form<{ tooltip?: boolean }>`
 
         img {
           width: 16px;
-          height: 16px;
+          height: 20px;
         }
 
         p {
@@ -228,7 +228,6 @@ export const RegistForm = styled.form<{ tooltip?: boolean }>`
     }
 
     .valid_time {
-      width: 40px;
       height: 23px;
       position: absolute;
       bottom: 0;
@@ -237,7 +236,7 @@ export const RegistForm = styled.form<{ tooltip?: boolean }>`
       font-size: 15px;
       font-weight: 400;
       color: #707070;
-      line-height: 23px;
+      line-height: 22px;
       letter-spacing: -0.02em;
       margin-bottom: 3px;
     }
