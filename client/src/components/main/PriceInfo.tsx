@@ -127,7 +127,7 @@ const PriceWrap = styled.div<{ tooltip: boolean }>`
       text-indent: -15px;
       font-weight: 400;
       font-size: 11px;
-      line-height: 16px;
+      line-height: 20px;
       letter-spacing: -0.02em;
       color: #939393;
       margin-bottom: 6px;
