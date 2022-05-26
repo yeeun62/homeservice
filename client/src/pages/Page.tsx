@@ -12,7 +12,7 @@ import MainPage from "./MainPage";
 import CompletePage from "./CompletePage";
 import { StorageType } from "../App";
 
-interface RegistPageProps {
+interface PageProps {
   step: number;
   setStep: React.Dispatch<React.SetStateAction<number>>;
   storageData: StorageType;
@@ -32,7 +32,7 @@ export interface ActiveProps {
   data?: any;
 }
 
-function RegistPage({
+function Page({
   step,
   setStep,
   localStep,
@@ -43,7 +43,7 @@ function RegistPage({
   introduceMSG,
   priceData,
   priceTxt,
-}: RegistPageProps) {
+}: PageProps) {
   const [activate, setActivate] = useState<boolean>(false);
   const [page, setPage] = useState<string>("0");
 
@@ -135,4 +135,4 @@ function RegistPage({
   );
 }
 
-export default RegistPage;
+export default Page;

@@ -40,9 +40,13 @@ function CloseModal({
   const closePopup = () => {
     // localStorage.removeItem(data.simpleCar.sellNo);
     // localStorage.removeItem("localStep");
-    // window.open(window.location.href, "_self")?.close();
+    // window.open("", "_self")?.close();
     let close = window.open("");
     if (close) close.close();
+    // self.close();
+    // window.close();
+    // window.opener = window.location.href;
+    // window.open("", "_self")?.close();
   };
 
   return (
