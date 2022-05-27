@@ -61,6 +61,7 @@ const PriceWrap = styled.div<{ tooltip: boolean }>`
         letter-spacing: -0.02em;
         font-weight: 400;
         font-size: 13px;
+        padding-right: 8px;
 
         li {
           .more_price_title {
