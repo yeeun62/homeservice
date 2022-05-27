@@ -78,6 +78,9 @@ function Step2({ setActivate, setStorageData, storageData }: Step2Props) {
           business_address_jibun: "",
           business_address: "",
         },
+        business_name: "",
+        business_number: "",
+        business_email: "",
       },
     }));
     setActivate(true);

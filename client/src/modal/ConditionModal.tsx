@@ -205,6 +205,7 @@ function ConditionModal({
       business_address,
     } = address2;
     const { refund_accout_name, refund_accout_number, bank } = step4;
+
     if (isChecked.all) {
       axios
         .post(
@@ -237,9 +238,11 @@ function ConditionModal({
         .then((result) => {
           if (result.data.status === 200) {
             setPage("2");
-            localStorage.setItem("localPage", "2");
             localStorage.removeItem(sellNo);
             localStorage.removeItem("localStep");
+            localStorage.removeItem("localPage");
+            // localStorage.setItem("localPage", "2");
+            // localStorage.setItem("id", sellNo);
           }
         })
         .catch((err) => {
