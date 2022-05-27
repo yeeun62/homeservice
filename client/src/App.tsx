@@ -43,11 +43,20 @@ function App() {
   const [priceData, setPriceData] = useState<any>();
   const [priceTxt, setPriceTxt] = useState<any>();
 
+  const query = queryString.parse(window.location.search);
+
+  // useEffect(() => {
+  //   if (data) {
+  //     let a = localStorage.getItem(data.simpleCar.sellNo);
+  //     console.log("!", a);
+  //     // if()
+  //     console.log(query.sellNo);
+  //   }
+  // }, [data]);
+
   let isAlert: boolean = false;
 
   useEffect(() => {
-    const query = queryString.parse(window.location.search);
-
     if (query.sellNo) {
       axios
         .get(
