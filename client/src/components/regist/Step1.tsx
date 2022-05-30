@@ -155,6 +155,7 @@ function Step1({
               value={step1.customer_name}
               placeholder="실명을 입력해주세요"
               className="name_input"
+              autoFocus
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setStorageData({
                   ...storageData,
@@ -205,6 +206,9 @@ function Step1({
                   } else {
                     setAuthMessage2(true);
                   }
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") e.preventDefault();
                 }}
               />
             </div>

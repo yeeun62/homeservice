@@ -1,17 +1,9 @@
 import { useEffect, useState } from "react";
-import styled from "styled-components";
 import { MainBtn, Footer } from "../../styles/recycle";
 import ConditionModal from "../../modal/ConditionModal";
 import Modal from "react-modal";
 import "../../modal/modal.css";
 import { StorageType } from "../../App";
-
-const StepBtnWrap = styled(Footer)`
-  div {
-    display: flex;
-    justify-content: space-between;
-  }
-`;
 
 interface StepBtnProps {
   step: number;
@@ -104,7 +96,7 @@ function StepBtn({
           setPage={setPage}
         />
       </Modal>
-      <StepBtnWrap>
+      <Footer>
         <div>
           <MainBtn
             backgrondColor=" rgba(7, 64, 228, 0.03)"
@@ -128,7 +120,7 @@ function StepBtn({
             {localStep === "5" ? "약관동의" : "다음"}
           </MainBtn>
         </div>
-      </StepBtnWrap>
+      </Footer>
     </>
   );
 }

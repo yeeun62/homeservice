@@ -16,6 +16,17 @@ const CompleteWrap = styled(PageWrap)`
     left: 50vw;
     width: 100%;
     transform: translate(-50%);
+    animation: lottie 1.3s;
+    animation-fill-mode: forwards;
+
+    @keyframes lottie {
+      from {
+        visibility: visible;
+      }
+      to {
+        visibility: hidden;
+      }
+    }
   }
 
   .complete_footer {
