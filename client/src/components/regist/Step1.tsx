@@ -1,6 +1,8 @@
 import { RegistTitle, RegistSubBtn, RegistForm } from "../../styles/recycle";
 import { ActiveProps } from "../../pages/Page";
 import { useState, useEffect } from "react";
+import Modal from "react-modal";
+import CloseModal from "../../modal/CloseModal";
 import CryptoJS from "crypto-js";
 import axios from "axios";
 
@@ -20,6 +22,7 @@ function Step1({
   const [seconds, setSeconds] = useState<any>(0);
   const [localData, setLocalData] = useState<any>();
   const [validation, setValidation] = useState<string>("");
+  const [closeModal, setCloseModal] = useState(false);
 
   useEffect(() => {
     let changeData: any = localStorage.getItem(data.simpleCar.sellNo);
@@ -117,7 +120,7 @@ function Step1({
   }, [validation]);
 
   const authHandler = () => {
-    alert("인증번호가 발급 되었습니다.");
+    setCloseModal(true);
     let authNumber = String(Math.random()).slice(2, 8);
     let crypto = CryptoJS.AES.encrypt(
       authNumber,
@@ -145,6 +148,19 @@ function Step1({
 
   return (
     <>
+      <Modal
+        isOpen={closeModal}
+        onRequestClose={() => setCloseModal(!closeModal)}
+        overlayClassName="overlay"
+        className="close_modal"
+        ariaHideApp={false}
+      >
+        <CloseModal
+          setCloseModal={setCloseModal}
+          data={data}
+          mainTxt="인증번호가 발급되었습니다."
+        />
+      </Modal>
       <RegistTitle>신청자 정보를 입력해 주세요</RegistTitle>
       <RegistForm onSubmit={(e) => e.preventDefault()}>
         <label>

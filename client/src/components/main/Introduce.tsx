@@ -9,7 +9,6 @@ const IntroduceWrap = styled.div`
   font-weight: 500;
   font-size: 13px;
   line-height: 19px;
-  // font-family: "Noto Sans KR";
   text-align: center;
   letter-spacing: -0.02em;
 
@@ -17,11 +16,6 @@ const IntroduceWrap = styled.div`
   @media screen and (min-width: 750px) {
     font-size: 15px;
     line-height: 22px;
-  }
-
-  /* mobile */
-  @media screen and (max-width: 380px) {
-    line-height: 14px;
   }
 `;
 

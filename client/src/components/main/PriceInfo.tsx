@@ -16,7 +16,6 @@ const PriceWrap = styled.div<{ tooltip: boolean }>`
     }
 
     li {
-      padding: 0 8px;
       position: relative;
       display: flex;
       justify-content: space-between;
@@ -31,7 +30,6 @@ const PriceWrap = styled.div<{ tooltip: boolean }>`
       }
 
       .price_list_value {
-        // font-family: "Poppins";
         font-weight: 500;
         font-size: 15px;
         line-height: 22px;
@@ -61,7 +59,6 @@ const PriceWrap = styled.div<{ tooltip: boolean }>`
         letter-spacing: -0.02em;
         font-weight: 400;
         font-size: 13px;
-        padding-right: 8px;
 
         li {
           .more_price_title {
@@ -72,16 +69,16 @@ const PriceWrap = styled.div<{ tooltip: boolean }>`
             align-items: center;
 
             img {
-              width: 16px;
-              height: 16px;
-              margin-left: 4px;
+              width: 15px;
+              height: 15px;
+              margin-left: 5px;
             }
 
             .main_tooltip {
               z-index: 100;
               position: absolute;
-              top: 140%;
-              left: 22px;
+              top: 165%;
+              left: 21px;
               opacity: ${(props) => (props.tooltip ? "1" : "0")};
               visibility: ${(props) => (props.tooltip ? "" : "hidden")};
               transition: ${(props) =>
@@ -104,7 +101,6 @@ const PriceWrap = styled.div<{ tooltip: boolean }>`
 
       span {
         color: #555555;
-        // font-family: "Noto Sans KR";
         font-weight: 700;
         font-size: 15px;
         line-height: 22px;
@@ -148,6 +144,26 @@ const PriceWrap = styled.div<{ tooltip: boolean }>`
     .list_style {
       li {
         font-size: 13px;
+      }
+    }
+
+    .price_ul {
+      li {
+        .more_price {
+          li {
+            .more_price_title {
+              img {
+                width: 17px;
+                height: 17px;
+                margin-left: 8px;
+              }
+
+              .main_tooltip {
+                left: 25px;
+              }
+            }
+          }
+        }
       }
     }
   }
