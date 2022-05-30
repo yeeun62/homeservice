@@ -84,15 +84,6 @@ export const RegistForm = styled.form<{ tooltip?: boolean }>`
   flex-direction: column;
   width: 100%;
 
-  @media screen and( min-width: 750px ) {
-    label {
-      p {
-        font-size: 15px;
-        line-height: 22px;
-      }
-    }
-  }
-
   label {
     margin-bottom: 32px;
 
@@ -100,7 +91,7 @@ export const RegistForm = styled.form<{ tooltip?: boolean }>`
       position: absolute;
       z-index: 100;
       top: 26px;
-      left: -10px;
+      left: -12px;
       opacity: ${(props) => (props.tooltip ? "1" : "0")};
       visibility: ${(props) => (props.tooltip ? "" : "hidden")};
       transition: ${(props) =>
@@ -131,8 +122,8 @@ export const RegistForm = styled.form<{ tooltip?: boolean }>`
       display: flex;
 
       img {
-        width: 20px;
-        height: 20px;
+        width: 15px;
+        height: 18px;
         margin-left: 5px;
       }
     }
@@ -196,7 +187,7 @@ export const RegistForm = styled.form<{ tooltip?: boolean }>`
 
         img {
           width: 16px;
-          height: 20px;
+          height: 17px;
         }
 
         p {
@@ -276,6 +267,32 @@ export const RegistForm = styled.form<{ tooltip?: boolean }>`
   .input_focus {
     color: #101010;
     border-color: #3c3c3c;
+  }
+
+  @media screen and (min-width: 750px) {
+    label {
+      .tooltip {
+        position: absolute;
+        z-index: 100;
+        top: 28px;
+        left: 4px;
+        opacity: ${(props) => (props.tooltip ? "1" : "0")};
+        visibility: ${(props) => (props.tooltip ? "" : "hidden")};
+        transition: ${(props) =>
+          props.tooltip ? "opacity 700ms" : "opacity 500ms , visibility 500ms"};
+      }
+
+      p {
+        font-size: 15px;
+        line-height: 22px;
+
+        img {
+          width: 17px;
+          height: 19px;
+          margin-left: 8px;
+        }
+      }
+    }
   }
 `;
 
@@ -388,7 +405,7 @@ export const Tooltip = styled.div`
 `;
 
 export const PublicCheck = styled.div`
-  margin-top: 68px;
+  margin-top: 8px;
 
   div {
     display: flex;
@@ -403,7 +420,7 @@ export const PublicCheck = styled.div`
   p {
     font-weight: 500;
     font-size: 15px;
-    line-height: 18px;
+    line-height: 21px;
     letter-spacing: -0.02em;
     color: #707070;
   }

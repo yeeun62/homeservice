@@ -17,11 +17,6 @@ const IntroduceWrap = styled.div`
     font-size: 15px;
     line-height: 22px;
   }
-
-  /* mobile */
-  @media screen and (max-width: 380px) {
-    line-height: 14px;
-  }
 `;
 
 function Introduce({ introduceMSG }: { introduceMSG: string }) {

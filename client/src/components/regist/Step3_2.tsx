@@ -337,6 +337,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
           <div className="flex_check">
             <p>사업장 주소</p>
             <div
+              style={{ marginBottom: "12px" }}
               onClick={(e) => {
                 setCheck({ ...check, address: !check.address });
                 if (check.address) {

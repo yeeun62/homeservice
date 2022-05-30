@@ -63,7 +63,11 @@ function Header({
         className="close_modal"
         ariaHideApp={false}
       >
-        <CloseModal setCloseModal={setCloseModal} data={data} />
+        <CloseModal
+          setCloseModal={setCloseModal}
+          data={data}
+          mainTxt="홈서비스 신청을 취소하시겠습니까?"
+        />
       </Modal>
       <HeaderWrapper>
         <img
