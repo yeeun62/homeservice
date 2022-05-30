@@ -31,7 +31,7 @@ const PriceWrap = styled.div<{ tooltip: boolean }>`
       }
 
       .price_list_value {
-        font-family: "Poppins";
+        // font-family: "Poppins";
         font-weight: 500;
         font-size: 15px;
         line-height: 22px;
@@ -104,7 +104,7 @@ const PriceWrap = styled.div<{ tooltip: boolean }>`
 
       span {
         color: #555555;
-        font-family: "Noto Sans KR";
+        // font-family: "Noto Sans KR";
         font-weight: 700;
         font-size: 15px;
         line-height: 22px;

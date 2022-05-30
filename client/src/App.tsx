@@ -45,15 +45,6 @@ function App() {
 
   const query = queryString.parse(window.location.search);
 
-  // useEffect(() => {
-  //   if (data) {
-  //     let a = localStorage.getItem(data.simpleCar.sellNo);
-  //     console.log("!", a);
-  //     // if()
-  //     console.log(query.sellNo);
-  //   }
-  // }, [data]);
-
   let isAlert: boolean = false;
 
   useEffect(() => {

@@ -16,7 +16,7 @@ const PayWrap = styled.div`
     }
 
     li {
-      font-family: "Poppins";
+      // font-family: "Poppins";
       font-weight: 400;
       font-size: 11px;
       line-height: 16px;
