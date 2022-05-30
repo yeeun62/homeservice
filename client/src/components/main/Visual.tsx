@@ -25,7 +25,6 @@ const VisualWrap = styled.div`
   }
 
   span {
-    // font-family: "Poppins";
     font-weight: 400;
     font-size: 13px;
     line-height: 20px;
@@ -68,7 +67,6 @@ const VisualWrap = styled.div`
   }
 
   .price {
-    // font-family: "Poppins";
     font-weight: 600;
     font-size: 20px;
     line-height: 30px;
@@ -136,7 +134,7 @@ function Visual({ data, visualTitle, visualSpan }: any) {
             <span>{carNo}</span>
           </div>
           <RegistTitle className="name">{`${makerNm} ${modelDetailNm} ${gradeNm} ${gradeDetailNm}`}</RegistTitle>
-          <p className="price">{sellPrice} 원</p>
+          <p className="price">{sellPrice} </p>
         </div>
       </div>
     </VisualWrap>

@@ -232,7 +232,6 @@ export const RegistForm = styled.form<{ tooltip?: boolean }>`
       position: absolute;
       bottom: 0;
       right: 0;
-      // font-family: "Poppins";
       font-size: 15px;
       font-weight: 400;
       color: #707070;
@@ -260,7 +259,6 @@ export const RegistForm = styled.form<{ tooltip?: boolean }>`
 
       p {
         color: #fff;
-        // font-family: "Poppins";
         font-weight: 600;
         font-size: 11px;
       }

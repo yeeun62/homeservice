@@ -58,6 +58,10 @@ const CompleteWrap = styled(PageWrap)`
       margin-right: 8px;
     }
   }
+
+  @media screen and (min-width: 750px) {
+    border-top: 1px solid #d9d9d9;
+  }
 `;
 
 function CompletePage() {
