@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import Header from "../components/Header";
 import Visual from "../components/main/Visual";
+import queryString from "query-string";
 import axios from "axios";
 import { PageWrap, Footer, MainBtn } from "../styles/recycle";
 import Lottie from "lottie-react-web";
@@ -54,26 +54,29 @@ function CompletePage() {
   let isAlert: boolean = false;
 
   useEffect(() => {
-    axios
-      .get(
-        `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_URL}:${
-          process.env.REACT_APP_PORT
-        }/api/handle/products/${window.location.search.slice(8)}`
-        // `${process.env.REACT_APP_FORSALE}/ffc32180-d59f-11ec-9d64-0242ac120002`
-      )
-      .then((data) => {
-        setData(data.data);
-      })
-      .catch((err) => {
-        // console.log("complete 데이터 에러", err);
-        if (!isAlert) {
-          isAlert = true;
-          alert("매물정보가 없어 실패하였습니다. 관리자에 문의하세요.");
-        }
-      });
+    const query = queryString.parse(window.location.search);
+
+    if (query.sellNo) {
+      axios
+        .get(
+          `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_URL}:${process.env.REACT_APP_PORT}/api/handle/products/${query.sellNo}`
+          // `${process.env.REACT_APP_FORSALE}/${query.sellNo}`
+        )
+        .then((data) => {
+          if (data.data.status) {
+            if (!isAlert) {
+              isAlert = true;
+              alert("매물정보가 없어 실패하였습니다. 관리자에 문의하세요.");
+            }
+          } else {
+            setData(data.data);
+          }
+        });
+    }
   }, []);
 
   function completeHandler() {
+    localStorage.removeItem("localPage");
     let close = window.open("");
     if (close) close.close();
   }
@@ -82,7 +85,6 @@ function CompletePage() {
     <>
       {data ? (
         <>
-          <Header data={data} />
           <CompleteWrap>
             <div className="lottie_wrap">
               <Lottie

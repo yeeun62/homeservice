@@ -1,12 +1,9 @@
 import { useState, StrictMode, useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 import queryString from "query-string";
 import "./App.css";
-import MainPage from "./pages/MainPage";
-import RegistPage from "./pages/RegistPage";
-import CompletePage from "./pages/CompletePage";
+import Page from "./pages/Page";
 import LoadingPage from "./pages/LoadingPage";
 
 const AppWrap = styled.div`
@@ -46,16 +43,25 @@ function App() {
   const [priceData, setPriceData] = useState<any>();
   const [priceTxt, setPriceTxt] = useState<any>();
 
+  const query = queryString.parse(window.location.search);
+
+  // useEffect(() => {
+  //   if (data) {
+  //     let a = localStorage.getItem(data.simpleCar.sellNo);
+  //     console.log("!", a);
+  //     // if()
+  //     console.log(query.sellNo);
+  //   }
+  // }, [data]);
+
   let isAlert: boolean = false;
 
   useEffect(() => {
-    const query = queryString.parse(window.location.search);
-
     if (query.sellNo) {
       axios
         .get(
-          // `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_URL}:${process.env.REACT_APP_PORT}/api/handle/products/${query.sellNo}`
-          `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_FORSALE}/${query.sellNo}`
+          `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_URL}:${process.env.REACT_APP_PORT}/api/handle/products/${query.sellNo}`
+          // `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_FORSALE}/${query.sellNo}`
         )
         .then((data) => {
           if (data.data.status) {
@@ -87,7 +93,6 @@ function App() {
           );
         }
       });
-    // .catch((err) => console.log("소개 문구 에러", err));
 
     axios
       .get(
@@ -104,7 +109,6 @@ function App() {
           ]);
         }
       });
-    // .catch((err) => console.log("price 문구 에러", err));
   }, []);
 
   useEffect(() => {
@@ -131,7 +135,6 @@ function App() {
             }
           }
         });
-      // .catch((err) => console.log("price 에러", err));
     }
   }, [data]);
 
@@ -166,50 +169,22 @@ function App() {
   return (
     <StrictMode>
       <AppWrap>
-        <BrowserRouter>
-          <Routes>
-            <Route
-              path="/"
-              element={
-                data && storageData && introduceMSG && priceData && priceTxt ? (
-                  <MainPage
-                    data={data}
-                    setLocalStep={setLocalStep}
-                    storageData={storageData}
-                    setStorageData={setStorageData}
-                    introduceMSG={introduceMSG}
-                    priceData={priceData}
-                    priceTxt={priceTxt}
-                  />
-                ) : (
-                  <LoadingPage />
-                )
-              }
-            />
-            <Route
-              path="/regist"
-              element={
-                data && storageData ? (
-                  <RegistPage
-                    data={data}
-                    step={step}
-                    setStep={setStep}
-                    localStep={localStep}
-                    setLocalStep={setLocalStep}
-                    storageData={storageData}
-                    setStorageData={setStorageData}
-                  />
-                ) : (
-                  <LoadingPage />
-                )
-              }
-            />
-            <Route
-              path="/complete"
-              element={data ? <CompletePage /> : <LoadingPage />}
-            />
-          </Routes>
-        </BrowserRouter>
+        {data && storageData && introduceMSG && priceData && priceTxt ? (
+          <Page
+            data={data}
+            step={step}
+            setStep={setStep}
+            localStep={localStep}
+            setLocalStep={setLocalStep}
+            storageData={storageData}
+            setStorageData={setStorageData}
+            introduceMSG={introduceMSG}
+            priceData={priceData}
+            priceTxt={priceTxt}
+          />
+        ) : (
+          <LoadingPage />
+        )}
       </AppWrap>
     </StrictMode>
   );

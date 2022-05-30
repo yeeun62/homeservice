@@ -1,5 +1,5 @@
 import { RegistTitle, RegistSubBtn, RegistForm } from "../../styles/recycle";
-import { ActiveProps } from "../../pages/RegistPage";
+import { ActiveProps } from "../../pages/Page";
 import { useState, useEffect } from "react";
 import CryptoJS from "crypto-js";
 import axios from "axios";
@@ -136,7 +136,6 @@ function Step1({
     // setSalt(crypto);
     setSalt(authNumber);
     setTime(true);
-    // 바꾸기
     setMinutes(3);
     setSeconds(0);
     setValidation("");

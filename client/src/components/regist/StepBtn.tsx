@@ -20,6 +20,7 @@ interface StepBtnProps {
   storageData: StorageType;
   localStep: string;
   setLocalStep: React.Dispatch<React.SetStateAction<string>>;
+  setPage: React.Dispatch<React.SetStateAction<string>>;
 }
 
 function StepBtn({
@@ -29,6 +30,7 @@ function StepBtn({
   setLocalStep,
   activate,
   storageData,
+  setPage,
 }: StepBtnProps) {
   const [conditionModal, setConditionModal] = useState<boolean>(false);
 
@@ -50,7 +52,8 @@ function StepBtn({
 
   const prevMove = () => {
     if (localStep === "0") {
-      window.location.href = `${window.location.origin}?sellNo=${storageData.sellNo}`;
+      setPage("0");
+      localStorage.setItem("localPage", "0");
       setLocalStep("0");
     } else if (localStep === "1") {
       setLocalStep("0");
@@ -98,6 +101,7 @@ function StepBtn({
         <ConditionModal
           setConditionModal={setConditionModal}
           storageData={storageData}
+          setPage={setPage}
         />
       </Modal>
       <StepBtnWrap>

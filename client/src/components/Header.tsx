@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Progress from "./regist/Progress";
 import { RegistTitle } from "../styles/recycle";
@@ -43,7 +43,15 @@ const HeaderWrapper = styled.div`
   }
 `;
 
-function Header({ step, data }: { step?: number; data?: any }) {
+function Header({
+  step,
+  data,
+  page,
+}: {
+  step?: number;
+  data?: any;
+  page: string;
+}) {
   const [closeModal, setCloseModal] = useState(false);
 
   return (
@@ -66,9 +74,7 @@ function Header({ step, data }: { step?: number; data?: any }) {
         />
         <RegistTitle className="header_title">차란차 홈서비스 신청</RegistTitle>
         <img className="beta" src="./img/icon_beta_black.svg" alt="베타" />
-        {window.location.pathname.slice(1).toLocaleLowerCase() === "regist" && (
-          <Progress step={step} />
-        )}
+        {page === "1" && <Progress step={step} />}
       </HeaderWrapper>
     </>
   );

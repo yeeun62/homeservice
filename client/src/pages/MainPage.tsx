@@ -1,12 +1,10 @@
 import { useState, useRef, useEffect } from "react";
-import Header from "../components/Header";
 import { PageWrap, MainBtn, Footer } from "../styles/recycle";
 import Introduce from "../components/main/Introduce";
 import Visual from "../components/main/Visual";
 import PriceInfo from "../components/main/PriceInfo";
 import Pay from "../components/main/Pay";
 import { StorageType } from "../App";
-import { useNavigate } from "react-router-dom";
 
 function MainPage({
   data,
@@ -16,6 +14,7 @@ function MainPage({
   introduceMSG,
   priceData,
   priceTxt,
+  setPage,
 }: {
   data: any;
   setLocalStep: React.Dispatch<React.SetStateAction<string>>;
@@ -24,11 +23,11 @@ function MainPage({
   introduceMSG: string;
   priceData: any;
   priceTxt: any;
+  setPage: React.Dispatch<React.SetStateAction<string>>;
 }) {
   const [tooltip, setTooltip] = useState<boolean>(false);
 
   const scroll: any = useRef(null);
-  const navigate = useNavigate();
 
   const scrollDown = () => {
     scroll.current.scrollIntoView({
@@ -49,14 +48,15 @@ function MainPage({
     if (storageData.payment_cd) {
       localStorage.setItem(storageData.sellNo, JSON.stringify(storageData));
       localStorage.setItem("localStep", "0");
+      localStorage.setItem("localPage", "1");
       setLocalStep("0");
-      navigate(`/regist${window.location.search}`);
+      setPage("1");
+      localStorage.setItem("localPage", "1");
     } else return;
   }
 
   return (
     <div ref={scroll} onClick={() => setTooltip(false)}>
-      <Header data={data} />
       <Introduce introduceMSG={introduceMSG} />
       <PageWrap>
         <div>

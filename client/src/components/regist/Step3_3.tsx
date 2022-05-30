@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { RegistTitle, RegistForm, RegistSubBtn } from "../../styles/recycle";
-import { ActiveProps } from "../../pages/RegistPage";
+import { ActiveProps } from "../../pages/Page";
 import AddressModal from "../../modal/AddressModal";
 import Modal from "react-modal";
 import "../../modal/modal.css";
