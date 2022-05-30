@@ -1,18 +1,18 @@
 import styled from "styled-components";
 import { SubModal } from "./ConditionModal";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 const ConditionSubWrap = styled.div`
   width: 100%;
   height: 100vh;
-  background-color: #fff;
 
   .condition_header {
     height: 56px;
     display: flex;
     align-items: center;
     padding-left: 8px;
+    background-color: #fff;
 
     p {
       font-weight: 700;
@@ -32,7 +32,8 @@ const ConditionSubWrap = styled.div`
   .condition_content {
     width: 100%;
     height: Calc(100vh - 56px);
-    padding: 24px 16px;
+    padding: 24px 16px 64px 16px;
+    background-color: #fff;
     overflow: scroll;
   }
 `;
@@ -43,6 +44,8 @@ interface SubModalProp {
 }
 
 function ConditionSubModal({ subModal, setConditionSubOpen }: SubModalProp) {
+  const condition_content = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     axios
       .get(
@@ -50,13 +53,13 @@ function ConditionSubModal({ subModal, setConditionSubOpen }: SubModalProp) {
       )
       .then((res) => {
         if (res.status === 200) {
-          let inner = document.getElementsByClassName("condition_content");
-          if (inner.length) {
-            inner[0].innerHTML = res.data.result.message;
+          let inner = condition_content;
+          if (inner.current !== null) {
+            inner.current.innerHTML = res.data.result.message;
           }
         }
       });
-  }, []);
+  }, [subModal.code]);
 
   return (
     <ConditionSubWrap>
@@ -68,7 +71,7 @@ function ConditionSubModal({ subModal, setConditionSubOpen }: SubModalProp) {
         />
         <p>{subModal.title}</p>
       </div>
-      <div className="condition_content"></div>
+      <div className="condition_content" ref={condition_content}></div>
     </ConditionSubWrap>
   );
 }

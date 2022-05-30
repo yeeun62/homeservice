@@ -1,4 +1,4 @@
-import { useState, StrictMode, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import queryString from "query-string";
@@ -167,26 +167,24 @@ function App() {
   }, [data]);
 
   return (
-    <StrictMode>
-      <AppWrap>
-        {data && storageData && introduceMSG && priceData && priceTxt ? (
-          <Page
-            data={data}
-            step={step}
-            setStep={setStep}
-            localStep={localStep}
-            setLocalStep={setLocalStep}
-            storageData={storageData}
-            setStorageData={setStorageData}
-            introduceMSG={introduceMSG}
-            priceData={priceData}
-            priceTxt={priceTxt}
-          />
-        ) : (
-          <LoadingPage />
-        )}
-      </AppWrap>
-    </StrictMode>
+    <AppWrap>
+      {data && storageData && introduceMSG && priceData && priceTxt ? (
+        <Page
+          data={data}
+          step={step}
+          setStep={setStep}
+          localStep={localStep}
+          setLocalStep={setLocalStep}
+          storageData={storageData}
+          setStorageData={setStorageData}
+          introduceMSG={introduceMSG}
+          priceData={priceData}
+          priceTxt={priceTxt}
+        />
+      ) : (
+        <LoadingPage />
+      )}
+    </AppWrap>
   );
 }
 

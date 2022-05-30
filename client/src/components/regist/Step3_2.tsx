@@ -246,6 +246,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
             <input
               type="text"
               placeholder="실명을 입력해주세요"
+              autoFocus
               value={step3.nominee_name}
               onChange={(e) => {
                 validationHandler(e, "nominee_name");
