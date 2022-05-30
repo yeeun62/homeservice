@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   RegistTitle,
   RegistForm,
@@ -21,6 +21,8 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
     business: boolean;
   }>({ nominee: false, business: false });
   const step3 = storageData.step3;
+  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRefBusiness = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     let changeData: any = localStorage.getItem(storageData.sellNo);
@@ -217,7 +219,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
           <div className="flex_check">
             <p>이름</p>
             <div
-              onClick={() => {
+              onClick={(e) => {
                 setCheck({ ...check, name: !check.name });
                 if (check.name) {
                   setStorageData({
@@ -228,6 +230,9 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
                       nominee_hphone: "",
                     },
                   });
+                } else {
+                  inputRef.current?.focus();
+                  e.preventDefault();
                 }
               }}
             >
@@ -292,7 +297,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
               <input
                 type="text"
                 placeholder="주소를 검색해주세요"
-                readOnly
+                ref={inputRef}
                 value={
                   step3.address.nominee_address_post
                     ? `[${step3.address.nominee_address_post}] ` +
@@ -353,6 +358,8 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
                       },
                     },
                   });
+                } else {
+                  inputRefBusiness.current?.focus();
                 }
                 e.preventDefault();
               }}
@@ -418,6 +425,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
               placeholder="숫자만 입력해주세요"
               value={step3.business_number}
               maxLength={10}
+              ref={inputRefBusiness}
               onChange={(e) => validationHandler(e, "business_number")}
             />
           </div>
