@@ -31,7 +31,6 @@ const PriceWrap = styled.div<{ tooltip: boolean }>`
       }
 
       .price_list_value {
-        // font-family: "Poppins";
         font-weight: 500;
         font-size: 15px;
         line-height: 22px;
@@ -104,7 +103,6 @@ const PriceWrap = styled.div<{ tooltip: boolean }>`
 
       span {
         color: #555555;
-        // font-family: "Noto Sans KR";
         font-weight: 700;
         font-size: 15px;
         line-height: 22px;
@@ -212,6 +210,7 @@ function PriceInfo({ data, priceData, priceTxt, tooltip, setTooltip }: any) {
                 {addComma(homeserviceFee)}원
               </span>
             </div>
+            dfjkfdjd41212122 가나다라마바사아자차카타파하힁
           </li>
           <li
             style={{

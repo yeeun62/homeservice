@@ -9,7 +9,6 @@ const IntroduceWrap = styled.div`
   font-weight: 500;
   font-size: 13px;
   line-height: 19px;
-  // font-family: "Noto Sans KR";
   text-align: center;
   letter-spacing: -0.02em;
 

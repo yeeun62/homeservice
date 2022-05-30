@@ -36,6 +36,12 @@ const ConditionSubWrap = styled.div`
     background-color: #fff;
     overflow: scroll;
   }
+
+  li,
+  p,
+  h5 {
+    color: #555;
+  }
 `;
 
 interface SubModalProp {
