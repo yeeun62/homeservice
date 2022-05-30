@@ -18,6 +18,10 @@ const ProgressWrap = styled.div<{ stepPercent: string }>`
     padding-right: 16px;
     letter-spacing: -0.02em;
     font-family: "Poppins";
+
+    span {
+      font-weight: 400;
+    }
   }
 
   div {
@@ -34,7 +38,9 @@ function ProgressBar({ step }: { step?: any }) {
 
   return (
     <ProgressWrap stepPercent={stepPercent}>
-      <p>{step} / 4</p>
+      <p>
+        {step} <span>/</span> 4
+      </p>
       <div></div>
     </ProgressWrap>
   );
