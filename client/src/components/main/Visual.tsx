@@ -134,7 +134,7 @@ function Visual({ data, visualTitle, visualSpan }: any) {
             <span>{carNo}</span>
           </div>
           <RegistTitle className="name">{`${makerNm} ${modelDetailNm} ${gradeNm} ${gradeDetailNm}`}</RegistTitle>
-          <p className="price">{sellPrice} </p>
+          <p className="price">{sellPrice} 원</p>
         </div>
       </div>
     </VisualWrap>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { RegistTitle, RegistForm, RegistSubBtn } from "../../styles/recycle";
 import { ActiveProps } from "../../pages/Page";
 import AddressModal from "../../modal/AddressModal";
@@ -11,6 +11,7 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
   const [emailBlur, setEmailBlur] = useState<boolean>(false);
   const [postCodeOpen, setPostCodeOpen] = useState<boolean>(false);
   const step3 = storageData.step3;
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     let changeData: any = localStorage.getItem(storageData.sellNo);
@@ -136,13 +137,16 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
           <div className="flex_check">
             <p>대표자명</p>
             <div
-              onClick={() => {
+              onClick={(e) => {
                 setCheck(!check);
                 if (check) {
                   setStorageData({
                     ...storageData,
                     step3: { ...step3, nominee_name: "", nominee_hphone: "" },
                   });
+                } else {
+                  inputRef.current?.focus();
+                  e.preventDefault();
                 }
               }}
             >
@@ -192,7 +196,7 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
               <input
                 type="text"
                 placeholder="주소를 검색해주세요"
-                readOnly
+                ref={inputRef}
                 value={
                   step3.address.nominee_address_post
                     ? `[${step3.address.nominee_address_post}] ` +

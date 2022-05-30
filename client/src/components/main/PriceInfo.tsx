@@ -228,7 +228,6 @@ function PriceInfo({ data, priceData, priceTxt, tooltip, setTooltip }: any) {
                 {addComma(homeserviceFee)}원
               </span>
             </div>
-            dfjkfdjd41212122 가나다라마바사아자차카타파하힁
           </li>
           <li
             style={{
