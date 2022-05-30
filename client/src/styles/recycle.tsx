@@ -301,13 +301,20 @@ export const Footer = styled.div`
   bottom: 0;
   left: 50%;
   transform: translate(-50%, 0);
-  background-color: #fff;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.5) 11.82%,
+    rgba(255, 255, 255, 0.8) 19.81%,
+    #ffffff 29.02%
+  );
   z-index: 100;
   max-width: 1200px;
 
   div {
     display: flex;
     align-items: flex-end;
+    justify-content: space-between;
   }
 
   @media screen and (max-width: 749px) {

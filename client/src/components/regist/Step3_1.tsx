@@ -117,6 +117,7 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
               type="text"
               placeholder="실명을 입력해주세요"
               value={step3.nominee_name}
+              autoFocus
               onChange={(e) => {
                 setStorageData({
                   ...storageData,

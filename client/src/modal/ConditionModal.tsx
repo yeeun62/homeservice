@@ -55,10 +55,13 @@ const ConditionWrap = styled.div`
         }
       }
 
-      img {
+      .more_condition_btn {
         width: 16px;
         height: 16px;
         margin-left: 8px;
+      }
+
+      img {
         cursor: pointer;
       }
     }
@@ -87,6 +90,11 @@ const ConditionWrap = styled.div`
 
   @media screen and (min-width: 750px) {
     padding: 16px 32px 32px 32px;
+    // 다시 확인하기
+    .bold_text {
+      font-size: 20px;
+      line-height: 29px;
+    }
   }
 `;
 
@@ -323,6 +331,7 @@ function ConditionModal({
                 <img
                   src="./img/icon_arrow_right_medium_gray.svg"
                   alt="약관 더 보기"
+                  className="more_condition_btn"
                   onClick={() => {
                     setConditionSubOpen(true);
                     setSubModal({
