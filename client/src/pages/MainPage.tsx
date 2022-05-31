@@ -46,7 +46,7 @@ function MainPage({
 
   function setStorage(): void {
     if (storageData.payment_cd) {
-      localStorage.setItem(storageData.sellNo, JSON.stringify(storageData));
+      localStorage.setItem("sell", JSON.stringify(storageData));
       localStorage.setItem("localStep", "0");
       localStorage.setItem("localPage", "1");
       setLocalStep("0");

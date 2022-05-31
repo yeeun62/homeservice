@@ -13,7 +13,7 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
   const scroll: any = useRef(null);
 
   useEffect(() => {
-    let changeData: any = localStorage.getItem(storageData.sellNo);
+    let changeData: any = localStorage.getItem("sell");
     setStorageData(JSON.parse(changeData));
   }, []);
 

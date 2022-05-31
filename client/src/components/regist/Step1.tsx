@@ -25,13 +25,13 @@ function Step1({
   const [closeModal, setCloseModal] = useState(false);
 
   useEffect(() => {
-    let changeData: any = localStorage.getItem(data.simpleCar.sellNo);
+    let changeData: any = localStorage.getItem("sell");
     setStorageData(JSON.parse(changeData));
   }, []);
 
   // localstorage 데이터 state에 저장
   useEffect(() => {
-    let originData: any = localStorage.getItem(data.simpleCar.sellNo);
+    let originData: any = localStorage.getItem("sell");
     if (originData) {
       setLocalData(JSON.parse(originData));
     }

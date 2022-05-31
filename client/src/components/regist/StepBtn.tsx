@@ -67,12 +67,12 @@ function StepBtn({
       setLocalStep("1");
     } else if (localStep === "1") {
       setLocalStep(String(storageData.step2.index));
-      localStorage.setItem(storageData.sellNo, JSON.stringify(storageData));
+      localStorage.setItem("sell", JSON.stringify(storageData));
       return;
     } else if (localStep === "2" || localStep === "3" || localStep === "4") {
       setLocalStep("5");
     }
-    localStorage.setItem(storageData.sellNo, JSON.stringify(storageData));
+    localStorage.setItem("sell", JSON.stringify(storageData));
   };
 
   const conditionModalHandler = () => {
