@@ -176,6 +176,7 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
               <input
                 type="text"
                 placeholder="주소를 검색해주세요"
+                readOnly
                 ref={inputRef}
                 value={
                   step3.address.nominee_address_post
