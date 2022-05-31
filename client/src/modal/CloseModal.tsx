@@ -56,7 +56,7 @@ function CloseModal({
     <CloseModalWrap>
       <p>{mainTxt}</p>
       <div>
-        {mainTxt !== "인증번호가 발급되었습니다." && (
+        {mainTxt === "홈서비스 신청을 취소하시겠습니까?" && (
           <button onClick={() => setCloseModal(false)}>취소</button>
         )}
         <button className="close_comfirm" onClick={closePopup}>

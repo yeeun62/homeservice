@@ -17,9 +17,10 @@ const HeaderWrapper = styled.div`
   height: 56px;
 
   .close {
-    width: 38px;
-    height: 38px;
-    margin-left: 8px;
+    width: 10px;
+    height: 10px;
+    margin-left: 18px;
+    margin-right: 10px;
   }
 
   .beta {
@@ -72,7 +73,7 @@ function Header({
       <HeaderWrapper>
         <img
           className="close"
-          src="./img/icon_header_cancel_circle.svg"
+          src="./img/close.svg"
           alt="닫기버튼"
           onClick={() => setCloseModal(true)}
         />

@@ -23,6 +23,8 @@ function Step1({
   const [localData, setLocalData] = useState<any>();
   const [validation, setValidation] = useState<string>("");
   const [closeModal, setCloseModal] = useState(false);
+  const [modalTxt, setModalTxt] =
+    useState<string>("인증번호가 발급되었습니다.");
 
   useEffect(() => {
     let changeData: any = localStorage.getItem("sell");
@@ -73,9 +75,11 @@ function Step1({
   useEffect(() => {
     if (minutes === 0 && seconds === 0) {
       setActivate(false);
-      alert("입력 시간이 지났습니다.");
+      setModalTxt("입력 시간이 지났습니다.");
+      setCloseModal(true);
       setValidation("");
       setAuthMessage(false);
+      setAuthMessage2(false);
     }
     if (time) {
       const countdown = setInterval(() => {
@@ -120,6 +124,7 @@ function Step1({
   }, [validation]);
 
   const authHandler = () => {
+    setModalTxt("인증번호가 발급되었습니다.");
     setCloseModal(true);
     let authNumber = String(Math.random()).slice(2, 8);
     let crypto = CryptoJS.AES.encrypt(
@@ -158,7 +163,7 @@ function Step1({
         <CloseModal
           setCloseModal={setCloseModal}
           data={data}
-          mainTxt="인증번호가 발급되었습니다."
+          mainTxt={modalTxt}
         />
       </Modal>
       <RegistTitle>신청자 정보를 입력해 주세요</RegistTitle>
@@ -219,10 +224,10 @@ function Step1({
                 value={validation}
                 placeholder="인증번호를 입력해주세요"
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  if (seconds > 0 && minutes > 0) {
-                    setValidation(e.target.value.replace(/[^0-9]/g, ""));
-                  } else {
+                  if (seconds === 0 && minutes === 0) {
                     setAuthMessage2(true);
+                  } else {
+                    setValidation(e.target.value.replace(/[^0-9]/g, ""));
                   }
                 }}
                 onKeyDown={(e) => {
