@@ -14,7 +14,7 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    let changeData: any = localStorage.getItem(storageData.sellNo);
+    let changeData: any = localStorage.getItem("sell");
     setStorageData(JSON.parse(changeData));
   }, []);
 

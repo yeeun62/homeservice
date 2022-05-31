@@ -131,12 +131,37 @@ function App() {
 
   useEffect(() => {
     if (data) {
-      let localData = localStorage.getItem(data.simpleCar.sellNo);
+      let localData: any = localStorage.getItem("sell");
       let localStep = localStorage.getItem("localStep");
       if (localData && localStep) {
-        setStorageData(JSON.parse(localData));
-        setLocalStep(localStep);
+        localData = JSON.parse(localData);
+        if (localData.sellNo === query.sellNo) {
+          setStorageData(localData);
+          setLocalStep(localStep);
+        } else {
+          localStorage.removeItem("localStep");
+          localStorage.removeItem("localPage");
+          localStorage.removeItem("sell");
+          setStorageData({
+            sellNo: data.simpleCar.sellNo,
+            payment_cd: "",
+            step1: {
+              customer_name: "",
+              customer_hphone: "",
+            },
+            step2: { nominee_cd: "", index: 1 },
+            step3: "",
+            step4: {
+              bank: { name: "", refund_bank_cd: "" },
+              refund_accout_name: "",
+              refund_accout_number: "",
+            },
+          });
+          setLocalStep("0");
+        }
       } else {
+        localStorage.removeItem("localStep");
+        localStorage.removeItem("localPage");
         setStorageData({
           sellNo: data.simpleCar.sellNo,
           payment_cd: "",
