@@ -62,7 +62,7 @@ function MainPage({
         <div>
           <Visual
             data={data}
-            visualTitle="안전하게 배송해드리겠습니다"
+            visualTitle="안전하게 배송해 드리겠습니다"
             bottom={false}
           />
           <PriceInfo
