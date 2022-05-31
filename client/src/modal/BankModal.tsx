@@ -53,6 +53,7 @@ const BankModalWrap = styled.div`
     bottom: 0%;
 
     p {
+      cursor: pointer;
       margin-top: 32px;
       font-weight: 700;
     }

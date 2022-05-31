@@ -45,6 +45,7 @@
 }
 
 .condition_sub_modal {
+  overflow: hidden;
   z-index: 1000;
 }
 
