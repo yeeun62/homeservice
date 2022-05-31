@@ -136,19 +136,21 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
           <p>휴대전화 번호</p>
           <div className="input_div">
             <input
-              type="text"
-              maxLength={11}
               placeholder="숫자만 입력해주세요"
+              type="tel"
+              pattern="\d*"
               value={step3.nominee_hphone}
               onChange={(e) => {
-                setStorageData({
-                  ...storageData,
-                  step3: {
-                    ...step3,
-                    nominee_hphone: e.target.value.replace(/[^0-9]/g, ""),
-                  },
-                });
-                setCheck(false);
+                if (e.target.value.length <= 11) {
+                  setStorageData({
+                    ...storageData,
+                    step3: {
+                      ...step3,
+                      nominee_hphone: e.target.value.replace(/[^0-9]/g, ""),
+                    },
+                  });
+                  setCheck(false);
+                }
               }}
             />
           </div>

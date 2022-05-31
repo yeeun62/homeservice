@@ -60,7 +60,11 @@ function MainPage({
       <Introduce introduceMSG={introduceMSG} />
       <PageWrap>
         <div>
-          <Visual data={data} visualTitle="안전하게 배송해드리겠습니다" />
+          <Visual
+            data={data}
+            visualTitle="안전하게 배송해드리겠습니다"
+            bottom={false}
+          />
           <PriceInfo
             tooltip={tooltip}
             setTooltip={setTooltip}

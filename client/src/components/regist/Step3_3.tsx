@@ -178,13 +178,15 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
           <p>휴대전화 번호</p>
           <div className="input_div">
             <input
-              type="text"
               placeholder="숫자만 입력해주세요"
+              type="tel"
+              pattern="\d*"
               value={step3.nominee_hphone}
-              maxLength={11}
-              onChange={(e) => {
-                validationHandler(e, "nominee_hphone");
-                setCheck(false);
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                if (e.target.value.length <= 11) {
+                  validationHandler(e, "nominee_hphone");
+                  setCheck(false);
+                }
               }}
             />
           </div>
@@ -241,11 +243,15 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
           <p>사업자 등록번호</p>
           <div className="input_div">
             <input
-              type="text"
               placeholder="숫자만 입력해주세요"
+              type="tel"
+              pattern="\d*"
               value={step3.business_number}
-              maxLength={10}
-              onChange={(e) => validationHandler(e, "business_number")}
+              onChange={(e) => {
+                if (e.target.value.length <= 10) {
+                  validationHandler(e, "business_number");
+                }
+              }}
             />
           </div>
         </label>
