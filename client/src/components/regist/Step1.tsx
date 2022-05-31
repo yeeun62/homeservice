@@ -186,18 +186,20 @@ function Step1({
           <div className="flex_form">
             <div className="input_div">
               <input
-                type="text"
                 placeholder="숫자만 입력해주세요"
+                type="tel"
+                pattern="\d*"
                 value={step1.customer_hphone}
-                maxLength={11}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  setStorageData({
-                    ...storageData,
-                    step1: {
-                      ...step1,
-                      customer_hphone: e.target.value.replace(/[^0-9]/g, ""),
-                    },
-                  });
+                  if (e.target.value.length <= 11) {
+                    setStorageData({
+                      ...storageData,
+                      step1: {
+                        ...step1,
+                        customer_hphone: e.target.value.replace(/[^0-9]/g, ""),
+                      },
+                    });
+                  }
                 }}
               />
             </div>

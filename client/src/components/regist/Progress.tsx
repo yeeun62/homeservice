@@ -12,14 +12,14 @@ const ProgressWrap = styled.div<{ stepPercent: string }>`
     right: 0;
     top: -18px;
     font-size: 11px;
-    font-weight: 600;
+    font-weight: 900;
     line-height: 16px;
     color: #3c3c3c;
     padding-right: 16px;
     letter-spacing: -0.02em;
 
     span {
-      font-weight: 400;
+      font-weight: 100;
     }
   }
 

@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { RegistTitle } from "../../styles/recycle";
 
-const VisualWrap = styled.div`
-  padding-bottom: 40px;
+const VisualWrap = styled.div<{ bottom: boolean }>`
+  padding-bottom: ${(p) => (p.bottom ? "16px" : "40px")};
 
   .complete_title {
     font-weight: 400;
@@ -100,7 +100,7 @@ const VisualWrap = styled.div`
   }
 `;
 
-function Visual({ data, visualTitle, visualSpan }: any) {
+function Visual({ data, visualTitle, visualSpan, bottom }: any) {
   let { carNo, fuel, imageUrl, mileage, releaseDt, sellPrice } = data.simpleCar;
   const { makerNm, modelDetailNm, gradeNm, gradeDetailNm } =
     data.simpleCar.trim;
@@ -117,8 +117,10 @@ function Visual({ data, visualTitle, visualSpan }: any) {
   }
   sellPrice = addComma(String(sellPrice) + "0000");
 
+  console.log(gradeDetailNm);
+
   return (
-    <VisualWrap>
+    <VisualWrap bottom={bottom}>
       <RegistTitle>
         {visualTitle}
         {visualSpan && <span className="complete_title">{visualSpan}</span>}
@@ -133,7 +135,9 @@ function Visual({ data, visualTitle, visualSpan }: any) {
             <span>{fuel}</span>
             <span>{carNo}</span>
           </div>
-          <RegistTitle className="name">{`${makerNm} ${modelDetailNm} ${gradeNm} ${gradeDetailNm}`}</RegistTitle>
+          <RegistTitle className="name">{`${makerNm} ${modelDetailNm} ${gradeNm} ${
+            gradeDetailNm ? gradeDetailNm : ""
+          }`}</RegistTitle>
           <p className="price">{sellPrice} 원</p>
         </div>
       </div>

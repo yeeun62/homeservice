@@ -115,6 +115,7 @@ function CompletePage() {
                 data={data}
                 visualTitle="신청 완료되었습니다!"
                 visualSpan={`차량이 고객님께 빠르게 배송될 수 있도록 \n 신청하신 내용을 확인 후 상담원이 연락 드리겠습니다.`}
+                bottom={true}
               />
               <div className="complete_footer">
                 <p>홈서비스에 대한 궁금하신 사항은 고객센터로 문의해주세요.</p>
