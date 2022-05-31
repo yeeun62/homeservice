@@ -117,8 +117,6 @@ function Visual({ data, visualTitle, visualSpan, bottom }: any) {
   }
   sellPrice = addComma(String(sellPrice) + "0000");
 
-  console.log(gradeDetailNm);
-
   return (
     <VisualWrap bottom={bottom}>
       <RegistTitle>
