@@ -45,7 +45,11 @@ const BankModalWrap = styled.div`
     padding-right: 16px;
     width: 100%;
     height: 78px;
-    background-color: #fff;
+    background-color: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0) -5.32%,
+      #ffffff 21.62%
+    );
     bottom: 0%;
 
     p {
