@@ -6,6 +6,7 @@ import { useEffect, useRef } from "react";
 const ConditionSubWrap = styled.div`
   width: 100%;
   height: 100vh;
+  overflow: visible;
 
   .condition_header {
     height: 56px;
@@ -34,13 +35,18 @@ const ConditionSubWrap = styled.div`
     height: Calc(100vh - 56px);
     padding: 24px 16px 64px 16px;
     background-color: #fff;
-    overflow: scroll;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 
   li,
   p,
   h5 {
     color: #555;
+  }
+
+  .sub_title {
+    margin: 0;
   }
 `;
 
@@ -59,9 +65,8 @@ function ConditionSubModal({ subModal, setConditionSubOpen }: SubModalProp) {
       )
       .then((res) => {
         if (res.status === 200) {
-          let inner = condition_content;
-          if (inner.current !== null) {
-            inner.current.innerHTML = res.data.result.message;
+          if (condition_content.current !== null) {
+            condition_content.current.innerHTML = res.data.result.message;
           }
         }
       });
@@ -75,7 +80,7 @@ function ConditionSubModal({ subModal, setConditionSubOpen }: SubModalProp) {
           alt="약관 뒤로 가기"
           onClick={() => setConditionSubOpen(false)}
         />
-        <p>{subModal.title}</p>
+        <p className="sub_title">{subModal.title}</p>
       </div>
       <div className="condition_content" ref={condition_content}></div>
     </ConditionSubWrap>
