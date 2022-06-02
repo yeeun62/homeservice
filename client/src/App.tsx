@@ -139,9 +139,7 @@ function App() {
           setStorageData(localData);
           setLocalStep(localStep);
         } else {
-          localStorage.removeItem("localStep");
-          localStorage.removeItem("localPage");
-          localStorage.removeItem("sell");
+          localStorage.clear();
           setStorageData({
             sellNo: data.simpleCar.sellNo,
             payment_cd: "",
@@ -160,8 +158,7 @@ function App() {
           setLocalStep("0");
         }
       } else {
-        localStorage.removeItem("localStep");
-        localStorage.removeItem("localPage");
+        localStorage.clear();
         setStorageData({
           sellNo: data.simpleCar.sellNo,
           payment_cd: "",
