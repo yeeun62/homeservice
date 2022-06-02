@@ -37,7 +37,6 @@ const HeaderWrapper = styled.div`
     }
 
     .header_title {
-      font-family: "Poppins";
       margin-left: 32px;
     }
   }
