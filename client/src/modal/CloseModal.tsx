@@ -41,10 +41,9 @@ function CloseModal({
 }) {
   const closePopup = () => {
     setCloseModal(false);
-    // if (mainTxt === "홈서비스 신청을 취소하시겠습니까?") {
-    //   window.open("", "_self", "");
-    //   window.close();
-    // }
+    if (mainTxt === "홈서비스 신청을 취소하시겠습니까?") {
+      window.open(window.location.href, "_self")?.self.close();
+    }
   };
 
   return (

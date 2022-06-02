@@ -31,14 +31,28 @@ export interface StorageType {
     refund_accout_name: string;
     refund_accout_number: string;
   };
-  step: number;
 }
 
 function App() {
   const [step, setStep] = useState<number>(0);
   const [localStep, setLocalStep] = useState<string>("0");
   const [data, setData] = useState<any>();
-  const [storageData, setStorageData] = useState<any>();
+  const [storageData, setStorageData] = useState<StorageType>({
+    sellNo: "",
+    payment_cd: "",
+    step1: {
+      customer_name: "",
+      customer_hphone: "",
+      phoneValidation: false,
+    },
+    step2: { nominee_cd: "", index: 1 },
+    step3: "",
+    step4: {
+      bank: { name: "", refund_bank_cd: "" },
+      refund_accout_name: "",
+      refund_accout_number: "",
+    },
+  });
   const [introduceMSG, setIntroduceMSG] = useState<string>("");
   const [priceData, setPriceData] = useState<any>();
   const [priceTxt, setPriceTxt] = useState<any>();
@@ -140,40 +154,12 @@ function App() {
           setLocalStep(localStep);
         } else {
           localStorage.clear();
-          setStorageData({
-            sellNo: data.simpleCar.sellNo,
-            payment_cd: "",
-            step1: {
-              customer_name: "",
-              customer_hphone: "",
-            },
-            step2: { nominee_cd: "", index: 1 },
-            step3: "",
-            step4: {
-              bank: { name: "", refund_bank_cd: "" },
-              refund_accout_name: "",
-              refund_accout_number: "",
-            },
-          });
+          setStorageData({ ...storageData, sellNo: data.simpleCar.sellNo });
           setLocalStep("0");
         }
       } else {
         localStorage.clear();
-        setStorageData({
-          sellNo: data.simpleCar.sellNo,
-          payment_cd: "",
-          step1: {
-            customer_name: "",
-            customer_hphone: "",
-          },
-          step2: { nominee_cd: "", index: 1 },
-          step3: "",
-          step4: {
-            bank: { name: "", refund_bank_cd: "" },
-            refund_accout_name: "",
-            refund_accout_number: "",
-          },
-        });
+        setStorageData({ ...storageData, sellNo: data.simpleCar.sellNo });
         setLocalStep("0");
       }
     }

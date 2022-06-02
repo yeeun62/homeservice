@@ -267,7 +267,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
               type="tel"
               pattern="\d*"
               value={step3.nominee_hphone}
-              onChange={(e) => {
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 if (e.target.value.length <= 11) {
                   validationHandler(e, "nominee_hphone");
                 }
@@ -412,7 +412,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
                 type="text"
                 placeholder="상세주소를 입력해주세요"
                 value={step3.address2.business_address}
-                onChange={(e) => {
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   validationHandler(e, "address2");
                   setCheck({ ...check, address: false });
                 }}
@@ -429,7 +429,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
               pattern="\d*"
               value={step3.business_number}
               ref={inputRefBusiness}
-              onChange={(e) => {
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 if (e.target.value.length <= 10) {
                   validationHandler(e, "business_number");
                 }
@@ -444,7 +444,9 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
               type="text"
               placeholder="help@charancha.com"
               value={step3.business_email}
-              onChange={(e) => validationHandler(e, "business_email")}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                validationHandler(e, "business_email")
+              }
               onBlur={() => {
                 setEmailValidation(validationEmail());
                 setEmailBlur(true);

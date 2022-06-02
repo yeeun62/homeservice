@@ -140,7 +140,7 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
               type="tel"
               pattern="\d*"
               value={step3.nominee_hphone}
-              onChange={(e) => {
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 if (e.target.value.length <= 11) {
                   setStorageData({
                     ...storageData,
