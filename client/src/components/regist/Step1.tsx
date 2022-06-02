@@ -219,14 +219,14 @@ function Step1({
             <div className="input_div">
               <input
                 className="input_margin_top"
-                type="text"
-                maxLength={6}
+                type="tel"
+                pattern="\d*"
+                placeholder="숫자만 입력해주세요"
                 value={validation}
-                placeholder="인증번호를 입력해주세요"
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   if (seconds === 0 && minutes === 0) {
                     setAuthMessage2(true);
-                  } else {
+                  } else if (e.target.value.length <= 6) {
                     setValidation(e.target.value.replace(/[^0-9]/g, ""));
                   }
                 }}

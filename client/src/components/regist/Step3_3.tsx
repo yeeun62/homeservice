@@ -167,7 +167,7 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
               placeholder="실명을 입력해주세요"
               value={step3.nominee_name}
               autoFocus
-              onChange={(e) => {
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 validationHandler(e, "nominee_name");
                 setCheck(false);
               }}
@@ -217,7 +217,9 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
                 type="text"
                 placeholder="상세주소를 입력해주세요"
                 value={step3.address.nominee_address}
-                onChange={(e) => validationHandler(e, "nominee_address")}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  validationHandler(e, "nominee_address")
+                }
               />
             </div>
           </div>
@@ -236,7 +238,9 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
               type="text"
               placeholder="법인명 이름을 입력해주세요"
               value={step3.business_name}
-              onChange={(e) => validationHandler(e, "business_name")}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                validationHandler(e, "business_name")
+              }
             />
           </div>
         </label>
@@ -248,7 +252,7 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
               type="tel"
               pattern="\d*"
               value={step3.business_number}
-              onChange={(e) => {
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 if (e.target.value.length <= 10) {
                   validationHandler(e, "business_number");
                 }
@@ -263,7 +267,9 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
               type="text"
               placeholder="help@charancha.com"
               value={step3.business_email}
-              onChange={(e) => validationHandler(e, "business_email")}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                validationHandler(e, "business_email")
+              }
               onBlur={() => {
                 setEmailValidation(validationEmail());
                 setEmailBlur(true);
