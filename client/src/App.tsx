@@ -51,8 +51,8 @@ function App() {
     if (query.sellNo) {
       axios
         .get(
-          // `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_URL}:${process.env.REACT_APP_PORT}/api/handle/products/${query.sellNo}`
-          `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_FORSALE}/${query.sellNo}`
+          `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_URL}:${process.env.REACT_APP_PORT}/api/handle/products/${query.sellNo}`
+          // `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_FORSALE}/${query.sellNo}`
         )
         .then((data) => {
           if (data.data.status) {
@@ -139,9 +139,7 @@ function App() {
           setStorageData(localData);
           setLocalStep(localStep);
         } else {
-          localStorage.removeItem("localStep");
-          localStorage.removeItem("localPage");
-          localStorage.removeItem("sell");
+          localStorage.clear();
           setStorageData({
             sellNo: data.simpleCar.sellNo,
             payment_cd: "",
@@ -160,8 +158,7 @@ function App() {
           setLocalStep("0");
         }
       } else {
-        localStorage.removeItem("localStep");
-        localStorage.removeItem("localPage");
+        localStorage.clear();
         setStorageData({
           sellNo: data.simpleCar.sellNo,
           payment_cd: "",
