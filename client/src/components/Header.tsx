@@ -7,9 +7,6 @@ import CloseModal from "../modal/CloseModal";
 import "../modal/modal.css";
 
 const HeaderWrapper = styled.div`
-  position: sticky;
-  top: 0;
-  z-index: 100;
   background-color: #fff;
   display: flex;
   align-items: center;
@@ -41,6 +38,12 @@ const HeaderWrapper = styled.div`
     .header_title {
       margin-left: 32px;
     }
+  }
+
+  @media screen and (max-width: 749px) {
+    position: sticky;
+    top: 0;
+    z-index: 100;
   }
 `;
 
