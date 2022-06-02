@@ -141,7 +141,7 @@ export const RegistForm = styled.form<{ tooltip?: boolean }>`
         border-bottom: 2px solid #ededed;
         padding-bottom: 6px;
         color: #101010;
-        font-weight: 700;
+        font-weight: 600;
         font-size: 17px;
         line-height: 25px;
 
