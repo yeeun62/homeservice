@@ -41,15 +41,6 @@ function CloseModal({
 }) {
   const closePopup = () => {
     setCloseModal(false);
-    // localStorage.removeItem("sell");
-    // localStorage.removeItem("localStep");
-    // window.open("", "_self")?.close();
-    let close = window.open("");
-    if (close) close.close();
-    // self.close();
-    // window.close();
-    // window.opener = window.location.href;
-    // window.open("", "_self")?.close();
   };
 
   return (
