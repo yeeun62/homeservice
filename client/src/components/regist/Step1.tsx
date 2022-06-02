@@ -221,7 +221,7 @@ function Step1({
                 className="input_margin_top"
                 type="tel"
                 pattern="\d*"
-                placeholder="숫자만 입력해주세요"
+                placeholder="인증번호를 입력해주세요"
                 value={validation}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   if (seconds === 0 && minutes === 0) {
