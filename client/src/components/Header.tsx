@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import Progress from "./regist/Progress";
 import { RegistTitle } from "../styles/recycle";
@@ -37,6 +37,7 @@ const HeaderWrapper = styled.div`
     }
 
     .header_title {
+      font-family: "Poppins";
       margin-left: 32px;
     }
   }

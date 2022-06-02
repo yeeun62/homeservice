@@ -45,7 +45,7 @@ input[type="number"] {
 
 /* 전체 적용 폰트 */
 @font-face {
-  font-family: "NotoSansKR";
+  font-family: "NotoSansKR", "poppins";
   font-style: normal;
   src: url("styles/fonts/noto-sans-kr-v27-latin/noto-sans-kr-v27-latin-regular.eot"),
     url("./styles/fonts/poppins-v20-latin/poppins-v20-latin-regular.eot"),
@@ -167,4 +167,4 @@ input[type="number"] {
     U+005B-0060, U+007B-007E;
 }
 
-/* @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Poppins:wght@400;500;600&display=swap"); */
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Poppins:wght@400;500;600;700&display=swap");
