@@ -133,7 +133,9 @@ function Visual({ data, visualTitle, visualSpan, bottom }: any) {
             <span>{fuel}</span>
             <span>{carNo}</span>
           </div>
-          <RegistTitle className="name">{`${makerNm} ${modelDetailNm} ${gradeNm} ${
+          <RegistTitle className="name">{`${makerNm ? makerNm : ""} ${
+            modelDetailNm ? modelDetailNm : ""
+          } ${gradeNm ? gradeNm : ""} ${
             gradeDetailNm ? gradeDetailNm : ""
           }`}</RegistTitle>
           <p className="price">{sellPrice} 원</p>
