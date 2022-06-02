@@ -76,6 +76,7 @@ function Step1({
     if (minutes === 0 && seconds === 0) {
       setActivate(false);
       setModalTxt("입력 시간이 지났습니다.");
+      setTime(false); // 시간초 끝나도 보이게 해야한다면 삭제
       setCloseModal(true);
       setValidation("");
       setAuthMessage(false);
@@ -221,14 +222,19 @@ function Step1({
                 className="input_margin_top"
                 type="tel"
                 pattern="\d*"
+                maxLength={6}
                 placeholder="인증번호를 입력해주세요"
                 value={validation}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  if (seconds === 0 && minutes === 0) {
+                  if (!time) {
                     setAuthMessage2(true);
-                  } else if (e.target.value.length <= 6) {
+                    return;
+                  } else {
                     setValidation(e.target.value.replace(/[^0-9]/g, ""));
                   }
+                  // else if (seconds === 0 && minutes === 0) {
+                  //   setAuthMessage2(true);
+                  // }
                 }}
                 onKeyDown={(e) => {
                   if (e.key === "Enter") e.preventDefault();
