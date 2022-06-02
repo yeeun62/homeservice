@@ -124,9 +124,8 @@ function Step1({
   }, [validation]);
 
   const authHandler = () => {
-    alert("인증번호가 발급되었습니다.");
-    // setModalTxt("인증번호가 발급되었습니다.");
-    // setCloseModal(true);
+    setModalTxt("인증번호가 발급되었습니다.");
+    setCloseModal(true);
     let authNumber = String(Math.random()).slice(2, 8);
     let crypto = CryptoJS.AES.encrypt(
       authNumber,
