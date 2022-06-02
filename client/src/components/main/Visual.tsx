@@ -71,6 +71,11 @@ const VisualWrap = styled.div<{ bottom: boolean }>`
     font-size: 20px;
     line-height: 30px;
     letter-spacing: -0.02em;
+
+    p {
+      font-weight: 700;
+      display: inline;
+    }
   }
 
   /* pc */
@@ -138,7 +143,9 @@ function Visual({ data, visualTitle, visualSpan, bottom }: any) {
           } ${gradeNm ? gradeNm : ""} ${
             gradeDetailNm ? gradeDetailNm : ""
           }`}</RegistTitle>
-          <p className="price">{sellPrice} 원</p>
+          <p className="price">
+            {sellPrice} <p>원</p>
+          </p>
         </div>
       </div>
     </VisualWrap>
