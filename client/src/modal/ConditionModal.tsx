@@ -16,6 +16,7 @@ const ConditionWrap = styled.div`
     text-align: left;
     display: flex;
     align-items: center;
+    font-weight: 700;
 
     img {
       width: 20px;
@@ -25,6 +26,10 @@ const ConditionWrap = styled.div`
     span {
       color: #0740e4;
       line-height: 54px;
+    }
+
+    @media screen and (min-width: 750px) {
+      font-size: 17px;
     }
   }
 
@@ -283,7 +288,7 @@ function ConditionModal({
           신청 완료를 위해 <br /> 아래 약관에 동의해주세요.
         </RegistTitle>
         <MainBtn
-          className="all_check_btn bold_text"
+          className="all_check_btn"
           type="button"
           backgrondColor={`${
             isChecked["all"] ? "rgba(7, 64, 228, 0.03)" : "#fff"

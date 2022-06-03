@@ -79,7 +79,7 @@ export const MainBtn = styled.button<{
     `}
 `;
 
-export const RegistForm = styled.form<{ tooltip?: boolean }>`
+export const RegistForm = styled.form<{ tooltip?: boolean; stepOne?: boolean }>`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -293,6 +293,10 @@ export const RegistForm = styled.form<{ tooltip?: boolean }>`
         }
       }
     }
+  }
+
+  @media screen and (max-width: 749px) {
+    margin-bottom: ${(p) => (p.stepOne ? "50px" : 0)};
   }
 `;
 
