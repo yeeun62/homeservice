@@ -168,7 +168,7 @@ function Step1({
         />
       </Modal>
       <RegistTitle>신청자 정보를 입력해 주세요</RegistTitle>
-      <RegistForm onSubmit={(e) => e.preventDefault()}>
+      <RegistForm onSubmit={(e) => e.preventDefault()} stepOne={true}>
         <label>
           <p>이름</p>
           <div className="input_div">
