@@ -90,7 +90,7 @@ export const RegistForm = styled.form<{ tooltip?: boolean; stepOne?: boolean }>`
     .tooltip {
       position: absolute;
       z-index: 100;
-      top: 26px;
+      top: 25px;
       left: -12px;
       opacity: ${(props) => (props.tooltip ? "1" : "0")};
       visibility: ${(props) => (props.tooltip ? "" : "hidden")};
@@ -274,8 +274,8 @@ export const RegistForm = styled.form<{ tooltip?: boolean; stepOne?: boolean }>`
       .tooltip {
         position: absolute;
         z-index: 100;
-        top: 28px;
-        left: 4px;
+        top: 26px;
+        left: 4.5px;
         opacity: ${(props) => (props.tooltip ? "1" : "0")};
         visibility: ${(props) => (props.tooltip ? "" : "hidden")};
         transition: ${(props) =>
