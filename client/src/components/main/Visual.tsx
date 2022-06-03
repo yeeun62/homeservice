@@ -130,7 +130,7 @@ function Visual({ data, visualTitle, visualSpan, bottom }: any) {
         {visualSpan && <span className="complete_title">{visualSpan}</span>}
       </RegistTitle>
       <div className="info_wrap">
-        {/* {imageUrl} */}
+        {/* <img src={imageUrl} alt="차량이미지" /> */}
         <img src="./img/1808801960R1 1.png" alt="차량이미지" />
         <div className="info_wrap_right">
           <div className="span_wrapper">

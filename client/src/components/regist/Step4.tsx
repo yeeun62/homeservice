@@ -26,7 +26,7 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
         if (res.status === 200) {
           setBankList(res.data.result);
         } else {
-          alert("문자 서버에러입니다. 관리자에 문의하세요.");
+          alert("서버오류입니다. 관리자에 문의하세요.");
           // console.log("bankList error");
         }
       });

@@ -3,7 +3,7 @@ import { StorageType } from "../App";
 
 const BankModalWrap = styled.div`
   width: 100%;
-  height: 390px;
+  height: 373px;
   max-width: 1200px;
   margin: 0 auto;
 
@@ -15,20 +15,9 @@ const BankModalWrap = styled.div`
     color: #101010;
   }
 
-  .bank {
-    border-bottom: 1px solid #ededed;
-    height: 54px;
-    display: flex;
-    align-items: center;
-  }
-
-  .bank_name {
-    padding-left: 24px;
-  }
-
   .bank_list {
+    background-color: #fff;
     height: 275px;
-    overflow: scroll;
     overflow: auto;
     cursor: pointer;
 
@@ -37,24 +26,42 @@ const BankModalWrap = styled.div`
     ::-webkit-scrollbar {
       display: none;
     }
+
+    .bank {
+      border-bottom: 1px solid #ededed;
+      height: 54px;
+      display: flex;
+      align-items: center;
+
+      .bank_name {
+        padding-left: 24px;
+      }
+    }
   }
 
   .bank_close {
+    background-color: transparent;
+    position: relative;
     display: flex;
     justify-content: end;
-    padding-right: 16px;
+    align-items: center;
     width: 100%;
-    height: 78px;
-    background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0) -5.32%,
-      #ffffff 21.62%
-    );
-    bottom: 0%;
+    height: 94px;
+
+    p {
+      padding-right: 24px;
+    }
+
+    .gradient {
+      position: absolute;
+      width: 100%;
+      top: -14%;
+      height: 18px;
+      background: linear-gradient(to top, #fff 20%, transparent);
+    }
 
     p {
       cursor: pointer;
-      margin-top: 32px;
       font-weight: 700;
     }
   }
@@ -110,6 +117,7 @@ function BankModal({
           })}
       </div>
       <div className="bank_close">
+        <div className="gradient"></div>
         <p onClick={() => setBankModal(false)}>닫기</p>
       </div>
     </BankModalWrap>
