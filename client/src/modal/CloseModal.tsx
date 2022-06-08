@@ -43,6 +43,7 @@ function CloseModal({
     setCloseModal(false);
     if (mainTxt === "홈서비스 신청을 취소하시겠습니까?") {
       localStorage.clear();
+      window.location.reload();
       // window.open(window.location.href, "_self")?.self.close();
       // mywindow = window.open("", "_self");
       // mywindow?.document.write(`<script>${mywindow.close()}</script>`);
