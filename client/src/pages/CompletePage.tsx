@@ -91,9 +91,9 @@ function CompletePage() {
   }, []);
 
   function completeHandler() {
-    localStorage.removeItem("localPage");
-    let close = window.open("");
-    if (close) close.close();
+    localStorage.clear();
+    // let close = window.open("");
+    // if (close) close.close();
   }
 
   return (

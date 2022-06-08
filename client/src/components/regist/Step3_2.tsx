@@ -249,6 +249,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
           </div>
           <div className="input_div">
             <input
+              tabIndex={1}
               type="text"
               placeholder="실명을 입력해주세요"
               autoFocus
@@ -263,6 +264,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
           <p>휴대전화 번호</p>
           <div className="input_div">
             <input
+              tabIndex={2}
               placeholder="숫자만 입력해주세요"
               type="tel"
               pattern="\d*"
@@ -297,6 +299,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
           >
             <div className="input_div">
               <input
+                tabIndex={3}
                 type="text"
                 placeholder="주소를 검색해주세요"
                 readOnly
@@ -314,6 +317,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
           <div style={{ position: "relative", marginTop: "12px" }}>
             <div className="input_div">
               <input
+                tabIndex={4}
                 className="input_margin_top"
                 type="text"
                 placeholder="상세주소를 입력해주세요"
@@ -334,6 +338,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
           <p>사업장명</p>
           <div className="input_div">
             <input
+              tabIndex={5}
               type="text"
               placeholder="사업장 이름을 입력해주세요"
               value={step3.business_name}
@@ -381,6 +386,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
           <div className="flex_form">
             <div className="input_div">
               <input
+                tabIndex={6}
                 type="text"
                 placeholder="주소를 검색해주세요"
                 readOnly
@@ -408,6 +414,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
           <div style={{ position: "relative", marginTop: "12px" }}>
             <div className="input_div">
               <input
+                tabIndex={7}
                 className="input_margin_top"
                 type="text"
                 placeholder="상세주소를 입력해주세요"
@@ -424,6 +431,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
           <p>사업자 등록번호</p>
           <div className="input_div">
             <input
+              tabIndex={8}
               placeholder="숫자만 입력해주세요"
               type="tel"
               pattern="\d*"
@@ -441,6 +449,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
           <p>세금계산서 발행 이메일 주소</p>
           <div className="input_div">
             <input
+              tabIndex={9}
               type="text"
               placeholder="help@charancha.com"
               value={step3.business_email}
