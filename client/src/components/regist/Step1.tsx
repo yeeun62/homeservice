@@ -212,6 +212,7 @@ function Step1({
             <RegistSubBtn
               onClick={() => inputComplete && authHandler()}
               backgrondColor={`${inputComplete ? "#0740E4" : "#C2C2C2"}`}
+              step1={true}
             >
               {time ? "인증번호 재전송" : "인증번호 전송"}
             </RegistSubBtn>

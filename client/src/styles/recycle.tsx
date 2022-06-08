@@ -15,6 +15,7 @@ export const RegistTitle = styled.div`
 
 export const RegistSubBtn = styled.button<{
   backgrondColor: string;
+  step1?: boolean;
 }>`
   @media screen and (min-width: 750px) {
     width: 117px;
@@ -31,6 +32,10 @@ export const RegistSubBtn = styled.button<{
   font-size: 13px;
   font-weight: 500;
   letter-spacing: -2%;
+
+  &:hover {
+    border: ${(props) => (props.step1 ? "1px inset #fff" : "")};
+  }
 `;
 
 export const MainBtn = styled.button<{
@@ -67,9 +72,11 @@ export const MainBtn = styled.button<{
     border: ${(props) =>
       props.border === "1px solid #ededed" || props.pay === false
         ? "1px solid #c2c2c2"
-        : props.border === "1px solid rgba(23, 23, 24, 0.1)" || props.pay
+        : props.border === "1px solid rgba(7, 64, 228, 0.1)" || props.pay
         ? "1px solid rgba(7, 64, 228, 0.3)"
-        : "1px solid" + props.border};
+        : props.border === "none"
+        ? "1px inset #fff"
+        : props.border};
   }
 
   ${(props) =>
