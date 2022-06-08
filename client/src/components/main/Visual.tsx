@@ -74,9 +74,15 @@ const VisualWrap = styled.div<{ bottom: boolean }>`
     letter-spacing: -0.02em;
   }
 
+  .price {
+    position: relative;
+  }
+
   .price span {
     font-weight: 700;
-    display: inline;
+    position: absolute;
+    bottom: 1px;
+    right: -35px;
   }
 
   /* pc */
