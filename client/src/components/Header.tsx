@@ -67,6 +67,7 @@ function Header({
         overlayClassName="overlay"
         className="close_modal"
         ariaHideApp={false}
+        shouldCloseOnOverlayClick={false}
       >
         <CloseModal
           setCloseModal={setCloseModal}

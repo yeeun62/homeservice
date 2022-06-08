@@ -160,6 +160,7 @@ function Step1({
         overlayClassName="overlay"
         className="close_modal"
         ariaHideApp={false}
+        shouldCloseOnOverlayClick={false}
       >
         <CloseModal
           setCloseModal={setCloseModal}

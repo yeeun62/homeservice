@@ -271,6 +271,7 @@ function ConditionModal({
         overlayClassName="overlay"
         className="condition_sub_modal"
         ariaHideApp={false}
+        shouldCloseOnOverlayClick={false}
       >
         <ConditionSubModal
           subModal={subModal}

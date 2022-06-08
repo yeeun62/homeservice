@@ -280,7 +280,7 @@ function PriceInfo({ data, priceData, priceTxt, tooltip, setTooltip }: any) {
             </ul>
           </li>
           <li>
-            <p className="price_list_title">배송비</p>
+            <p className="price_list_title">배송비(VAT 별도)</p>
             <span className="price_list_value">44,000~159,000원</span>
           </li>
           <div className="underline"></div>
