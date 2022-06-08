@@ -16,10 +16,12 @@ function Step1({
   const [time, setTime] = useState<boolean>(false);
   const [authMessage, setAuthMessage] = useState<boolean>(false);
   const [authMessage2, setAuthMessage2] = useState<boolean>(false);
+  const [authMessage3, setAuthMessage3] = useState<boolean>(false);
   const [inputComplete, setInputComplete] = useState<boolean>(false);
   const [salt, setSalt] = useState<any>("");
   const [minutes, setMinutes] = useState<any>(3);
   const [seconds, setSeconds] = useState<any>(0);
+  const [resendCount, setResendCount] = useState(true);
   const [localData, setLocalData] = useState<any>();
   const [validation, setValidation] = useState<string>("");
   const [closeModal, setCloseModal] = useState(false);
@@ -125,31 +127,39 @@ function Step1({
   }, [validation]);
 
   const authHandler = () => {
-    setModalTxt("인증번호가 발급되었습니다.");
-    setCloseModal(true);
-    let authNumber = String(Math.random()).slice(2, 8);
-    let crypto = CryptoJS.AES.encrypt(
-      authNumber,
-      `${process.env.REACT_APP_SALT}`
-    ).toString();
+    if (resendCount || (minutes === 2 && seconds <= 54) || minutes < 2) {
+      setResendCount(false);
+      setModalTxt("인증번호가 발급되었습니다.");
+      setCloseModal(true);
+      let authNumber = String(Math.random()).slice(2, 8);
+      let crypto = CryptoJS.AES.encrypt(
+        authNumber,
+        `${process.env.REACT_APP_SALT}`
+      ).toString();
 
-    axios
-      .post(
-        `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_URL}:${process.env.REACT_APP_PORT}/api/handle/ppurio/sendmessage`,
-        {
-          phone: step1.customer_hphone,
-          security: authNumber, // 암호화시 crypto로 변경
-        }
-      )
-      .then((result) => {});
-    // setSalt(crypto);
-    setSalt(authNumber);
-    setTime(true);
-    setMinutes(3);
-    setSeconds(0);
-    setValidation("");
-    setAuthMessage(false);
-    setAuthMessage2(false);
+      axios
+        .post(
+          `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_URL}:${process.env.REACT_APP_PORT}/api/handle/ppurio/sendmessage`,
+          {
+            phone: step1.customer_hphone,
+            security: authNumber, // 암호화시 crypto로 변경
+          }
+        )
+        .then((result) => {});
+
+      // setSalt(crypto);
+      setSalt(authNumber);
+      setTime(true);
+      setMinutes(3);
+      setSeconds(0);
+      setValidation("");
+      setAuthMessage(false);
+      setAuthMessage2(false);
+      setAuthMessage3(false);
+    } else {
+      setAuthMessage(false);
+      setAuthMessage3(true);
+    }
   };
 
   return (
@@ -231,6 +241,7 @@ function Step1({
                 placeholder="인증번호를 입력해주세요"
                 value={validation}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  setAuthMessage3(false);
                   if (!time) {
                     setAuthMessage2(true);
                     return;
@@ -257,6 +268,11 @@ function Step1({
           )}
           {authMessage2 && (
             <p className="certi_warning">인증번호 전송을 눌러주세요.</p>
+          )}
+          {authMessage3 && (
+            <p className="certi_warning">
+              재전송은 5초가 지난 후에 가능합니다.
+            </p>
           )}
         </label>
       </RegistForm>
