@@ -61,6 +61,7 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
         overlayClassName="overlay"
         className="bottom_modal"
         ariaHideApp={false}
+        shouldCloseOnOverlayClick={false}
       >
         <BankModal
           setBankModal={setBankModal}

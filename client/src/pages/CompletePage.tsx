@@ -92,8 +92,6 @@ function CompletePage() {
 
   function completeHandler() {
     localStorage.clear();
-    // let close = window.open("");
-    // if (close) close.close();
   }
 
   return (

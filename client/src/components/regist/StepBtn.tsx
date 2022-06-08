@@ -89,6 +89,7 @@ function StepBtn({
         overlayClassName="overlay"
         className="bottom_modal"
         ariaHideApp={false}
+        shouldCloseOnOverlayClick={false}
       >
         <ConditionModal
           setConditionModal={setConditionModal}

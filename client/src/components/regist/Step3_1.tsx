@@ -76,6 +76,7 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
         overlayClassName="overlay"
         className="post_code_modal"
         ariaHideApp={false}
+        shouldCloseOnOverlayClick={false}
       >
         <AddressModal
           postCodeHandler={postCodeHandler}
