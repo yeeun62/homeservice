@@ -91,7 +91,7 @@ function CompletePage() {
   }, []);
 
   function completeHandler() {
-    localStorage.removeItem("localPage");
+    localStorage.clear();
   }
 
   return (
