@@ -34,7 +34,7 @@ export const RegistSubBtn = styled.button<{
   letter-spacing: -2%;
 
   &:hover {
-    border: ${(props) => (props.step1 ? "1px inset #fff" : "")};
+    border: ${(props) => (props.step1 ? "1px solid #fff" : "")};
   }
 `;
 
@@ -75,7 +75,7 @@ export const MainBtn = styled.button<{
         : props.border === "1px solid rgba(7, 64, 228, 0.1)" || props.pay
         ? "1px solid rgba(7, 64, 228, 0.3)"
         : props.border === "none"
-        ? "1px inset #fff"
+        ? "1px solid #fff"
         : props.border};
   }
 
@@ -380,8 +380,6 @@ export const Tooltip = styled.div`
   font-weight: 400;
   font-size: 11px;
   letter-spacing: -0.02em;
-  position: absolute;
-  animation: fadein 1s;
 
   ::after {
     content: "";
@@ -394,24 +392,6 @@ export const Tooltip = styled.div`
     top: 1%;
     left: 50%;
     transform: translate(-50%, -100%);
-  }
-
-  @keyframes fadein {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  @keyframes fadeout {
-    from {
-      opacity: 1;
-    }
-    to {
-      opacity: 0;
-    }
   }
 `;
 
