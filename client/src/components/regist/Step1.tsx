@@ -173,6 +173,7 @@ function Step1({
           <p>이름</p>
           <div className="input_div">
             <input
+              tabIndex={1}
               type="text"
               value={step1.customer_name}
               placeholder="실명을 입력해주세요"
@@ -192,6 +193,7 @@ function Step1({
           <div className="flex_form">
             <div className="input_div">
               <input
+                tabIndex={2}
                 placeholder="숫자만 입력해주세요"
                 type="tel"
                 pattern="\d*"
@@ -220,6 +222,7 @@ function Step1({
           <div style={{ position: "relative", marginTop: "12px" }}>
             <div className="input_div">
               <input
+                tabIndex={3}
                 className="input_margin_top"
                 type="tel"
                 pattern="\d*"
