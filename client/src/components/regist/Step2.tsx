@@ -93,7 +93,10 @@ function Step2({ setActivate, setStorageData, storageData }: Step2Props) {
         <RegistTypeBtn
           key={type}
           choice={storageData.step2.index === index + 2 && true}
-          onClick={() => storageHandler(index + 2)}
+          onClick={(e) => {
+            storageHandler(index + 2);
+            e.currentTarget.blur();
+          }}
         >
           {type}
         </RegistTypeBtn>
