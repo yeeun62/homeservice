@@ -251,9 +251,9 @@ function ConditionModal({
         .then((result) => {
           if (result.data.status === 200) {
             setPage("2");
-            localStorage.removeItem("sell");
-            localStorage.removeItem("localStep");
-            localStorage.removeItem("localPage");
+            // localStorage.removeItem("sell");
+            // localStorage.removeItem("localStep");
+            // localStorage.removeItem("localPage");
           }
         })
         .catch((err) => {

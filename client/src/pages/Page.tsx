@@ -58,12 +58,12 @@ function Page({
     }
   }, [localStep]);
 
-  useEffect(() => {
-    let curPage = localStorage.getItem("localPage");
-    if (curPage) {
-      setPage(curPage);
-    }
-  }, []);
+  // useEffect(() => {
+  //   let curPage = localStorage.getItem("localPage");
+  //   if (curPage) {
+  //     setPage(curPage);
+  //   }
+  // }, []);
 
   return (
     <>
