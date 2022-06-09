@@ -129,33 +129,33 @@ function App() {
     }
   }, [data]);
 
-  // useEffect(() => {
-  //   if (data) {
-  //     let localData = localStorage.getItem(data.simpleCar.sellNo);
-  //     let localStep = localStorage.getItem("localStep");
-  //     if (localData && localStep) {
-  //       setStorageData(JSON.parse(localData));
-  //       setLocalStep(localStep);
-  //     } else {
-  //       setStorageData({
-  //         sellNo: data.simpleCar.sellNo,
-  //         payment_cd: "",
-  //         step1: {
-  //           customer_name: "",
-  //           customer_hphone: "",
-  //         },
-  //         step2: { nominee_cd: "", index: 1 },
-  //         step3: "",
-  //         step4: {
-  //           bank: { name: "", refund_bank_cd: "" },
-  //           refund_accout_name: "",
-  //           refund_accout_number: "",
-  //         },
-  //       });
-  //       setLocalStep("0");
-  //     }
-  //   }
-  // }, [data]);
+  useEffect(() => {
+    if (data) {
+      let localData = localStorage.getItem(data.simpleCar.sellNo);
+      let localStep = localStorage.getItem("localStep");
+      if (localData && localStep) {
+        setStorageData(JSON.parse(localData));
+        setLocalStep(localStep);
+      } else {
+        setStorageData({
+          sellNo: data.simpleCar.sellNo,
+          payment_cd: "",
+          step1: {
+            customer_name: "",
+            customer_hphone: "",
+          },
+          step2: { nominee_cd: "", index: 1 },
+          step3: "",
+          step4: {
+            bank: { name: "", refund_bank_cd: "" },
+            refund_accout_name: "",
+            refund_accout_number: "",
+          },
+        });
+        setLocalStep("0");
+      }
+    }
+  }, [data]);
 
   return (
     <AppWrap>
