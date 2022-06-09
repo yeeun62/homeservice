@@ -155,11 +155,7 @@ function Step1({
         ariaHideApp={false}
         shouldCloseOnOverlayClick={false}
       >
-        <CloseModal
-          setCloseModal={setCloseModal}
-          data={data}
-          mainTxt={modalTxt}
-        />
+        <CloseModal setCloseModal={setCloseModal} mainTxt={modalTxt} />
       </Modal>
       <RegistTitle>신청자 정보를 입력해 주세요</RegistTitle>
       <RegistForm onSubmit={(e) => e.preventDefault()} stepOne={true}>
