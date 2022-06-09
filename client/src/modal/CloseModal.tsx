@@ -42,7 +42,7 @@ function CloseModal({
   const closePopup = () => {
     setCloseModal(false);
     if (mainTxt === "홈서비스 신청을 취소하시겠습니까?") {
-      window.opener.closeHomeservice();
+      window.close();
     }
   };
 

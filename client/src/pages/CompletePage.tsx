@@ -63,7 +63,7 @@ const CompleteWrap = styled(PageWrap)`
 
 function CompletePage({ data }: any) {
   function completeHandler() {
-    window.opener.closeHomeservice();
+    window.close();
   }
 
   return (
