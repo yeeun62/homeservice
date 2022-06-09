@@ -46,7 +46,7 @@ function MainPage({
 
   function setStorage(): void {
     if (storageData.payment_cd) {
-      localStorage.setItem(storageData.sellNo, JSON.stringify(storageData));
+      localStorage.setItem("sell", JSON.stringify(storageData));
       localStorage.setItem("localStep", "0");
       localStorage.setItem("localPage", "1");
       setLocalStep("0");
@@ -60,7 +60,11 @@ function MainPage({
       <Introduce introduceMSG={introduceMSG} />
       <PageWrap>
         <div>
-          <Visual data={data} visualTitle="안전하게 배송해드리겠습니다" />
+          <Visual
+            data={data}
+            visualTitle="안전하게 배송해 드리겠습니다"
+            bottom={false}
+          />
           <PriceInfo
             tooltip={tooltip}
             setTooltip={setTooltip}

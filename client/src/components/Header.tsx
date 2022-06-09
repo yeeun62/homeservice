@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import Progress from "./regist/Progress";
 import { RegistTitle } from "../styles/recycle";
@@ -7,19 +7,18 @@ import CloseModal from "../modal/CloseModal";
 import "../modal/modal.css";
 
 const HeaderWrapper = styled.div`
-  position: sticky;
-  top: 0;
-  z-index: 100;
   background-color: #fff;
   display: flex;
   align-items: center;
   width: 100%;
   height: 56px;
+  position: relative;
 
   .close {
-    width: 38px;
-    height: 38px;
-    margin-left: 8px;
+    width: 10px;
+    height: 10px;
+    margin-left: 18px;
+    margin-right: 10px;
   }
 
   .beta {
@@ -40,6 +39,12 @@ const HeaderWrapper = styled.div`
     .header_title {
       margin-left: 32px;
     }
+  }
+
+  @media screen and (max-width: 749px) {
+    position: sticky;
+    top: 0;
+    z-index: 100;
   }
 `;
 
@@ -62,13 +67,18 @@ function Header({
         overlayClassName="overlay"
         className="close_modal"
         ariaHideApp={false}
+        shouldCloseOnOverlayClick={false}
       >
-        <CloseModal setCloseModal={setCloseModal} data={data} />
+        <CloseModal
+          setCloseModal={setCloseModal}
+          data={data}
+          mainTxt="홈서비스 신청을 취소하시겠습니까?"
+        />
       </Modal>
       <HeaderWrapper>
         <img
           className="close"
-          src="./img/icon_header_cancel_circle.svg"
+          src="./img/close.svg"
           alt="닫기버튼"
           onClick={() => setCloseModal(true)}
         />

@@ -15,6 +15,7 @@ export const RegistTitle = styled.div`
 
 export const RegistSubBtn = styled.button<{
   backgrondColor: string;
+  step1?: boolean;
 }>`
   @media screen and (min-width: 750px) {
     width: 117px;
@@ -31,6 +32,10 @@ export const RegistSubBtn = styled.button<{
   font-size: 13px;
   font-weight: 500;
   letter-spacing: -2%;
+
+  &:hover {
+    border: ${(props) => (props.step1 ? "1px solid #fff" : "")};
+  }
 `;
 
 export const MainBtn = styled.button<{
@@ -67,9 +72,11 @@ export const MainBtn = styled.button<{
     border: ${(props) =>
       props.border === "1px solid #ededed" || props.pay === false
         ? "1px solid #c2c2c2"
-        : props.border === "1px solid rgba(23, 23, 24, 0.1)" || props.pay
+        : props.border === "1px solid rgba(7, 64, 228, 0.1)" || props.pay
         ? "1px solid rgba(7, 64, 228, 0.3)"
-        : "1px solid" + props.border};
+        : props.border === "none"
+        ? "1px solid #fff"
+        : props.border};
   }
 
   ${(props) =>
@@ -79,19 +86,10 @@ export const MainBtn = styled.button<{
     `}
 `;
 
-export const RegistForm = styled.form<{ tooltip?: boolean }>`
+export const RegistForm = styled.form<{ tooltip?: boolean; stepOne?: boolean }>`
   display: flex;
   flex-direction: column;
   width: 100%;
-
-  @media screen and( min-width: 750px ) {
-    label {
-      p {
-        font-size: 15px;
-        line-height: 22px;
-      }
-    }
-  }
 
   label {
     margin-bottom: 32px;
@@ -99,8 +97,8 @@ export const RegistForm = styled.form<{ tooltip?: boolean }>`
     .tooltip {
       position: absolute;
       z-index: 100;
-      top: 26px;
-      left: -10px;
+      top: 25px;
+      left: -12px;
       opacity: ${(props) => (props.tooltip ? "1" : "0")};
       visibility: ${(props) => (props.tooltip ? "" : "hidden")};
       transition: ${(props) =>
@@ -131,8 +129,8 @@ export const RegistForm = styled.form<{ tooltip?: boolean }>`
       display: flex;
 
       img {
-        width: 20px;
-        height: 20px;
+        width: 15px;
+        height: 18px;
         margin-left: 5px;
       }
     }
@@ -150,7 +148,7 @@ export const RegistForm = styled.form<{ tooltip?: boolean }>`
         border-bottom: 2px solid #ededed;
         padding-bottom: 6px;
         color: #101010;
-        font-weight: 700;
+        font-weight: 600;
         font-size: 17px;
         line-height: 25px;
 
@@ -196,7 +194,7 @@ export const RegistForm = styled.form<{ tooltip?: boolean }>`
 
         img {
           width: 16px;
-          height: 20px;
+          height: 17px;
         }
 
         p {
@@ -232,7 +230,6 @@ export const RegistForm = styled.form<{ tooltip?: boolean }>`
       position: absolute;
       bottom: 0;
       right: 0;
-      font-family: "Poppins";
       font-size: 15px;
       font-weight: 400;
       color: #707070;
@@ -260,7 +257,6 @@ export const RegistForm = styled.form<{ tooltip?: boolean }>`
 
       p {
         color: #fff;
-        font-family: "Poppins";
         font-weight: 600;
         font-size: 11px;
       }
@@ -278,6 +274,36 @@ export const RegistForm = styled.form<{ tooltip?: boolean }>`
   .input_focus {
     color: #101010;
     border-color: #3c3c3c;
+  }
+
+  @media screen and (min-width: 750px) {
+    label {
+      .tooltip {
+        position: absolute;
+        z-index: 100;
+        top: 26px;
+        left: 4.5px;
+        opacity: ${(props) => (props.tooltip ? "1" : "0")};
+        visibility: ${(props) => (props.tooltip ? "" : "hidden")};
+        transition: ${(props) =>
+          props.tooltip ? "opacity 700ms" : "opacity 500ms , visibility 500ms"};
+      }
+
+      p {
+        font-size: 15px;
+        line-height: 22px;
+
+        img {
+          width: 17px;
+          height: 19px;
+          margin-left: 8px;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    margin-bottom: ${(p) => (p.stepOne ? "50px" : 0)};
   }
 `;
 
@@ -301,13 +327,20 @@ export const Footer = styled.div`
   bottom: 0;
   left: 50%;
   transform: translate(-50%, 0);
-  background-color: #fff;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.5) 11.82%,
+    rgba(255, 255, 255, 0.8) 19.81%,
+    #ffffff 29.02%
+  );
   z-index: 100;
   max-width: 1200px;
 
   div {
     display: flex;
     align-items: flex-end;
+    justify-content: space-between;
   }
 
   @media screen and (max-width: 749px) {
@@ -347,8 +380,6 @@ export const Tooltip = styled.div`
   font-weight: 400;
   font-size: 11px;
   letter-spacing: -0.02em;
-  position: absolute;
-  animation: fadein 1s;
 
   ::after {
     content: "";
@@ -362,28 +393,10 @@ export const Tooltip = styled.div`
     left: 50%;
     transform: translate(-50%, -100%);
   }
-
-  @keyframes fadein {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  @keyframes fadeout {
-    from {
-      opacity: 1;
-    }
-    to {
-      opacity: 0;
-    }
-  }
 `;
 
 export const PublicCheck = styled.div`
-  margin-top: 68px;
+  margin-top: 8px;
 
   div {
     display: flex;
@@ -398,7 +411,7 @@ export const PublicCheck = styled.div`
   p {
     font-weight: 500;
     font-size: 15px;
-    line-height: 18px;
+    line-height: 21px;
     letter-spacing: -0.02em;
     color: #707070;
   }

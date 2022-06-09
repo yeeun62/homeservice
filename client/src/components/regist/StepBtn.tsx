@@ -1,17 +1,9 @@
 import { useEffect, useState } from "react";
-import styled from "styled-components";
 import { MainBtn, Footer } from "../../styles/recycle";
 import ConditionModal from "../../modal/ConditionModal";
 import Modal from "react-modal";
 import "../../modal/modal.css";
 import { StorageType } from "../../App";
-
-const StepBtnWrap = styled(Footer)`
-  div {
-    display: flex;
-    justify-content: space-between;
-  }
-`;
 
 interface StepBtnProps {
   step: number;
@@ -75,12 +67,12 @@ function StepBtn({
       setLocalStep("1");
     } else if (localStep === "1") {
       setLocalStep(String(storageData.step2.index));
-      localStorage.setItem(storageData.sellNo, JSON.stringify(storageData));
+      localStorage.setItem("sell", JSON.stringify(storageData));
       return;
     } else if (localStep === "2" || localStep === "3" || localStep === "4") {
       setLocalStep("5");
     }
-    localStorage.setItem(storageData.sellNo, JSON.stringify(storageData));
+    localStorage.setItem("sell", JSON.stringify(storageData));
   };
 
   const conditionModalHandler = () => {
@@ -97,6 +89,7 @@ function StepBtn({
         overlayClassName="overlay"
         className="bottom_modal"
         ariaHideApp={false}
+        shouldCloseOnOverlayClick={false}
       >
         <ConditionModal
           setConditionModal={setConditionModal}
@@ -104,7 +97,7 @@ function StepBtn({
           setPage={setPage}
         />
       </Modal>
-      <StepBtnWrap>
+      <Footer>
         <div>
           <MainBtn
             backgrondColor=" rgba(7, 64, 228, 0.03)"
@@ -128,7 +121,7 @@ function StepBtn({
             {localStep === "5" ? "약관동의" : "다음"}
           </MainBtn>
         </div>
-      </StepBtnWrap>
+      </Footer>
     </>
   );
 }

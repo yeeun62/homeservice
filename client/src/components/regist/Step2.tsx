@@ -54,83 +54,35 @@ function Step2({ setActivate, setStorageData, storageData }: Step2Props) {
   }, [storageData.step2]);
 
   useEffect(() => {
-    let changeData: any = localStorage.getItem(storageData.sellNo);
+    let changeData: any = localStorage.getItem("sell");
     setStorageData(JSON.parse(changeData));
   }, []);
 
   const storageHandler = (index: number) => {
-    if (index === 2) {
-      setStorageData((storageData) => ({
-        ...storageData,
-        step2: { index, nominee_cd: "HOME_NOMINEE_001" },
-        step3: {
-          nominee_name: "",
-          nominee_hphone: "",
-          nominee_reduction_joint: false,
-          address: {
-            nominee_address_post: "",
-            nominee_address_road: "",
-            nominee_address_jibun: "",
-            nominee_address: "",
-          },
-          address2: {
-            business_address_post: "",
-            business_address_road: "",
-            business_address_jibun: "",
-            business_address: "",
-          },
+    setStorageData((storageData) => ({
+      ...storageData,
+      step2: { index, nominee_cd: `HOME_NOMINEE_00${index - 1}` },
+      step3: {
+        nominee_name: "",
+        nominee_hphone: "",
+        nominee_reduction_joint: false,
+        address: {
+          nominee_address_post: "",
+          nominee_address_road: "",
+          nominee_address_jibun: "",
+          nominee_address: "",
         },
-      }));
-    } else if (index === 3) {
-      setStorageData((storageData) => ({
-        ...storageData,
-        step2: { index, nominee_cd: "HOME_NOMINEE_002" },
-        step3: {
-          nominee_name: "",
-          nominee_hphone: "",
-          nominee_reduction_joint: false,
-          address: {
-            nominee_address_post: "",
-            nominee_address_road: "",
-            nominee_address_jibun: "",
-            nominee_address: "",
-          },
-          address2: {
-            business_address_post: "",
-            business_address_road: "",
-            business_address_jibun: "",
-            business_address: "",
-          },
-          business_name: "",
-          business_number: "",
-          business_email: "",
+        address2: {
+          business_address_post: "",
+          business_address_road: "",
+          business_address_jibun: "",
+          business_address: "",
         },
-      }));
-    } else if (index === 4) {
-      setStorageData((storageData) => ({
-        ...storageData,
-        step2: { index, nominee_cd: "HOME_NOMINEE_003" },
-        step3: {
-          nominee_name: "",
-          nominee_hphone: "",
-          address: {
-            nominee_address_post: "",
-            nominee_address_road: "",
-            nominee_address_jibun: "",
-            nominee_address: "",
-          },
-          address2: {
-            business_address_post: "",
-            business_address_road: "",
-            business_address_jibun: "",
-            business_address: "",
-          },
-          business_name: "",
-          business_number: "",
-          business_email: "",
-        },
-      }));
-    }
+        business_name: "",
+        business_number: "",
+        business_email: "",
+      },
+    }));
     setActivate(true);
   };
 
@@ -141,7 +93,10 @@ function Step2({ setActivate, setStorageData, storageData }: Step2Props) {
         <RegistTypeBtn
           key={type}
           choice={storageData.step2.index === index + 2 && true}
-          onClick={() => storageHandler(index + 2)}
+          onClick={(e) => {
+            storageHandler(index + 2);
+            e.currentTarget.blur();
+          }}
         >
           {type}
         </RegistTypeBtn>

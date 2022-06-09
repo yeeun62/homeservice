@@ -16,6 +16,17 @@ const CompleteWrap = styled(PageWrap)`
     left: 50vw;
     width: 100%;
     transform: translate(-50%);
+    animation: lottie 1.3s;
+    animation-fill-mode: forwards;
+
+    @keyframes lottie {
+      from {
+        visibility: visible;
+      }
+      to {
+        visibility: hidden;
+      }
+    }
   }
 
   .complete_footer {
@@ -47,6 +58,10 @@ const CompleteWrap = styled(PageWrap)`
       margin-right: 8px;
     }
   }
+
+  @media screen and (min-width: 750px) {
+    border-top: 1px solid #d9d9d9;
+  }
 `;
 
 function CompletePage() {
@@ -76,9 +91,7 @@ function CompletePage() {
   }, []);
 
   function completeHandler() {
-    localStorage.removeItem("localPage");
-    let close = window.open("");
-    if (close) close.close();
+    localStorage.clear();
   }
 
   return (
@@ -100,6 +113,7 @@ function CompletePage() {
                 data={data}
                 visualTitle="신청 완료되었습니다!"
                 visualSpan={`차량이 고객님께 빠르게 배송될 수 있도록 \n 신청하신 내용을 확인 후 상담원이 연락 드리겠습니다.`}
+                bottom={true}
               />
               <div className="complete_footer">
                 <p>홈서비스에 대한 궁금하신 사항은 고객센터로 문의해주세요.</p>
