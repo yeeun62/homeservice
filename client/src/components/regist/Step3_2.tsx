@@ -24,10 +24,10 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const inputRefBusiness = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    let changeData: any = localStorage.getItem("sell");
-    setStorageData(JSON.parse(changeData));
-  }, []);
+  // useEffect(() => {
+  //   let changeData: any = localStorage.getItem("sell");
+  //   setStorageData(JSON.parse(changeData));
+  // }, []);
 
   // 주소동일체크시 주소 바뀔때 체크 해제함수
   useEffect(() => {

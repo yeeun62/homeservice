@@ -28,18 +28,18 @@ function Step1({
   const [modalTxt, setModalTxt] =
     useState<string>("인증번호가 발급되었습니다.");
 
-  useEffect(() => {
-    let changeData: any = localStorage.getItem("sell");
-    setStorageData(JSON.parse(changeData));
-  }, []);
+  // useEffect(() => {
+  //   let changeData: any = localStorage.getItem("sell");
+  //   setStorageData(JSON.parse(changeData));
+  // }, []);
 
   // localstorage 데이터 state에 저장
-  useEffect(() => {
-    let originData: any = localStorage.getItem("sell");
-    if (originData) {
-      setLocalData(JSON.parse(originData));
-    }
-  }, []);
+  // useEffect(() => {
+  //   let originData: any = localStorage.getItem("sell");
+  //   if (originData) {
+  //     setLocalData(JSON.parse(originData));
+  //   }
+  // }, []);
 
   // localstorage 모바일이 11자라면 다음버튼 활성화
   useEffect(() => {
