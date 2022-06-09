@@ -17,8 +17,8 @@ interface PageProps {
   setStep: React.Dispatch<React.SetStateAction<number>>;
   storageData: StorageType;
   setStorageData: React.Dispatch<React.SetStateAction<StorageType>>;
-  localStep: string;
-  setLocalStep: React.Dispatch<React.SetStateAction<string>>;
+  localStep: number;
+  setLocalStep: React.Dispatch<React.SetStateAction<number>>;
   data: any;
   introduceMSG: string;
   priceData: any;
@@ -45,7 +45,7 @@ function Page({
   priceTxt,
 }: PageProps) {
   const [activate, setActivate] = useState<boolean>(false);
-  const [page, setPage] = useState<string>("0");
+  const [page, setPage] = useState<number>(0);
 
   useEffect(() => {
     let input: any = document.getElementsByTagName("input");
@@ -57,13 +57,6 @@ function Page({
       });
     }
   }, [localStep]);
-
-  // useEffect(() => {
-  //   let curPage = localStorage.getItem("localPage");
-  //   if (curPage) {
-  //     setPage(curPage);
-  //   }
-  // }, []);
 
   return (
     <>
@@ -115,7 +108,7 @@ function Page({
                     setStorageData={setStorageData}
                     storageData={storageData}
                   />,
-                ][Number(localStep)]
+                ][localStep]
               }
             </PageWrap>
             <StepBtn
@@ -128,8 +121,8 @@ function Page({
               setPage={setPage}
             />
           </>,
-          <CompletePage />,
-        ][Number(page)]
+          <CompletePage data={data} />,
+        ][page]
       }
     </>
   );

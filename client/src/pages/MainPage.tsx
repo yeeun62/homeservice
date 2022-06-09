@@ -17,13 +17,13 @@ function MainPage({
   setPage,
 }: {
   data: any;
-  setLocalStep: React.Dispatch<React.SetStateAction<string>>;
+  setLocalStep: React.Dispatch<React.SetStateAction<number>>;
   storageData: StorageType;
   setStorageData: React.Dispatch<React.SetStateAction<StorageType>>;
   introduceMSG: string;
   priceData: any;
   priceTxt: any;
-  setPage: React.Dispatch<React.SetStateAction<string>>;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
 }) {
   const [tooltip, setTooltip] = useState<boolean>(false);
 
@@ -46,12 +46,8 @@ function MainPage({
 
   function setStorage(): void {
     if (storageData.payment_cd) {
-      // localStorage.setItem("sell", JSON.stringify(storageData));
-      // localStorage.setItem("localStep", "0");
-      // localStorage.setItem("localPage", "1");
-      setLocalStep("0");
-      setPage("1");
-      // localStorage.setItem("localPage", "1");
+      setLocalStep(0);
+      setPage(1);
     } else return;
   }
 

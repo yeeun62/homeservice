@@ -22,47 +22,30 @@ function Step1({
   const [minutes, setMinutes] = useState<any>(3);
   const [seconds, setSeconds] = useState<any>(0);
   const [resendCount, setResendCount] = useState(true);
-  const [localData, setLocalData] = useState<any>();
   const [validation, setValidation] = useState<string>("");
   const [closeModal, setCloseModal] = useState(false);
   const [modalTxt, setModalTxt] =
     useState<string>("인증번호가 발급되었습니다.");
+  const [phone, setPhone] = useState<any>("");
 
-  // useEffect(() => {
-  //   let changeData: any = localStorage.getItem("sell");
-  //   setStorageData(JSON.parse(changeData));
-  // }, []);
-
-  // localstorage 데이터 state에 저장
-  // useEffect(() => {
-  //   let originData: any = localStorage.getItem("sell");
-  //   if (originData) {
-  //     setLocalData(JSON.parse(originData));
-  //   }
-  // }, []);
-
-  // localstorage 모바일이 11자라면 다음버튼 활성화
   useEffect(() => {
-    if (localData && localData.step1.customer_hphone.length === 11) {
-      setActivate(true);
+    let phoneNumber = localStorage.getItem("phone");
+    if (phoneNumber) {
+      setPhone(phoneNumber);
     }
-  }, [localData]);
+  }, []);
 
-  // 모바일 인풋이 변경될때마다 스토리지의모바일 데이터와 다르다면 다음버튼 비활성화
   useEffect(() => {
-    if (localData) {
-      if (
-        localData.step1.customer_hphone !== storageData.step1.customer_hphone
-      ) {
-        setActivate(false);
-      } else if (
-        localData.step1.customer_hphone.length &&
-        localData.step1.customer_hphone === storageData.step1.customer_hphone
-      ) {
+    if (phone) {
+      if (phone === storageData.step1.customer_hphone) {
         setActivate(true);
+      } else {
+        setActivate(false);
       }
+    } else {
+      setActivate(false);
     }
-  }, [step1, localData]);
+  }, [step1, phone]);
 
   // 이름과 모바일이 채워져있다면 인증번호 전송 활성화
   useEffect(() => {
@@ -248,9 +231,6 @@ function Step1({
                   } else {
                     setValidation(e.target.value.replace(/[^0-9]/g, ""));
                   }
-                  // else if (seconds === 0 && minutes === 0) {
-                  //   setAuthMessage2(true);
-                  // }
                 }}
                 onKeyDown={(e) => {
                   if (e.key === "Enter") e.preventDefault();

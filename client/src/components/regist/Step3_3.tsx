@@ -13,11 +13,6 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
   const step3 = storageData.step3;
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // useEffect(() => {
-  //   let changeData: any = localStorage.getItem("sell");
-  //   setStorageData(JSON.parse(changeData));
-  // }, []);
-
   useEffect(() => {
     if (emailBlur) {
       setEmailValidation(validationEmail());

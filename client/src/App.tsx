@@ -36,7 +36,7 @@ export interface StorageType {
 
 function App() {
   const [step, setStep] = useState<number>(0);
-  const [localStep, setLocalStep] = useState<string>("0");
+  const [localStep, setLocalStep] = useState<number>(0);
   const [data, setData] = useState<any>();
   const [storageData, setStorageData] = useState<any>();
   const [introduceMSG, setIntroduceMSG] = useState<string>("");
@@ -97,6 +97,7 @@ function App() {
             "견적금액은 배송비에 의해 변동될 수 있습니다.(배송비 최대금액 159,000원으로 계산 선반영되었습니다.",
             "배송비는 차량 출발지와 도착지 거리에 따라 책정되며, 상담단계에서 확정됩니다.",
             "이전비는 차액 발생 시 계좌로 환급해드립니다.",
+            "위 예상 합계 금액은 성능보증보험료가 제외된 금액으로 차량마다 보험료가 다를 수 있어서 신청 이후에 상담사가 안내해 드립니다.",
           ]);
         }
       });
@@ -126,36 +127,24 @@ function App() {
             }
           }
         });
+
+      setStorageData({
+        sellNo: data.simpleCar.sellNo,
+        payment_cd: "",
+        step1: {
+          customer_name: "",
+          customer_hphone: "",
+        },
+        step2: { nominee_cd: "", index: 1 },
+        step3: "",
+        step4: {
+          bank: { name: "", refund_bank_cd: "" },
+          refund_accout_name: "",
+          refund_accout_number: "",
+        },
+      });
     }
   }, [data]);
-
-  // useEffect(() => {
-  //   if (data) {
-  //     let localData = localStorage.getItem(data.simpleCar.sellNo);
-  //     let localStep = localStorage.getItem("localStep");
-  //     if (localData && localStep) {
-  //       setStorageData(JSON.parse(localData));
-  //       setLocalStep(localStep);
-  //     } else {
-  //       setStorageData({
-  //         sellNo: data.simpleCar.sellNo,
-  //         payment_cd: "",
-  //         step1: {
-  //           customer_name: "",
-  //           customer_hphone: "",
-  //         },
-  //         step2: { nominee_cd: "", index: 1 },
-  //         step3: "",
-  //         step4: {
-  //           bank: { name: "", refund_bank_cd: "" },
-  //           refund_accout_name: "",
-  //           refund_accout_number: "",
-  //         },
-  //       });
-  //       setLocalStep("0");
-  //     }
-  //   }
-  // }, [data]);
 
   return (
     <AppWrap>
