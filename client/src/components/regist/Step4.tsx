@@ -12,10 +12,10 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
   const step4 = storageData.step4;
   const scroll: any = useRef(null);
 
-  useEffect(() => {
-    let changeData: any = localStorage.getItem("sell");
-    setStorageData(JSON.parse(changeData));
-  }, []);
+  // useEffect(() => {
+  //   let changeData: any = localStorage.getItem("sell");
+  //   setStorageData(JSON.parse(changeData));
+  // }, []);
 
   useEffect(() => {
     axios

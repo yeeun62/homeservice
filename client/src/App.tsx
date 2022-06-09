@@ -31,37 +31,23 @@ export interface StorageType {
     refund_accout_name: string;
     refund_accout_number: string;
   };
+  step: number;
 }
 
 function App() {
   const [step, setStep] = useState<number>(0);
   const [localStep, setLocalStep] = useState<string>("0");
   const [data, setData] = useState<any>();
-  const [storageData, setStorageData] = useState<StorageType>({
-    sellNo: "",
-    payment_cd: "",
-    step1: {
-      customer_name: "",
-      customer_hphone: "",
-      phoneValidation: false,
-    },
-    step2: { nominee_cd: "", index: 1 },
-    step3: "",
-    step4: {
-      bank: { name: "", refund_bank_cd: "" },
-      refund_accout_name: "",
-      refund_accout_number: "",
-    },
-  });
+  const [storageData, setStorageData] = useState<any>();
   const [introduceMSG, setIntroduceMSG] = useState<string>("");
   const [priceData, setPriceData] = useState<any>();
   const [priceTxt, setPriceTxt] = useState<any>();
 
-  const query = queryString.parse(window.location.search);
-
   let isAlert: boolean = false;
 
   useEffect(() => {
+    const query = queryString.parse(window.location.search);
+
     if (query.sellNo) {
       axios
         .get(
@@ -76,12 +62,6 @@ function App() {
             }
           } else {
             setData(data.data);
-          }
-        })
-        .catch(() => {
-          if (!isAlert) {
-            isAlert = true;
-            alert("매물정보가 없어 실패하였습니다. 관리자에 문의하세요.");
           }
         });
     } else {
@@ -114,10 +94,9 @@ function App() {
           setPriceTxt(txt.data.result);
         } else {
           setPriceTxt([
-            "견적금액은 배송비에 의해 변동될 수 있습니다. \n (배송비 최대금액 159,000원으로 계산 선반영되었습니다.)",
+            "견적금액은 배송비에 의해 변동될 수 있습니다.(배송비 최대금액 159,000원으로 계산 선반영되었습니다.",
             "배송비는 차량 출발지와 도착지 거리에 따라 책정되며, 상담단계에서 확정됩니다.",
             "이전비는 차액 발생 시 계좌로 환급해드립니다.",
-            "위 예상 합계 금액은 성능보증보험료가 제외된 금액으로 차량마다 보험료가 다를 수 있어서 신청 이후에 상담사가 안내해 드립니다.",
           ]);
         }
       });
@@ -150,27 +129,33 @@ function App() {
     }
   }, [data]);
 
-  useEffect(() => {
-    if (data) {
-      let localData: any = localStorage.getItem("sell");
-      let localStep = localStorage.getItem("localStep");
-      if (localData && localStep) {
-        localData = JSON.parse(localData);
-        if (localData.sellNo === query.sellNo) {
-          setStorageData(localData);
-          setLocalStep(localStep);
-        } else {
-          localStorage.clear();
-          setStorageData({ ...storageData, sellNo: data.simpleCar.sellNo });
-          setLocalStep("0");
-        }
-      } else {
-        localStorage.clear();
-        setStorageData({ ...storageData, sellNo: data.simpleCar.sellNo });
-        setLocalStep("0");
-      }
-    }
-  }, [data]);
+  // useEffect(() => {
+  //   if (data) {
+  //     let localData = localStorage.getItem(data.simpleCar.sellNo);
+  //     let localStep = localStorage.getItem("localStep");
+  //     if (localData && localStep) {
+  //       setStorageData(JSON.parse(localData));
+  //       setLocalStep(localStep);
+  //     } else {
+  //       setStorageData({
+  //         sellNo: data.simpleCar.sellNo,
+  //         payment_cd: "",
+  //         step1: {
+  //           customer_name: "",
+  //           customer_hphone: "",
+  //         },
+  //         step2: { nominee_cd: "", index: 1 },
+  //         step3: "",
+  //         step4: {
+  //           bank: { name: "", refund_bank_cd: "" },
+  //           refund_accout_name: "",
+  //           refund_accout_number: "",
+  //         },
+  //       });
+  //       setLocalStep("0");
+  //     }
+  //   }
+  // }, [data]);
 
   return (
     <AppWrap>
