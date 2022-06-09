@@ -42,7 +42,7 @@ function MainPage({
     } else {
       scrollDown();
     }
-  }, [storageData]);
+  }, [storageData.payment_cd]);
 
   function setStorage(): void {
     if (storageData.payment_cd) {

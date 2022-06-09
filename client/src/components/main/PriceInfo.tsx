@@ -291,7 +291,7 @@ function PriceInfo({ data, priceData, priceTxt, tooltip, setTooltip }: any) {
         </ul>
       </div>
       <ul className="list_style">
-        {priceTxt.map((el: string, i: number) => {
+        {priceTxt.map((el: string) => {
           return (
             <li key={el}>
               <div></div>
