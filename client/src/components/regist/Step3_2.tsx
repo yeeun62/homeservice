@@ -27,18 +27,18 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
   // 주소동일체크시 주소 바뀔때 체크 해제함수
   useEffect(() => {
     if (
-      storageData.step3.address.nominee_address_post !==
-      storageData.step3.address2.business_address_post
+      step3.address.nominee_address_post !==
+      step3.address2.business_address_post
     ) {
       setCheck({ ...check, address: false });
     }
-  }, [storageData.step3.address, storageData.step3.address2]);
+  }, [step3.address, step3.address2]);
 
   useEffect(() => {
     if (emailBlur) {
       setEmailValidation(validationEmail());
     }
-  }, [storageData.step3.business_email]);
+  }, [step3.business_email]);
 
   useEffect(() => {
     let isActivate = Object.values(step3).filter((data: any) => {

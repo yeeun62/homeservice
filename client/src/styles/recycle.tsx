@@ -66,7 +66,6 @@ export const MainBtn = styled.button<{
   border-radius: 5px;
   font-size: 15px;
   font-weight: 500;
-  /* main page */
 
   &:hover {
     border: ${(props) =>
@@ -168,14 +167,6 @@ export const RegistForm = styled.form<{ tooltip?: boolean; stepOne?: boolean }>`
           margin-top: 24px;
         }
       }
-
-      .name_input {
-        -webkit-ime-mode: active;
-        -moz-ime-mode: active;
-        -ms-ime-mode: active;
-        ime-mode: active;
-      }
-      // 한글 자동변환 위한 부분인데 적용되지 않아서 다시 확인해보기
 
       img {
         position: absolute;

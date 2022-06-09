@@ -29,7 +29,6 @@ export interface ActiveProps {
   setActivate: React.Dispatch<React.SetStateAction<boolean>>;
   setStorageData: React.Dispatch<React.SetStateAction<StorageType>>;
   storageData: StorageType;
-  data?: any;
 }
 
 function Page({
@@ -81,7 +80,6 @@ function Page({
                     setActivate={setActivate}
                     setStorageData={setStorageData}
                     storageData={storageData}
-                    data={data}
                   />,
                   <Step2
                     setActivate={setActivate}
