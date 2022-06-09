@@ -71,7 +71,6 @@ function Header({
       >
         <CloseModal
           setCloseModal={setCloseModal}
-          data={data}
           mainTxt="홈서비스 신청을 취소하시겠습니까?"
         />
       </Modal>

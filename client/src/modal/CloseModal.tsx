@@ -32,11 +32,9 @@ const CloseModalWrap = styled.div`
 
 function CloseModal({
   setCloseModal,
-  data,
   mainTxt,
 }: {
   setCloseModal: React.Dispatch<React.SetStateAction<boolean>>;
-  data: any;
   mainTxt: string;
 }) {
   const closePopup = () => {
