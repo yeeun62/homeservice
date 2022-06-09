@@ -146,6 +146,10 @@ function App() {
     }
   }, [data]);
 
+  window.addEventListener("beforeunload", () => {
+    localStorage.clear();
+  });
+
   return (
     <AppWrap>
       {data && storageData && introduceMSG && priceData && priceTxt ? (
