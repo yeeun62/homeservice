@@ -55,7 +55,7 @@ function Header({
 }: {
   step?: number;
   data?: any;
-  page: string;
+  page: number;
 }) {
   const [closeModal, setCloseModal] = useState(false);
 
@@ -84,7 +84,7 @@ function Header({
         />
         <RegistTitle className="header_title">차란차 홈서비스 신청</RegistTitle>
         <img className="beta" src="./img/icon_beta_black.svg" alt="베타" />
-        {page === "1" && <Progress step={step} />}
+        {page === 1 && <Progress step={step} />}
       </HeaderWrapper>
     </>
   );

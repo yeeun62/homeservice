@@ -53,10 +53,9 @@ function Step2({ setActivate, setStorageData, storageData }: Step2Props) {
     }
   }, [storageData.step2]);
 
-  // useEffect(() => {
-  //   let changeData: any = localStorage.getItem("sell");
-  //   setStorageData(JSON.parse(changeData));
-  // }, []);
+  useEffect(() => {
+    localStorage.setItem("phone", storageData.step1.customer_hphone);
+  }, []);
 
   const storageHandler = (index: number) => {
     setStorageData((storageData) => ({

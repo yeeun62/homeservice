@@ -1,8 +1,5 @@
-import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Visual from "../components/main/Visual";
-import queryString from "query-string";
-import axios from "axios";
 import { PageWrap, Footer, MainBtn } from "../styles/recycle";
 import Lottie from "lottie-react-web";
 import completeAnimation from "../lottie_00.json";
@@ -64,32 +61,7 @@ const CompleteWrap = styled(PageWrap)`
   }
 `;
 
-function CompletePage() {
-  const [data, setData] = useState<any>();
-  let isAlert: boolean = false;
-
-  useEffect(() => {
-    const query = queryString.parse(window.location.search);
-
-    if (query.sellNo) {
-      axios
-        .get(
-          `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_URL}:${process.env.REACT_APP_PORT}/api/handle/products/${query.sellNo}`
-          // `${process.env.REACT_APP_FORSALE}/${query.sellNo}`
-        )
-        .then((data) => {
-          if (data.data.status) {
-            if (!isAlert) {
-              isAlert = true;
-              alert("매물정보가 없어 실패하였습니다. 관리자에 문의하세요.");
-            }
-          } else {
-            setData(data.data);
-          }
-        });
-    }
-  }, []);
-
+function CompletePage({ data }: any) {
   function completeHandler() {
     window.close();
   }

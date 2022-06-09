@@ -12,11 +12,6 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
   const step4 = storageData.step4;
   const scroll: any = useRef(null);
 
-  // useEffect(() => {
-  //   let changeData: any = localStorage.getItem("sell");
-  //   setStorageData(JSON.parse(changeData));
-  // }, []);
-
   useEffect(() => {
     axios
       .get(
@@ -27,7 +22,6 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
           setBankList(res.data.result);
         } else {
           alert("서버오류입니다. 관리자에 문의하세요.");
-          // console.log("bankList error");
         }
       });
   }, []);
