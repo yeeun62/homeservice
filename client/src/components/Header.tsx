@@ -57,7 +57,7 @@ function Header({
   data?: any;
   page: number;
 }) {
-  const [closeModal, setCloseModal] = useState(false);
+  const [closeModal, setCloseModal] = useState<boolean>(false);
 
   return (
     <>
