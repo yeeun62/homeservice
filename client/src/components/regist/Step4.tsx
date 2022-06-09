@@ -39,16 +39,15 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
   }, [step4]);
 
   function focus_account() {
-    if (window.screen.width >= 750) {
-      scroll.current.scrollIntoView({
-        behavior: "smooth",
-        block: "end",
-      });
+    console.log(window);
+    if (window.innerWidth < 750) {
+      scroll.current.style.height = "100vh";
+      scroll.current.scrollIntoView(true);
     } else return;
   }
 
   return (
-    <div id="step4" ref={scroll}>
+    <div ref={scroll}>
       <Modal
         isOpen={bankModal}
         onRequestClose={() => setBankModal(!bankModal)}
@@ -117,6 +116,7 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
               type="tel"
               pattern="\d*"
               value={step4.refund_accout_number}
+              onClick={focus_account}
               onFocus={focus_account}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 if (e.target.value.length <= 14) {

@@ -175,6 +175,7 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
           <p>휴대전화 번호</p>
           <div className="input_div">
             <input
+              tabIndex={2}
               placeholder="숫자만 입력해주세요"
               type="tel"
               pattern="\d*"
@@ -193,6 +194,7 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
           <div className="flex_form" onClick={() => setPostCodeOpen(true)}>
             <div className="input_div">
               <input
+                tabIndex={3}
                 type="text"
                 placeholder="주소를 검색해주세요"
                 readOnly
@@ -210,7 +212,7 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
           <div style={{ position: "relative", marginTop: "12px" }}>
             <div className="input_div">
               <input
-                tabIndex={2}
+                tabIndex={4}
                 className="input_margin_top"
                 type="text"
                 placeholder="상세주소를 입력해주세요"
@@ -233,7 +235,7 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
           <p>법인명</p>
           <div className="input_div">
             <input
-              tabIndex={3}
+              tabIndex={5}
               type="text"
               placeholder="법인명 이름을 입력해주세요"
               value={step3.business_name}
@@ -247,7 +249,7 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
           <p>사업자 등록번호</p>
           <div className="input_div">
             <input
-              tabIndex={4}
+              tabIndex={6}
               placeholder="숫자만 입력해주세요"
               type="tel"
               pattern="\d*"
@@ -264,7 +266,7 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
           <p>세금계산서 발행 이메일 주소</p>
           <div className="input_div">
             <input
-              tabIndex={5}
+              tabIndex={7}
               type="text"
               placeholder="help@charancha.com"
               value={step3.business_email}
