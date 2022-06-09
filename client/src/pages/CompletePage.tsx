@@ -91,7 +91,8 @@ function CompletePage() {
   }, []);
 
   function completeHandler() {
-    localStorage.clear();
+    // localStorage.clear();
+    window.opener.closeHomeservice();
   }
 
   return (

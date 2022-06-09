@@ -46,12 +46,12 @@ function MainPage({
 
   function setStorage(): void {
     if (storageData.payment_cd) {
-      localStorage.setItem("sell", JSON.stringify(storageData));
-      localStorage.setItem("localStep", "0");
-      localStorage.setItem("localPage", "1");
+      // localStorage.setItem("sell", JSON.stringify(storageData));
+      // localStorage.setItem("localStep", "0");
+      // localStorage.setItem("localPage", "1");
       setLocalStep("0");
       setPage("1");
-      localStorage.setItem("localPage", "1");
+      // localStorage.setItem("localPage", "1");
     } else return;
   }
 

@@ -29,23 +29,23 @@ function StepBtn({
   useEffect(() => {
     if (localStep === "0") {
       setStep(1);
-      localStorage.setItem("localStep", localStep);
+      // localStorage.setItem("localStep", localStep);
     } else if (localStep === "1") {
       setStep(2);
-      localStorage.setItem("localStep", localStep);
+      // localStorage.setItem("localStep", localStep);
     } else if (localStep === "2" || localStep === "3" || localStep === "4") {
       setStep(3);
-      localStorage.setItem("localStep", localStep);
+      // localStorage.setItem("localStep", localStep);
     } else if (localStep === "5") {
       setStep(4);
-      localStorage.setItem("localStep", localStep);
+      // localStorage.setItem("localStep", localStep);
     }
   }, [localStep]);
 
   const prevMove = () => {
     if (localStep === "0") {
       setPage("0");
-      localStorage.setItem("localPage", "0");
+      // localStorage.setItem("localPage", "0");
       setLocalStep("0");
     } else if (localStep === "1") {
       setLocalStep("0");
@@ -67,12 +67,12 @@ function StepBtn({
       setLocalStep("1");
     } else if (localStep === "1") {
       setLocalStep(String(storageData.step2.index));
-      localStorage.setItem("sell", JSON.stringify(storageData));
+      // localStorage.setItem("sell", JSON.stringify(storageData));
       return;
     } else if (localStep === "2" || localStep === "3" || localStep === "4") {
       setLocalStep("5");
     }
-    localStorage.setItem("sell", JSON.stringify(storageData));
+    // localStorage.setItem("sell", JSON.stringify(storageData));
   };
 
   const conditionModalHandler = () => {
