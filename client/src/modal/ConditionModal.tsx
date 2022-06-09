@@ -95,7 +95,7 @@ const ConditionWrap = styled.div`
 
   @media screen and (min-width: 750px) {
     padding: 16px 32px 32px 32px;
-    // 다시 확인하기
+
     .bold_text {
       font-size: 20px;
       line-height: 29px;

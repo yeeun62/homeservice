@@ -6,12 +6,7 @@ import CloseModal from "../../modal/CloseModal";
 import CryptoJS from "crypto-js";
 import axios from "axios";
 
-function Step1({
-  setActivate,
-  setStorageData,
-  storageData,
-  data,
-}: ActiveProps) {
+function Step1({ setActivate, setStorageData, storageData }: ActiveProps) {
   const step1 = storageData.step1;
   const [time, setTime] = useState<boolean>(false);
   const [authMessage, setAuthMessage] = useState<boolean>(false);
