@@ -6,7 +6,13 @@ import CloseModal from "../../modal/CloseModal";
 import CryptoJS from "crypto-js";
 import axios from "axios";
 
-function Step1({ setActivate, setStorageData, storageData }: ActiveProps) {
+function Step1({
+  setActivate,
+  setStorageData,
+  storageData,
+  phoneAuth,
+  setPhoneAuth,
+}: ActiveProps) {
   const step1 = storageData.step1;
   const [time, setTime] = useState<boolean>(false);
   const [authMessage, setAuthMessage] = useState<boolean>(false);
@@ -24,12 +30,12 @@ function Step1({ setActivate, setStorageData, storageData }: ActiveProps) {
   const [phone, setPhone] = useState<any>("");
   const scroll: any = useRef(null);
 
-  useEffect(() => {
-    let phoneNumber = localStorage.getItem("phone");
-    if (phoneNumber) {
-      setPhone(phoneNumber);
-    }
-  }, []);
+  // useEffect(() => {
+  //   let phoneNumber = localStorage.getItem("phone");
+  //   if (phoneNumber) {
+  //     setPhone(phoneNumber);
+  //   }
+  // }, []);
 
   useEffect(() => {
     if (phone) {
@@ -142,7 +148,7 @@ function Step1({ setActivate, setStorageData, storageData }: ActiveProps) {
   };
 
   function focus_account() {
-    if (/Mobi/i.test(window.navigator.userAgent)) {
+    if (/Android/i.test(window.navigator.userAgent)) {
       scroll.current.style.height = "calc(100vh - 56px)";
       scroll.current.scrollIntoView(true);
     } else return;

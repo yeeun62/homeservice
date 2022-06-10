@@ -29,6 +29,8 @@ export interface ActiveProps {
   setActivate: React.Dispatch<React.SetStateAction<boolean>>;
   setStorageData: React.Dispatch<React.SetStateAction<StorageType>>;
   storageData: StorageType;
+  phoneAuth?: boolean;
+  setPhoneAuth?: React.Dispatch<React.SetStateAction<boolean>> | undefined;
 }
 
 function Page({
@@ -45,6 +47,7 @@ function Page({
 }: PageProps) {
   const [activate, setActivate] = useState<boolean>(false);
   const [page, setPage] = useState<number>(0);
+  const [phoneAuth, setPhoneAuth] = useState<boolean>(false);
 
   useEffect(() => {
     let input: any = document.getElementsByTagName("input");
@@ -80,11 +83,15 @@ function Page({
                     setActivate={setActivate}
                     setStorageData={setStorageData}
                     storageData={storageData}
+                    phoneAuth={phoneAuth}
+                    setPhoneAuth={setPhoneAuth}
                   />,
                   <Step2
                     setActivate={setActivate}
                     storageData={storageData}
                     setStorageData={setStorageData}
+                    phoneAuth={phoneAuth}
+                    setPhoneAuth={setPhoneAuth}
                   />,
                   <Step3_1
                     setActivate={setActivate}

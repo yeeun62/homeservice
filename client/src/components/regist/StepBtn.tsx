@@ -52,9 +52,9 @@ function StepBtn({
   };
 
   const nextMove = () => {
-    if (!activate) {
-      return;
-    }
+    // if (!activate) {
+    //   return;
+    // }
     if (step === 4 && localStep === 5) {
       return conditionModalHandler();
     }
