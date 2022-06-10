@@ -348,7 +348,7 @@ export const Footer = styled.div`
     }
   }
 
-  @media screen and (min-width: 749px) {
+  @media screen and (min-width: 750px) {
     height: 140px;
     padding: 0px 32px;
 
