@@ -30,7 +30,7 @@ export interface ActiveProps {
   setStorageData: React.Dispatch<React.SetStateAction<StorageType>>;
   storageData: StorageType;
   phoneAuth?: boolean;
-  setPhoneAuth?: React.Dispatch<React.SetStateAction<boolean>> | undefined;
+  setPhoneAuth?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function Page({
@@ -84,13 +84,11 @@ function Page({
                     setStorageData={setStorageData}
                     storageData={storageData}
                     phoneAuth={phoneAuth}
-                    setPhoneAuth={setPhoneAuth}
                   />,
                   <Step2
                     setActivate={setActivate}
                     storageData={storageData}
                     setStorageData={setStorageData}
-                    phoneAuth={phoneAuth}
                     setPhoneAuth={setPhoneAuth}
                   />,
                   <Step3_1

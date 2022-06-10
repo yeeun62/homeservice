@@ -11,7 +11,6 @@ function Step1({
   setStorageData,
   storageData,
   phoneAuth,
-  setPhoneAuth,
 }: ActiveProps) {
   const step1 = storageData.step1;
   const [time, setTime] = useState<boolean>(false);
@@ -27,19 +26,18 @@ function Step1({
   const [closeModal, setCloseModal] = useState(false);
   const [modalTxt, setModalTxt] =
     useState<string>("인증번호가 발급되었습니다.");
-  const [phone, setPhone] = useState<any>("");
+  const [phone, setPhone] = useState<string>("");
   const scroll: any = useRef(null);
 
-  // useEffect(() => {
-  //   let phoneNumber = localStorage.getItem("phone");
-  //   if (phoneNumber) {
-  //     setPhone(phoneNumber);
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (phoneAuth) {
+      setPhone(step1.customer_hphone);
+    }
+  }, []);
 
   useEffect(() => {
     if (phone) {
-      if (phone === storageData.step1.customer_hphone) {
+      if (phone === step1.customer_hphone) {
         setActivate(true);
       } else {
         setActivate(false);
@@ -47,16 +45,22 @@ function Step1({
     } else {
       setActivate(false);
     }
-  }, [step1, phone]);
+  }, [phone]);
 
-  // 이름과 모바일이 채워져있다면 인증번호 전송 활성화
   useEffect(() => {
-    if (step1.customer_name && step1.customer_hphone.length === 11) {
-      setInputComplete(true);
+    if (step1.customer_name) {
+      if (
+        (!phoneAuth && step1.customer_hphone.length === 11) ||
+        (phoneAuth && phone.length === 11)
+      ) {
+        setInputComplete(true);
+      } else {
+        setInputComplete(false);
+      }
     } else {
       setInputComplete(false);
     }
-  }, [validation, step1]);
+  }, [validation, step1, phone]);
 
   // 시간초 함수
   useEffect(() => {
@@ -197,19 +201,23 @@ function Step1({
                   placeholder="숫자만 입력해주세요"
                   type="tel"
                   pattern="\d*"
-                  value={step1.customer_hphone}
+                  value={!phoneAuth ? step1.customer_hphone : phone}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     if (e.target.value.length <= 11) {
-                      setStorageData({
-                        ...storageData,
-                        step1: {
-                          ...step1,
-                          customer_hphone: e.target.value.replace(
-                            /[^0-9]/g,
-                            ""
-                          ),
-                        },
-                      });
+                      if (phoneAuth) {
+                        setPhone(e.target.value.replace(/[^0-9]/g, ""));
+                      } else {
+                        setStorageData({
+                          ...storageData,
+                          step1: {
+                            ...step1,
+                            customer_hphone: e.target.value.replace(
+                              /[^0-9]/g,
+                              ""
+                            ),
+                          },
+                        });
+                      }
                     }
                   }}
                 />

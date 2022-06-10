@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import styled, { css } from "styled-components";
 import { RegistTitle } from "../../styles/recycle";
-import { StorageType } from "../../App";
 import { ActiveProps } from "../../pages/Page";
 
 const RegistTypeBtn = styled.button<{ choice: boolean }>`
@@ -41,7 +40,6 @@ function Step2({
   setActivate,
   setStorageData,
   storageData,
-  phoneAuth,
   setPhoneAuth,
 }: ActiveProps) {
   const registType = ["개인", "개인사업자", "법인사업자"];
@@ -54,16 +52,11 @@ function Step2({
     }
   }, [storageData.step2]);
 
-  // useEffect(() => {
-  //   if(setPhoneAuth){
-
-  //   }
-  //   console.log(setPhoneAuth);
-  // }, []);
-
-  // useEffect(() => {
-  //   localStorage.setItem("phone", storageData.step1.customer_hphone);
-  // }, []);
+  useEffect(() => {
+    if (setPhoneAuth) {
+      setPhoneAuth(true);
+    }
+  }, []);
 
   const storageHandler = (index: number) => {
     setStorageData((storageData) => ({
