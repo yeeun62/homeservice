@@ -142,7 +142,7 @@ function Step1({ setActivate, setStorageData, storageData }: ActiveProps) {
   };
 
   function focus_account() {
-    if (/Mobi/i.test(window.navigator.userAgent)) {
+    if (/Android/i.test(window.navigator.userAgent)) {
       scroll.current.style.height = "calc(100vh - 56px)";
       scroll.current.scrollIntoView(true);
     } else return;
