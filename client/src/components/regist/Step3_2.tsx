@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   RegistTitle,
   RegistForm,
@@ -21,27 +21,24 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
     business: boolean;
   }>({ nominee: false, business: false });
   const step3 = storageData.step3;
-
-  useEffect(() => {
-    let changeData: any = localStorage.getItem(storageData.sellNo);
-    setStorageData(JSON.parse(changeData));
-  }, []);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRefBusiness = useRef<HTMLInputElement>(null);
 
   // 주소동일체크시 주소 바뀔때 체크 해제함수
   useEffect(() => {
     if (
-      storageData.step3.address.nominee_address_post !==
-      storageData.step3.address2.business_address_post
+      step3.address.nominee_address_post !==
+      step3.address2.business_address_post
     ) {
       setCheck({ ...check, address: false });
     }
-  }, [storageData.step3.address, storageData.step3.address2]);
+  }, [step3.address, step3.address2]);
 
   useEffect(() => {
     if (emailBlur) {
       setEmailValidation(validationEmail());
     }
-  }, [storageData.step3.business_email]);
+  }, [step3.business_email]);
 
   useEffect(() => {
     let isActivate = Object.values(step3).filter((data: any) => {
@@ -199,6 +196,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
         overlayClassName="overlay"
         className="post_code_modal"
         ariaHideApp={false}
+        shouldCloseOnOverlayClick={false}
       >
         <AddressModal
           postCodeHandler={postCodeHandler}
@@ -217,7 +215,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
           <div className="flex_check">
             <p>이름</p>
             <div
-              onClick={() => {
+              onClick={(e) => {
                 setCheck({ ...check, name: !check.name });
                 if (check.name) {
                   setStorageData({
@@ -228,6 +226,9 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
                       nominee_hphone: "",
                     },
                   });
+                } else {
+                  inputRef.current?.focus();
+                  e.preventDefault();
                 }
               }}
             >
@@ -244,8 +245,10 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
           </div>
           <div className="input_div">
             <input
+              tabIndex={1}
               type="text"
               placeholder="실명을 입력해주세요"
+              autoFocus
               value={step3.nominee_name}
               onChange={(e) => {
                 validationHandler(e, "nominee_name");
@@ -257,12 +260,15 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
           <p>휴대전화 번호</p>
           <div className="input_div">
             <input
-              type="text"
+              tabIndex={2}
               placeholder="숫자만 입력해주세요"
+              type="tel"
+              pattern="\d*"
               value={step3.nominee_hphone}
-              maxLength={11}
-              onChange={(e) => {
-                validationHandler(e, "nominee_hphone");
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                if (e.target.value.length <= 11) {
+                  validationHandler(e, "nominee_hphone");
+                }
               }}
             />
           </div>
@@ -289,9 +295,11 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
           >
             <div className="input_div">
               <input
+                tabIndex={3}
                 type="text"
                 placeholder="주소를 검색해주세요"
                 readOnly
+                ref={inputRef}
                 value={
                   step3.address.nominee_address_post
                     ? `[${step3.address.nominee_address_post}] ` +
@@ -305,6 +313,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
           <div style={{ position: "relative", marginTop: "12px" }}>
             <div className="input_div">
               <input
+                tabIndex={4}
                 className="input_margin_top"
                 type="text"
                 placeholder="상세주소를 입력해주세요"
@@ -325,6 +334,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
           <p>사업장명</p>
           <div className="input_div">
             <input
+              tabIndex={5}
               type="text"
               placeholder="사업장 이름을 입력해주세요"
               value={step3.business_name}
@@ -336,6 +346,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
           <div className="flex_check">
             <p>사업장 주소</p>
             <div
+              style={{ marginBottom: "12px" }}
               onClick={(e) => {
                 setCheck({ ...check, address: !check.address });
                 if (check.address) {
@@ -351,6 +362,8 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
                       },
                     },
                   });
+                } else {
+                  inputRefBusiness.current?.focus();
                 }
                 e.preventDefault();
               }}
@@ -369,6 +382,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
           <div className="flex_form">
             <div className="input_div">
               <input
+                tabIndex={6}
                 type="text"
                 placeholder="주소를 검색해주세요"
                 readOnly
@@ -396,11 +410,12 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
           <div style={{ position: "relative", marginTop: "12px" }}>
             <div className="input_div">
               <input
+                tabIndex={7}
                 className="input_margin_top"
                 type="text"
                 placeholder="상세주소를 입력해주세요"
                 value={step3.address2.business_address}
-                onChange={(e) => {
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   validationHandler(e, "address2");
                   setCheck({ ...check, address: false });
                 }}
@@ -412,11 +427,17 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
           <p>사업자 등록번호</p>
           <div className="input_div">
             <input
-              type="text"
+              tabIndex={8}
               placeholder="숫자만 입력해주세요"
+              type="tel"
+              pattern="\d*"
               value={step3.business_number}
-              maxLength={10}
-              onChange={(e) => validationHandler(e, "business_number")}
+              ref={inputRefBusiness}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                if (e.target.value.length <= 10) {
+                  validationHandler(e, "business_number");
+                }
+              }}
             />
           </div>
         </label>
@@ -424,10 +445,13 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
           <p>세금계산서 발행 이메일 주소</p>
           <div className="input_div">
             <input
+              tabIndex={9}
               type="text"
               placeholder="help@charancha.com"
               value={step3.business_email}
-              onChange={(e) => validationHandler(e, "business_email")}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                validationHandler(e, "business_email")
+              }
               onBlur={() => {
                 setEmailValidation(validationEmail());
                 setEmailBlur(true);

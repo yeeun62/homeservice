@@ -13,11 +13,6 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
   const scroll: any = useRef(null);
 
   useEffect(() => {
-    let changeData: any = localStorage.getItem(storageData.sellNo);
-    setStorageData(JSON.parse(changeData));
-  }, []);
-
-  useEffect(() => {
     axios
       .get(
         `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_URL}:${process.env.REACT_APP_PORT}/api/handle/banks`
@@ -26,8 +21,7 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
         if (res.status === 200) {
           setBankList(res.data.result);
         } else {
-          alert("문자 서버에러입니다. 관리자에 문의하세요.");
-          // console.log("bankList error");
+          alert("서버오류입니다. 관리자에 문의하세요.");
         }
       });
   }, []);
@@ -45,22 +39,22 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
   }, [step4]);
 
   function focus_account() {
-    if (window.screen.width >= 750) {
-      scroll.current.scrollIntoView({
-        behavior: "smooth",
-        block: "end",
-      });
+    console.log(window);
+    if (window.innerWidth < 750) {
+      scroll.current.style.height = "100vh";
+      scroll.current.scrollIntoView(true);
     } else return;
   }
 
   return (
-    <div id="step4" ref={scroll}>
+    <div ref={scroll}>
       <Modal
         isOpen={bankModal}
         onRequestClose={() => setBankModal(!bankModal)}
         overlayClassName="overlay"
         className="bottom_modal"
         ariaHideApp={false}
+        shouldCloseOnOverlayClick={false}
       >
         <BankModal
           setBankModal={setBankModal}
@@ -82,6 +76,7 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
           <p>은행</p>
           <div className="input_div">
             <input
+              tabIndex={1}
               type="text"
               placeholder="은행을 선택해주세요"
               readOnly
@@ -99,6 +94,7 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
           <p>예금주</p>
           <div className="input_div">
             <input
+              tabIndex={2}
               type="text"
               placeholder="실명을 입력해주세요"
               value={step4.refund_accout_name}
@@ -115,20 +111,27 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
           <p>계좌번호</p>
           <div className="input_div">
             <input
-              type="text"
-              maxLength={14}
+              tabIndex={3}
               placeholder="숫자만 입력해주세요"
+              type="tel"
+              pattern="\d*"
               value={step4.refund_accout_number}
+              onClick={focus_account}
               onFocus={focus_account}
-              onChange={(e) =>
-                setStorageData({
-                  ...storageData,
-                  step4: {
-                    ...step4,
-                    refund_accout_number: e.target.value.replace(/[^0-9]/g, ""),
-                  },
-                })
-              }
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                if (e.target.value.length <= 14) {
+                  setStorageData({
+                    ...storageData,
+                    step4: {
+                      ...step4,
+                      refund_accout_number: e.target.value.replace(
+                        /[^0-9]/g,
+                        ""
+                      ),
+                    },
+                  });
+                }
+              }}
             />
           </div>
         </label>

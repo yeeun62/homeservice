@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   RegistTitle,
   RegistForm,
@@ -16,11 +16,7 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
   const [tooltip, setTooltip] = useState<boolean>(false);
   const [postCodeOpen, setPostCodeOpen] = useState<boolean>(false);
   const step3 = storageData.step3;
-
-  useEffect(() => {
-    let changeData: any = localStorage.getItem(storageData.sellNo);
-    setStorageData(JSON.parse(changeData));
-  }, []);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (
@@ -75,6 +71,7 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
         overlayClassName="overlay"
         className="post_code_modal"
         ariaHideApp={false}
+        shouldCloseOnOverlayClick={false}
       >
         <AddressModal
           postCodeHandler={postCodeHandler}
@@ -87,7 +84,7 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
           <div className="flex_check">
             <p>이름</p>
             <div
-              onClick={() => {
+              onClick={(e) => {
                 setCheck(!check);
                 if (check) {
                   setStorageData({
@@ -98,6 +95,9 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
                       nominee_hphone: "",
                     },
                   });
+                } else {
+                  inputRef.current?.focus();
+                  e.preventDefault();
                 }
               }}
             >
@@ -114,9 +114,11 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
           </div>
           <div className="input_div">
             <input
+              tabIndex={1}
               type="text"
               placeholder="실명을 입력해주세요"
               value={step3.nominee_name}
+              autoFocus
               onChange={(e) => {
                 setStorageData({
                   ...storageData,
@@ -131,19 +133,22 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
           <p>휴대전화 번호</p>
           <div className="input_div">
             <input
-              type="text"
-              maxLength={11}
+              tabIndex={2}
               placeholder="숫자만 입력해주세요"
+              type="tel"
+              pattern="\d*"
               value={step3.nominee_hphone}
-              onChange={(e) => {
-                setStorageData({
-                  ...storageData,
-                  step3: {
-                    ...step3,
-                    nominee_hphone: e.target.value.replace(/[^0-9]/g, ""),
-                  },
-                });
-                setCheck(false);
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                if (e.target.value.length <= 11) {
+                  setStorageData({
+                    ...storageData,
+                    step3: {
+                      ...step3,
+                      nominee_hphone: e.target.value.replace(/[^0-9]/g, ""),
+                    },
+                  });
+                  setCheck(false);
+                }
               }}
             />
           </div>
@@ -167,9 +172,11 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
           <div className="flex_form" onClick={() => setPostCodeOpen(true)}>
             <div className="input_div">
               <input
+                tabIndex={3}
                 type="text"
                 placeholder="주소를 검색해주세요"
                 readOnly
+                ref={inputRef}
                 value={
                   step3.address.nominee_address_post
                     ? `[${step3.address.nominee_address_post}] ` +
@@ -183,6 +190,7 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
           <div style={{ position: "relative", marginTop: "12px" }}>
             <div className="input_div">
               <input
+                tabIndex={4}
                 className="input_margin_top"
                 type="text"
                 value={step3.address.nominee_address}

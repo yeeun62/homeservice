@@ -1,18 +1,19 @@
 import styled from "styled-components";
 import { SubModal } from "./ConditionModal";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 const ConditionSubWrap = styled.div`
   width: 100%;
   height: 100vh;
-  background-color: #fff;
+  overflow: visible;
 
   .condition_header {
     height: 56px;
     display: flex;
     align-items: center;
     padding-left: 8px;
+    background-color: #fff;
 
     p {
       font-weight: 700;
@@ -32,8 +33,20 @@ const ConditionSubWrap = styled.div`
   .condition_content {
     width: 100%;
     height: Calc(100vh - 56px);
-    padding: 24px 16px;
-    overflow: scroll;
+    padding: 24px 16px 64px 16px;
+    background-color: #fff;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  li,
+  p,
+  h5 {
+    color: #555;
+  }
+
+  .sub_title {
+    margin: 0;
   }
 `;
 
@@ -43,6 +56,8 @@ interface SubModalProp {
 }
 
 function ConditionSubModal({ subModal, setConditionSubOpen }: SubModalProp) {
+  const condition_content = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     axios
       .get(
@@ -50,13 +65,12 @@ function ConditionSubModal({ subModal, setConditionSubOpen }: SubModalProp) {
       )
       .then((res) => {
         if (res.status === 200) {
-          let inner = document.getElementsByClassName("condition_content");
-          if (inner.length) {
-            inner[0].innerHTML = res.data.result.message;
+          if (condition_content.current !== null) {
+            condition_content.current.innerHTML = res.data.result.message;
           }
         }
       });
-  }, []);
+  }, [subModal.code]);
 
   return (
     <ConditionSubWrap>
@@ -66,9 +80,9 @@ function ConditionSubModal({ subModal, setConditionSubOpen }: SubModalProp) {
           alt="약관 뒤로 가기"
           onClick={() => setConditionSubOpen(false)}
         />
-        <p>{subModal.title}</p>
+        <p className="sub_title">{subModal.title}</p>
       </div>
-      <div className="condition_content"></div>
+      <div className="condition_content" ref={condition_content}></div>
     </ConditionSubWrap>
   );
 }

@@ -17,13 +17,13 @@ function MainPage({
   setPage,
 }: {
   data: any;
-  setLocalStep: React.Dispatch<React.SetStateAction<string>>;
+  setLocalStep: React.Dispatch<React.SetStateAction<number>>;
   storageData: StorageType;
   setStorageData: React.Dispatch<React.SetStateAction<StorageType>>;
   introduceMSG: string;
   priceData: any;
   priceTxt: any;
-  setPage: React.Dispatch<React.SetStateAction<string>>;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
 }) {
   const [tooltip, setTooltip] = useState<boolean>(false);
 
@@ -42,16 +42,12 @@ function MainPage({
     } else {
       scrollDown();
     }
-  }, [storageData]);
+  }, [storageData.payment_cd]);
 
   function setStorage(): void {
     if (storageData.payment_cd) {
-      localStorage.setItem(storageData.sellNo, JSON.stringify(storageData));
-      localStorage.setItem("localStep", "0");
-      localStorage.setItem("localPage", "1");
-      setLocalStep("0");
-      setPage("1");
-      localStorage.setItem("localPage", "1");
+      setLocalStep(0);
+      setPage(1);
     } else return;
   }
 
@@ -60,7 +56,11 @@ function MainPage({
       <Introduce introduceMSG={introduceMSG} />
       <PageWrap>
         <div>
-          <Visual data={data} visualTitle="안전하게 배송해드리겠습니다" />
+          <Visual
+            data={data}
+            visualTitle="안전하게 배송해 드리겠습니다"
+            bottom={false}
+          />
           <PriceInfo
             tooltip={tooltip}
             setTooltip={setTooltip}

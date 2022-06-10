@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { RegistTitle } from "../../styles/recycle";
 
-const VisualWrap = styled.div`
-  padding-bottom: 40px;
+const VisualWrap = styled.div<{ bottom: boolean }>`
+  padding-bottom: ${(p) => (p.bottom ? "16px" : "40px")};
 
   .complete_title {
     font-weight: 400;
@@ -25,7 +25,6 @@ const VisualWrap = styled.div`
   }
 
   span {
-    font-family: "Poppins";
     font-weight: 400;
     font-size: 13px;
     line-height: 20px;
@@ -67,12 +66,23 @@ const VisualWrap = styled.div`
     }
   }
 
-  .price {
-    font-family: "Poppins";
+  .price,
+  .price span {
     font-weight: 600;
     font-size: 20px;
     line-height: 30px;
     letter-spacing: -0.02em;
+  }
+
+  .price {
+    position: relative;
+  }
+
+  .price span {
+    font-weight: 700;
+    padding-left: 5px;
+    position: absolute;
+    bottom: 1px;
   }
 
   /* pc */
@@ -102,7 +112,7 @@ const VisualWrap = styled.div`
   }
 `;
 
-function Visual({ data, visualTitle, visualSpan }: any) {
+function Visual({ data, visualTitle, visualSpan, bottom }: any) {
   let { carNo, fuel, imageUrl, mileage, releaseDt, sellPrice } = data.simpleCar;
   const { makerNm, modelDetailNm, gradeNm, gradeDetailNm } =
     data.simpleCar.trim;
@@ -120,14 +130,13 @@ function Visual({ data, visualTitle, visualSpan }: any) {
   sellPrice = addComma(String(sellPrice) + "0000");
 
   return (
-    <VisualWrap>
+    <VisualWrap bottom={bottom}>
       <RegistTitle>
         {visualTitle}
         {visualSpan && <span className="complete_title">{visualSpan}</span>}
       </RegistTitle>
       <div className="info_wrap">
-        {/* {imageUrl} */}
-        <img src="./img/1808801960R1 1.png" alt="차량이미지" />
+        <img src={imageUrl} alt="차량이미지" />
         <div className="info_wrap_right">
           <div className="span_wrapper">
             <span>{releaseDtForm}</span>
@@ -135,8 +144,14 @@ function Visual({ data, visualTitle, visualSpan }: any) {
             <span>{fuel}</span>
             <span>{carNo}</span>
           </div>
-          <RegistTitle className="name">{`${makerNm} ${modelDetailNm} ${gradeNm} ${gradeDetailNm}`}</RegistTitle>
-          <p className="price">{sellPrice} 원</p>
+          <RegistTitle className="name">{`${makerNm ? makerNm : ""} ${
+            modelDetailNm ? modelDetailNm : ""
+          } ${gradeNm ? gradeNm : ""} ${
+            gradeDetailNm ? gradeDetailNm : ""
+          }`}</RegistTitle>
+          <p className="price">
+            {sellPrice} <span>원</span>
+          </p>
         </div>
       </div>
     </VisualWrap>

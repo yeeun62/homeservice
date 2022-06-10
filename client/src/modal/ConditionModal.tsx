@@ -16,6 +16,7 @@ const ConditionWrap = styled.div`
     text-align: left;
     display: flex;
     align-items: center;
+    font-weight: 700;
 
     img {
       width: 20px;
@@ -25,6 +26,10 @@ const ConditionWrap = styled.div`
     span {
       color: #0740e4;
       line-height: 54px;
+    }
+
+    @media screen and (min-width: 750px) {
+      font-size: 17px;
     }
   }
 
@@ -55,10 +60,13 @@ const ConditionWrap = styled.div`
         }
       }
 
-      img {
+      .more_condition_btn {
         width: 16px;
         height: 16px;
         margin-left: 8px;
+      }
+
+      img {
         cursor: pointer;
       }
     }
@@ -87,6 +95,11 @@ const ConditionWrap = styled.div`
 
   @media screen and (min-width: 750px) {
     padding: 16px 32px 32px 32px;
+
+    .bold_text {
+      font-size: 20px;
+      line-height: 29px;
+    }
   }
 `;
 
@@ -99,7 +112,7 @@ export interface SubModal {
 interface ConditionProps {
   setConditionModal: React.Dispatch<React.SetStateAction<boolean>>;
   storageData: StorageType;
-  setPage: React.Dispatch<React.SetStateAction<string>>;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
 }
 
 type CkType = {
@@ -205,6 +218,7 @@ function ConditionModal({
       business_address,
     } = address2;
     const { refund_accout_name, refund_accout_number, bank } = step4;
+
     if (isChecked.all) {
       axios
         .post(
@@ -236,10 +250,7 @@ function ConditionModal({
         )
         .then((result) => {
           if (result.data.status === 200) {
-            setPage("2");
-            localStorage.setItem("localPage", "2");
-            localStorage.removeItem(sellNo);
-            localStorage.removeItem("localStep");
+            setPage(2);
           }
         })
         .catch((err) => {
@@ -257,6 +268,7 @@ function ConditionModal({
         overlayClassName="overlay"
         className="condition_sub_modal"
         ariaHideApp={false}
+        shouldCloseOnOverlayClick={false}
       >
         <ConditionSubModal
           subModal={subModal}
@@ -274,7 +286,7 @@ function ConditionModal({
           신청 완료를 위해 <br /> 아래 약관에 동의해주세요.
         </RegistTitle>
         <MainBtn
-          className="all_check_btn bold_text"
+          className="all_check_btn"
           type="button"
           backgrondColor={`${
             isChecked["all"] ? "rgba(7, 64, 228, 0.03)" : "#fff"
@@ -320,6 +332,7 @@ function ConditionModal({
                 <img
                   src="./img/icon_arrow_right_medium_gray.svg"
                   alt="약관 더 보기"
+                  className="more_condition_btn"
                   onClick={() => {
                     setConditionSubOpen(true);
                     setSubModal({
