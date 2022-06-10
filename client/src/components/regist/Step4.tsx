@@ -39,8 +39,7 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
   }, [step4]);
 
   function focus_account() {
-    console.log(window);
-    if (window.innerWidth < 750) {
+    if (/Mobi/i.test(window.navigator.userAgent)) {
       scroll.current.style.height = "100vh";
       scroll.current.scrollIntoView(true);
     } else return;
