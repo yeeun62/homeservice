@@ -40,29 +40,32 @@ const BankModalWrap = styled.div`
   }
 
   .bank_close {
-    background-color: transparent;
-    position: relative;
-    display: flex;
-    justify-content: end;
-    align-items: center;
     width: 100%;
     height: 94px;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0) -5.32%,
+      #ffffff 21.62%
+    );
+    z-index: 100;
+    max-width: 1200px;
 
-    p {
-      padding-right: 24px;
-    }
+    .bank_footer {
+      height: 100%;
+      position: relative;
+      background: transparent;
 
-    .gradient {
-      position: absolute;
-      width: 100%;
-      top: -14%;
-      height: 18px;
-      background: linear-gradient(to top, #fff 20%, transparent);
-    }
-
-    p {
-      cursor: pointer;
-      font-weight: 700;
+      p {
+        cursor: pointer;
+        font-weight: 700;
+        position: absolute;
+        right: 24px;
+        bottom: 24px;
+      }
     }
   }
 
@@ -117,8 +120,9 @@ function BankModal({
           })}
       </div>
       <div className="bank_close">
-        <div className="gradient"></div>
-        <p onClick={() => setBankModal(false)}>닫기</p>
+        <div className="bank_footer">
+          <p onClick={() => setBankModal(false)}>닫기</p>
+        </div>
       </div>
     </BankModalWrap>
   );
