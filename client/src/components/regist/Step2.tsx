@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import styled, { css } from "styled-components";
 import { RegistTitle } from "../../styles/recycle";
-import { StorageType } from "../../App";
+import { ActiveProps } from "../../pages/Page";
 
 const RegistTypeBtn = styled.button<{ choice: boolean }>`
   @media screen and (min-width: 750px) {
@@ -36,13 +36,12 @@ const RegistTypeBtn = styled.button<{ choice: boolean }>`
   }
 `;
 
-interface Step2Props {
-  setActivate: React.Dispatch<React.SetStateAction<boolean>>;
-  setStorageData: React.Dispatch<React.SetStateAction<StorageType>>;
-  storageData: StorageType;
-}
-
-function Step2({ setActivate, setStorageData, storageData }: Step2Props) {
+function Step2({
+  setActivate,
+  setStorageData,
+  storageData,
+  setPhoneAuth,
+}: ActiveProps) {
   const registType = ["개인", "개인사업자", "법인사업자"];
 
   useEffect(() => {
@@ -54,7 +53,9 @@ function Step2({ setActivate, setStorageData, storageData }: Step2Props) {
   }, [storageData.step2]);
 
   useEffect(() => {
-    localStorage.setItem("phone", storageData.step1.customer_hphone);
+    if (setPhoneAuth) {
+      setPhoneAuth(true);
+    }
   }, []);
 
   const storageHandler = (index: number) => {
