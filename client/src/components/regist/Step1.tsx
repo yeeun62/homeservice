@@ -1,6 +1,6 @@
 import { RegistTitle, RegistSubBtn, RegistForm } from "../../styles/recycle";
 import { ActiveProps } from "../../pages/Page";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Modal from "react-modal";
 import CloseModal from "../../modal/CloseModal";
 import CryptoJS from "crypto-js";
@@ -22,6 +22,7 @@ function Step1({ setActivate, setStorageData, storageData }: ActiveProps) {
   const [modalTxt, setModalTxt] =
     useState<string>("인증번호가 발급되었습니다.");
   const [phone, setPhone] = useState<any>("");
+  const scroll: any = useRef(null);
 
   useEffect(() => {
     let phoneNumber = localStorage.getItem("phone");
@@ -140,6 +141,13 @@ function Step1({ setActivate, setStorageData, storageData }: ActiveProps) {
     }
   };
 
+  function focus_account() {
+    if (/Mobi/i.test(window.navigator.userAgent)) {
+      scroll.current.style.height = "calc(100vh - 56px)";
+      scroll.current.scrollIntoView(true);
+    } else return;
+  }
+
   return (
     <>
       <Modal
@@ -152,101 +160,108 @@ function Step1({ setActivate, setStorageData, storageData }: ActiveProps) {
       >
         <CloseModal setCloseModal={setCloseModal} mainTxt={modalTxt} />
       </Modal>
-      <RegistTitle>신청자 정보를 입력해 주세요</RegistTitle>
-      <RegistForm onSubmit={(e) => e.preventDefault()} stepOne={true}>
-        <label>
-          <p>이름</p>
-          <div className="input_div">
-            <input
-              tabIndex={1}
-              type="text"
-              value={step1.customer_name}
-              placeholder="실명을 입력해주세요"
-              className="name_input"
-              autoFocus
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                setStorageData({
-                  ...storageData,
-                  step1: { ...step1, customer_name: e.target.value },
-                });
-              }}
-            />
-          </div>
-        </label>
-        <label>
-          <p>휴대전화 번호</p>
-          <div className="flex_form">
+      <div ref={scroll}>
+        <RegistTitle>신청자 정보를 입력해 주세요</RegistTitle>
+        <RegistForm onSubmit={(e) => e.preventDefault()} stepOne={true}>
+          <label>
+            <p>이름</p>
             <div className="input_div">
               <input
-                tabIndex={2}
-                placeholder="숫자만 입력해주세요"
-                type="tel"
-                pattern="\d*"
-                value={step1.customer_hphone}
+                tabIndex={1}
+                type="text"
+                value={step1.customer_name}
+                placeholder="실명을 입력해주세요"
+                className="name_input"
+                autoFocus
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  if (e.target.value.length <= 11) {
-                    setStorageData({
-                      ...storageData,
-                      step1: {
-                        ...step1,
-                        customer_hphone: e.target.value.replace(/[^0-9]/g, ""),
-                      },
-                    });
-                  }
+                  setStorageData({
+                    ...storageData,
+                    step1: { ...step1, customer_name: e.target.value },
+                  });
                 }}
               />
             </div>
-            <RegistSubBtn
-              onClick={() => inputComplete && authHandler()}
-              backgrondColor={`${inputComplete ? "#0740E4" : "#C2C2C2"}`}
-              step1={true}
-            >
-              {time ? "인증번호 재전송" : "인증번호 전송"}
-            </RegistSubBtn>
-          </div>
-          <div style={{ position: "relative", marginTop: "12px" }}>
-            <div className="input_div">
-              <input
-                tabIndex={3}
-                className="input_margin_top"
-                type="tel"
-                pattern="\d*"
-                maxLength={6}
-                placeholder="인증번호를 입력해주세요"
-                value={validation}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  setAuthMessage3(false);
-                  if (!time) {
-                    setAuthMessage2(true);
-                    return;
-                  } else {
-                    setValidation(e.target.value.replace(/[^0-9]/g, ""));
-                  }
-                }}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") e.preventDefault();
-                }}
-              />
+          </label>
+          <label>
+            <p>휴대전화 번호</p>
+            <div className="flex_form">
+              <div className="input_div">
+                <input
+                  tabIndex={2}
+                  placeholder="숫자만 입력해주세요"
+                  type="tel"
+                  pattern="\d*"
+                  value={step1.customer_hphone}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    if (e.target.value.length <= 11) {
+                      setStorageData({
+                        ...storageData,
+                        step1: {
+                          ...step1,
+                          customer_hphone: e.target.value.replace(
+                            /[^0-9]/g,
+                            ""
+                          ),
+                        },
+                      });
+                    }
+                  }}
+                />
+              </div>
+              <RegistSubBtn
+                onClick={() => inputComplete && authHandler()}
+                backgrondColor={`${inputComplete ? "#0740E4" : "#C2C2C2"}`}
+                step1={true}
+              >
+                {time ? "인증번호 재전송" : "인증번호 전송"}
+              </RegistSubBtn>
             </div>
-            {time && (
-              <p className="valid_time">
-                {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+            <div style={{ position: "relative", marginTop: "12px" }}>
+              <div className="input_div">
+                <input
+                  tabIndex={3}
+                  className="input_margin_top"
+                  type="tel"
+                  pattern="\d*"
+                  maxLength={6}
+                  placeholder="인증번호를 입력해주세요"
+                  value={validation}
+                  onClick={focus_account}
+                  onFocus={focus_account}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    setAuthMessage3(false);
+                    if (!time) {
+                      setAuthMessage2(true);
+                      return;
+                    } else {
+                      setValidation(e.target.value.replace(/[^0-9]/g, ""));
+                    }
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") e.preventDefault();
+                  }}
+                />
+              </div>
+              {time && (
+                <p className="valid_time">
+                  {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+                </p>
+              )}
+            </div>
+            {authMessage && (
+              <p className="certi_warning">인증번호가 일치하지 않습니다.</p>
+            )}
+            {authMessage2 && (
+              <p className="certi_warning">인증번호 전송을 눌러주세요.</p>
+            )}
+            {authMessage3 && (
+              <p className="certi_warning">
+                재전송은 5초가 지난 후에 가능합니다.
               </p>
             )}
-          </div>
-          {authMessage && (
-            <p className="certi_warning">인증번호가 일치하지 않습니다.</p>
-          )}
-          {authMessage2 && (
-            <p className="certi_warning">인증번호 전송을 눌러주세요.</p>
-          )}
-          {authMessage3 && (
-            <p className="certi_warning">
-              재전송은 5초가 지난 후에 가능합니다.
-            </p>
-          )}
-        </label>
-      </RegistForm>
+          </label>
+        </RegistForm>
+      </div>
     </>
   );
 }
