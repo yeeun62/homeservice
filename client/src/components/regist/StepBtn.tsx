@@ -1,26 +1,18 @@
 import { useEffect, useState } from "react";
-import styled from "styled-components";
 import { MainBtn, Footer } from "../../styles/recycle";
 import ConditionModal from "../../modal/ConditionModal";
 import Modal from "react-modal";
 import "../../modal/modal.css";
 import { StorageType } from "../../App";
 
-const StepBtnWrap = styled(Footer)`
-  div {
-    display: flex;
-    justify-content: space-between;
-  }
-`;
-
 interface StepBtnProps {
   step: number;
   setStep: React.Dispatch<React.SetStateAction<number>>;
   activate: boolean;
   storageData: StorageType;
-  localStep: string;
-  setLocalStep: React.Dispatch<React.SetStateAction<string>>;
-  setPage: React.Dispatch<React.SetStateAction<string>>;
+  localStep: number;
+  setLocalStep: React.Dispatch<React.SetStateAction<number>>;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
 }
 
 function StepBtn({
@@ -35,32 +27,27 @@ function StepBtn({
   const [conditionModal, setConditionModal] = useState<boolean>(false);
 
   useEffect(() => {
-    if (localStep === "0") {
+    if (localStep === 0) {
       setStep(1);
-      localStorage.setItem("localStep", localStep);
-    } else if (localStep === "1") {
+    } else if (localStep === 1) {
       setStep(2);
-      localStorage.setItem("localStep", localStep);
-    } else if (localStep === "2" || localStep === "3" || localStep === "4") {
+    } else if (localStep === 2 || localStep === 3 || localStep === 4) {
       setStep(3);
-      localStorage.setItem("localStep", localStep);
-    } else if (localStep === "5") {
+    } else if (localStep === 5) {
       setStep(4);
-      localStorage.setItem("localStep", localStep);
     }
   }, [localStep]);
 
   const prevMove = () => {
-    if (localStep === "0") {
-      setPage("0");
-      localStorage.setItem("localPage", "0");
-      setLocalStep("0");
-    } else if (localStep === "1") {
-      setLocalStep("0");
-    } else if (localStep === "2" || localStep === "3" || localStep === "4") {
-      setLocalStep("1");
-    } else if (localStep === "5") {
-      setLocalStep(String(storageData.step2.index));
+    if (localStep === 0) {
+      setPage(0);
+      setLocalStep(0);
+    } else if (localStep === 1) {
+      setLocalStep(0);
+    } else if (localStep === 2 || localStep === 3 || localStep === 4) {
+      setLocalStep(1);
+    } else if (localStep === 5) {
+      setLocalStep(storageData.step2.index);
     }
   };
 
@@ -68,23 +55,21 @@ function StepBtn({
     if (!activate) {
       return;
     }
-    if (step === 4 && localStep === "5") {
+    if (step === 4 && localStep === 5) {
       return conditionModalHandler();
     }
-    if (localStep === "0") {
-      setLocalStep("1");
-    } else if (localStep === "1") {
-      setLocalStep(String(storageData.step2.index));
-      localStorage.setItem(storageData.sellNo, JSON.stringify(storageData));
+    if (localStep === 0) {
+      setLocalStep(1);
+    } else if (localStep === 1) {
+      setLocalStep(storageData.step2.index);
       return;
-    } else if (localStep === "2" || localStep === "3" || localStep === "4") {
-      setLocalStep("5");
+    } else if (localStep === 2 || localStep === 3 || localStep === 4) {
+      setLocalStep(5);
     }
-    localStorage.setItem(storageData.sellNo, JSON.stringify(storageData));
   };
 
   const conditionModalHandler = () => {
-    if (localStep === "5") {
+    if (localStep === 5) {
       setConditionModal(true);
     }
   };
@@ -97,6 +82,7 @@ function StepBtn({
         overlayClassName="overlay"
         className="bottom_modal"
         ariaHideApp={false}
+        shouldCloseOnOverlayClick={false}
       >
         <ConditionModal
           setConditionModal={setConditionModal}
@@ -104,7 +90,7 @@ function StepBtn({
           setPage={setPage}
         />
       </Modal>
-      <StepBtnWrap>
+      <Footer>
         <div>
           <MainBtn
             backgrondColor=" rgba(7, 64, 228, 0.03)"
@@ -125,10 +111,10 @@ function StepBtn({
               nextMove();
             }}
           >
-            {localStep === "5" ? "약관동의" : "다음"}
+            {localStep === 5 ? "약관동의" : "다음"}
           </MainBtn>
         </div>
-      </StepBtnWrap>
+      </Footer>
     </>
   );
 }
