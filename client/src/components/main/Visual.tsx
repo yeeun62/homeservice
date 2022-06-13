@@ -93,7 +93,7 @@ const VisualWrap = styled.div<{ bottom: boolean }>`
       align-items: stretch;
 
       img {
-        width: 33.7%;
+        width: 253px;
         margin-bottom: 0;
       }
 
