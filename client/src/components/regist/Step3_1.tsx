@@ -65,7 +65,7 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
 
   function nextInput(e: any) {
     if (e.key === "Enter") {
-      if (e.target.attributes[0].value === "1") {
+      if (e.target.attributes[0].value === "2") {
         setPostCodeOpen(true);
       }
       let nextEl = document.querySelectorAll("input");
@@ -73,7 +73,7 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
         return nextEl.forEach((input) => {
           if (
             input.tabIndex === Number(e.target.attributes[0].value) + 1 ||
-            (e.target.attributes[0].value === "1" && input.tabIndex === 3)
+            (e.target.attributes[0].value === "2" && input.tabIndex === 4)
           ) {
             return input.focus();
           }
@@ -137,7 +137,7 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
           </div>
           <div className="input_div">
             <input
-              tabIndex={0}
+              tabIndex={1}
               type="text"
               placeholder="실명을 입력해주세요"
               value={step3.nominee_name}
@@ -156,7 +156,7 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
           <p>휴대전화 번호</p>
           <div className="input_div">
             <input
-              tabIndex={1}
+              tabIndex={2}
               placeholder="숫자만 입력해주세요"
               type="tel"
               pattern="\d*"
@@ -195,7 +195,7 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
           <div className="flex_form" onClick={() => setPostCodeOpen(true)}>
             <div className="input_div">
               <input
-                tabIndex={2}
+                tabIndex={3}
                 type="text"
                 placeholder="주소를 검색해주세요"
                 readOnly
@@ -213,7 +213,7 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
           <div style={{ position: "relative", marginTop: "12px" }}>
             <div className="input_div">
               <input
-                tabIndex={3}
+                tabIndex={4}
                 className="input_margin_top"
                 type="text"
                 value={step3.address.nominee_address}
