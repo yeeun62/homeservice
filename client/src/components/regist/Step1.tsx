@@ -151,11 +151,24 @@ function Step1({
     }
   };
 
-  function focus_account() {
+  function focusAccount() {
     if (/Android/i.test(window.navigator.userAgent)) {
       scroll.current.style.height = "calc(100vh - 56px)";
       scroll.current.scrollIntoView(true);
     } else return;
+  }
+
+  function nextInput(e: any) {
+    if (e.key === "Enter") {
+      let nextEl = document.querySelectorAll("input");
+      if (nextEl.length) {
+        return nextEl.forEach((input) => {
+          if (input.tabIndex === Number(e.target.attributes[0].value) + 1) {
+            return input.focus();
+          }
+        });
+      }
+    }
   }
 
   return (
@@ -172,12 +185,16 @@ function Step1({
       </Modal>
       <div ref={scroll}>
         <RegistTitle>신청자 정보를 입력해 주세요</RegistTitle>
-        <RegistForm onSubmit={(e) => e.preventDefault()} stepOne={true}>
+        <RegistForm
+          onSubmit={(e) => e.preventDefault()}
+          stepOne={true}
+          onKeyDown={nextInput}
+        >
           <label>
             <p>이름</p>
             <div className="input_div">
               <input
-                tabIndex={1}
+                tabIndex={0}
                 type="text"
                 value={step1.customer_name}
                 placeholder="실명을 입력해주세요"
@@ -197,7 +214,7 @@ function Step1({
             <div className="flex_form">
               <div className="input_div">
                 <input
-                  tabIndex={2}
+                  tabIndex={1}
                   placeholder="숫자만 입력해주세요"
                   type="tel"
                   pattern="\d*"
@@ -233,15 +250,15 @@ function Step1({
             <div style={{ position: "relative", marginTop: "12px" }}>
               <div className="input_div">
                 <input
-                  tabIndex={3}
+                  tabIndex={2}
                   className="input_margin_top"
                   type="tel"
                   pattern="\d*"
                   maxLength={6}
                   placeholder="인증번호를 입력해주세요"
                   value={validation}
-                  onClick={focus_account}
-                  onFocus={focus_account}
+                  onClick={focusAccount}
+                  onFocus={focusAccount}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     setAuthMessage3(false);
                     if (!time) {
