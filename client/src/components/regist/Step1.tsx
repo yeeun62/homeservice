@@ -17,6 +17,7 @@ function Step1({
   const [authMessage, setAuthMessage] = useState<boolean>(false);
   const [authMessage2, setAuthMessage2] = useState<boolean>(false);
   const [authMessage3, setAuthMessage3] = useState<boolean>(false);
+  const [authMessage4, setAuthMessage4] = useState<boolean>(false);
   const [inputComplete, setInputComplete] = useState<boolean>(false);
   const [salt, setSalt] = useState<any>("");
   const [minutes, setMinutes] = useState<any>(3);
@@ -34,6 +35,14 @@ function Step1({
       setPhone(step1.customer_hphone);
     }
   }, []);
+
+  useEffect(() => {
+    if (time) {
+      setActivate(false);
+      setSalt("");
+      setAuthMessage4(true);
+    }
+  }, [storageData.step1.customer_hphone]);
 
   useEffect(() => {
     if (phone) {
@@ -120,6 +129,7 @@ function Step1({
       setResendCount(false);
       setModalTxt("인증번호가 발급되었습니다.");
       setCloseModal(true);
+      setAuthMessage4(false);
       let authNumber = String(Math.random()).slice(2, 8);
       let crypto = CryptoJS.AES.encrypt(
         authNumber,
@@ -277,7 +287,7 @@ function Step1({
                 </p>
               )}
             </div>
-            {authMessage && (
+            {authMessage && !authMessage4 && (
               <p className="certi_warning">인증번호가 일치하지 않습니다.</p>
             )}
             {authMessage2 && (
@@ -286,6 +296,11 @@ function Step1({
             {authMessage3 && (
               <p className="certi_warning">
                 재전송은 5초가 지난 후에 가능합니다.
+              </p>
+            )}
+            {authMessage4 && (
+              <p className="certi_warning">
+                휴대전화 번호가 수정되어 다시 인증해주세요.
               </p>
             )}
           </label>

@@ -114,7 +114,7 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
         if (addressinput.length) return addressinput[0].focus();
       }
       if (Number(e.target.attributes[0].value) < 7) {
-        return document
+        document
           .getElementsByName(
             (Number(e.target.attributes[0].value) + 1).toString()
           )[0]
