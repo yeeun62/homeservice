@@ -17,6 +17,7 @@ function Step1({
   const [authMessage, setAuthMessage] = useState<boolean>(false);
   const [authMessage2, setAuthMessage2] = useState<boolean>(false);
   const [authMessage3, setAuthMessage3] = useState<boolean>(false);
+  const [authMessage4, setAuthMessage4] = useState<boolean>(false);
   const [inputComplete, setInputComplete] = useState<boolean>(false);
   const [salt, setSalt] = useState<any>("");
   const [minutes, setMinutes] = useState<any>(3);
@@ -34,6 +35,14 @@ function Step1({
       setPhone(step1.customer_hphone);
     }
   }, []);
+
+  useEffect(() => {
+    if (time) {
+      setActivate(false);
+      setSalt("");
+      setAuthMessage4(true);
+    }
+  }, [storageData.step1.customer_hphone]);
 
   useEffect(() => {
     if (phone) {
@@ -120,6 +129,7 @@ function Step1({
       setResendCount(false);
       setModalTxt("인증번호가 발급되었습니다.");
       setCloseModal(true);
+      setAuthMessage4(false);
       let authNumber = String(Math.random()).slice(2, 8);
       let crypto = CryptoJS.AES.encrypt(
         authNumber,
@@ -151,11 +161,22 @@ function Step1({
     }
   };
 
-  function focus_account() {
+  function focusAccount() {
     if (/Android/i.test(window.navigator.userAgent)) {
       scroll.current.style.height = "calc(100vh - 56px)";
       scroll.current.scrollIntoView(true);
     } else return;
+  }
+
+  function nextInput(e: any) {
+    if (e.key === "Enter") {
+      let input = document.getElementsByName(
+        (Number(e.target.attributes[0].value) + 1).toString()
+      );
+      if (input.length) {
+        input[0].focus();
+      }
+    }
   }
 
   return (
@@ -172,12 +193,16 @@ function Step1({
       </Modal>
       <div ref={scroll}>
         <RegistTitle>신청자 정보를 입력해 주세요</RegistTitle>
-        <RegistForm onSubmit={(e) => e.preventDefault()} stepOne={true}>
+        <RegistForm
+          onSubmit={(e) => e.preventDefault()}
+          stepOne={true}
+          onKeyDown={nextInput}
+        >
           <label>
             <p>이름</p>
             <div className="input_div">
               <input
-                tabIndex={1}
+                name="1"
                 type="text"
                 value={step1.customer_name}
                 placeholder="실명을 입력해주세요"
@@ -197,7 +222,7 @@ function Step1({
             <div className="flex_form">
               <div className="input_div">
                 <input
-                  tabIndex={2}
+                  name="2"
                   placeholder="숫자만 입력해주세요"
                   type="tel"
                   pattern="\d*"
@@ -233,15 +258,15 @@ function Step1({
             <div style={{ position: "relative", marginTop: "12px" }}>
               <div className="input_div">
                 <input
-                  tabIndex={3}
+                  name="3"
                   className="input_margin_top"
                   type="tel"
                   pattern="\d*"
                   maxLength={6}
                   placeholder="인증번호를 입력해주세요"
                   value={validation}
-                  onClick={focus_account}
-                  onFocus={focus_account}
+                  onClick={focusAccount}
+                  onFocus={focusAccount}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     setAuthMessage3(false);
                     if (!time) {
@@ -262,7 +287,7 @@ function Step1({
                 </p>
               )}
             </div>
-            {authMessage && (
+            {authMessage && !authMessage4 && (
               <p className="certi_warning">인증번호가 일치하지 않습니다.</p>
             )}
             {authMessage2 && (
@@ -271,6 +296,11 @@ function Step1({
             {authMessage3 && (
               <p className="certi_warning">
                 재전송은 5초가 지난 후에 가능합니다.
+              </p>
+            )}
+            {authMessage4 && (
+              <p className="certi_warning">
+                휴대전화 번호가 수정되어 다시 인증해주세요.
               </p>
             )}
           </label>

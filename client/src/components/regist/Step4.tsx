@@ -38,11 +38,22 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
     }
   }, [step4]);
 
-  function focus_account() {
+  function focusAccount() {
     if (/Android/i.test(window.navigator.userAgent)) {
       scroll.current.style.height = "100vh";
       scroll.current.scrollIntoView(true);
     } else return;
+  }
+
+  function nextInput(e: any) {
+    if (e.key === "Enter") {
+      let input = document.getElementsByName(
+        (Number(e.target.attributes[0].value) + 1).toString()
+      );
+      if (input.length) {
+        input[0].focus();
+      }
+    }
   }
 
   return (
@@ -70,12 +81,12 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
         </p>
         <p className="gray_text">정확히 확인 후 입력 부탁드립니다.(선택)</p>
       </div>
-      <RegistForm>
+      <RegistForm onKeyDown={nextInput}>
         <label>
           <p>은행</p>
           <div className="input_div">
             <input
-              tabIndex={1}
+              name="1"
               type="text"
               placeholder="은행을 선택해주세요"
               readOnly
@@ -93,7 +104,7 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
           <p>예금주</p>
           <div className="input_div">
             <input
-              tabIndex={2}
+              name="2"
               type="text"
               placeholder="실명을 입력해주세요"
               value={step4.refund_accout_name}
@@ -110,13 +121,13 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
           <p>계좌번호</p>
           <div className="input_div">
             <input
-              tabIndex={3}
+              name="3"
               placeholder="숫자만 입력해주세요"
               type="tel"
               pattern="\d*"
               value={step4.refund_accout_number}
-              onClick={focus_account}
-              onFocus={focus_account}
+              onClick={focusAccount}
+              onFocus={focusAccount}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 if (e.target.value.length <= 14) {
                   setStorageData({
