@@ -47,13 +47,11 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
 
   function nextInput(e: any) {
     if (e.key === "Enter") {
-      let nextEl = document.querySelectorAll("input");
-      if (nextEl.length) {
-        return nextEl.forEach((input) => {
-          if (input.tabIndex === Number(e.target.attributes[0].value) + 1) {
-            return input.focus();
-          }
-        });
+      let input = document.getElementsByName(
+        (Number(e.target.attributes[0].value) + 1).toString()
+      );
+      if (input.length) {
+        input[0].focus();
       }
     }
   }
@@ -88,7 +86,7 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
           <p>은행</p>
           <div className="input_div">
             <input
-              tabIndex={1}
+              name="1"
               type="text"
               placeholder="은행을 선택해주세요"
               readOnly
@@ -106,7 +104,7 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
           <p>예금주</p>
           <div className="input_div">
             <input
-              tabIndex={2}
+              name="2"
               type="text"
               placeholder="실명을 입력해주세요"
               value={step4.refund_accout_name}
@@ -123,7 +121,7 @@ function Step4({ setActivate, setStorageData, storageData }: ActiveProps) {
           <p>계좌번호</p>
           <div className="input_div">
             <input
-              tabIndex={3}
+              name="3"
               placeholder="숫자만 입력해주세요"
               type="tel"
               pattern="\d*"
