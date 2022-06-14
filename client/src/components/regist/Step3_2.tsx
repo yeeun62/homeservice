@@ -189,11 +189,13 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
         let addressinput = document.getElementsByName("7");
         if (addressinput.length) return addressinput[0].focus();
       }
-      return document
-        .getElementsByName(
-          (Number(e.target.attributes[0].value) + 1).toString()
-        )[0]
-        .focus();
+      if (e.target.attributes[0].value < 9) {
+        document
+          .getElementsByName(
+            (Number(e.target.attributes[0].value) + 1).toString()
+          )[0]
+          .focus();
+      }
     }
   }
 
