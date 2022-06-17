@@ -11,15 +11,18 @@ import AddressModal from "../../modal/AddressModal";
 import Modal from "react-modal";
 import "../../modal/modal.css";
 
-function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
+function Step3_2({
+  setActivate,
+  setStorageData,
+  storageData,
+  nextInput,
+  postCodeOpen,
+  setPostCodeOpen,
+}: ActiveProps) {
   const [check, setCheck] = useState({ name: false, address: false });
   const [tooltip, setTooltip] = useState<boolean>(false);
   const [emailValidation, setEmailValidation] = useState<boolean | undefined>();
   const [emailBlur, setEmailBlur] = useState<boolean>(false);
-  const [postCodeOpen, setPostCodeOpen] = useState<{
-    nominee: boolean;
-    business: boolean;
-  }>({ nominee: false, business: false });
   const step3 = storageData.step3;
   const inputRef = useRef<HTMLInputElement>(null);
   const inputRefBusiness = useRef<HTMLInputElement>(null);
@@ -145,7 +148,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
   }
 
   function postCodeHandler(data: any) {
-    if (data) {
+    if (data && setPostCodeOpen) {
       const { roadAddress, jibunAddress, zonecode } = data;
       if (postCodeOpen.nominee) {
         setStorageData({
@@ -178,41 +181,22 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
     }
   }
 
-  function nextInput(e: any) {
-    if (e.key === "Enter") {
-      if (e.target.attributes[0].value === "2") {
-        setPostCodeOpen({ nominee: true, business: false });
-        let addressinput = document.getElementsByName("4");
-        if (addressinput.length) return addressinput[0].focus();
-      } else if (e.target.attributes[0].value === "5") {
-        setPostCodeOpen({ nominee: false, business: true });
-        let addressinput = document.getElementsByName("7");
-        if (addressinput.length) return addressinput[0].focus();
-      }
-      if (e.target.attributes[0].value < 9) {
-        document
-          .getElementsByName(
-            (Number(e.target.attributes[0].value) + 1).toString()
-          )[0]
-          .focus();
-      }
-    }
-  }
-
   return (
     <>
       <Modal
         isOpen={postCodeOpen.business || postCodeOpen.nominee}
         onRequestClose={() => {
-          postCodeOpen.business
-            ? setPostCodeOpen({
-                ...postCodeOpen,
-                business: false,
-              })
-            : setPostCodeOpen({
-                ...postCodeOpen,
-                nominee: false,
-              });
+          if (setPostCodeOpen) {
+            postCodeOpen.business
+              ? setPostCodeOpen({
+                  ...postCodeOpen,
+                  business: false,
+                })
+              : setPostCodeOpen({
+                  ...postCodeOpen,
+                  nominee: false,
+                });
+          }
         }}
         overlayClassName="overlay"
         className="post_code_modal"
@@ -228,7 +212,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
       <RegistForm
         onSubmit={(e) => e.preventDefault()}
         tooltip={tooltip}
-        onKeyDown={nextInput}
+        onKeyDown={(e) => nextInput(e, "step3-2-")}
       >
         <div className="step_info">
           <div className="info_number">
@@ -270,7 +254,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
           </div>
           <div className="input_div">
             <input
-              name="1"
+              name="step3-2-1"
               type="text"
               placeholder="실명을 입력해주세요"
               autoFocus
@@ -285,7 +269,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
           <p>휴대전화 번호</p>
           <div className="input_div">
             <input
-              name="2"
+              name="step3-2-2"
               placeholder="숫자만 입력해주세요"
               type="tel"
               pattern="\d*"
@@ -316,11 +300,14 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
           </Tooltip>
           <div
             className="flex_form"
-            onClick={() => setPostCodeOpen({ nominee: true, business: false })}
+            onClick={() =>
+              setPostCodeOpen &&
+              setPostCodeOpen({ nominee: true, business: false })
+            }
           >
             <div className="input_div">
               <input
-                name="3"
+                name="step3-2-3"
                 type="text"
                 placeholder="주소를 검색해주세요"
                 readOnly
@@ -338,7 +325,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
           <div style={{ position: "relative", marginTop: "12px" }}>
             <div className="input_div">
               <input
-                name="4"
+                name="step3-2-4"
                 className="input_margin_top"
                 type="text"
                 placeholder="상세주소를 입력해주세요"
@@ -359,7 +346,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
           <p>사업장명</p>
           <div className="input_div">
             <input
-              name="5"
+              name="step3-2-5"
               type="text"
               placeholder="사업장 이름을 입력해주세요"
               value={step3.business_name}
@@ -407,7 +394,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
           <div className="flex_form">
             <div className="input_div">
               <input
-                name="6"
+                name="step3-2-6"
                 type="text"
                 placeholder="주소를 검색해주세요"
                 readOnly
@@ -418,7 +405,8 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
                     : ""
                 }
                 onFocus={() => {
-                  setPostCodeOpen({ ...postCodeOpen, business: true });
+                  setPostCodeOpen &&
+                    setPostCodeOpen({ ...postCodeOpen, business: true });
                   (document.activeElement as HTMLElement).blur();
                 }}
               />
@@ -426,7 +414,8 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
             <RegistSubBtn
               backgrondColor="#0740E4"
               onClick={() => {
-                setPostCodeOpen({ ...postCodeOpen, business: true });
+                setPostCodeOpen &&
+                  setPostCodeOpen({ ...postCodeOpen, business: true });
               }}
             >
               주소 검색
@@ -435,7 +424,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
           <div style={{ position: "relative", marginTop: "12px" }}>
             <div className="input_div">
               <input
-                name="7"
+                name="step3-2-7"
                 className="input_margin_top"
                 type="text"
                 placeholder="상세주소를 입력해주세요"
@@ -452,7 +441,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
           <p>사업자 등록번호</p>
           <div className="input_div">
             <input
-              name="8"
+              name="step3-2-8"
               placeholder="숫자만 입력해주세요"
               type="tel"
               pattern="\d*"
@@ -470,7 +459,7 @@ function Step3_2({ setActivate, setStorageData, storageData }: ActiveProps) {
           <p>세금계산서 발행 이메일 주소</p>
           <div className="input_div">
             <input
-              name="9"
+              name="step3-2-9"
               type="text"
               placeholder="help@charancha.com"
               value={step3.business_email}

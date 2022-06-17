@@ -11,6 +11,7 @@ function Step1({
   setStorageData,
   storageData,
   phoneAuth,
+  nextInput,
 }: ActiveProps) {
   const step1 = storageData.step1;
   const [time, setTime] = useState<boolean>(false);
@@ -168,17 +169,6 @@ function Step1({
     } else return;
   }
 
-  function nextInput(e: any) {
-    if (e.key === "Enter") {
-      let input = document.getElementsByName(
-        (Number(e.target.attributes[0].value) + 1).toString()
-      );
-      if (input.length) {
-        input[0].focus();
-      }
-    }
-  }
-
   return (
     <>
       <Modal
@@ -196,13 +186,13 @@ function Step1({
         <RegistForm
           onSubmit={(e) => e.preventDefault()}
           stepOne={true}
-          onKeyDown={nextInput}
+          onKeyDown={(e) => nextInput(e, "step1-")}
         >
           <label>
             <p>이름</p>
             <div className="input_div">
               <input
-                name="1"
+                name="step1-1"
                 type="text"
                 value={step1.customer_name}
                 placeholder="실명을 입력해주세요"
@@ -222,7 +212,7 @@ function Step1({
             <div className="flex_form">
               <div className="input_div">
                 <input
-                  name="2"
+                  name="step1-2"
                   placeholder="숫자만 입력해주세요"
                   type="tel"
                   pattern="\d*"
@@ -258,7 +248,7 @@ function Step1({
             <div style={{ position: "relative", marginTop: "12px" }}>
               <div className="input_div">
                 <input
-                  name="3"
+                  name="step1-3"
                   className="input_margin_top"
                   type="tel"
                   pattern="\d*"

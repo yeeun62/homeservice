@@ -31,6 +31,11 @@ export interface ActiveProps {
   storageData: StorageType;
   phoneAuth?: boolean;
   setPhoneAuth?: React.Dispatch<React.SetStateAction<boolean>>;
+  nextInput?: any;
+  postCodeOpen?: any;
+  setPostCodeOpen?: React.Dispatch<
+    React.SetStateAction<{ nominee: boolean; business: boolean }>
+  >;
 }
 
 function Page({
@@ -48,6 +53,10 @@ function Page({
   const [activate, setActivate] = useState<boolean>(false);
   const [page, setPage] = useState<number>(0);
   const [phoneAuth, setPhoneAuth] = useState<boolean>(false);
+  const [postCodeOpen, setPostCodeOpen] = useState<{
+    nominee: boolean;
+    business: boolean;
+  }>({ nominee: false, business: false });
 
   useEffect(() => {
     let input: any = document.getElementsByTagName("input");
@@ -59,6 +68,38 @@ function Page({
       });
     }
   }, [localStep]);
+
+  function nextInput(e: any, s: string) {
+    if (e.key === "Enter") {
+      let input;
+
+      if (
+        s.slice(4, 7) === "3-2" &&
+        e.target.attributes[0].value.slice(-1) === "5"
+      ) {
+        setPostCodeOpen({ nominee: false, business: true });
+        input = document.getElementsByName(s + "7");
+        if (input.length) {
+          console.log(input[0].attributes[0].value);
+          input[0].focus();
+        }
+      } else if (
+        s.slice(4, 5) === "3" &&
+        e.target.attributes[0].value.slice(-1) === "2"
+      ) {
+        setPostCodeOpen({ nominee: true, business: false });
+        input = document.getElementsByName(s + "4");
+        if (input.length) input[0].focus();
+      } else {
+        input = document.getElementsByName(
+          s + (Number(e.target.attributes[0].value.slice(-1)) + 1).toString()
+        );
+        if (input.length) {
+          input[0].focus();
+        }
+      }
+    }
+  }
 
   return (
     <>
@@ -84,6 +125,7 @@ function Page({
                     setStorageData={setStorageData}
                     storageData={storageData}
                     phoneAuth={phoneAuth}
+                    nextInput={nextInput}
                   />,
                   <Step2
                     setActivate={setActivate}
@@ -95,16 +137,25 @@ function Page({
                     setActivate={setActivate}
                     setStorageData={setStorageData}
                     storageData={storageData}
+                    nextInput={nextInput}
+                    postCodeOpen={postCodeOpen.nominee}
+                    setPostCodeOpen={setPostCodeOpen}
                   />,
                   <Step3_2
                     setActivate={setActivate}
                     setStorageData={setStorageData}
                     storageData={storageData}
+                    nextInput={nextInput}
+                    postCodeOpen={postCodeOpen}
+                    setPostCodeOpen={setPostCodeOpen}
                   />,
                   <Step3_3
                     setActivate={setActivate}
                     setStorageData={setStorageData}
                     storageData={storageData}
+                    nextInput={nextInput}
+                    postCodeOpen={postCodeOpen.nominee}
+                    setPostCodeOpen={setPostCodeOpen}
                   />,
                   <Step4
                     setActivate={setActivate}

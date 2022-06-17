@@ -5,11 +5,17 @@ import AddressModal from "../../modal/AddressModal";
 import Modal from "react-modal";
 import "../../modal/modal.css";
 
-function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
+function Step3_3({
+  setActivate,
+  setStorageData,
+  storageData,
+  nextInput,
+  postCodeOpen,
+  setPostCodeOpen,
+}: ActiveProps) {
   const [check, setCheck] = useState<boolean>(false);
   const [emailValidation, setEmailValidation] = useState<boolean | undefined>();
   const [emailBlur, setEmailBlur] = useState<boolean>(false);
-  const [postCodeOpen, setPostCodeOpen] = useState<boolean>(false);
   const step3 = storageData.step3;
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -88,9 +94,9 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
   }, [check]);
 
   function postCodeHandler(data: any) {
-    if (data) {
+    if (data && setPostCodeOpen) {
       const { roadAddress, jibunAddress, zonecode } = data;
-      setPostCodeOpen(false);
+      setPostCodeOpen({ nominee: false, business: false });
       setStorageData({
         ...storageData,
         step3: {
@@ -106,28 +112,14 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
     }
   }
 
-  function nextInput(e: any) {
-    if (e.key === "Enter") {
-      if (e.target.attributes[0].value === "2") {
-        setPostCodeOpen(true);
-        let addressinput = document.getElementsByName("4");
-        if (addressinput.length) return addressinput[0].focus();
-      }
-      if (Number(e.target.attributes[0].value) < 7) {
-        document
-          .getElementsByName(
-            (Number(e.target.attributes[0].value) + 1).toString()
-          )[0]
-          .focus();
-      }
-    }
-  }
-
   return (
     <>
       <Modal
-        isOpen={postCodeOpen}
-        onRequestClose={() => setPostCodeOpen(!postCodeOpen)}
+        isOpen={postCodeOpen ? postCodeOpen : false}
+        onRequestClose={() =>
+          setPostCodeOpen &&
+          setPostCodeOpen((p) => ({ nominee: !p.nominee, business: false }))
+        }
         overlayClassName="overlay"
         className="post_code_modal"
         ariaHideApp={false}
@@ -139,7 +131,10 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
         />
       </Modal>
       <RegistTitle>법인 사업자 정보를 입력해 주세요</RegistTitle>
-      <RegistForm onSubmit={(e) => e.preventDefault()} onKeyDown={nextInput}>
+      <RegistForm
+        onSubmit={(e) => e.preventDefault()}
+        onKeyDown={(e) => nextInput(e, "step3-3-")}
+      >
         <div className="step_info">
           <div className="info_number">
             <p>1</p>
@@ -176,7 +171,7 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
           </div>
           <div className="input_div">
             <input
-              name="1"
+              name="step3-3-1"
               type="text"
               placeholder="실명을 입력해주세요"
               value={step3.nominee_name}
@@ -192,7 +187,7 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
           <p>휴대전화 번호</p>
           <div className="input_div">
             <input
-              name="2"
+              name="step3-3-2"
               placeholder="숫자만 입력해주세요"
               type="tel"
               pattern="\d*"
@@ -208,10 +203,16 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
         </label>
         <label style={{ marginBottom: "40px" }}>
           <p>사업장 주소</p>
-          <div className="flex_form" onClick={() => setPostCodeOpen(true)}>
+          <div
+            className="flex_form"
+            onClick={() =>
+              setPostCodeOpen &&
+              setPostCodeOpen({ nominee: true, business: false })
+            }
+          >
             <div className="input_div">
               <input
-                name="3"
+                name="step3-3-3"
                 type="text"
                 placeholder="주소를 검색해주세요"
                 readOnly
@@ -229,7 +230,7 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
           <div style={{ position: "relative", marginTop: "12px" }}>
             <div className="input_div">
               <input
-                name="4"
+                name="step3-3-4"
                 className="input_margin_top"
                 type="text"
                 placeholder="상세주소를 입력해주세요"
@@ -252,7 +253,7 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
           <p>법인명</p>
           <div className="input_div">
             <input
-              name="5"
+              name="step3-3-5"
               type="text"
               placeholder="법인명 이름을 입력해주세요"
               value={step3.business_name}
@@ -266,7 +267,7 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
           <p>사업자 등록번호</p>
           <div className="input_div">
             <input
-              name="6"
+              name="step3-3-6"
               placeholder="숫자만 입력해주세요"
               type="tel"
               pattern="\d*"
@@ -283,7 +284,7 @@ function Step3_3({ setActivate, setStorageData, storageData }: ActiveProps) {
           <p>세금계산서 발행 이메일 주소</p>
           <div className="input_div">
             <input
-              name="7"
+              name="step3-3-7"
               type="text"
               placeholder="help@charancha.com"
               value={step3.business_email}
