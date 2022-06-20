@@ -80,7 +80,6 @@ function Page({
         setPostCodeOpen({ nominee: false, business: true });
         input = document.getElementsByName(s + "7");
         if (input.length) {
-          console.log(input[0].attributes[0].value);
           input[0].focus();
         }
       } else if (
