@@ -55,19 +55,13 @@ function App() {
           `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_FORSALE}/${query.sellNo}`
         )
         .then((data) => {
-          if (data.data.status) {
+          if (Object.keys(data.data).length) {
+            setData(data.data);
+          } else {
             if (!isAlert) {
               isAlert = true;
               alert("매물정보가 없어 실패하였습니다. 관리자에 문의하세요.");
             }
-          } else {
-            setData(data.data);
-          }
-        })
-        .catch((err) => {
-          if (!isAlert) {
-            isAlert = true;
-            alert("매물정보가 없어 실패하였습니다. 관리자에 문의하세요.");
           }
         });
     } else {
@@ -136,6 +130,7 @@ function App() {
           }
         )
         .then((price) => {
+          // console.log(price)
           if (price.data.status === 200) {
             setPriceData(price.data.result);
           } else {
@@ -144,8 +139,7 @@ function App() {
               alert("가격조회에 실패하였습니다. 관리자에 문의하세요.");
             }
           }
-        })
-        .catch((err) => console.log("4"));
+        });
 
       setStorageData({
         sellNo: data.simpleCar.sellNo,
