@@ -11,10 +11,16 @@ import AddressModal from "../../modal/AddressModal";
 import Modal from "react-modal";
 import "../../modal/modal.css";
 
-function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
+function Step3_1({
+  setActivate,
+  setStorageData,
+  storageData,
+  nextInput,
+  postCodeOpen,
+  setPostCodeOpen,
+}: ActiveProps) {
   const [check, setCheck] = useState<boolean>(false);
   const [tooltip, setTooltip] = useState<boolean>(false);
-  const [postCodeOpen, setPostCodeOpen] = useState<boolean>(false);
   const step3 = storageData.step3;
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -45,9 +51,9 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
   }, [check]);
 
   function postCodeHandler(data: any) {
-    if (data) {
+    if (data && setPostCodeOpen) {
       const { roadAddress, jibunAddress, zonecode } = data;
-      setPostCodeOpen(false);
+      setPostCodeOpen({ nominee: false, business: false });
       setStorageData({
         ...storageData,
         step3: {
@@ -63,28 +69,14 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
     }
   }
 
-  function nextInput(e: any) {
-    if (e.key === "Enter") {
-      if (e.target.attributes[0].value === "2") {
-        setPostCodeOpen(true);
-        let addressinput = document.getElementsByName("4");
-        if (addressinput.length) return addressinput[0].focus();
-      }
-      if (e.target.attributes[0].value < 4) {
-        document
-          .getElementsByName(
-            (Number(e.target.attributes[0].value) + 1).toString()
-          )[0]
-          .focus();
-      }
-    }
-  }
-
   return (
     <>
       <Modal
-        isOpen={postCodeOpen}
-        onRequestClose={() => setPostCodeOpen(!postCodeOpen)}
+        isOpen={postCodeOpen ? postCodeOpen : false}
+        onRequestClose={() =>
+          setPostCodeOpen &&
+          setPostCodeOpen((p) => ({ nominee: !p.nominee, business: false }))
+        }
         overlayClassName="overlay"
         className="post_code_modal"
         ariaHideApp={false}
@@ -99,7 +91,7 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
       <RegistForm
         onSubmit={(e) => e.preventDefault()}
         tooltip={tooltip}
-        onKeyDown={nextInput}
+        onKeyDown={(e) => nextInput(e, "step3-1-")}
       >
         <label>
           <div className="flex_check">
@@ -135,7 +127,7 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
           </div>
           <div className="input_div">
             <input
-              name="1"
+              name="step3-1-1"
               type="text"
               placeholder="실명을 입력해주세요"
               value={step3.nominee_name}
@@ -154,7 +146,7 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
           <p>휴대전화 번호</p>
           <div className="input_div">
             <input
-              name="2"
+              name="step3-1-2"
               placeholder="숫자만 입력해주세요"
               type="tel"
               pattern="\d*"
@@ -190,10 +182,16 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
           <Tooltip className="tooltip">
             명의자의 등본상 주소지를 입력해 주세요.
           </Tooltip>
-          <div className="flex_form" onClick={() => setPostCodeOpen(true)}>
+          <div
+            className="flex_form"
+            onClick={() =>
+              setPostCodeOpen &&
+              setPostCodeOpen({ nominee: true, business: false })
+            }
+          >
             <div className="input_div">
               <input
-                name="3"
+                name="step3-1-3"
                 type="text"
                 placeholder="주소를 검색해주세요"
                 readOnly
@@ -211,7 +209,7 @@ function Step3_1({ setActivate, setStorageData, storageData }: ActiveProps) {
           <div style={{ position: "relative", marginTop: "12px" }}>
             <div className="input_div">
               <input
-                name="4"
+                name="step3-1-4"
                 className="input_margin_top"
                 type="text"
                 value={step3.address.nominee_address}
