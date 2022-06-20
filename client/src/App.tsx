@@ -51,8 +51,8 @@ function App() {
     if (query.sellNo) {
       axios
         .get(
-          // `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_URL}:${process.env.REACT_APP_PORT}/api/handle/products/${query.sellNo}`
-          `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_FORSALE}/${query.sellNo}`
+          `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_URL}:${process.env.REACT_APP_PORT}/api/handle/products/${query.sellNo}`
+          // `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_FORSALE}/${query.sellNo}`
         )
         .then((data) => {
           if (Object.keys(data.data).length) {
@@ -83,12 +83,6 @@ function App() {
             "전문과와 1:1 라이브로 차량을 확인후 원하는 곳으로 받아보세요.\n 3+1일 동안 타보고 맘에 안들면 환불 할 수 있습니다."
           );
         }
-      })
-      .catch((err) => {
-        if (!isAlert) {
-          isAlert = true;
-          alert("매물정보가 없어 실패하였습니다. 관리자에 문의하세요.");
-        }
       });
 
     axios
@@ -105,12 +99,6 @@ function App() {
             "이전비는 차액 발생 시 계좌로 환급해드립니다.",
             "위 예상 합계 금액은 성능보증보험료가 제외된 금액으로 차량마다 보험료가 다를 수 있어서 신청 이후에 상담사가 안내해 드립니다.",
           ]);
-        }
-      })
-      .catch((err) => {
-        if (!isAlert) {
-          isAlert = true;
-          alert("매물정보가 없어 실패하였습니다. 관리자에 문의하세요.");
         }
       });
   }, []);
@@ -130,7 +118,6 @@ function App() {
           }
         )
         .then((price) => {
-          // console.log(price)
           if (price.data.status === 200) {
             setPriceData(price.data.result);
           } else {
