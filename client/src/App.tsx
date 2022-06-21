@@ -63,6 +63,12 @@ function App() {
               alert("매물정보가 없어 실패하였습니다. 관리자에 문의하세요.");
             }
           }
+        })
+        .catch((err) => {
+          if (!isAlert) {
+            isAlert = true;
+            alert("매물정보가 없어 실패하였습니다. 관리자에 문의하세요.");
+          }
         });
     } else {
       if (!isAlert) {
