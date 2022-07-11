@@ -33,10 +33,9 @@ function StepBtn({
       setStep(2);
     } else if (localStep === 2 || localStep === 3 || localStep === 4) {
       setStep(3);
+    } else if (localStep === 5) {
+      setStep(4);
     }
-    // else if (localStep === 5) {
-    //   setStep(4);
-    // }
   }, [localStep]);
 
   const prevMove = () => {
@@ -56,9 +55,13 @@ function StepBtn({
     if (!activate) {
       return;
     }
-    if (step === 3 && (localStep === 2 || localStep === 3 || localStep === 4)) {
-      // return conditionModalHandler();
-      setConditionModal(true);
+    // step4 있을 때
+    // if (step === 4 && localStep === 5) {
+    //     return setConditionModal(true);
+    // }
+    // step4 없을 때
+    if (localStep > 1 && step === 3) {
+      return setConditionModal(true);
     }
     if (localStep === 0) {
       setLocalStep(1);
@@ -66,8 +69,9 @@ function StepBtn({
       setLocalStep(storageData.step2.index);
       return;
     }
+    // step4 있을 때
     // else if (localStep === 2 || localStep === 3 || localStep === 4) {
-    //   setLocalStep(5);
+    //     setLocalStep(5);
     // }
   };
 
@@ -104,14 +108,11 @@ function StepBtn({
             color="#fff"
             border="none"
             activate={activate}
-            onClick={() => {
-              nextMove();
-            }}
+            onClick={nextMove}
           >
-            {/* {localStep === 5 ? "약관동의" : "다음"} */}
-            {localStep === 2 || localStep === 3 || localStep === 4
-              ? "약관동의"
-              : "다음"}
+            {/* {localStep === 4 ? "약관동의" : "다음"} step4 있을 때  */}
+            {/* // step4 없을 때 */}
+            {localStep > 1 ? "약관동의" : "다음"}
           </MainBtn>
         </div>
       </Footer>
