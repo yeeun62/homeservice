@@ -249,7 +249,6 @@ function ConditionModal({
                     }
                 )
                 .then((result) => {
-                    console.log(result);
                     if (result.data.status === 200) {
                         setPage(2);
                     }
