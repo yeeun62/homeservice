@@ -243,12 +243,14 @@ function ConditionModal({
             business_address,
             business_number,
             business_email,
-            refund_bank_cd: bank.refund_bank_cd,
-            refund_accout_name,
-            refund_accout_number,
+            // refund_bank_cd: bank.refund_bank_cd,
+            refund_bank_cd: "",
+            refund_accout_name: "",
+            refund_accout_number: "",
           }
         )
         .then((result) => {
+          console.log(result);
           if (result.data.status === 200) {
             setPage(2);
           }

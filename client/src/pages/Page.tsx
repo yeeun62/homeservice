@@ -156,11 +156,11 @@ function Page({
                     postCodeOpen={postCodeOpen.nominee}
                     setPostCodeOpen={setPostCodeOpen}
                   />,
-                  <Step4
-                    setActivate={setActivate}
-                    setStorageData={setStorageData}
-                    storageData={storageData}
-                  />,
+                  // <Step4
+                  //   setActivate={setActivate}
+                  //   setStorageData={setStorageData}
+                  //   storageData={storageData}
+                  // />,
                 ][localStep]
               }
             </PageWrap>

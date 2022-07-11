@@ -33,9 +33,10 @@ function StepBtn({
       setStep(2);
     } else if (localStep === 2 || localStep === 3 || localStep === 4) {
       setStep(3);
-    } else if (localStep === 5) {
-      setStep(4);
     }
+    // else if (localStep === 5) {
+    //   setStep(4);
+    // }
   }, [localStep]);
 
   const prevMove = () => {
@@ -55,23 +56,19 @@ function StepBtn({
     if (!activate) {
       return;
     }
-    if (step === 4 && localStep === 5) {
-      return conditionModalHandler();
+    if (step === 3 && (localStep === 2 || localStep === 3 || localStep === 4)) {
+      // return conditionModalHandler();
+      setConditionModal(true);
     }
     if (localStep === 0) {
       setLocalStep(1);
     } else if (localStep === 1) {
       setLocalStep(storageData.step2.index);
       return;
-    } else if (localStep === 2 || localStep === 3 || localStep === 4) {
-      setLocalStep(5);
     }
-  };
-
-  const conditionModalHandler = () => {
-    if (localStep === 5) {
-      setConditionModal(true);
-    }
+    // else if (localStep === 2 || localStep === 3 || localStep === 4) {
+    //   setLocalStep(5);
+    // }
   };
 
   return (
@@ -111,7 +108,10 @@ function StepBtn({
               nextMove();
             }}
           >
-            {localStep === 5 ? "약관동의" : "다음"}
+            {/* {localStep === 5 ? "약관동의" : "다음"} */}
+            {localStep === 2 || localStep === 3 || localStep === 4
+              ? "약관동의"
+              : "다음"}
           </MainBtn>
         </div>
       </Footer>
