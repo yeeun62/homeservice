@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { MainBtn, RegistTitle } from "../../styles/recycle";
 import { StorageType } from "../../App";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 const PayWrap = styled.div`
     padding-bottom: 32px;
@@ -66,6 +66,21 @@ function Pay({
     priceTxt: any;
 }) {
     const ulRef = useRef<HTMLUListElement>(null);
+
+    useEffect(() => {
+        if (
+            storageData.payment_cd === "HOME_PAYMENT_001" &&
+            ulRef.current !== null
+        ) {
+            ulRef.current.innerHTML = priceTxt.cash[0];
+        } else if (
+            storageData.payment_cd === "HOME_PAYMENT_002" &&
+            ulRef.current !== null
+        ) {
+            ulRef.current.innerHTML = priceTxt.installment[0];
+        }
+    }, [ulRef, storageData.payment_cd]);
+
     return (
         <PayWrap>
             <RegistTitle>결제 수단을 선택해주세요</RegistTitle>
@@ -98,27 +113,7 @@ function Pay({
                     현금 + 할부
                 </MainBtn>
             </div>
-            {/* <ul ref={ulRef}>
-                {storageData.payment_cd === "HOME_PAYMENT_001"
-                    ? priceTxt.cash.map((li: string) => {
-                          if (
-                              li.search("<strong>") >= 0 &&
-                              ulRef.current !== null
-                          ) {
-                              return (ulRef.current.innerHTML = li);
-                          }
-                      })
-                    : storageData.payment_cd === "HOME_PAYMENT_002"
-                    ? priceTxt.installment.map((li: string) => {
-                          if (
-                              li.search("<strong>") >= 0 &&
-                              ulRef.current !== null
-                          ) {
-                              return (ulRef.current.innerHTML = li);
-                          }
-                      })
-                    : null}
-            </ul> */}
+            <ul ref={ulRef}></ul>
         </PayWrap>
     );
 }

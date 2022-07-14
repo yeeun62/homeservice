@@ -51,8 +51,8 @@ function App() {
         if (query.sellNo) {
             axios
                 .get(
-                    `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_URL}:${process.env.REACT_APP_PORT}/api/handle/products/${query.sellNo}`
-                    // `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_FORSALE}/${query.sellNo}`
+                    // `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_URL}:${process.env.REACT_APP_PORT}/api/handle/products/${query.sellNo}`
+                    `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_FORSALE}/${query.sellNo}`
                 )
                 .then((data) => {
                     if (Object.keys(data.data).length) {
@@ -103,18 +103,17 @@ function App() {
                 if (txt.data.status === 200) {
                     setPriceTxt(txt.data.result);
                 } else {
-                    console.log("!!!");
-                    // setPriceTxt({
-                    //     priceNotice: [
-                    //         "<li>견적금액은 배송비에 의해 변동될 수 있습니다.<br>(배송비 최대금액 159,000원으로 계산 선반영되었습니다.)</li>\n        <li>배송비는 차량 출발지와 도착지 거리에 따라 책정되며, 상담단계에서 확정됩니다.</li>\n        <li>이전비는 차액 발생 시 계좌로 환급해드립니다.</li>\n        <li>위 예상 합계 금액은 성능보증보험료가 제외된 금액으로 차량마다 보험료가 다를 수 있어서 신청 이후에 상담사가 안내해 드립니다.</li>",
-                    //     ],
-                    //     cash: [
-                    //         "<li>결제를 위한 이체 한도를 미리 확인해 주세요.</li>",
-                    //     ],
-                    //     installment: [
-                    //         "<li>차량비용만 할부 이용이 가능합니다.<br><strong>차량비용 이외의 금액은 계좌이체로 결제 진행됩니다.</strong></li>\n        <li>최대 대출한도는 차량금액으로 설정 됩니다.<br> 상담 시 대출 금액을 설정해주세요.</li>",
-                    //     ],
-                    // });
+                    setPriceTxt({
+                        priceNotice: [
+                            "<li>견적금액은 배송비에 의해 변동될 수 있습니다.<br>(배송비 최대금액 159,000원으로 계산 선반영되었습니다.)</li>\n        <li>배송비는 차량 출발지와 도착지 거리에 따라 책정되며, 상담단계에서 확정됩니다.</li>\n        <li>이전비는 차액 발생 시 계좌로 환급해드립니다.</li>\n        <li>위 예상 합계 금액은 성능보증보험료가 제외된 금액으로 차량마다 보험료가 다를 수 있어서 신청 이후에 상담사가 안내해 드립니다.</li>",
+                        ],
+                        cash: [
+                            "<li>결제를 위한 이체 한도를 미리 확인해 주세요.</li>",
+                        ],
+                        installment: [
+                            "<li>차량비용만 할부 이용이 가능합니다.<br><strong>차량비용 이외의 금액은 계좌이체로 결제 진행됩니다.</strong></li>\n        <li>최대 대출한도는 차량금액으로 설정 됩니다.<br> 상담 시 대출 금액을 설정해주세요.</li>",
+                        ],
+                    });
                 }
             });
     }, []);

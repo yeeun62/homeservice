@@ -210,7 +210,7 @@ function PriceInfo({ data, priceData, priceTxt, tooltip, setTooltip }: any) {
         sellingCost;
 
     // 예상합계
-    // let totalPrice = carCost + homeserviceFee + management + transferCost;
+    let totalPrice = carCost + homeserviceFee + management + transferCost;
 
     const addComma = (data: any) => {
         return data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -220,11 +220,11 @@ function PriceInfo({ data, priceData, priceTxt, tooltip, setTooltip }: any) {
     sellPrice = addComma(String(sellPrice) + "0000");
     const ulRef = useRef<HTMLUListElement>(null);
 
-    // useEffect(() => {
-    //     if(ulRef !== null) {
-    //         ulRef.current.innerHTML = priceTxt.message[0]
-    //     }
-    // }, [priceTxt])
+    useEffect(() => {
+        if (ulRef.current !== null) {
+            ulRef.current.innerHTML = priceTxt.message[0];
+        }
+    }, [ulRef]);
 
     return (
         <PriceWrap tooltip={tooltip}>
@@ -316,15 +316,11 @@ function PriceInfo({ data, priceData, priceTxt, tooltip, setTooltip }: any) {
                     <div className="underline"></div>
                     <li className="total_cost">
                         <span>예상 합계</span>
-                        {/* <span>{`${addComma(totalPrice)}원`}</span> */}
+                        <span>{`${addComma(totalPrice)}원`}</span>
                     </li>
                 </ul>
             </div>
-            <ul className="list_style" ref={ulRef}>
-                {/* {ulRef.current !== null && priceTxt.message.length > 0
-                    ? (ulRef.current.innerHTML = priceTxt.message[0])
-                    : null} */}
-            </ul>
+            <ul className="list_style" ref={ulRef}></ul>
         </PriceWrap>
     );
 }
