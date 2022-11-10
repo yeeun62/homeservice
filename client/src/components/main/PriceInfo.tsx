@@ -11,7 +11,6 @@ const PriceWrap = styled.div<{ tooltip: boolean }>`
     .price_ul {
         .underline {
             width: 100%;
-            height: 2px;
             background: #d9d9d9;
         }
 
@@ -80,12 +79,9 @@ const PriceWrap = styled.div<{ tooltip: boolean }>`
                             top: 26px;
                             left: 26px;
                             opacity: ${(props) => (props.tooltip ? "1" : "0")};
-                            visibility: ${(props) =>
-                                props.tooltip ? "" : "hidden"};
+                            visibility: ${(props) => (props.tooltip ? "" : "hidden")};
                             transition: ${(props) =>
-                                props.tooltip
-                                    ? "opacity 700ms"
-                                    : "opacity 500ms , visibility 500ms"};
+                                props.tooltip ? "opacity 700ms" : "opacity 500ms , visibility 500ms"};
                         }
                     }
                 }
@@ -197,17 +193,10 @@ function PriceInfo({ data, priceData, priceTxt, tooltip, setTooltip }: any) {
     } = priceData;
 
     // 이전비
-    let transfer =
-        acquisitionTax + discountBond + tax1Cost + tax2Cost + numberPlateCost;
+    let transfer = acquisitionTax + discountBond + tax1Cost + tax2Cost + numberPlateCost;
 
     // 부대비용
-    let management =
-        acquisitionTax +
-        discountBond +
-        tax1Cost +
-        tax2Cost +
-        numberPlateCost +
-        sellingCost;
+    let management = acquisitionTax + discountBond + tax1Cost + tax2Cost + numberPlateCost + sellingCost;
 
     // 예상합계
     let totalPrice = carCost + homeserviceFee + management + transferCost;
@@ -238,12 +227,8 @@ function PriceInfo({ data, priceData, priceTxt, tooltip, setTooltip }: any) {
                     <li>
                         <p className="price_list_title">홈서비스 이용료</p>
                         <div>
-                            <span className="price_list_value fake_price">
-                                {addComma(homeserviceFeeDisplay)}원
-                            </span>
-                            <span className="price_list_value">
-                                {addComma(homeserviceFee)}원
-                            </span>
+                            <span className="price_list_value fake_price">{addComma(homeserviceFeeDisplay)}원</span>
+                            <span className="price_list_value">{addComma(homeserviceFee)}원</span>
                         </div>
                     </li>
                     <li
@@ -261,31 +246,18 @@ function PriceInfo({ data, priceData, priceTxt, tooltip, setTooltip }: any) {
                                 src="./img/w_icon_down_large.svg"
                                 alt="부대비용"
                                 className="price_arrow"
-                                style={
-                                    priceOpen
-                                        ? { transform: "rotate(180deg)" }
-                                        : {}
-                                }
+                                style={priceOpen ? { transform: "rotate(180deg)" } : {}}
                             />
                         </p>
-                        <span className="price_list_value">{`${addComma(
-                            management
-                        )}원`}</span>
-                        <ul
-                            className="more_price"
-                            style={{ display: priceOpen ? "block" : "none" }}
-                        >
+                        <span className="price_list_value">{`${addComma(management)}원`}</span>
+                        <ul className="more_price" style={{ display: priceOpen ? "block" : "none" }}>
                             <li style={{ marginBottom: "3px" }}>
                                 <p className="more_price_title">ㄴ이전비</p>
-                                <p className="more_price_value">
-                                    {addComma(transfer)}원
-                                </p>
+                                <p className="more_price_value">{addComma(transfer)}원</p>
                             </li>
                             <li style={{ marginBottom: "0px" }}>
                                 <div className="more_price_title">
-                                    <span style={{ color: "#a7a7a7" }}>
-                                        ㄴ관리비용(매도비)
-                                    </span>
+                                    <span style={{ color: "#a7a7a7" }}>ㄴ관리비용(매도비)</span>
                                     <img
                                         src="./img/w_icon_question_medium_gray.svg"
                                         alt="물음표"
@@ -296,21 +268,18 @@ function PriceInfo({ data, priceData, priceTxt, tooltip, setTooltip }: any) {
                                         style={{ cursor: "pointer" }}
                                     />
                                     <Tooltip className="main_tooltip">
-                                        매도비는 실제와 다를 수 있습니다.
+                                        {/* 매도비는 실제와 다를 수 있습니다. */}
+                                        매도비는 차종 또는 지역에 따라 다를 수 있습니다.
                                     </Tooltip>
                                 </div>
-                                <p className="more_price_value">
-                                    {addComma(priceData.sellingCost) + "원"}
-                                </p>
+                                <p className="more_price_value">{addComma(priceData.sellingCost) + "원"}</p>
                             </li>
                         </ul>
                     </li>
                     <li>
                         <p className="price_list_title">배송비 (VAT 별도)</p>
                         <span className="price_list_value">
-                            {`${addComma(priceData.transferMinCost)}~${addComma(
-                                priceData.transferMaxCost
-                            )}원`}
+                            {`${addComma(priceData.transferMinCost)}~${addComma(priceData.transferMaxCost)}원`}
                         </span>
                     </li>
                     <div className="underline"></div>
