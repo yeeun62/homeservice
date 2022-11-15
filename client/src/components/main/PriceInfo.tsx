@@ -268,7 +268,6 @@ function PriceInfo({ data, priceData, priceTxt, tooltip, setTooltip }: any) {
                                         style={{ cursor: "pointer" }}
                                     />
                                     <Tooltip className="main_tooltip">
-                                        {/* 매도비는 실제와 다를 수 있습니다. */}
                                         매도비는 차종 또는 지역에 따라 다를 수 있습니다.
                                     </Tooltip>
                                 </div>
