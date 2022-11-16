@@ -77,7 +77,7 @@ const PriceWrap = styled.div<{ tooltip: boolean }>`
                             z-index: 100;
                             position: absolute;
                             top: 26px;
-                            left: 26px;
+                            left: -7.5px;
                             opacity: ${(props) => (props.tooltip ? "1" : "0")};
                             visibility: ${(props) => (props.tooltip ? "" : "hidden")};
                             transition: ${(props) =>
@@ -158,7 +158,7 @@ const PriceWrap = styled.div<{ tooltip: boolean }>`
 
                             .main_tooltip {
                                 top: 27px;
-                                left: 30px;
+                                left: -4px;
                             }
                         }
                     }
