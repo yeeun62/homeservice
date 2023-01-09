@@ -242,7 +242,7 @@ function PriceInfo({ data, priceData, priceTxt, tooltip, setTooltip }: any) {
                     <li>
                         <p className="price_list_title">
                             90일 추가 보증
-                            <img src="./img/EVENT.svg" className="price_event" />
+                            <img src="./img/EVENT.svg" alt="event" className="price_event" />
                         </p>
                         <span className="price_list_value">무료</span>
                     </li>
