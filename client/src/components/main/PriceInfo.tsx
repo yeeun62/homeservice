@@ -29,11 +29,10 @@ const PriceWrap = styled.div<{ tooltip: boolean }>`
 
                 .price_event {
                     position: absolute;
-                    top: -2.8px;
-                    left: 98px;
-                    font-size: 1px;
-                    font-weight: 400;
-                    color: #ff673e;
+                    width: 31.16px;
+                    height: 7.66px;
+                    left: 96px;
+                    top: 3px;
                 }
             }
 
@@ -242,11 +241,10 @@ function PriceInfo({ data, priceData, priceTxt, tooltip, setTooltip }: any) {
                     </li>
                     <li>
                         <p className="price_list_title">
-                            90일 추가 보증<span className="price_event">EVENT</span>
+                            90일 추가 보증
+                            <img src="./img/EVENT.svg" className="price_event" />
                         </p>
-                        <div>
-                            <span className="price_list_value">무료</span>
-                        </div>
+                        <span className="price_list_value">무료</span>
                     </li>
                     <li
                         style={{

@@ -80,8 +80,6 @@ const VisualWrap = styled.div<{ bottom: boolean }>`
 
     .price span {
         font-weight: 700;
-        padding-left: 5px;
-        position: absolute;
         bottom: 1px;
     }
 
