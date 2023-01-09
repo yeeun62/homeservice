@@ -26,6 +26,15 @@ const PriceWrap = styled.div<{ tooltip: boolean }>`
                 line-height: 22px;
                 letter-spacing: -0.02em;
                 color: #707070;
+
+                .price_event {
+                    position: absolute;
+                    top: -2.8px;
+                    left: 98px;
+                    font-size: 1px;
+                    font-weight: 400;
+                    color: #ff673e;
+                }
             }
 
             .price_list_value {
@@ -229,6 +238,14 @@ function PriceInfo({ data, priceData, priceTxt, tooltip, setTooltip }: any) {
                         <div>
                             <span className="price_list_value fake_price">{addComma(homeserviceFeeDisplay)}원</span>
                             <span className="price_list_value">{addComma(homeserviceFee)}원</span>
+                        </div>
+                    </li>
+                    <li>
+                        <p className="price_list_title">
+                            90일 추가 보증<span className="price_event">EVENT</span>
+                        </p>
+                        <div>
+                            <span className="price_list_value">무료</span>
                         </div>
                     </li>
                     <li
